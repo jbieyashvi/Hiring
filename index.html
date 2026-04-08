@@ -66,6 +66,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 .btn-sm{height:26px;padding:0 9px;font-size:11.5px}
 .btn-ghost{background:transparent;border-color:transparent;color:var(--t2)}
 .btn-ghost:hover{background:var(--bg);border-color:var(--border);color:var(--t1)}
+.btn.pop-active{background:var(--accent-bg);border-color:#93c5fd;color:var(--accent)}
 
 /* CONTENT */
 .content-wrap{flex:1;display:flex;overflow:hidden}
@@ -84,17 +85,28 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 .search-inline input{border:none;background:transparent;outline:none;font-size:11.5px;color:var(--t1);width:100%;font-family:inherit}
 .search-inline input::placeholder{color:var(--t3)}
 
-/* FILTER BAR – horizontal scroll with fade */
-.filter-bar-wrap{position:relative;margin-bottom:10px}
-.filter-bar{display:flex;align-items:center;gap:5px;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;padding-bottom:3px;white-space:nowrap;-ms-overflow-style:none;scrollbar-width:none}
+/* FILTER BAR – single-line scroll + pinned Clear all */
+/* hidden by default; collapses to 0 when no filters active */
+.filter-bar-wrap{display:flex;align-items:center;gap:8px;overflow:hidden;max-height:0;margin-bottom:0;opacity:0;pointer-events:none;transition:max-height .2s ease,margin-bottom .2s ease,opacity .15s ease}
+.filter-bar-wrap.has-filters{max-height:44px;margin-bottom:10px;opacity:1;pointer-events:auto}
+/* scroll zone wrapper – holds the scrollable bar + the right-fade overlay */
+.filter-scroll-wrap{position:relative;flex:1;min-width:0}
+.filter-bar{display:flex;align-items:center;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none}
 .filter-bar::-webkit-scrollbar{display:none}
-.filter-fade-r{position:absolute;top:0;right:0;height:100%;width:40px;background:linear-gradient(to right,transparent,var(--surface));pointer-events:none;opacity:0;transition:opacity .2s}
+/* right-edge fade shown when chips overflow */
+.filter-fade-r{position:absolute;top:0;right:0;height:100%;width:52px;background:linear-gradient(to right,transparent,var(--surface));pointer-events:none;opacity:0;transition:opacity .15s}
 .filter-fade-r.show{opacity:1}
+/* chips list – never wraps */
+#filter-chips{display:inline-flex;align-items:center;gap:5px;flex-wrap:nowrap;white-space:nowrap;padding:1px 0}
 .chip{display:inline-flex;align-items:center;gap:3px;padding:3px 8px 3px 9px;background:var(--accent-bg);color:var(--accent-dark);border-radius:20px;font-size:11px;font-weight:500;cursor:pointer;transition:background .1s;flex-shrink:0}
 .chip:hover{background:#dbeafe}
 .chip-x{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;font-size:10px;line-height:1;background:rgba(37,99,235,.18);cursor:pointer;transition:background .1s}
 .chip-x:hover{background:rgba(37,99,235,.38)}
-.clear-link{font-size:11.5px;font-weight:500;color:var(--t2);cursor:pointer;padding:2px 4px;border-radius:4px;transition:color .1s;flex-shrink:0}
+/* "+N more" / "Show less" overflow pill */
+.chip-more{display:inline-flex;align-items:center;padding:3px 10px;background:var(--surface);color:var(--t2);border:1px dashed var(--border);border-radius:20px;font-size:11px;font-weight:500;cursor:pointer;flex-shrink:0;transition:background .1s,color .1s,border-color .1s}
+.chip-more:hover{background:var(--accent-bg);color:var(--accent-dark);border-color:var(--accent)}
+/* pinned Clear all – lives outside the scroll zone, always visible */
+.clear-link{flex-shrink:0;white-space:nowrap;font-size:11.5px;font-weight:500;color:var(--t2);cursor:pointer;padding:2px 6px;border-radius:4px;transition:color .1s}
 .clear-link:hover{color:var(--red)}
 
 /* STATS BAR */
@@ -131,8 +143,9 @@ tbody td:first-child{padding-left:20px}
 
 /* NAME cell – no avatar */
 .name-cell{display:flex;flex-direction:column;justify-content:center;gap:1px}
-.n1{font-size:12px;font-weight:600;line-height:1.3;color:var(--t1)}
+.n1{font-size:12px;font-weight:600;line-height:1.3;color:var(--t1);display:flex;align-items:center;gap:4px}
 .n2{font-size:10.5px;color:var(--t3);line-height:1.2}
+.ai-badge{display:inline-flex;align-items:center;padding:1px 5px;background:#ede9fe;color:#7c3aed;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.04em;flex-shrink:0}
 .pbar{width:36px;height:2px;background:var(--border);border-radius:1px;margin-top:3px;overflow:hidden}
 .pfill{height:100%;background:#93c5fd;border-radius:1px}
 
@@ -154,24 +167,44 @@ tbody td:first-child{padding-left:20px}
 .match{display:inline-flex;align-items:center;padding:1px 7px;border-radius:20px;font-size:11px;font-weight:700}
 .match-g{background:var(--green-bg);color:var(--green)}
 .match-a{background:var(--amber-bg);color:var(--amber)}
+/* stage badges */
 .stage{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:600;white-space:nowrap}
 .s-scr{background:#e0f2fe;color:#0369a1}
 .s-r1{background:var(--purple-bg);color:var(--purple)}
 .s-r2{background:#fce7f3;color:#be185d}
-.s-fin{background:var(--amber-bg);color:#92400e}
+.s-asgn{background:#fef3c7;color:#92400e}
+.s-fin{background:#fff7ed;color:#c2410c}
 .s-hire{background:var(--green-bg);color:var(--green)}
-.status-pill{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:600;white-space:nowrap;cursor:pointer;transition:filter .1s}
+
+/* status pills */
+.status-pill{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:600;white-space:nowrap;cursor:pointer;transition:filter .1s;user-select:none}
 .status-pill:hover{filter:brightness(.93)}
-.st-short{background:var(--green-bg);color:var(--green)}
-.st-hold{background:var(--amber-bg);color:var(--amber)}
-.st-reject{background:var(--red-bg);color:var(--red)}
-.st-prog{background:var(--blue-bg);color:var(--accent)}
-.st-empty{background:var(--bg);color:var(--t3);border:1px solid var(--border)}
-.st-sched{background:var(--purple-bg);color:var(--purple)}
+.st-prog   {background:#E0ECFF;color:#1D4ED8}
+.st-short  {background:var(--green-bg);color:var(--green)}
+.st-hold   {background:var(--amber-bg);color:var(--amber)}
+.st-reject {background:var(--red-bg);color:var(--red)}
+.st-done   {background:#DCFCE7;color:#15803D}           /* Completed */
+.st-pend   {background:#f3f4f6;color:#374151}           /* Pending */
+.st-sub    {background:#ccfbf1;color:#0f766e}           /* Submitted */
+.st-rev    {background:var(--purple-bg);color:var(--purple)} /* Reviewed */
+.st-sched  {background:#ede9fe;color:#6d28d9}
+.st-hire   {background:#d1fae5;color:#065f46;font-weight:700} /* Hired */
+.st-empty  {background:var(--bg);color:var(--t3);border:1px solid var(--border)}
+
+/* inline status picker dropdown */
+.sp-picker{position:fixed;z-index:800;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);box-shadow:var(--s3);padding:4px;min-width:150px}
+.sp-opt{display:flex;align-items:center;padding:4px 6px;border-radius:var(--r);cursor:pointer;transition:background .1s}
+.sp-opt:hover{background:var(--bg)}
+.sp-opt.sp-active{background:var(--accent-bg)}
+.sp-opt .status-pill{pointer-events:none;font-size:11px}
 
 /* next action */
-.na-btn{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:var(--r);border:1px solid var(--border);background:var(--surface);font-size:11px;font-weight:500;color:var(--t1);cursor:pointer;white-space:nowrap;transition:background .1s,box-shadow .1s;font-family:inherit}
+.na-btn{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:var(--r);border:1px solid var(--border);background:var(--surface);font-size:11px;font-weight:500;color:var(--t1);cursor:pointer;white-space:nowrap;transition:background .1s,box-shadow .1s;font-family:inherit}
 .na-btn:hover{background:var(--bg);box-shadow:var(--s1)}
+.na-btn.na-accent{background:var(--accent-bg);color:var(--accent);border-color:#93c5fd}
+.na-btn.na-accent:hover{background:#dbeafe}
+.na-btn.na-green{background:var(--green-bg);color:var(--green);border-color:#86efac}
+.na-btn.na-green:hover{background:#bbf7d0}
 .na-btn.na-disabled{color:var(--t3);cursor:default;pointer-events:none;background:var(--bg)}
 
 /* PAGINATION */
@@ -233,7 +266,119 @@ tbody td:first-child{padding-left:20px}
 .fp-s{flex:1;height:30px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r);font-size:11.5px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;color:var(--t2);transition:all .12s;font-family:inherit}
 .fp-s:hover{background:var(--bg)}
 .fp-reject:hover{background:var(--red-bg);color:var(--red);border-color:#fca5a5}
+.fp-cta-purple{background:#7c3aed;color:#fff}
+.fp-cta-purple:hover{background:#6d28d9;box-shadow:0 3px 10px rgba(124,58,237,.25)}
+.fp-cta-green{background:var(--green);color:#fff}
+.fp-cta-green:hover{background:#15803d;box-shadow:0 3px 10px rgba(22,163,74,.25)}
+.fp-no-action{text-align:center;font-size:11.5px;color:var(--t3);padding:6px 0;font-style:italic}
 .fp-hold:hover{background:var(--amber-bg);color:var(--amber);border-color:#fcd34d}
+.fp-sec-btn{width:100%;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r);font-size:12px;font-weight:500;color:var(--t2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:7px;transition:background .12s,border-color .12s;font-family:inherit}
+.fp-sec-btn:hover{background:var(--bg);border-color:#c5cad3;color:var(--t1)}
+/* Stage-context cards in overview body */
+.rp-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);padding:10px 12px;margin-bottom:10px}
+.rp-card-title{font-size:10.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.rp-card-row{display:flex;align-items:center;gap:8px;font-size:11.5px;margin-bottom:5px}
+.rp-card-row:last-child{margin-bottom:0}
+.rp-card-lbl{color:var(--t3);min-width:72px;flex-shrink:0;font-size:11px}
+.rp-card-val{font-weight:500;color:var(--t1);font-size:11.5px}
+.rp-rating-row{display:flex;align-items:center;gap:8px;margin-top:6px}
+.rp-rating-bar{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.rp-rating-fill{height:100%;background:var(--accent);border-radius:3px;transition:width .3s}
+.rp-rating-num{font-size:12px;font-weight:700;color:var(--t1);white-space:nowrap}
+/* Feedback tab */
+.fb-empty{padding:28px 0;text-align:center;color:var(--t3)}
+.fb-empty svg{display:block;margin:0 auto 8px;opacity:.3}
+.fb-empty-title{font-size:12px;font-weight:500;margin-bottom:3px}
+.fb-empty-sub{font-size:11px}
+.fb-score-ring{width:52px;height:52px;border-radius:50%;background:conic-gradient(var(--accent) calc(var(--pct)*1%),var(--bg) 0);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative}
+.fb-score-ring::before{content:'';position:absolute;width:38px;height:38px;border-radius:50%;background:var(--surface)}
+.fb-score-val{position:relative;font-size:12px;font-weight:700;color:var(--t1)}
+.fb-score-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.fb-score-meta{flex:1}
+.fb-score-label{font-size:12px;font-weight:600;color:var(--t1);margin-bottom:2px}
+.fb-score-sub{font-size:11px;color:var(--t3)}
+.fb-metric{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:11.5px}
+.fb-metric-lbl{color:var(--t2);min-width:90px;flex-shrink:0}
+.fb-metric-bar{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.fb-metric-fill{height:100%;border-radius:2px;transition:width .3s}
+.fb-metric-num{font-size:11px;font-weight:600;color:var(--t1);min-width:26px;text-align:right}
+.fb-tag-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px}
+.fb-tag-pos{background:#dcfce7;color:#15803d;border-radius:4px;padding:2px 7px;font-size:10.5px;font-weight:500}
+.fb-tag-neg{background:#fee2e2;color:#dc2626;border-radius:4px;padding:2px 7px;font-size:10.5px;font-weight:500}
+.fb-stars{display:flex;gap:2px}
+.fb-star{width:13px;height:13px;color:#f59e0b}
+.fb-star-empty{color:var(--border)}
+.fb-pending{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg);border:1px dashed var(--border);border-radius:var(--r2);font-size:11.5px;color:var(--t2);margin-bottom:10px}
+/* Inline feedback form */
+.fb-form-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.fb-form-lbl{font-size:11.5px;color:var(--t2);min-width:100px}
+.fb-star-row{display:flex;gap:3px}
+.fb-star-row svg{cursor:pointer;transition:fill .1s,stroke .1s}
+.fb-star-row svg:hover{opacity:.8}
+.fb-textarea{width:100%;border:1px solid var(--border);border-radius:var(--r);padding:7px 9px;font-size:11.5px;color:var(--t1);font-family:inherit;resize:none;outline:none;transition:border-color .12s;background:var(--surface);margin:8px 0 10px}
+.fb-textarea:focus{border-color:#93c5fd}
+.fb-submit{width:100%;height:34px;background:#111827;color:#fff;border:none;border-radius:var(--r);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .12s}
+.fb-submit:hover{background:#1e2533}
+.fb-submit:disabled{opacity:.4;cursor:not-allowed}
+.fb-submitted-tag{display:inline-flex;align-items:center;gap:4px;background:#dcfce7;color:#15803d;border-radius:4px;padding:2px 8px;font-size:10.5px;font-weight:600;margin-bottom:8px}
+
+/* ── SCHEDULING MODAL ── */
+.sm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:900;opacity:0;pointer-events:none;transition:opacity .18s}
+.sm-overlay.open{opacity:1;pointer-events:all}
+.sm-dialog{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%);z-index:901;background:var(--surface);border-radius:var(--r3);box-shadow:var(--s3);width:460px;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+.sm-dialog.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%)}
+.sm-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 14px;border-bottom:1px solid var(--border)}
+.sm-title{font-size:14px;font-weight:700;color:var(--t1)}
+.sm-x{width:26px;height:26px;border:none;background:transparent;border-radius:5px;cursor:pointer;font-size:18px;color:var(--t3);display:flex;align-items:center;justify-content:center;line-height:1;font-family:inherit}
+.sm-x:hover{background:var(--bg);color:var(--t1)}
+.sm-body{padding:16px 18px 18px;max-height:calc(100vh - 120px);overflow-y:auto}
+.sm-body::-webkit-scrollbar{width:4px}
+.sm-body::-webkit-scrollbar-thumb{background:#e5e7eb;border-radius:2px}
+.sm-type-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.sm-type-card{border:2px solid var(--border);border-radius:var(--r2);padding:12px 14px;cursor:pointer;transition:border-color .12s,background .12s}
+.sm-type-card:hover{border-color:#c5cad3;background:var(--bg)}
+.sm-type-card.sel-manual{border-color:var(--accent);background:var(--accent-bg)}
+.sm-type-card.sel-ai{border-color:#7c3aed;background:#f5f3ff}
+.sm-type-icon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:7px}
+.sm-type-name{font-size:12.5px;font-weight:600;color:var(--t1);margin-bottom:2px}
+.sm-type-desc{font-size:10.5px;color:var(--t3);line-height:1.4}
+.sm-sec{margin-bottom:14px}
+.sm-lbl{font-size:10.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.sm-dates{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.sm-date{border:1px solid var(--border);border-radius:var(--r);padding:7px 4px;text-align:center;cursor:pointer;transition:border-color .1s,background .1s}
+.sm-date:hover{border-color:#c5cad3;background:var(--bg)}
+.sm-date.sel{border-color:var(--accent);background:var(--accent-bg)}
+.sm-date-day{font-size:9.5px;color:var(--t3);margin-bottom:2px}
+.sm-date-num{font-size:13px;font-weight:600;color:var(--t1)}
+.sm-date.sel .sm-date-day,.sm-date.sel .sm-date-num{color:var(--accent)}
+.sm-times{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.sm-time{border:1px solid var(--border);border-radius:var(--r);padding:7px 4px;text-align:center;font-size:11.5px;font-weight:500;cursor:pointer;transition:border-color .1s,background .1s}
+.sm-time:hover{border-color:#c5cad3;background:var(--bg)}
+.sm-time.sel{border-color:var(--accent);background:var(--accent-bg);color:var(--accent);font-weight:600}
+.sm-ivrs{display:flex;flex-direction:column;gap:5px}
+.sm-ivr{display:flex;align-items:center;gap:9px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--r);cursor:pointer;transition:border-color .1s,background .1s}
+.sm-ivr:hover{border-color:#c5cad3;background:var(--bg)}
+.sm-ivr.sel{border-color:var(--accent);background:var(--accent-bg)}
+.sm-ivr-av{width:30px;height:30px;border-radius:50%;background:#e0e7ff;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:var(--accent);flex-shrink:0}
+.sm-ivr.sel .sm-ivr-av{background:var(--accent);color:#fff}
+.sm-ivr-name{font-size:12px;font-weight:500;color:var(--t1);flex:1}
+.sm-ivr-role{font-size:10.5px;color:var(--t3)}
+.sm-avail{font-size:10.5px;color:var(--green);font-weight:500}
+.sm-ai-info{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f5f3ff;border:1px solid #c4b5fd;border-radius:var(--r2);margin-bottom:14px}
+.sm-ai-av{width:34px;height:34px;border-radius:50%;background:#7c3aed;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sm-ai-name{font-size:12.5px;font-weight:600;color:#5b21b6}
+.sm-ai-sub{font-size:11px;color:#7c3aed;margin-top:1px}
+.sm-divider{border:none;border-top:1px solid var(--border);margin:14px 0 16px}
+.sm-cta{width:100%;height:40px;border:none;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .12s,box-shadow .12s;display:flex;align-items:center;justify-content:center;gap:7px;margin-top:4px}
+.sm-cta-manual{background:#111827;color:#fff}
+.sm-cta-manual:hover:not(:disabled){background:#1e2533;box-shadow:0 3px 10px rgba(0,0,0,.2)}
+.sm-cta-ai{background:#7c3aed;color:#fff}
+.sm-cta-ai:hover:not(:disabled){background:#6d28d9;box-shadow:0 3px 10px rgba(124,58,237,.25)}
+.sm-cta:disabled{opacity:.35;cursor:not-allowed}
+.ivtype-toggle{display:flex;gap:0;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:3px;margin-bottom:10px}
+.ivtype-btn{flex:1;height:28px;border:none;background:transparent;border-radius:5px;font-size:11.5px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;color:var(--t2);transition:background .12s,color .12s,box-shadow .12s;font-family:inherit}
+.ivtype-btn.active-manual{background:var(--surface);color:var(--accent);font-weight:600;box-shadow:var(--s1)}
+.ivtype-btn.active-ai{background:var(--surface);color:#7c3aed;font-weight:600;box-shadow:var(--s1)}
 
 /* ── POPOVERS ── */
 .popover{position:fixed;background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);box-shadow:var(--s3);z-index:600;min-width:200px;max-width:265px;opacity:0;transform:scale(.96) translateY(-4px);pointer-events:none;transition:opacity .14s ease,transform .14s ease}
@@ -261,9 +406,7 @@ tbody td:first-child{padding-left:20px}
 .drag-h{color:var(--t3);font-size:12px;line-height:1;cursor:grab;flex-shrink:0}
 .col-lbl{flex:1;font-size:12px;font-weight:500;color:var(--t1)}
 
-/* backdrop */
-#backdrop{display:none;position:fixed;inset:0;z-index:599}
-#backdrop.on{display:block}
+/* backdrop — removed: outside-click handled by document mousedown listener */
 
 /* Airtable-style column drag: floating clone */
 .col-clone{
@@ -301,6 +444,189 @@ tbody td:first-child{padding-left:20px}
 }
 #col-drop-line::before{top:-4px}
 #col-drop-line::after{bottom:-4px}
+
+/* ── ADD MENU popover ── */
+.add-menu{min-width:200px;max-width:200px;padding:5px}
+.add-menu-item{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:var(--r);cursor:pointer;transition:background .09s;color:var(--t1)}
+.add-menu-item:hover{background:var(--bg)}
+.add-menu-item svg{flex-shrink:0;color:var(--t2)}
+.add-menu-item:hover svg{color:var(--accent)}
+.ami-title{font-size:12.5px;font-weight:600;line-height:1.2}
+.ami-sub{font-size:11px;color:var(--t3);margin-top:1px}
+
+/* ── MODAL OVERLAY ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:800;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .18s ease;backdrop-filter:blur(2px)}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--surface);border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.22),0 4px 12px rgba(0,0,0,.1);width:460px;max-width:calc(100vw - 32px);transform:scale(.96) translateY(8px);transition:transform .18s ease;overflow:hidden}
+.modal-overlay.open .modal{transform:scale(1) translateY(0)}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px}
+.modal-title{font-size:14px;font-weight:700;color:var(--t1)}
+.modal-close{width:26px;height:26px;border:none;background:transparent;border-radius:6px;cursor:pointer;color:var(--t3);display:flex;align-items:center;justify-content:center;transition:background .1s,color .1s;font-size:16px;font-family:inherit}
+.modal-close:hover{background:var(--bg);color:var(--t1)}
+.modal-body{padding:0 20px 8px}
+.modal-foot{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:14px 20px 18px;border-top:1px solid var(--border-light)}
+
+/* file drop zone */
+.drop-zone{border:2px dashed var(--border);border-radius:var(--r2);padding:32px 20px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s;position:relative;margin-bottom:14px}
+.drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:var(--accent-bg)}
+.drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.dz-icon{width:40px;height:40px;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;color:var(--t2)}
+.dz-title{font-size:13px;font-weight:600;color:var(--t1);margin-bottom:3px}
+.dz-sub{font-size:11.5px;color:var(--t3)}
+.dz-sub span{color:var(--accent);font-weight:500;cursor:pointer}
+.dz-sub span:hover{text-decoration:underline}
+
+/* file selected state */
+.file-selected{display:none;align-items:center;gap:10px;padding:10px 12px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);margin-bottom:14px}
+.file-selected.show{display:flex}
+.fs-icon{width:32px;height:32px;border-radius:7px;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0}
+.fs-info{flex:1;min-width:0}
+.fs-name{font-size:12px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fs-size{font-size:11px;color:var(--t3);margin-top:1px}
+.fs-remove{width:22px;height:22px;border:none;background:transparent;border-radius:4px;cursor:pointer;color:var(--t3);display:flex;align-items:center;justify-content:center;transition:background .1s,color .1s;flex-shrink:0;font-size:14px;font-family:inherit}
+.fs-remove:hover{background:var(--red-bg);color:var(--red)}
+
+/* manual form */
+.form-row{margin-bottom:13px}
+.form-row label{display:block;font-size:11.5px;font-weight:600;color:var(--t2);margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}
+.form-input{width:100%;height:32px;border:1px solid var(--border);border-radius:var(--r);padding:0 10px;font-size:12.5px;font-family:inherit;color:var(--t1);background:var(--surface);outline:none;transition:border-color .12s}
+.form-input:focus{border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+.form-input::placeholder{color:var(--t3)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hint-text{font-size:11px;color:var(--t3);margin-top:6px}
+
+/* format badges */
+.fmt-badges{display:flex;gap:6px;justify-content:center;margin-top:8px}
+.fmt-b{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-size:10.5px;font-weight:600;color:var(--t3)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── NOTES TAB ── */
+.note-compose{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:14px;transition:border-color .15s,box-shadow .15s}
+.note-compose:focus-within{border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+.note-textarea{display:block;width:100%;min-height:72px;max-height:160px;padding:10px 12px 6px;font-size:12.5px;font-family:inherit;color:var(--t1);background:transparent;border:none;outline:none;resize:none;line-height:1.55}
+.note-textarea::placeholder{color:var(--t3)}
+.note-compose-foot{display:flex;align-items:center;justify-content:space-between;padding:6px 8px 7px;border-top:1px solid var(--border-light)}
+.note-hint{font-size:10.5px;color:var(--t3)}
+.note-card{border:1px solid var(--border);border-radius:var(--r2);padding:11px 12px;margin-bottom:8px;background:var(--surface);transition:box-shadow .1s}
+.note-card:hover{box-shadow:var(--s1)}
+.note-card:last-child{margin-bottom:0}
+.nc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;gap:8px}
+.nc-avatar{width:22px;height:22px;border-radius:50%;background:#e0e7ff;color:#4338ca;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;letter-spacing:.02em}
+.nc-author{font-size:11.5px;font-weight:600;color:var(--t1);flex:1}
+.nc-time{font-size:10.5px;color:var(--t3);white-space:nowrap;flex-shrink:0}
+.nc-del{width:18px;height:18px;border:none;background:transparent;border-radius:3px;cursor:pointer;color:var(--t3);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .1s,background .1s,color .1s;flex-shrink:0;font-family:inherit;font-size:13px;padding:0}
+.note-card:hover .nc-del{opacity:1}
+.nc-del:hover{background:var(--red-bg);color:var(--red)}
+.nc-body{font-size:12px;color:var(--t1);line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.nc-body .mention{color:var(--accent);font-weight:500}
+
+/* ═══════════════════════════════════════════
+   FOCUS MODE
+═══════════════════════════════════════════ */
+.fm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:900;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .22s ease;backdrop-filter:blur(2px)}
+.fm-overlay.open{opacity:1;pointer-events:auto}
+.fm-wrap{background:var(--surface);width:calc(100vw - 32px);height:calc(100vh - 32px);max-width:1340px;border-radius:12px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 32px 100px rgba(0,0,0,.28),0 4px 16px rgba(0,0,0,.1);transform:scale(.97) translateY(6px);transition:transform .22s ease}
+.fm-overlay.open .fm-wrap{transform:scale(1) translateY(0)}
+
+/* header – compact 46px */
+.fm-header{height:46px;display:flex;align-items:center;gap:10px;padding:0 14px 0 18px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--surface)}
+.fm-h-info{display:flex;align-items:center;gap:7px;min-width:0;flex:1;overflow:hidden}
+.fm-h-name{font-size:13.5px;font-weight:700;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:1}
+.fm-h-sep{color:var(--border);flex-shrink:0;font-size:12px;line-height:1}
+.fm-h-role{font-size:11.5px;color:var(--t2);white-space:nowrap;flex-shrink:1;overflow:hidden;text-overflow:ellipsis}
+.fm-h-stage{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:10.5px;font-weight:600;flex-shrink:0}
+.fm-nav{display:flex;align-items:center;gap:2px;flex-shrink:0}
+.fm-nav-btn{width:26px;height:26px;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--t2);transition:background .1s,color .1s}
+.fm-nav-btn:hover:not(:disabled){background:var(--bg);color:var(--t1)}
+.fm-nav-btn:disabled{opacity:.35;cursor:not-allowed}
+.fm-counter{font-size:11px;color:var(--t2);padding:0 7px;white-space:nowrap}
+.fm-close{width:28px;height:28px;border:none;background:transparent;cursor:pointer;border-radius:var(--r);display:flex;align-items:center;justify-content:center;color:var(--t2);font-size:16px;line-height:1;transition:background .1s,color .1s;margin-left:2px}
+.fm-close:hover{background:var(--red-bg);color:var(--red)}
+
+/* body split */
+.fm-body{flex:1;display:flex;overflow:hidden}
+
+/* left panel – fluid 27%, min 240px, max 320px */
+.fm-left{width:27%;min-width:240px;max-width:320px;border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;background:var(--surface)}
+/* at-a-glance strip */
+.fm-glance{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--border-light)}
+
+/* left tabs */
+.fm-tabs{display:flex;border-bottom:1px solid var(--border);padding:0 14px;gap:0;flex-shrink:0}
+.fm-tab{padding:7px 10px;font-size:11.5px;font-weight:500;color:var(--t2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .1s,border-color .1s;white-space:nowrap}
+.fm-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.fm-tab:hover:not(.active){color:var(--t1)}
+.fm-tab-body{flex:1;overflow-y:auto;padding:13px 14px}
+.fm-tab-body::-webkit-scrollbar{width:4px}
+.fm-tab-body::-webkit-scrollbar-track{background:transparent}
+.fm-tab-body::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* overview sections – tight spacing */
+.fm-section{margin-bottom:14px}
+.fm-section-title{font-size:9.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.fm-row{display:flex;align-items:baseline;gap:6px;margin-bottom:5px;font-size:12px}
+.fm-row-top{align-items:flex-start}
+.fm-row-label{color:var(--t2);min-width:72px;flex-shrink:0;padding-top:1px;font-size:11.5px}
+.fm-row-val{color:var(--t1);font-weight:500;word-break:break-word;font-size:12px}
+.fm-row-val a{color:var(--accent);text-decoration:none}
+.fm-row-val a:hover{text-decoration:underline}
+.fm-skill-list{display:flex;flex-wrap:wrap;gap:4px}
+.fm-skill{padding:2px 8px;background:var(--bg);border:1px solid var(--border);border-radius:20px;font-size:11px;font-weight:500;color:var(--t1)}
+
+/* feedback tab */
+.fm-score-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.fm-score-label{font-size:12px;color:var(--t1);font-weight:500}
+.fm-stars{display:flex;gap:2px}
+.fm-star{width:18px;height:18px;cursor:pointer;color:var(--border);transition:color .1s;font-size:16px;line-height:1}
+.fm-star.lit{color:#f59e0b}
+.fm-fb-area{width:100%;min-height:80px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--r2);font-family:inherit;font-size:12px;color:var(--t1);background:var(--surface);resize:vertical;outline:none;transition:border-color .15s}
+.fm-fb-area:focus{border-color:#93c5fd;box-shadow:0 0 0 3px rgba(37,99,235,.07)}
+.fm-fb-foot{display:flex;justify-content:flex-end;margin-top:6px}
+
+/* right panel – resume dominant, flush left */
+.fm-right{flex:1;display:flex;flex-direction:column;background:#f0f2f4;overflow:hidden;min-width:0}
+.fm-resume-bar{height:40px;display:flex;align-items:center;padding:0 16px;border-bottom:1px solid var(--border);background:var(--surface);flex-shrink:0;gap:8px}
+.fm-resume-label{font-size:11.5px;color:var(--t2);flex:1}
+/* resume scrolls inside, no horizontal centering – fills full width */
+.fm-resume-scroll{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px 20px}
+.fm-resume-scroll::-webkit-scrollbar{width:5px}
+.fm-resume-scroll::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:3px}
+
+/* resume document – fills container, no artificial max-width */
+.fm-doc{background:#fff;width:100%;padding:36px 44px;box-shadow:0 1px 6px rgba(0,0,0,.09);border-radius:2px;font-size:12px;line-height:1.6;color:#1a1a1a;font-family:'Times New Roman',Times,serif}
+.fm-doc-name{font-size:20px;font-weight:700;text-align:center;letter-spacing:.01em;margin-bottom:3px;text-transform:uppercase}
+.fm-doc-contact{text-align:center;font-size:11px;color:#444;margin-bottom:14px;border-bottom:1.5px solid #111;padding-bottom:8px}
+.fm-doc-section{margin-bottom:13px}
+.fm-doc-sh{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid #ccc;padding-bottom:3px;margin-bottom:8px}
+.fm-doc-job{margin-bottom:10px}
+.fm-doc-jh{display:flex;justify-content:space-between;align-items:baseline}
+.fm-doc-jco{font-weight:700;font-size:12px}
+.fm-doc-jloc{font-size:11px;color:#555}
+.fm-doc-jtitle{font-style:italic;font-size:11.5px;color:#333}
+.fm-doc-jdate{font-size:11px;color:#555}
+.fm-doc-ul{margin:4px 0 0 16px;padding:0}
+.fm-doc-ul li{margin-bottom:3px;font-size:11.5px;color:#222}
+.fm-doc-skills{display:flex;flex-wrap:wrap;gap:3px 10px;font-size:11.5px}
+.fm-doc-skills span::before{content:'• '}
+
+/* footer action bar – compact 52px */
+.fm-footer{height:52px;border-top:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:8px;background:var(--surface);flex-shrink:0}
+.fm-action{height:32px;padding:0 16px;border-radius:var(--r2);font-size:12.5px;font-weight:600;cursor:pointer;border:2px solid transparent;display:inline-flex;align-items:center;gap:5px;transition:background .12s,box-shadow .12s,transform .08s;font-family:inherit}
+.fm-action:active{transform:scale(.97)}
+.fm-act-reject   {background:var(--red-bg);color:var(--red);border-color:transparent}
+.fm-act-reject:hover{background:#fca5a5;box-shadow:0 2px 8px rgba(220,38,38,.2)}
+.fm-act-hold     {background:var(--amber-bg);color:var(--amber);border-color:transparent}
+.fm-act-hold:hover{background:#fcd34d;box-shadow:0 2px 8px rgba(180,83,9,.15)}
+.fm-act-shortlist{background:#111827;color:#fff;border-color:#111827}
+.fm-act-shortlist:hover{background:#1e2533;box-shadow:0 3px 10px rgba(0,0,0,.22)}
+.fm-act-done     {background:var(--accent);color:#fff;border-color:var(--accent)}
+.fm-act-done:hover{background:var(--accent-dark);box-shadow:0 3px 10px rgba(37,99,235,.3)}
+.fm-act-neutral  {background:var(--bg);color:var(--t1);border-color:var(--border)}
+.fm-act-neutral:hover{background:#e5e7eb;box-shadow:var(--s1)}
+.fm-act-prog     {background:var(--blue-bg);color:var(--accent);border-color:#93c5fd}
+.fm-act-prog:hover{background:#dbeafe}
+.fm-footer-hired {font-size:13px;font-weight:600;color:var(--green);display:flex;align-items:center;gap:6px}
+.fm-act-note     {font-size:11px;color:var(--t3);margin-left:auto;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -356,8 +682,10 @@ tbody td:first-child{padding-left:20px}
       <span style="font-size:11.5px">Press</span><kbd class="cmd-key">⌘ K</kbd><span style="font-size:11.5px">to search…</span>
     </div>
     <div class="spacer"></div>
-    <button class="btn btn-dark"><svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Candidate</button>
-    <button class="btn"><svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Import</button>
+    <button class="btn btn-dark" id="add-cand-btn" onclick="showAddMenu(this)">
+      <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Candidate
+      <svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="margin-left:2px;opacity:.7"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
   </header>
 
   <div class="content-wrap">
@@ -372,7 +700,7 @@ tbody td:first-child{padding-left:20px}
               <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
               <input type="text" id="search-input" placeholder="Search candidates by name, email, skills..." oninput="onSearch()">
             </div>
-            <button class="btn" id="col-btn" onclick="togglePopover('col-pop',this)">
+            <button class="btn" id="col-btn" onclick="showPop('col-pop',this)">
               <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Column
             </button>
             <button class="btn btn-accent" id="focus-btn" onclick="toggleFocus()">
@@ -380,10 +708,17 @@ tbody td:first-child{padding-left:20px}
             </button>
           </div>
         </div>
-        <!-- filter bar – chips injected dynamically by renderChips() -->
+        <!-- active filter chips – injected by renderChips() -->
         <div class="filter-bar-wrap">
-          <div class="filter-bar" id="filter-bar"></div>
-          <div class="filter-fade-r" id="filter-fade"></div>
+          <!-- scroll zone: chips scroll here; fade overlays right edge -->
+          <div class="filter-scroll-wrap">
+            <div class="filter-bar" id="filter-bar">
+              <div id="filter-chips"></div>
+            </div>
+            <div class="filter-fade-r" id="filter-fade"></div>
+          </div>
+          <!-- always-visible Clear all – outside the scroll zone -->
+          <span class="clear-link" id="clear-all-btn" style="display:none" onclick="clearAllFilters()">Clear all</span>
         </div>
       </div>
 
@@ -449,6 +784,7 @@ tbody td:first-child{padding-left:20px}
       </div>
       <div class="rp-body">
         <div id="tab-overview">
+          <div id="rp-stage-block"></div>
           <div class="rp-sec"><div class="rp-stitle">Contact</div>
             <div class="rp-rw"><svg class="i" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a class="rl" href="#">kayla.morgan94@gmail.com</a></div>
             <div class="rp-rw"><svg class="i" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>+1 512 555 2031</div>
@@ -463,8 +799,25 @@ tbody td:first-child{padding-left:20px}
           <div class="rp-sec"><div class="rp-stitle">Work History</div><div class="wco">Microsoft</div><div class="wsu">Current Company</div><div class="wco">Tesla</div><div class="wsu">Previous Company</div></div>
           <div class="rp-sec"><div class="rp-stitle">Details</div><div class="dr"><span class="dk">Experience:</span><span class="dv">2 yrs</span></div><div class="dr"><span class="dk">Applied:</span><span class="dv">Feb 20, 2026</span></div></div>
         </div>
-        <div id="tab-notes" style="display:none"><div style="padding:20px 0;text-align:center;color:var(--t3);font-size:12px;"><svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="display:block;margin:0 auto 8px;opacity:.35"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>No notes added yet.</div><button class="btn" style="width:100%;justify-content:center;">+ Add Note</button></div>
-        <div id="tab-feedback" style="display:none"><div style="padding:20px 0;text-align:center;color:var(--t3);font-size:12px;"><svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="display:block;margin:0 auto 8px;opacity:.35"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>No feedback yet.</div></div>
+        <div id="tab-notes" style="display:none">
+          <!-- compose area -->
+          <div class="note-compose">
+            <textarea id="note-input" class="note-textarea" placeholder="Add a note… use @mention to tag people" oninput="onNoteInput()" onkeydown="onNoteKey(event)"></textarea>
+            <div class="note-compose-foot">
+              <span class="note-hint">Shift+Enter for new line · Enter to submit</span>
+              <button class="btn btn-sm btn-dark" id="note-submit" onclick="submitNote()" disabled>Add Note</button>
+            </div>
+          </div>
+          <!-- note list -->
+          <div id="note-list"></div>
+          <!-- empty state (shown when list is empty) -->
+          <div id="note-empty" style="padding:28px 0;text-align:center;color:var(--t3)">
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.4" style="display:block;margin:0 auto 8px;opacity:.3"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            <div style="font-size:12px;font-weight:500">No notes yet</div>
+            <div style="font-size:11px;margin-top:3px">Add the first note above</div>
+          </div>
+        </div>
+        <div id="tab-feedback" style="display:none"><div id="rp-feedback-body"></div></div>
         <div id="tab-activity" style="display:none">
           <div style="font-size:11.5px">
             <div style="display:flex;gap:9px;padding:7px 0;border-bottom:1px solid var(--border-light)"><div style="width:6px;height:6px;background:var(--accent);border-radius:50%;margin-top:4px;flex-shrink:0"></div><div><div style="font-weight:500">Application submitted</div><div style="color:var(--t3);font-size:11px">Feb 20, 2026 · 10:32 AM</div></div></div>
@@ -473,19 +826,22 @@ tbody td:first-child{padding-left:20px}
           </div>
         </div>
       </div>
-      <div class="rp-foot">
-        <div class="fp-label">Actions</div>
-        <button class="fp-cta"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Schedule R1 Interview</button>
-        <div class="fp-row">
-          <button class="fp-s fp-reject"><svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>Reject</button>
-          <button class="fp-s fp-hold"><svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg>Hold</button>
-        </div>
-      </div>
+      <div class="rp-foot" id="rp-foot"></div>
     </aside>
   </div>
 </div>
 
 <!-- ═══════════ POPOVERS – bodies rendered by JS ═══════════ -->
+<!-- ═══════════ SCHEDULING MODAL ═══════════ -->
+<div class="sm-overlay" id="sm-overlay" onclick="closeSchedModal()"></div>
+<div class="sm-dialog" id="sm-dialog">
+  <div class="sm-head">
+    <span class="sm-title" id="sm-title">Schedule R1 Interview</span>
+    <button class="sm-x" onclick="closeSchedModal()">×</button>
+  </div>
+  <div class="sm-body" id="sm-body"></div>
+</div>
+
 <div class="popover" id="stage-pop">
   <div class="pop-head">
     <span class="pop-title">Stage</span>
@@ -510,6 +866,71 @@ tbody td:first-child{padding-left:20px}
   </div>
 </div>
 
+<!-- Skills filter popover -->
+<div class="popover" id="skills-pop">
+  <div class="pop-head">
+    <span class="pop-title">Skills</span>
+    <button class="pop-close" onclick="closeAllPopovers()">×</button>
+  </div>
+  <div class="pop-body" id="skills-pop-body"></div>
+  <div class="pop-foot">
+    <span class="pop-clear" onclick="clearPending('skills')">Clear</span>
+    <button class="btn btn-sm btn-dark" onclick="applyFilterPop('skills')">Apply</button>
+  </div>
+</div>
+
+<!-- Experience filter popover -->
+<div class="popover" id="exp-pop">
+  <div class="pop-head">
+    <span class="pop-title">Experience</span>
+    <button class="pop-close" onclick="closeAllPopovers()">×</button>
+  </div>
+  <div class="pop-body" id="exp-pop-body"></div>
+  <div class="pop-foot">
+    <span class="pop-clear" onclick="clearPending('exp')">Clear</span>
+    <button class="btn btn-sm btn-dark" onclick="applyFilterPop('exp')">Apply</button>
+  </div>
+</div>
+
+<!-- Current Company filter popover -->
+<div class="popover" id="curr-company-pop">
+  <div class="pop-head">
+    <span class="pop-title">Current Company</span>
+    <button class="pop-close" onclick="closeAllPopovers()">×</button>
+  </div>
+  <div class="pop-body" id="curr-company-pop-body"></div>
+  <div class="pop-foot">
+    <span class="pop-clear" onclick="clearPending('curr-company')">Clear</span>
+    <button class="btn btn-sm btn-dark" onclick="applyFilterPop('curr-company')">Apply</button>
+  </div>
+</div>
+
+<!-- Previous Company filter popover -->
+<div class="popover" id="prev-company-pop">
+  <div class="pop-head">
+    <span class="pop-title">Previous Company</span>
+    <button class="pop-close" onclick="closeAllPopovers()">×</button>
+  </div>
+  <div class="pop-body" id="prev-company-pop-body"></div>
+  <div class="pop-foot">
+    <span class="pop-clear" onclick="clearPending('prev-company')">Clear</span>
+    <button class="btn btn-sm btn-dark" onclick="applyFilterPop('prev-company')">Apply</button>
+  </div>
+</div>
+
+<!-- GitHub Score filter popover -->
+<div class="popover" id="github-score-pop">
+  <div class="pop-head">
+    <span class="pop-title">GitHub Score</span>
+    <button class="pop-close" onclick="closeAllPopovers()">×</button>
+  </div>
+  <div class="pop-body" id="github-score-pop-body"></div>
+  <div class="pop-foot">
+    <span class="pop-clear" onclick="clearPending('github-score')">Clear</span>
+    <button class="btn btn-sm btn-dark" onclick="applyFilterPop('github-score')">Apply</button>
+  </div>
+</div>
+
 <!-- Column popover – fully functional -->
 <div class="popover pop-cols" id="col-pop">
   <div class="pop-head"><span class="pop-title">Customize Columns</span><button class="pop-close" onclick="cancelColPopover()">×</button></div>
@@ -523,7 +944,331 @@ tbody td:first-child{padding-left:20px}
   </div>
 </div>
 
-<div id="backdrop" onclick="closeAllPopovers()"></div>
+<!-- Add Candidate menu popover -->
+<div class="popover add-menu" id="add-menu-pop">
+  <div class="add-menu-item" onclick="openModal('bulk')">
+    <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    <div><div class="ami-title">Bulk Import</div><div class="ami-sub">Upload CSV or Excel file</div></div>
+  </div>
+  <div class="add-menu-item" onclick="openModal('manual')">
+    <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <div><div class="ami-title">Manual Add</div><div class="ami-sub">Enter details or upload resume</div></div>
+  </div>
+</div>
+
+<!-- Bulk Import modal -->
+<div class="modal-overlay" id="bulk-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title">Bulk Import Candidates</span>
+      <button class="modal-close" onclick="closeModal('bulk')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="drop-zone" id="bulk-dz" ondragover="onDzDrag(event,'bulk')" ondragleave="onDzLeave('bulk')" ondrop="onDzDrop(event,'bulk')">
+        <input type="file" id="bulk-file" accept=".csv,.xlsx,.xls" onchange="onFileSelect('bulk',this)">
+        <div class="dz-icon"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+        <div class="dz-title">Drag & drop your file here</div>
+        <div class="dz-sub">or <span onclick="document.getElementById('bulk-file').click()">browse to upload</span></div>
+        <div class="fmt-badges"><span class="fmt-b">CSV</span><span class="fmt-b">XLS</span><span class="fmt-b">XLSX</span></div>
+      </div>
+      <div class="file-selected" id="bulk-file-selected">
+        <div class="fs-icon"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="fs-info"><div class="fs-name" id="bulk-fname">—</div><div class="fs-size" id="bulk-fsize">—</div></div>
+        <button class="fs-remove" onclick="clearFile('bulk')" title="Remove">×</button>
+      </div>
+      <p class="hint-text">Maximum 500 candidates per import. Download a <a href="#" style="color:var(--accent);text-decoration:none;font-weight:500">sample template</a> to get started.</p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal('bulk')">Cancel</button>
+      <button class="btn btn-dark" id="bulk-submit" disabled onclick="submitBulk()">
+        <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Import Candidates
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Manual Add modal -->
+<div class="modal-overlay" id="manual-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title">Add Candidate</span>
+      <button class="modal-close" onclick="closeModal('manual')">×</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Step 1: drop zone (visible until file chosen) -->
+      <div class="drop-zone" id="manual-dz" ondragover="onDzDrag(event,'manual')" ondragleave="onDzLeave('manual')" ondrop="onDzDrop(event,'manual')">
+        <input type="file" id="manual-file" accept=".pdf,.doc,.docx" onchange="onFileSelect('manual',this)">
+        <div class="dz-icon">
+          <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div class="dz-title">Upload resume to autofill candidate details</div>
+        <div class="dz-sub">Drag & drop or <span onclick="document.getElementById('manual-file').click()">browse to upload</span></div>
+        <div class="fmt-badges"><span class="fmt-b">PDF</span><span class="fmt-b">DOC</span><span class="fmt-b">DOCX</span></div>
+      </div>
+
+      <!-- Parsing spinner (shown briefly after upload) -->
+      <div id="manual-parsing" style="display:none;text-align:center;padding:18px 0 10px">
+        <div style="display:inline-flex;align-items:center;gap:8px;color:var(--t2);font-size:12.5px">
+          <svg id="parse-spin" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="animation:spin .7s linear infinite;flex-shrink:0"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          Parsing resume…
+        </div>
+      </div>
+
+      <!-- File selected bar + form (hidden until file uploaded) -->
+      <div id="manual-filled" style="display:none">
+        <div class="file-selected show" id="manual-file-selected" style="margin-bottom:14px">
+          <div class="fs-icon"><svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+          <div class="fs-info"><div class="fs-name" id="manual-fname">—</div><div class="fs-size" id="manual-fsize">—</div></div>
+          <button class="fs-remove" onclick="clearFile('manual')" title="Remove file">×</button>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:12px;padding:7px 10px;background:var(--accent-bg);border-radius:var(--r);border:1px solid #bfdbfe">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span style="font-size:11.5px;color:var(--accent-dark);font-weight:500">Fields autofilled from resume — review and edit before saving.</span>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-row">
+            <label>First Name *</label>
+            <input class="form-input" id="mf-first" type="text" placeholder="e.g. Kayla" oninput="updateManualSubmit()">
+          </div>
+          <div class="form-row">
+            <label>Last Name *</label>
+            <input class="form-input" id="mf-last" type="text" placeholder="e.g. Morgan" oninput="updateManualSubmit()">
+          </div>
+        </div>
+        <div class="form-row">
+          <label>Email *</label>
+          <input class="form-input" id="mf-email" type="email" placeholder="kayla@example.com" oninput="updateManualSubmit()">
+        </div>
+        <div class="form-grid">
+          <div class="form-row">
+            <label>Role</label>
+            <input class="form-input" id="mf-role" type="text" placeholder="e.g. Software Engineer">
+          </div>
+          <div class="form-row">
+            <label>Phone</label>
+            <input class="form-input" id="mf-phone" type="text" placeholder="+1 555 000 0000">
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-foot">
+      <button class="btn" onclick="closeModal('manual')">Cancel</button>
+      <button class="btn btn-dark" id="manual-submit" disabled onclick="submitManual()">
+        <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Candidate
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     FOCUS MODE MODAL
+═══════════════════════════════════════ -->
+<div class="fm-overlay" id="focus-modal" onmousedown="onFmOverlayClick(event)">
+  <div class="fm-wrap">
+
+    <!-- Header -->
+    <div class="fm-header">
+      <div class="fm-h-info">
+        <span class="fm-h-name" id="fm-h-name">Kayla Morgan</span>
+        <span class="fm-h-sep">·</span>
+        <span class="fm-h-role" id="fm-h-role">Software Engineer</span>
+        <span class="fm-h-stage s-scr" id="fm-h-stage">Screening</span>
+      </div>
+      <div class="fm-nav">
+        <button class="fm-nav-btn" id="fm-prev" onclick="focusNav(-1)" title="Previous candidate">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <span class="fm-counter" id="fm-counter">1 of 36</span>
+        <button class="fm-nav-btn" id="fm-next" onclick="focusNav(1)" title="Next candidate">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+      <button class="fm-close" onclick="closeFocus()" title="Close (Esc)">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="fm-body">
+
+      <!-- ── LEFT PANEL ── -->
+      <div class="fm-left">
+
+        <!-- tabs -->
+        <div class="fm-tabs">
+          <div class="fm-tab active" id="fmt-overview" onclick="switchFmTab('overview')">Overview</div>
+          <div class="fm-tab" id="fmt-notes"    onclick="switchFmTab('notes')">Notes</div>
+          <div class="fm-tab" id="fmt-feedback" onclick="switchFmTab('feedback')">Feedback</div>
+        </div>
+
+        <!-- Overview -->
+        <div class="fm-tab-body" id="fmtb-overview">
+          <!-- at-a-glance: match, github, status badges -->
+          <div class="fm-glance" id="fm-glance"></div>
+
+          <!-- 1. Contact -->
+          <div class="fm-section">
+            <div class="fm-section-title">Contact</div>
+            <div class="fm-row">
+              <span class="fm-row-label">Email</span>
+              <span class="fm-row-val"><a id="fm-email" href="#" onclick="return false">—</a></span>
+            </div>
+            <div class="fm-row">
+              <span class="fm-row-label">Phone</span>
+              <span class="fm-row-val" id="fm-phone">—</span>
+            </div>
+            <div class="fm-row">
+              <span class="fm-row-label">Location</span>
+              <span class="fm-row-val" id="fm-location">—</span>
+            </div>
+          </div>
+
+          <!-- 2. Portfolio -->
+          <div class="fm-section">
+            <div class="fm-section-title">Portfolio</div>
+            <div class="fm-row">
+              <span class="fm-row-label">Website</span>
+              <span class="fm-row-val"><a id="fm-website" href="#" target="_blank">—</a></span>
+            </div>
+            <div class="fm-row">
+              <span class="fm-row-label">GitHub</span>
+              <span class="fm-row-val"><a id="fm-github" href="#" target="_blank">—</a></span>
+            </div>
+          </div>
+
+          <!-- 3. Education -->
+          <div class="fm-section">
+            <div class="fm-section-title">Education</div>
+            <div class="fm-row">
+              <span class="fm-row-label">University</span>
+              <span class="fm-row-val" id="fm-college">—</span>
+            </div>
+            <div class="fm-row">
+              <span class="fm-row-label">Graduated</span>
+              <span class="fm-row-val" id="fm-grad-year">—</span>
+            </div>
+          </div>
+
+          <!-- 4. Candidate Info (form responses) -->
+          <div class="fm-section">
+            <div class="fm-section-title">Candidate Info</div>
+            <div class="fm-row">
+              <span class="fm-row-label">Role</span>
+              <span class="fm-row-val" id="fm-role-pref">—</span>
+            </div>
+            <div class="fm-row">
+              <span class="fm-row-label">Internship</span>
+              <span class="fm-row-val" id="fm-internship">—</span>
+            </div>
+            <div class="fm-row fm-row-top">
+              <span class="fm-row-label">Top Skills</span>
+              <span class="fm-row-val" id="fm-top-skills">—</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Notes -->
+        <div class="fm-tab-body" id="fmtb-notes" style="display:none">
+          <div class="note-compose" id="fm-note-compose">
+            <textarea id="fm-note-input" class="note-textarea" placeholder="Add a note… use @mention to tag people" oninput="onFmNoteInput()" onkeydown="onFmNoteKey(event)"></textarea>
+            <div class="note-compose-foot">
+              <span class="note-hint">Shift+Enter for new line · Enter to submit</span>
+              <button class="btn btn-sm btn-dark" id="fm-note-submit" onclick="submitFmNote()" disabled>Add Note</button>
+            </div>
+          </div>
+          <div id="fm-note-list"></div>
+          <div id="fm-note-empty" style="padding:24px 0;text-align:center;color:var(--t3)">
+            <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="display:block;margin:0 auto 8px;opacity:.4"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5"/><path d="M17.5 2.5a2.121 2.121 0 013 3L12 14l-4 1 1-4 8.5-8.5z"/></svg>
+            <div style="font-size:12px;font-weight:500">No notes yet</div>
+            <div style="font-size:11px;margin-top:3px">Add the first note above</div>
+          </div>
+        </div>
+
+        <!-- Feedback -->
+        <div class="fm-tab-body" id="fmtb-feedback" style="display:none">
+          <div class="fm-section">
+            <div class="fm-section-title">Scorecard</div>
+            <div class="fm-score-row">
+              <span class="fm-score-label">Technical skills</span>
+              <div class="fm-stars" data-key="tech">
+                <span class="fm-star" data-v="1" onclick="setFmStar('tech',1)">★</span>
+                <span class="fm-star" data-v="2" onclick="setFmStar('tech',2)">★</span>
+                <span class="fm-star" data-v="3" onclick="setFmStar('tech',3)">★</span>
+                <span class="fm-star" data-v="4" onclick="setFmStar('tech',4)">★</span>
+                <span class="fm-star" data-v="5" onclick="setFmStar('tech',5)">★</span>
+              </div>
+            </div>
+            <div class="fm-score-row">
+              <span class="fm-score-label">Communication</span>
+              <div class="fm-stars" data-key="comm">
+                <span class="fm-star" data-v="1" onclick="setFmStar('comm',1)">★</span>
+                <span class="fm-star" data-v="2" onclick="setFmStar('comm',2)">★</span>
+                <span class="fm-star" data-v="3" onclick="setFmStar('comm',3)">★</span>
+                <span class="fm-star" data-v="4" onclick="setFmStar('comm',4)">★</span>
+                <span class="fm-star" data-v="5" onclick="setFmStar('comm',5)">★</span>
+              </div>
+            </div>
+            <div class="fm-score-row">
+              <span class="fm-score-label">Culture fit</span>
+              <div class="fm-stars" data-key="cult">
+                <span class="fm-star" data-v="1" onclick="setFmStar('cult',1)">★</span>
+                <span class="fm-star" data-v="2" onclick="setFmStar('cult',2)">★</span>
+                <span class="fm-star" data-v="3" onclick="setFmStar('cult',3)">★</span>
+                <span class="fm-star" data-v="4" onclick="setFmStar('cult',4)">★</span>
+                <span class="fm-star" data-v="5" onclick="setFmStar('cult',5)">★</span>
+              </div>
+            </div>
+            <div class="fm-score-row">
+              <span class="fm-score-label">Problem solving</span>
+              <div class="fm-stars" data-key="prob">
+                <span class="fm-star" data-v="1" onclick="setFmStar('prob',1)">★</span>
+                <span class="fm-star" data-v="2" onclick="setFmStar('prob',2)">★</span>
+                <span class="fm-star" data-v="3" onclick="setFmStar('prob',3)">★</span>
+                <span class="fm-star" data-v="4" onclick="setFmStar('prob',4)">★</span>
+                <span class="fm-star" data-v="5" onclick="setFmStar('prob',5)">★</span>
+              </div>
+            </div>
+          </div>
+          <div class="fm-section">
+            <div class="fm-section-title">Notes &amp; recommendation</div>
+            <textarea id="fm-fb-text" class="fm-fb-area" placeholder="Overall impression, strengths, concerns…"></textarea>
+            <div class="fm-fb-foot">
+              <button class="btn btn-sm btn-dark" onclick="saveFmFeedback()">Save Feedback</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.fm-left -->
+
+      <!-- ── RIGHT PANEL: Resume ── -->
+      <div class="fm-right">
+        <div class="fm-resume-bar">
+          <span class="fm-resume-label" id="fm-resume-label">Resume</span>
+          <button class="btn btn-sm" onclick="downloadFmResume()">
+            <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </button>
+        </div>
+        <div class="fm-resume-scroll">
+          <div class="fm-doc" id="fm-doc"><!-- generated by renderFocusResume() --></div>
+        </div>
+      </div>
+
+    </div><!-- /.fm-body -->
+
+    <!-- Footer actions – rendered dynamically by renderFmFooter() -->
+    <div class="fm-footer" id="fm-footer"></div>
+
+  </div><!-- /.fm-wrap -->
+</div><!-- /.fm-overlay -->
+
 <div id="col-drop-line"></div>
 
 <script>
@@ -533,19 +1278,93 @@ tbody td:first-child{padding-left:20px}
 const NAMES=['Kayla Morgan','Liam Chen','Sophie Turner','Marcus Reed','Priya Patel',
   'Alex Kim','Jordan Lee','Taylor Brooks','Sam Davis','Emma Wilson','Noah Brown','Olivia Johnson'];
 const ROLES=['Software Engineer','Frontend Dev','Backend Dev','Full Stack Dev','DevOps Eng'];
-const SKILLS=[['Python','Django'],['React','TypeScript'],['Node.js','AWS'],
-  ['Go','Kubernetes'],['Java','Spring'],['Vue.js','GraphQL']];
-const STAGES=['Screening','Screening','Screening','Screening','Screening','Screening',
-  'Screening','Screening','Screening','R1','R2','Final'];
-const STATUSP=['','','Shortlisted','Shortlisted','Shortlisted',
-  'On Hold','On Hold','On Hold','Rejected','Rejected','Rejected','Scheduled'];
+const SKILLS=[
+  ['Python','Django'],['React','TypeScript'],['Node.js','AWS'],
+  ['Go','Kubernetes'],['Java','Spring'],['Vue.js','GraphQL'],
+  ['Python','FastAPI'],['React','Redux'],['Node.js','PostgreSQL'],
+  ['Rust','WebAssembly'],['Swift','iOS'],['Kotlin','Android'],
+];
+// 100-candidate stage pool: 40 Screening, 20 R1, 15 R2, 10 Assignment, 10 Final, 5 Hired
+const STAGE_POOL=(()=>{
+  const pool=[];
+  const dist=[['Screening',40],['R1',20],['R2',15],['Assignment',10],['Final',10],['Hired',5]];
+  dist.forEach(([s,n])=>{ for(let i=0;i<n;i++) pool.push(s); });
+  // shuffle deterministically (Fisher-Yates with fixed seed)
+  let seed=42;
+  const rand=()=>{ seed=(seed*1664525+1013904223)&0xffffffff; return (seed>>>0)/0x100000000; };
+  for(let i=pool.length-1;i>0;i--){ const j=Math.floor(rand()*(i+1)); [pool[i],pool[j]]=[pool[j],pool[i]]; }
+  return pool;
+})();
+// Status distributions per stage (realistic)
+const STAGE_STATUS_DIST={
+  'Screening': ['In Progress','In Progress','In Progress','Shortlisted','Shortlisted','On Hold','Rejected','Rejected'],
+  'R1':        ['In Progress','In Progress','Completed','Completed','Completed'],
+  'R2':        ['In Progress','Completed','Completed','Completed'],
+  'Assignment':['Pending','Pending','Submitted','Submitted','Submitted'],
+  'Final':     ['Completed'],
+  'Hired':     ['Hired'],
+};
 const COMPANIES=['Google','Microsoft','Apple','Meta','Amazon','Netflix','Stripe','Airbnb','Uber','Lyft'];
 const PREV_COS=['Tesla','Intel','Cisco','IBM','Oracle','Salesforce','Adobe','Shopify','Twitter','Snap'];
 const INTERVIEWERS=['Sarah K.','Tom R.','Mia P.','Jake L.','Amy C.'];
 const MONTHS=['Jan','Feb','Mar','Apr'];
-const SCLS={Screening:'s-scr',R1:'s-r1',R2:'s-r2',Final:'s-fin'};
-const STCLS={'Shortlisted':'st-short','On Hold':'st-hold','Rejected':'st-reject',
-  'In Progress':'st-prog','Scheduled':'st-sched'};
+/* ── form-submission data ── */
+const COLLEGES=[
+  'K L University','Anna University','VIT University','MIT Manipal',
+  'BITS Pilani','NIT Warangal','JNTU Hyderabad','SRM University',
+  'Amrita University','Manipal University','Thapar University','LPU'];
+const ROLE_PREFS=[
+  'Full Stack Developer (Next.js or React)',
+  'Backend Engineer (Node.js or Python)',
+  'Frontend Developer (React or Vue)',
+  'DevOps / Cloud Engineer',
+  'Software Engineer (General)',
+  'Mobile Developer (React Native)',
+  'Data Engineer',
+  'ML / AI Engineer',
+  'Full Stack Developer (Next.js or React)',
+  'Backend Engineer (Node.js or Python)',
+  'Frontend Developer (React or Vue)',
+  'Software Engineer (General)'];
+const INTERNSHIPS=['None','3 Months','6 Months','1 Year','2 Years','None','6 Months','1 Year',
+                   'None','3 Months','6 Months','1 Year'];
+const LOCATIONS=[
+  'Austin, TX, United States','San Francisco, CA, United States',
+  'New York, NY, United States','Seattle, WA, United States',
+  'Chicago, IL, United States','Boston, MA, United States',
+  'Denver, CO, United States','Atlanta, GA, United States',
+  'Austin, TX, United States','San Francisco, CA, United States',
+  'New York, NY, United States','Seattle, WA, United States'];
+const TOP_SKILLS_SETS=[
+  'ReactJS, Java, Python, Node.js, TypeScript',
+  'Python, Django, REST APIs, PostgreSQL, Docker',
+  'React, TypeScript, GraphQL, Redux, Tailwind CSS',
+  'Go, Kubernetes, AWS, Terraform, Helm',
+  'Java, Spring Boot, Microservices, Kafka, MySQL',
+  'Vue.js, GraphQL, Node.js, MongoDB, Jest',
+  'Python, FastAPI, Celery, Redis, SQLAlchemy',
+  'React, Redux, Jest, Webpack, SASS',
+  'Node.js, PostgreSQL, Docker, Git, REST APIs',
+  'Rust, WebAssembly, C++, LLVM, Linux',
+  'Swift, UIKit, SwiftUI, CoreData, XCTest',
+  'Kotlin, Android SDK, Jetpack Compose, Retrofit, Room'];
+const SCLS={Screening:'s-scr',R1:'s-r1',R2:'s-r2',Assignment:'s-asgn',Final:'s-fin',Hired:'s-hire'};
+const STCLS={
+  'In Progress':'st-prog','Shortlisted':'st-short','On Hold':'st-hold',
+  'Rejected':'st-reject','Completed':'st-done','Pending':'st-pend',
+  'Submitted':'st-sub','Reviewed':'st-rev','Scheduled':'st-sched','Hired':'st-hire',
+};
+
+/* stage → allowed statuses (drives status picker + Focus Mode footer) */
+const STAGE_STATUS_MAP = {
+  'Screening':  ['In Progress','Shortlisted','On Hold','Rejected'],
+  'R1':         ['In Progress','Completed'],
+  'R2':         ['In Progress','Completed'],
+  'Assignment': ['Pending','Submitted','Reviewed'],
+  'Final':      ['In Progress','Completed'],
+  'Hired':      ['Hired'],
+};
+
 const CHV=`<svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
 
 function ini(n){return n.split(' ').map(w=>w[0]).join('');}
@@ -560,21 +1379,31 @@ function mkData(n){
       name:NAMES[ni],role:ROLES[i%ROLES.length],
       email:NAMES[ni].toLowerCase().replace(' ','.')+(Math.floor(i/NAMES.length)||'')+'@gmail.com',
       phone:'+1 512 555 '+String(2031+i).padStart(4,'0'),
-      exp:6+Math.floor(i/NAMES.length)*2,
+      exp:[0,1,2,3,4,5,6,7,8,10,12,15][i%12],
       skills:SKILLS[i%SKILLS.length],match:92,
-      stage:STAGES[i%STAGES.length],
-      status:STATUSP[i%STATUSP.length],
+      stage:STAGE_POOL[i%STAGE_POOL.length],
+      status:(()=>{ const stg=STAGE_POOL[i%STAGE_POOL.length]; const opts=STAGE_STATUS_DIST[stg]||['In Progress']; return opts[i%opts.length]; })(),
+      interviewType: (()=>{ const stg=STAGE_POOL[i%STAGE_POOL.length]; return (stg==='R1' && i%2!==0) ? 'ai' : 'manual'; })(),
+      interview_date: `${MONTHS[(i+3)%MONTHS.length]} ${((i*7)%20)+8}, 2026`,
+      interview_time: ['10:00 AM','11:30 AM','2:00 PM','3:30 PM','4:15 PM'][i%5],
       prog:22+((i*17)%58),
       curr_company:COMPANIES[i%COMPANIES.length],
       prev_company:PREV_COS[i%PREV_COS.length],
       github_score:55+((i*7)%46),
       applied_date:`${mon} ${day}, 2026`,
       interviewer:i%4===0?'':INTERVIEWERS[i%INTERVIEWERS.length],
+      /* form-submission fields */
+      location:   LOCATIONS[i%LOCATIONS.length],
+      college:    COLLEGES[i%COLLEGES.length],
+      grad_year:  2018+(i%7),
+      role_pref:  ROLE_PREFS[i%ROLE_PREFS.length],
+      internship: INTERNSHIPS[i%INTERNSHIPS.length],
+      top_skills_form: TOP_SKILLS_SETS[i%TOP_SKILLS_SETS.length],
     });
   }
   return a;
 }
-const ALL_ROWS=mkData(36);
+const ALL_ROWS=mkData(100);
 let filteredRows=[...ALL_ROWS];
 
 /* ═══════════════════════════════════════════
@@ -584,15 +1413,15 @@ const COL_DEFS=[
   {id:'name',         label:'Name',             visible:true,  sortable:true,  locked:true},
   {id:'contact',      label:'Contact',           visible:true,  sortable:false},
   {id:'portfolio',    label:'Portfolio',         visible:true,  sortable:false},
-  {id:'exp',          label:'Exp',               visible:true,  sortable:true,  filter:'stage'},
+  {id:'exp',          label:'Exp',               visible:true,  sortable:true,  filter:'exp'},
   {id:'skills',       label:'Skills',            visible:true,  sortable:true,  filter:'skills'},
   {id:'match',        label:'Match Score',       visible:true,  sortable:true},
   {id:'stage',        label:'Stage',             visible:true,  sortable:true,  filter:'stage'},
   {id:'status',       label:'Status',            visible:true,  sortable:false, filter:'status'},
   {id:'action',       label:'Next Action',       visible:true,  sortable:false},
-  {id:'curr_company', label:'Current Company',   visible:false, sortable:true},
-  {id:'prev_company', label:'Previous Company',  visible:false, sortable:false},
-  {id:'github_score', label:'GitHub Score',      visible:false, sortable:true},
+  {id:'curr_company', label:'Current Company',   visible:false, sortable:true,  filter:'curr-company'},
+  {id:'prev_company', label:'Previous Company',  visible:false, sortable:false, filter:'prev-company'},
+  {id:'github_score', label:'GitHub Score',      visible:false, sortable:true,  filter:'github-score'},
   {id:'applied_date', label:'Applied Date',      visible:false, sortable:true},
   {id:'interviewer',  label:'Interviewer',       visible:false, sortable:false},
 ];
@@ -602,22 +1431,59 @@ let colOrder=COL_DEFS.map((_,i)=>i);
 /* ═══════════════════════════════════════════
    FILTER DEFINITIONS
 ═══════════════════════════════════════════ */
-const STAGE_DEFS = [
-  { value:'Screening',  label:'Screening',   badge:`<span class="stage s-scr" style="font-size:10px;padding:1px 6px;margin-left:auto">Screening</span>` },
-  { value:'R1',         label:'R1 Interview',badge:`<span class="stage s-r1"  style="font-size:10px;padding:1px 6px;margin-left:auto">R1</span>` },
-  { value:'R2',         label:'R2 Interview',badge:`<span class="stage s-r2"  style="font-size:10px;padding:1px 6px;margin-left:auto">R2</span>` },
-  { value:'Assignment', label:'Assignment',  badge:'' },
-  { value:'Final',      label:'Final Round', badge:`<span class="stage s-fin" style="font-size:10px;padding:1px 6px;margin-left:auto">Final</span>` },
-  { value:'Hired',      label:'Hired',       badge:`<span class="stage s-hire"style="font-size:10px;padding:1px 6px;margin-left:auto">Hired</span>` },
+
+/* Build skills list dynamically from ALL_ROWS data */
+function buildSkillsDefs() {
+  const seen = new Set();
+  ALL_ROWS.forEach(r => r.skills.forEach(s => seen.add(s)));
+  return [...seen].sort().map(s => ({ value: s, label: s }));
+}
+
+/* Build company lists dynamically */
+function buildCurrCompanyDefs() {
+  const seen = new Set();
+  ALL_ROWS.forEach(r => { if(r.curr_company) seen.add(r.curr_company); });
+  return [...seen].sort().map(c => ({ value: c, label: c }));
+}
+function buildPrevCompanyDefs() {
+  const seen = new Set();
+  ALL_ROWS.forEach(r => { if(r.prev_company) seen.add(r.prev_company); });
+  return [...seen].sort().map(c => ({ value: c, label: c }));
+}
+
+const GITHUB_SCORE_DEFS = [
+  { value:'< 60',   label:'< 60  (Needs work)',   min:0,   max:59  },
+  { value:'60-74',  label:'60 – 74  (Average)',    min:60,  max:74  },
+  { value:'75-89',  label:'75 – 89  (Good)',       min:75,  max:89  },
+  { value:'90+',    label:'90+  (Excellent)',       min:90,  max:100 },
 ];
+
+const EXP_DEFS = [
+  { value:'0-2',  label:'0 – 2 years',  badge:'', min:0,  max:2  },
+  { value:'3-5',  label:'3 – 5 years',  badge:'', min:3,  max:5  },
+  { value:'6-9',  label:'6 – 9 years',  badge:'', min:6,  max:9  },
+  { value:'10+',  label:'10+ years',    badge:'', min:10, max:999 },
+];
+
+const STAGE_DEFS = [
+  { value:'Screening',  label:'Screening',    badge:`<span class="stage s-scr"  style="font-size:10px;padding:1px 6px;margin-left:auto">Screening</span>` },
+  { value:'R1',         label:'R1 Interview', badge:`<span class="stage s-r1"   style="font-size:10px;padding:1px 6px;margin-left:auto">R1</span>` },
+  { value:'R2',         label:'R2 Interview', badge:`<span class="stage s-r2"   style="font-size:10px;padding:1px 6px;margin-left:auto">R2</span>` },
+  { value:'Assignment', label:'Assignment',   badge:`<span class="stage s-asgn" style="font-size:10px;padding:1px 6px;margin-left:auto">Assignment</span>` },
+  { value:'Final',      label:'Final Round',  badge:`<span class="stage s-fin"  style="font-size:10px;padding:1px 6px;margin-left:auto">Final</span>` },
+  { value:'Hired',      label:'Hired',        badge:`<span class="stage s-hire" style="font-size:10px;padding:1px 6px;margin-left:auto">Hired</span>` },
+];
+/* STATUS_DEFS – used by the filter popover only; shows every possible status */
 const STATUS_DEFS = [
-  { value:'In Progress',label:'In Progress', badge:`<span class="status-pill st-prog"  style="font-size:10px;padding:1px 6px;margin-left:auto">In Progress</span>` },
-  { value:'Completed',  label:'Completed',   badge:'' },
-  { value:'Shortlisted',label:'Shortlisted', badge:`<span class="status-pill st-short" style="font-size:10px;padding:1px 6px;margin-left:auto">Shortlisted</span>` },
-  { value:'Scheduled',  label:'Scheduled',   badge:`<span class="status-pill st-sched" style="font-size:10px;padding:1px 6px;margin-left:auto">Scheduled</span>` },
-  { value:'Selected',   label:'Selected',    badge:`<span class="status-pill st-short" style="font-size:10px;padding:1px 6px;margin-left:auto">Selected</span>` },
-  { value:'Rejected',   label:'Rejected',    badge:`<span class="status-pill st-reject"style="font-size:10px;padding:1px 6px;margin-left:auto">Rejected</span>` },
-  { value:'On Hold',    label:'On Hold',     badge:`<span class="status-pill st-hold"  style="font-size:10px;padding:1px 6px;margin-left:auto">On Hold</span>` },
+  { value:'In Progress', label:'In Progress', badge:`<span class="status-pill st-prog"   style="font-size:10px;padding:1px 6px;margin-left:auto">In Progress</span>` },
+  { value:'Shortlisted', label:'Shortlisted', badge:`<span class="status-pill st-short"  style="font-size:10px;padding:1px 6px;margin-left:auto">Shortlisted</span>` },
+  { value:'On Hold',     label:'On Hold',     badge:`<span class="status-pill st-hold"   style="font-size:10px;padding:1px 6px;margin-left:auto">On Hold</span>` },
+  { value:'Rejected',    label:'Rejected',    badge:`<span class="status-pill st-reject" style="font-size:10px;padding:1px 6px;margin-left:auto">Rejected</span>` },
+  { value:'Completed',   label:'Completed',   badge:`<span class="status-pill st-done"   style="font-size:10px;padding:1px 6px;margin-left:auto">Completed</span>` },
+  { value:'Pending',     label:'Pending',     badge:`<span class="status-pill st-pend"   style="font-size:10px;padding:1px 6px;margin-left:auto">Pending</span>` },
+  { value:'Submitted',   label:'Submitted',   badge:`<span class="status-pill st-sub"    style="font-size:10px;padding:1px 6px;margin-left:auto">Submitted</span>` },
+  { value:'Reviewed',    label:'Reviewed',    badge:`<span class="status-pill st-rev"    style="font-size:10px;padding:1px 6px;margin-left:auto">Reviewed</span>` },
+  { value:'Hired',       label:'Hired',       badge:`<span class="status-pill st-hire"   style="font-size:10px;padding:1px 6px;margin-left:auto">Hired</span>` },
 ];
 
 /* ═══════════════════════════════════════════
@@ -625,57 +1491,122 @@ const STATUS_DEFS = [
    active* = currently applied (drives the table)
    pending* = in-progress inside an open popover
 ═══════════════════════════════════════════ */
-let activeStages  = new Set(); // empty = no stage filter (show all)
-let activeStatuses= new Set(); // empty = no status filter (show all)
-let pendingStages  = new Set();
-let pendingStatuses= new Set();
+const MAX_VISIBLE_CHIPS = 5;   // max chips before "+N more" collapses them
+let chipsExpanded = false;     // whether overflow chips are shown
+
+let activeStages      = new Set();
+let activeStatuses    = new Set();
+let activeSkills      = new Set();
+let activeExp         = new Set();
+let activeCurrCompany = new Set();
+let activePrevCompany = new Set();
+let activeGithubScore = new Set();
+let pendingStages     = new Set();
+let pendingStatuses   = new Set();
+let pendingSkills     = new Set();
+let pendingExp        = new Set();
+let pendingCurrCompany= new Set();
+let pendingPrevCompany= new Set();
+let pendingGithubScore= new Set();
 
 /* ── build a filter popover's checkbox list ── */
 function buildFilterPop(type) {
-  const defs    = type === 'stage' ? STAGE_DEFS  : STATUS_DEFS;
-  const pending = type === 'stage' ? pendingStages : pendingStatuses;
-  const bodyEl  = document.getElementById(`${type}-pop-body`);
+  let defs, pending;
+  if     (type === 'stage')        { defs = STAGE_DEFS;             pending = pendingStages;      }
+  else if(type === 'status')       { defs = STATUS_DEFS;            pending = pendingStatuses;    }
+  else if(type === 'skills')       { defs = buildSkillsDefs();      pending = pendingSkills;      }
+  else if(type === 'exp')          { defs = EXP_DEFS;               pending = pendingExp;         }
+  else if(type === 'curr-company') { defs = buildCurrCompanyDefs(); pending = pendingCurrCompany; }
+  else if(type === 'prev-company') { defs = buildPrevCompanyDefs(); pending = pendingPrevCompany; }
+  else if(type === 'github-score') { defs = GITHUB_SCORE_DEFS;      pending = pendingGithubScore; }
+  else return;
+
+  const bodyEl = document.getElementById(`${type}-pop-body`);
   bodyEl.innerHTML = '';
   defs.forEach(d => {
     const row = document.createElement('div');
     row.className = 'pop-opt';
-    const uid = `pf-${type}-${d.value.replace(/\s+/g,'-')}`;
+    const uid = `pf-${type}-${d.value.replace(/[\s<>+]/g,'-')}`;
     row.innerHTML = `
       <input type="checkbox" id="${uid}" ${pending.has(d.value)?'checked':''}>
       <label for="${uid}">${d.label}</label>
-      ${d.badge}`;
+      ${d.badge||''}`;
     bodyEl.appendChild(row);
   });
 }
 
 /* ── called when "Apply" is clicked inside a filter popover ── */
 function applyFilterPop(type) {
-  const defs   = type === 'stage' ? STAGE_DEFS  : STATUS_DEFS;
+  let defs;
+  if     (type === 'stage')        defs = STAGE_DEFS;
+  else if(type === 'status')       defs = STATUS_DEFS;
+  else if(type === 'skills')       defs = buildSkillsDefs();
+  else if(type === 'exp')          defs = EXP_DEFS;
+  else if(type === 'curr-company') defs = buildCurrCompanyDefs();
+  else if(type === 'prev-company') defs = buildPrevCompanyDefs();
+  else if(type === 'github-score') defs = GITHUB_SCORE_DEFS;
+  else return;
+
   const newSet = new Set();
   defs.forEach(d => {
-    const uid = `pf-${type}-${d.value.replace(/\s+/g,'-')}`;
+    const uid = `pf-${type}-${d.value.replace(/[\s<>+]/g,'-')}`;
     const el  = document.getElementById(uid);
     if(el && el.checked) newSet.add(d.value);
   });
-  if(type === 'stage')  { activeStages   = newSet; pendingStages   = new Set(newSet); }
-  else                   { activeStatuses = newSet; pendingStatuses = new Set(newSet); }
+
+  if     (type === 'stage')        { activeStages      = newSet; pendingStages      = new Set(newSet); }
+  else if(type === 'status')       { activeStatuses    = newSet; pendingStatuses    = new Set(newSet); }
+  else if(type === 'skills')       { activeSkills      = newSet; pendingSkills      = new Set(newSet); }
+  else if(type === 'exp')          { activeExp         = newSet; pendingExp         = new Set(newSet); }
+  else if(type === 'curr-company') { activeCurrCompany = newSet; pendingCurrCompany = new Set(newSet); }
+  else if(type === 'prev-company') { activePrevCompany = newSet; pendingPrevCompany = new Set(newSet); }
+  else if(type === 'github-score') { activeGithubScore = newSet; pendingGithubScore = new Set(newSet); }
+
   closeAllPopovers();
   applyFilters();
 }
 
 /* ── "Clear" button inside a popover (uncheck all, don't apply) ── */
 function clearPending(type) {
-  if(type === 'stage')  pendingStages   = new Set();
-  else                   pendingStatuses = new Set();
-  buildFilterPop(type); // re-render checkboxes
+  if     (type === 'stage')        pendingStages      = new Set();
+  else if(type === 'status')       pendingStatuses    = new Set();
+  else if(type === 'skills')       pendingSkills      = new Set();
+  else if(type === 'exp')          pendingExp         = new Set();
+  else if(type === 'curr-company') pendingCurrCompany = new Set();
+  else if(type === 'prev-company') pendingPrevCompany = new Set();
+  else if(type === 'github-score') pendingGithubScore = new Set();
+  buildFilterPop(type);
 }
 
 /* ── master filter + render ── */
 function applyFilters() {
   const q = (document.getElementById('search-input').value || '').toLowerCase();
   filteredRows = ALL_ROWS.filter(r => {
-    if(activeStages.size   && !activeStages.has(r.stage))  return false;
+    if(activeStages.size   && !activeStages.has(r.stage))        return false;
     if(activeStatuses.size && !activeStatuses.has(r.status||'')) return false;
+
+    /* skills: candidate must have AT LEAST ONE selected skill */
+    if(activeSkills.size && !r.skills.some(s => activeSkills.has(s))) return false;
+
+    /* exp: candidate's years must fall in AT LEAST ONE selected band */
+    if(activeExp.size){
+      const matched = EXP_DEFS.some(d => activeExp.has(d.value) && r.exp >= d.min && r.exp <= d.max);
+      if(!matched) return false;
+    }
+
+    /* current company: exact match */
+    if(activeCurrCompany.size && !activeCurrCompany.has(r.curr_company||'')) return false;
+
+    /* previous company: exact match */
+    if(activePrevCompany.size && !activePrevCompany.has(r.prev_company||'')) return false;
+
+    /* github score: must fall in AT LEAST ONE selected band */
+    if(activeGithubScore.size){
+      const gs = r.github_score || 0;
+      const matched = GITHUB_SCORE_DEFS.some(d => activeGithubScore.has(d.value) && gs >= d.min && gs <= d.max);
+      if(!matched) return false;
+    }
+
     if(q && !(
       r.name.toLowerCase().includes(q)  ||
       r.email.toLowerCase().includes(q) ||
@@ -690,44 +1621,112 @@ function applyFilters() {
   renderChips();
 }
 
-/* ── chips: one per active stage, one per active status ── */
+/* ── chips container: renders active-filter chips inside #filter-chips ── */
 function renderChips() {
-  const bar = document.getElementById('filter-bar');
-  bar.innerHTML = '';
+  const chipsEl  = document.getElementById('filter-chips');
+  const clearBtn = document.getElementById('clear-all-btn');
+  chipsEl.innerHTML = '';
 
-  const hasAny = activeStages.size > 0 || activeStatuses.size > 0;
+  const hasAny = activeStages.size || activeStatuses.size || activeSkills.size || activeExp.size
+              || activeCurrCompany.size || activePrevCompany.size || activeGithubScore.size;
 
-  activeStages.forEach(v => {
-    bar.appendChild(makeChip(`Stage: ${v}`, () => {
-      activeStages.delete(v);
-      pendingStages.delete(v);
-      applyFilters();
-    }, 'stage-pop'));
-  });
+  /* ── build the full ordered list of chip specs ── */
+  const allChips = [];
+  activeStages.forEach(v      => allChips.push({ label:`Stage: ${v}`,    remove:()=>{ activeStages.delete(v);      pendingStages.delete(v);      applyFilters(); }, pop:'stage-pop'        }));
+  activeStatuses.forEach(v    => allChips.push({ label:`Status: ${v}`,   remove:()=>{ activeStatuses.delete(v);    pendingStatuses.delete(v);    applyFilters(); }, pop:'status-pop'       }));
+  activeSkills.forEach(v      => allChips.push({ label:`Skill: ${v}`,    remove:()=>{ activeSkills.delete(v);      pendingSkills.delete(v);      applyFilters(); }, pop:'skills-pop'       }));
+  activeExp.forEach(v         => { const d=EXP_DEFS.find(x=>x.value===v);
+                                   allChips.push({ label:`Exp: ${d?d.label:v}`,        remove:()=>{ activeExp.delete(v);          pendingExp.delete(v);          applyFilters(); }, pop:'exp-pop'          }); });
+  activeCurrCompany.forEach(v => allChips.push({ label:`Curr Co: ${v}`,  remove:()=>{ activeCurrCompany.delete(v); pendingCurrCompany.delete(v); applyFilters(); }, pop:'curr-company-pop' }));
+  activePrevCompany.forEach(v => allChips.push({ label:`Prev Co: ${v}`,  remove:()=>{ activePrevCompany.delete(v); pendingPrevCompany.delete(v); applyFilters(); }, pop:'prev-company-pop' }));
+  activeGithubScore.forEach(v => { const d=GITHUB_SCORE_DEFS.find(x=>x.value===v);
+                                   allChips.push({ label:`GitHub: ${d?d.label.split(' ')[0]:v}`, remove:()=>{ activeGithubScore.delete(v); pendingGithubScore.delete(v); applyFilters(); }, pop:'github-score-pop' }); });
 
-  activeStatuses.forEach(v => {
-    bar.appendChild(makeChip(`Status: ${v}`, () => {
-      activeStatuses.delete(v);
-      pendingStatuses.delete(v);
-      applyFilters();
-    }, 'status-pop'));
-  });
+  /* ── decide how many to show ── */
+  const total      = allChips.length;
+  const showAll    = chipsExpanded || total <= MAX_VISIBLE_CHIPS;
+  const visible    = showAll ? total : MAX_VISIBLE_CHIPS;
+  const hiddenCnt  = total - visible;
 
-  if(hasAny) {
-    const clr = document.createElement('span');
-    clr.className = 'clear-link';
-    clr.textContent = 'Clear all';
-    clr.onclick = clearAllFilters;
-    bar.appendChild(clr);
+  /* ── render visible chips ── */
+  allChips.slice(0, visible).forEach(spec => chipsEl.appendChild(makeChip(spec.label, spec.remove, spec.pop)));
+
+  /* ── overflow pill ── */
+  if(hiddenCnt > 0) {
+    /* collapsed: show "+N more" */
+    const more = document.createElement('div');
+    more.className   = 'chip-more';
+    more.textContent = `+${hiddenCnt} more`;
+    more.title       = 'Show all filters';
+    more.onclick     = () => { chipsExpanded = true; renderChips(); };
+    chipsEl.appendChild(more);
+  } else if(chipsExpanded && total > MAX_VISIBLE_CHIPS) {
+    /* expanded: show "Show less" to collapse */
+    const less = document.createElement('div');
+    less.className   = 'chip-more';
+    less.textContent = 'Show less';
+    less.title       = 'Collapse filters';
+    less.onclick     = () => { chipsExpanded = false; renderChips(); };
+    chipsEl.appendChild(less);
   }
+
+  /* ── show/hide the whole filter bar (collapses when no filters) ── */
+  document.querySelector('.filter-bar-wrap').classList.toggle('has-filters', !!hasAny);
+
+  /* ── pinned Clear all button (outside scroll zone) ── */
+  clearBtn.style.display = hasAny ? '' : 'none';
+
+  /* ── highlight column header filter icons ── */
+  highlightFilterIcons();
+
   checkFilterFade();
+}
+
+/* ── sync accent colour on column-header filter icons ── */
+function highlightFilterIcons() {
+  const active = {
+    'exp':          activeExp.size          > 0,
+    'skills':       activeSkills.size       > 0,
+    'stage':        activeStages.size       > 0,
+    'status':       activeStatuses.size     > 0,
+    'curr-company': activeCurrCompany.size  > 0,
+    'prev-company': activePrevCompany.size  > 0,
+    'github-score': activeGithubScore.size  > 0,
+  };
+  document.querySelectorAll('.ti-f').forEach(icon => {
+    const th  = icon.closest('th');
+    if(!th) return;
+    const col = COL_DEFS.find(c => c.id === th.dataset.colId);
+    if(col && col.filter) {
+      icon.style.color   = active[col.filter] ? 'var(--accent)' : '';
+      icon.style.opacity = active[col.filter] ? '1' : '';
+    }
+  });
 }
 
 function makeChip(label, onRemove, popId) {
   const chip = document.createElement('div');
   chip.className = 'chip';
   chip.onclick = e => {
-    if(!e.target.classList.contains('chip-x')) togglePopover(popId, chip);
+    if(!e.target.classList.contains('chip-x')) {
+      /* find the th with matching filter id, fall back to chip itself */
+      const popToFilter = {
+        'skills-pop':       'skills',
+        'exp-pop':          'exp',
+        'stage-pop':        'stage',
+        'status-pop':       'status',
+        'curr-company-pop': 'curr-company',
+        'prev-company-pop': 'prev-company',
+        'github-score-pop': 'github-score',
+      };
+      const filterId = popToFilter[popId];
+      const th = filterId
+        ? document.querySelector(`#thead-row th[data-col-id]`)
+            && [...document.querySelectorAll('#thead-row th[data-col-id]')]
+               .find(t => { const c = COL_DEFS.find(col => col.id === t.dataset.colId); return c && c.filter === filterId; })
+        : null;
+      showPop(popId, th || chip);
+    }
   };
   chip.innerHTML = `${label} <span class="chip-x">×</span>`;
   chip.querySelector('.chip-x').onclick = e => { e.stopPropagation(); onRemove(); };
@@ -735,8 +1734,14 @@ function makeChip(label, onRemove, popId) {
 }
 
 function clearAllFilters() {
-  activeStages   = new Set(); pendingStages   = new Set();
-  activeStatuses = new Set(); pendingStatuses = new Set();
+  activeStages      = new Set(); pendingStages      = new Set();
+  activeStatuses    = new Set(); pendingStatuses    = new Set();
+  activeSkills      = new Set(); pendingSkills      = new Set();
+  activeExp         = new Set(); pendingExp         = new Set();
+  activeCurrCompany = new Set(); pendingCurrCompany = new Set();
+  activePrevCompany = new Set(); pendingPrevCompany = new Set();
+  activeGithubScore = new Set(); pendingGithubScore = new Set();
+  chipsExpanded = false;   // reset overflow expansion on full clear
   applyFilters();
 }
 
@@ -777,7 +1782,7 @@ function renderHead(){
 
     let inner=`<div class="th-inner">${col.label}`;
     if(col.sortable) inner+=`<svg class="ti" width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>`;
-    if(col.filter) inner+=`<svg class="ti ti-f" width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" onclick="event.stopPropagation();togglePopover('${col.filter}-pop',this.closest('th'))"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>`;
+    if(col.filter) inner+=`<svg class="ti ti-f" width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" onclick="event.stopPropagation();showPop('${col.filter}-pop',this.closest('th'))"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>`;
     inner+='</div>';
     th.innerHTML=inner;
     // mouse-based drag (no native HTML5 DnD API)
@@ -791,21 +1796,54 @@ function renderHead(){
 ═══════════════════════════════════════════ */
 let activeRow=-1;
 
+/* ── stage-aware next action ── */
+const CAL_ICO = `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+const CLIP_ICO= `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>`;
+const SEND_ICO= `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`;
+const EYE_ICO = `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
+const CHECK_ICO=`<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
+const USER_ICO= `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>`;
+
 function nextAction(r){
-  const s=r.status;
-  if(s==='Shortlisted')
-    return `<button class="na-btn" onclick="event.stopPropagation()"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Schedule R1</button>`;
-  if(s==='Scheduled')
-    return `<button class="na-btn" onclick="event.stopPropagation()"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Add Feedback</button>`;
-  if(s==='Rejected')
-    return `<button class="na-btn na-disabled" disabled>No Action</button>`;
+  const {stage, status} = r;
+  if(stage==='Screening'){
+    if(status==='Shortlisted') return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CAL_ICO}Schedule R1</button>`;
+    if(status==='On Hold')     return `<button class="na-btn" onclick="event.stopPropagation()">${CAL_ICO}Follow Up</button>`;
+    if(status==='Rejected')    return `<button class="na-btn na-disabled" disabled>No Action</button>`;
+    return '';
+  }
+  if(stage==='R1'){
+    if(status==='Completed'){
+      if(r.interviewType==='manual') return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CLIP_ICO}Give Feedback</button>`;
+      return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CLIP_ICO}Review Results</button>`;
+    }
+    return '';
+  }
+  if(stage==='R2'){
+    if(status==='Completed') return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CLIP_ICO}Give Feedback</button>`;
+    return '';
+  }
+  if(stage==='Assignment'){
+    if(status==='Submitted') return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${EYE_ICO}Review Submission</button>`;
+    if(status==='Reviewed')  return `<button class="na-btn na-green"  onclick="event.stopPropagation()">${CAL_ICO}Schedule Final</button>`;
+    return '';
+  }
+  if(stage==='Final'){
+    if(status==='Completed') return `<button class="na-btn na-green" onclick="event.stopPropagation()">${CHECK_ICO}Make Offer</button>`;
+    return '';
+  }
+  if(stage==='Hired'){
+    return `<button class="na-btn na-green" onclick="event.stopPropagation()">${USER_ICO}Onboard</button>`;
+  }
   return '';
 }
 
 function cellForCol(col,r){
   switch(col.id){
-    case 'name':
-      return `<div class="name-cell"><div class="n1">${r.name}</div><div class="n2">${r.role}</div><div class="pbar"><div class="pfill" style="width:${r.prog}%"></div></div></div>`;
+    case 'name':{
+      const aib = (r.stage==='R1' && r.interviewType==='ai') ? `<span class="ai-badge">AI</span>` : '';
+      return `<div class="name-cell"><div class="n1">${r.name}${aib}</div><div class="n2">${r.role}</div><div class="pbar"><div class="pfill" style="width:${r.prog}%"></div></div></div>`;
+    }
     case 'contact':
       return `<span class="em">${r.email}</span><span class="ph">${r.phone}</span>`;
     case 'portfolio':
@@ -819,9 +1857,14 @@ function cellForCol(col,r){
     case 'match':  return `<span class="match match-g">${r.match}%</span>`;
     case 'stage':  return `<span class="stage ${SCLS[r.stage]||'s-scr'}">${r.stage}</span>`;
     case 'status':
+      if(r.stage==='Screening'){
+        return r.status
+          ? `<span class="status-pill ${STCLS[r.status]||'st-prog'}" onclick="showStatusPicker(event,this)">${r.status}${CHV}</span>`
+          : `<span class="status-pill st-empty" onclick="showStatusPicker(event,this)">Set status${CHV}</span>`;
+      }
       return r.status
-        ? `<span class="status-pill ${STCLS[r.status]||'st-prog'}">${r.status}${CHV}</span>`
-        : `<span class="status-pill st-empty">${CHV}</span>`;
+        ? `<span class="status-pill ${STCLS[r.status]||'st-prog'}">${r.status}</span>`
+        : `<span class="status-pill st-empty">—</span>`;
     case 'action':       return nextAction(r);
     case 'curr_company': return r.curr_company||'—';
     case 'prev_company': return r.prev_company||'—';
@@ -845,6 +1888,7 @@ function renderTable(){
     const globalIdx=start+pi;
     const tr=document.createElement('tr');
     tr.className=globalIdx===activeRow?'row-on':'';
+    tr.dataset.ridx=globalIdx;
     tr.onclick=()=>selectRow(globalIdx);
 
     // checkbox
@@ -950,8 +1994,216 @@ function selectRow(i){
     tr.className=globalIdx===i?'row-on':'';
   });
   const r=filteredRows[i];
-  document.getElementById('rp-name').textContent=r.name;
-  document.getElementById('rp-meta').textContent=`${r.role} · ${r.exp} years`;
+
+  /* update panel content */
+  const rpName = document.getElementById('rp-name');
+  rpName.innerHTML = r.name + (r.stage==='R1' && r.interviewType==='ai' ? ' <span class="ai-badge">AI</span>' : '');
+  document.getElementById('rp-meta').textContent = `${r.role} · ${r.exp} years`;
+
+  /* update stage badge */
+  const stageBadge = document.querySelector('.rp-stage-badge');
+  if(stageBadge){ stageBadge.textContent = r.stage; }
+
+  /* update status badge */
+  const stBadge = document.querySelector('.rp-st-b');
+  if(stBadge){
+    stBadge.innerHTML = (r.status||'—') +
+      `<svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
+  }
+
+  /* dynamic stage block, feedback, and footer */
+  renderRPStageBlock(r);
+  renderRPFeedback(r);
+  renderRPFoot(r);
+
+  /* bind notes to this candidate */
+  switchNoteCandidate(i);
+
+  /* show the panel (it may have been closed) */
+  document.getElementById('rpanel').classList.remove('hidden');
+}
+
+/* ── Feedback-first progression helpers ── */
+const rpFeedbackDraft = {}; // { tech,comm,cult,prob } — live star selections per ridx
+
+function isFeedbackSubmitted(ridx){
+  const fb = fmFeedbackStore[ridx];
+  return !!(fb && (fb.tech || fb.comm || fb.cult || fb.prob));
+}
+
+function setRPFeedbackStar(ridx, cat, val){
+  if(!rpFeedbackDraft[ridx]) rpFeedbackDraft[ridx] = {};
+  rpFeedbackDraft[ridx][cat] = val;
+  /* update stars in place without full re-render */
+  const container = document.getElementById(`rp-stars-${ridx}-${cat}`);
+  if(container){
+    container.querySelectorAll('svg').forEach((svg, i) => {
+      const on = i + 1 <= val;
+      svg.setAttribute('fill', on ? '#f59e0b' : 'none');
+      svg.setAttribute('stroke', on ? '#f59e0b' : '#d1d5db');
+    });
+  }
+  /* enable submit button once at least one star is set */
+  const btn = document.getElementById(`rp-fb-submit-${ridx}`);
+  if(btn) btn.disabled = false;
+}
+
+function submitRPFeedback(ridx){
+  const draft = rpFeedbackDraft[ridx] || {};
+  const text  = document.getElementById(`rp-fb-text-${ridx}`)?.value || '';
+  fmFeedbackStore[ridx] = { tech:draft.tech||0, comm:draft.comm||0, cult:draft.cult||0, prob:draft.prob||0, text };
+  const r = filteredRows[ridx];
+  renderRPFeedback(r);
+  renderRPFoot(r);
+}
+
+function switchTabByName(name){
+  const el = document.querySelector(`.rtab[onclick*="'${name}'"]`);
+  if(el) switchTab(el, name);
+}
+
+function setInterviewType(ridx, type){
+  const r = filteredRows[ridx];
+  if(!r || r.stage !== 'R1') return;  /* AI only valid for R1 */
+  r.interviewType = type;
+  /* update table name cell for this row */
+  const tr = document.querySelector(`#tbody tr[data-ridx="${ridx}"]`);
+  if(tr){
+    const td = tr.querySelector('td');
+    if(td) td.innerHTML = cellForCol(COL_DEFS.find(c=>c.id==='name'), r);
+  }
+  /* re-render panel */
+  renderRPStageBlock(r);
+  renderRPFoot(r);
+  /* update rp-name badge */
+  const rpName = document.getElementById('rp-name');
+  if(rpName) rpName.innerHTML = r.name + (r.stage==='R1' && r.interviewType==='ai' ? ' <span class="ai-badge">AI</span>' : '');
+}
+
+function renderRPStageBlock(r){
+  const el = document.getElementById('rp-stage-block');
+  if(!el) return;
+  const {stage, status, interviewType} = r;
+  const ridx = filteredRows.indexOf(r);
+
+  const ICO_USER = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+  const ICO_CAL  = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+  const ICO_CLK  = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+  const ICO_EDIT = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color:var(--t3);cursor:pointer"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+  const ICO_BOT  = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="13" r="1.5" fill="currentColor" stroke="none"/></svg>`;
+
+  if(stage === 'R1' || stage === 'R2'){
+    let html = '';
+
+    if(stage === 'R1' && interviewType === 'ai'){
+      const stLabel = status === 'Completed' ? 'Interview complete' : 'Pending candidate response';
+      html = `
+        <div class="rp-card">
+          <div class="rp-card-title" style="display:flex;align-items:center;gap:6px">Interview Details <span class="ai-badge">AI</span></div>
+          <div class="rp-card-row">${ICO_BOT}<span class="rp-card-lbl">Method</span><span class="rp-card-val" style="color:#7c3aed">AI Automated</span></div>
+          <div class="rp-card-row">${ICO_CLK}<span class="rp-card-lbl">Status</span><span class="rp-card-val">${stLabel}</span></div>
+        </div>`;
+    } else {
+      const ivrName = r.interviewer || 'Sarah K.';
+      html = `
+        <div class="rp-card">
+          <div class="rp-card-title">Interview Details</div>
+          <div class="rp-card-row">${ICO_USER}<span class="rp-card-lbl">Interviewer</span><span class="rp-card-val">${ivrName}</span></div>
+          <div class="rp-card-row">${ICO_CAL}<span class="rp-card-lbl">Date</span><span class="rp-card-val">${r.interview_date}</span></div>
+          <div class="rp-card-row">${ICO_CLK}<span class="rp-card-lbl">Time</span><span class="rp-card-val">${r.interview_time}</span></div>
+        </div>`;
+    }
+
+    el.innerHTML = html;
+  } else {
+    el.innerHTML = '';
+  }
+}
+
+function renderRPFoot(r){
+  const foot = document.getElementById('rp-foot');
+  if(!foot) return;
+  const {stage, status, interviewType} = r;
+
+  const ICO_CAL   = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+  const ICO_CLIP  = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>`;
+  const ICO_BOT   = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><line x1="12" y1="12" x2="12" y2="16"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>`;
+  const ICO_REJ   = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
+  const ICO_HOLD  = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg>`;
+  const ICO_CHECK = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+  const ridx   = filteredRows.indexOf(r);
+  const fbDone = isFeedbackSubmitted(ridx);
+  const ICO_ARR  = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
+  const ICO_TASK = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>`;
+
+  let html = `<div class="fp-label">Actions</div>`;
+
+  if(stage === 'Screening'){
+    if(status === 'Shortlisted'){
+      html += `<button class="fp-cta" onclick="openSchedModal(${ridx})">${ICO_CAL}Schedule R1 Interview</button>`;
+    } else if(status === 'Rejected'){
+      html += `<button class="fp-cta" disabled style="opacity:.45;cursor:not-allowed">${ICO_CAL}Rejected</button>`;
+    } else {
+      html += `<button class="fp-cta">${ICO_CAL}Move to Shortlist</button>`;
+    }
+    html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+
+  } else if(stage === 'R1'){
+    if(status === 'In Progress'){
+      /* interview not done — no progression, just Reject/Hold */
+      html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+    } else {
+      if(interviewType === 'ai'){
+        html += `<button class="fp-cta fp-cta-purple" onclick="switchTabByName('feedback')">${ICO_BOT}Review AI Results</button>`;
+        html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+      } else if(fbDone){
+        html += `<button class="fp-cta">${ICO_ARR}Move to R2</button>`;
+        html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+      } else {
+        html += `<button class="fp-cta fp-cta-green" onclick="switchTabByName('feedback')">${ICO_CLIP}Give Feedback</button>`;
+        html += `<div style="font-size:10.5px;color:var(--t3);text-align:center;margin-bottom:4px">Submit feedback to unlock progression</div>`;
+        html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+      }
+    }
+
+  } else if(stage === 'R2'){
+    if(status === 'In Progress'){
+      html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+    } else {
+      if(fbDone){
+        html += `<button class="fp-cta">${ICO_TASK}Assign Task</button>`;
+        html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+      } else {
+        html += `<button class="fp-cta fp-cta-green" onclick="switchTabByName('feedback')">${ICO_CLIP}Give Feedback</button>`;
+        html += `<div style="font-size:10.5px;color:var(--t3);text-align:center;margin-bottom:4px">Submit feedback to unlock progression</div>`;
+        html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+      }
+    }
+
+  } else if(stage === 'Final'){
+    if(status === 'In Progress'){
+      html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+    } else {
+      if(fbDone){
+        html += `<button class="fp-cta fp-cta-green">${ICO_CHECK}Make Offer</button>`;
+      } else {
+        html += `<button class="fp-cta fp-cta-green" onclick="switchTabByName('feedback')">${ICO_CLIP}Give Feedback</button>`;
+        html += `<div style="font-size:10.5px;color:var(--t3);text-align:center;margin-bottom:4px">Submit feedback to unlock offer</div>`;
+      }
+    }
+
+  } else if(stage === 'Assignment'){
+    if(status === 'Submitted'){
+      html += `<button class="fp-cta">${ICO_CLIP}Review Submission</button>`;
+    } else if(status === 'Reviewed'){
+      html += `<button class="fp-cta fp-cta-green">${ICO_CAL}Schedule Final</button>`;
+    }
+  } else if(stage === 'Hired'){
+    html += `<button class="fp-cta fp-cta-green">${ICO_CHECK}Begin Onboarding</button>`;
+  }
+
+  foot.innerHTML = html;
 }
 
 function toggleAll(cb){
@@ -1263,22 +2515,40 @@ function setSourceCellsOpacity(ci, val){
 
 /* ═══════════════════════════════════════════
    POPOVERS
+   — no backdrop div; outside-click handled by
+     document mousedown listener below
 ═══════════════════════════════════════════ */
-let openPop=null;
+let openPop    = null;  // id of currently open popover
+let openTrigger = null; // the DOM element that opened it
 
-function togglePopover(id, trigger){
+function showPop(id, trigger){
+  /* clicking the same trigger again → close */
   if(openPop === id){ closeAllPopovers(); return; }
   closeAllPopovers();
 
   /* populate popover bodies from current state */
   if(id === 'stage-pop'){
-    pendingStages = new Set(activeStages);   // copy active → pending
+    pendingStages   = new Set(activeStages);
     buildFilterPop('stage');
   } else if(id === 'status-pop'){
     pendingStatuses = new Set(activeStatuses);
     buildFilterPop('status');
+  } else if(id === 'skills-pop'){
+    pendingSkills      = new Set(activeSkills);
+    buildFilterPop('skills');
+  } else if(id === 'exp-pop'){
+    pendingExp         = new Set(activeExp);
+    buildFilterPop('exp');
+  } else if(id === 'curr-company-pop'){
+    pendingCurrCompany = new Set(activeCurrCompany);
+    buildFilterPop('curr-company');
+  } else if(id === 'prev-company-pop'){
+    pendingPrevCompany = new Set(activePrevCompany);
+    buildFilterPop('prev-company');
+  } else if(id === 'github-score-pop'){
+    pendingGithubScore = new Set(activeGithubScore);
+    buildFilterPop('github-score');
   } else if(id === 'col-pop'){
-    // snapshot current state so Cancel can revert
     colSnapshot = {
       order:   [...colOrder],
       visible: COL_DEFS.map(c => c.visible),
@@ -1288,28 +2558,75 @@ function togglePopover(id, trigger){
 
   const pop  = document.getElementById(id);
   const rect = trigger.getBoundingClientRect();
-  const pw   = id === 'col-pop' ? 280 : 264;
+  const pw   = id === 'col-pop' ? 280 : id === 'add-menu-pop' ? 210 : 264;
 
-  /* col-pop: right-align to button; filters: left-align to trigger */
-  let left = id === 'col-pop' ? rect.right - pw : rect.left;
-  let top  = rect.bottom + 6;
+  /* col-pop / add-menu: right-align to trigger; filters: left-align */
+  let left = (id === 'col-pop' || id === 'add-menu-pop') ? rect.right - pw : rect.left;
 
-  /* clamp to viewport */
+  /* clamp horizontally */
   if(left + pw > window.innerWidth - 8) left = window.innerWidth - pw - 8;
   if(left < 8) left = 8;
 
+  /* ── vertical positioning ──
+     Render off-screen first to measure real height, then place correctly */
+  pop.style.visibility = 'hidden';
   pop.style.left = left + 'px';
-  pop.style.top  = top  + 'px';
+  pop.style.top  = '-9999px';
   pop.classList.add('open');
-  document.getElementById('backdrop').classList.add('on');
+
+  /* constrain col-pop body so it never overflows viewport */
+  if(id === 'col-pop'){
+    const body = pop.querySelector('.pop-body');
+    const spaceBelow = window.innerHeight - rect.bottom - 8;
+    const headFoot = 90; // pop-head + pop-foot height
+    const maxBH = Math.max(120, spaceBelow - headFoot);
+    if(body) body.style.maxHeight = maxBH + 'px';
+  }
+
+  const ph  = pop.offsetHeight;
+  const gap = 8;
+  let top   = rect.bottom + gap;
+
+  /* flip above if it doesn't fit below */
+  if(top + ph > window.innerHeight - 8){
+    const topAbove = rect.top - ph - gap;
+    top = topAbove >= 8 ? topAbove : Math.max(8, window.innerHeight - ph - 8);
+  }
+
+  pop.style.top        = top + 'px';
+  pop.style.visibility = '';
+
+  /* highlight trigger button */
+  openTrigger = trigger;
+  trigger.classList.add('pop-active');
+
   openPop = id;
 }
 
 function closeAllPopovers(){
   document.querySelectorAll('.popover').forEach(p => p.classList.remove('open'));
-  document.getElementById('backdrop').classList.remove('on');
+  if(openTrigger) { openTrigger.classList.remove('pop-active'); openTrigger = null; }
   openPop = null;
 }
+
+/* ── outside-click: close when mousedown lands outside any open popover ── */
+document.addEventListener('mousedown', e => {
+  if(!openPop) return;
+  const pop = document.getElementById(openPop);
+  /* click inside the popover itself → keep open */
+  if(pop && pop.contains(e.target)) return;
+  /* click on the trigger button → showPop will handle it; don't double-close */
+  if(openTrigger && openTrigger.contains(e.target)) return;
+  closeAllPopovers();
+});
+
+/* ── Escape key closes any open popover ── */
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && openPop){
+    if(openPop === 'col-pop') cancelColPopover();
+    else closeAllPopovers();
+  }
+});
 
 /* ═══════════════════════════════════════════
    SIDEBAR
@@ -1325,6 +2642,188 @@ function setNav(el){
 }
 
 /* ═══════════════════════════════════════════
+   FEEDBACK TAB – dynamic render
+═══════════════════════════════════════════ */
+function renderRPFeedback(r){
+  const el = document.getElementById('rp-feedback-body');
+  if(!el) return;
+  const {stage, status, interviewType} = r;
+  const ridx = filteredRows.indexOf(r);
+
+  /* ── helpers ── */
+  const ICO_MSG  = `<svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="display:block;margin:0 auto 8px;opacity:.3"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>`;
+  const ICO_CLK  = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="flex-shrink:0;opacity:.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+  const ICO_BOT  = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="13" r="1.5" fill="currentColor" stroke="none"/></svg>`;
+  const ICO_EDIT = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="flex-shrink:0;opacity:.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+
+  const emptyState = (title, sub='') => `
+    <div class="fb-empty">${ICO_MSG}
+      <div class="fb-empty-title">${title}</div>
+      ${sub?`<div class="fb-empty-sub">${sub}</div>`:''}
+    </div>`;
+
+  const pendingBanner = (msg) => `
+    <div class="fb-pending">${ICO_CLK}<span>${msg}</span></div>`;
+
+  const starsHTML = (n, max=5) => {
+    let s = '<div class="fb-stars">';
+    for(let i=1;i<=max;i++) s += `<svg class="fb-star${i<=n?'':'-empty'}" viewBox="0 0 24 24" fill="${i<=n?'currentColor':'none'}" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    return s + '</div>';
+  };
+
+  const metricBar = (label, pct, color='var(--accent)') => `
+    <div class="fb-metric">
+      <span class="fb-metric-lbl">${label}</span>
+      <div class="fb-metric-bar"><div class="fb-metric-fill" style="width:${pct}%;background:${color}"></div></div>
+      <span class="fb-metric-num">${Math.round(pct)}%</span>
+    </div>`;
+
+  /* deterministic mock scores from candidate data */
+  const score    = (r.github_score || 70);
+  const techPct  = Math.min(98, score + 2);
+  const commPct  = 55 + (r.exp % 5) * 8;
+  const cultPct  = 60 + (r.exp % 4) * 9;
+  const probPct  = 50 + (r.exp % 6) * 7;
+  const overall  = Math.round((techPct + commPct + cultPct + probPct) / 4);
+  const r1Rating = 6 + (r.exp % 4);
+  const r2Rating = 5 + ((r.exp + 2) % 5);
+
+  const PROS  = [['Strong communicator','Fast learner','Good culture fit'],['Deep technical knowledge','Collaborative mindset','Well-prepared'],['Clear problem-solving','Excellent code quality','Asks good questions'],['Adaptable','Team player','Broad skill set']];
+  const CONS  = [['Needs more system design experience','Slightly slow on edge cases'],['Limited leadership experience','Could improve code documentation'],['Less experienced with scaling','New to distributed systems'],['Room to grow in architecture','Rushed through final problem']];
+  const TEXTS = ['Impressed by their approach to complex problems. Recommend advancing.','Solid candidate overall — technical fundamentals are strong. Proceed to next round.','Great cultural fit, good communication. Minor gaps in advanced topics, but trainable.','Strong performer with clear potential. Some areas to develop but good baseline.'];
+
+  const r1SummaryCard = () => `
+    <div class="rp-card">
+      <div class="rp-card-title" style="margin-bottom:10px">Round 1 Feedback ${ICO_EDIT}</div>
+      <div style="font-size:11.5px;color:var(--t2);line-height:1.55;margin-bottom:10px">${TEXTS[r.exp%4]}</div>
+      ${metricBar('Technical',techPct)}
+      ${metricBar('Communication',commPct,'#10b981')}
+      ${metricBar('Culture Fit',cultPct,'#f59e0b')}
+      <div class="rp-rating-row" style="margin-top:8px">
+        <div class="rp-rating-bar"><div class="rp-rating-fill" style="width:${r1Rating*10}%"></div></div>
+        <span class="rp-rating-num">${r1Rating} / 10</span>
+      </div>
+      <div class="fb-tag-row" style="margin-top:8px">
+        ${PROS[r.exp%4].map(p=>`<span class="fb-tag-pos">+ ${p}</span>`).join('')}
+        ${CONS[r.exp%4].map(c=>`<span class="fb-tag-neg">− ${c}</span>`).join('')}
+      </div>
+    </div>`;
+
+  const r2SummaryCard = () => `
+    <div class="rp-card">
+      <div class="rp-card-title" style="margin-bottom:10px">Round 2 Feedback ${ICO_EDIT}</div>
+      <div style="font-size:11.5px;color:var(--t2);line-height:1.55;margin-bottom:10px">${TEXTS[(r.exp+1)%4]}</div>
+      ${metricBar('Technical',techPct-5)}
+      ${metricBar('Problem Solving',probPct,'#8b5cf6')}
+      <div class="rp-rating-row" style="margin-top:8px">
+        <div class="rp-rating-bar"><div class="rp-rating-fill" style="width:${r2Rating*10}%"></div></div>
+        <span class="rp-rating-num">${r2Rating} / 10</span>
+      </div>
+    </div>`;
+
+  const aiResultCard = () => `
+    <div class="rp-card">
+      <div class="rp-card-title" style="margin-bottom:10px">${ICO_BOT} AI Interview Results</div>
+      <div class="fb-score-row">
+        <div class="fb-score-ring" style="--pct:${overall}">
+          <span class="fb-score-val">${overall}</span>
+        </div>
+        <div class="fb-score-meta">
+          <div class="fb-score-label">Overall Score</div>
+          <div class="fb-score-sub">Based on AI analysis of ${r.name.split(' ')[0]}'s responses</div>
+        </div>
+      </div>
+      ${metricBar('Technical Depth', techPct)}
+      ${metricBar('Communication',   commPct, '#10b981')}
+      ${metricBar('Culture Fit',     cultPct, '#f59e0b')}
+      ${metricBar('Problem Solving', probPct, '#8b5cf6')}
+      <div class="fb-tag-row" style="margin-top:8px">
+        ${PROS[r.exp%4].map(p=>`<span class="fb-tag-pos">+ ${p}</span>`).join('')}
+        ${CONS[r.exp%4].slice(0,1).map(c=>`<span class="fb-tag-neg">− ${c}</span>`).join('')}
+      </div>
+    </div>`;
+
+  const starInput = (cat, label) => {
+    const val = (rpFeedbackDraft[ridx]||{})[cat] || 0;
+    let stars = '';
+    for(let i=1;i<=5;i++){
+      const on = i<=val;
+      stars += `<svg onclick="setRPFeedbackStar(${ridx},'${cat}',${i})" width="15" height="15" viewBox="0 0 24 24" fill="${on?'#f59e0b':'none'}" stroke="${on?'#f59e0b':'#d1d5db'}" stroke-width="1.5" style="cursor:pointer"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    }
+    return `<div class="fb-form-row"><span class="fb-form-lbl">${label}</span><div class="fb-star-row" id="rp-stars-${ridx}-${cat}">${stars}</div></div>`;
+  };
+
+  const manualFeedbackCard = (round='R1') => {
+    const saved = fmFeedbackStore[ridx];
+    if(saved && (saved.tech||saved.comm||saved.cult||saved.prob)){
+      return `
+        <div class="rp-card">
+          <div class="rp-card-title" style="margin-bottom:6px">${round} Interviewer Feedback</div>
+          <div class="fb-submitted-tag">✓ Submitted</div>
+          <div class="fb-metric"><span class="fb-metric-lbl">Technical</span>${starsHTML(saved.tech||0)}</div>
+          <div class="fb-metric"><span class="fb-metric-lbl">Communication</span>${starsHTML(saved.comm||0)}</div>
+          <div class="fb-metric"><span class="fb-metric-lbl">Culture Fit</span>${starsHTML(saved.cult||0)}</div>
+          <div class="fb-metric"><span class="fb-metric-lbl">Problem Solving</span>${starsHTML(saved.prob||0)}</div>
+          ${saved.text ? `<div style="font-size:11.5px;color:var(--t2);margin-top:8px;padding-top:8px;border-top:1px solid var(--border-light);line-height:1.55">${saved.text}</div>` : ''}
+        </div>`;
+    }
+    const hasDraft = rpFeedbackDraft[ridx] && Object.values(rpFeedbackDraft[ridx]).some(v=>v>0);
+    return `
+      <div class="rp-card">
+        <div class="rp-card-title" style="margin-bottom:10px">${round} Interviewer Feedback</div>
+        ${starInput('tech','Technical')}
+        ${starInput('comm','Communication')}
+        ${starInput('cult','Culture Fit')}
+        ${starInput('prob','Problem Solving')}
+        <textarea id="rp-fb-text-${ridx}" class="fb-textarea" rows="3" placeholder="Add feedback notes…"></textarea>
+        <button id="rp-fb-submit-${ridx}" class="fb-submit" onclick="submitRPFeedback(${ridx})" ${hasDraft?'':'disabled'}>Submit Feedback</button>
+      </div>`;
+  };
+
+  /* ── render by stage ── */
+  let html = '';
+
+  if(stage === 'Screening'){
+    html = emptyState('No interview feedback yet','Move to R1 to begin the interview process.');
+  } else if(stage === 'R1'){
+    if(status === 'In Progress'){
+      if(interviewType === 'ai'){
+        html = pendingBanner('AI interview in progress — results will appear here once complete.') + emptyState('Awaiting AI Results','The AI system is processing the interview.');
+      } else {
+        html = pendingBanner('Interview scheduled — feedback can be added after completion.') + emptyState('Awaiting Feedback','Submit feedback after the interview is done.');
+      }
+    } else {
+      html = (interviewType === 'ai') ? aiResultCard() : manualFeedbackCard('R1');
+    }
+  } else if(stage === 'R2'){
+    html = r1SummaryCard();
+    html += (status === 'In Progress')
+      ? pendingBanner('R2 interview in progress — feedback will appear after completion.')
+      : manualFeedbackCard('R2');
+  } else if(stage === 'Final'){
+    html = r1SummaryCard() + r2SummaryCard();
+    html += (status === 'In Progress')
+      ? pendingBanner('Final interview in progress.')
+      : manualFeedbackCard('Final');
+  } else if(stage === 'Assignment'){
+    html = r1SummaryCard() + r2SummaryCard();
+    if(status === 'Submitted' || status === 'Reviewed'){
+      html += `<div class="fb-pending">${ICO_EDIT}<span>Assignment ${status.toLowerCase()} — review in the assignment tab.</span></div>`;
+    }
+  } else if(stage === 'Hired'){
+    html = r1SummaryCard() + r2SummaryCard() + `
+      <div class="rp-card" style="border-color:#86efac;background:#f0fdf4">
+        <div class="rp-card-title" style="color:var(--green);margin-bottom:4px">✓ Hired</div>
+        <div style="font-size:11.5px;color:var(--t2)">Candidate completed all rounds and was successfully hired.</div>
+      </div>`;
+  } else {
+    html = emptyState('No feedback available');
+  }
+
+  el.innerHTML = html;
+}
+
+/* ═══════════════════════════════════════════
    TABS / PANEL
 ═══════════════════════════════════════════ */
 function switchTab(el,tab){
@@ -1334,26 +2833,978 @@ function switchTab(el,tab){
     const d=document.getElementById('tab-'+t);
     if(d) d.style.display=t===tab?'':'none';
   });
+  if(tab === 'feedback' && activeRow >= 0) renderRPFeedback(filteredRows[activeRow]);
 }
 function closePanel(){
   document.getElementById('rpanel').classList.add('hidden');
+  activeRow = -1;
+  document.querySelectorAll('#tbody tr').forEach(tr => tr.classList.remove('row-on'));
 }
 
 /* ═══════════════════════════════════════════
    FOCUS MODE
 ═══════════════════════════════════════════ */
-let focusOn=false;
+let focusIdx = -1;         // current candidate index inside filteredRows
+let fmTab    = 'overview'; // active left-panel tab
+const fmFeedbackStore = {}; // per-candidate { tech,comm,cult,prob,text }
+const fmStars         = {}; // live star state while modal open
+
+/* open Focus Mode for the given filteredRows index (default 0) */
 function toggleFocus(){
-  focusOn=!focusOn;
-  const btn=document.getElementById('focus-btn');
-  const panel=document.getElementById('rpanel');
-  if(focusOn){
-    panel.style.width='360px';panel.style.minWidth='360px';
-    btn.innerHTML=`<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg> Exit Focus`;
-  } else {
-    panel.style.width='';panel.style.minWidth='';
-    btn.innerHTML=`<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M3 9V5a2 2 0 012-2h4M3 15v4a2 2 0 002 2h4M15 3h4a2 2 0 012 2v4M15 21h4a2 2 0 002-2v-4"/></svg> Focus Mode`;
+  const startIdx = (focusIdx >= 0 && focusIdx < filteredRows.length) ? focusIdx : 0;
+  openFocus(startIdx);
+}
+
+function openFocus(idx){
+  focusIdx = Math.max(0, Math.min(idx, filteredRows.length - 1));
+  fmTab = 'overview';
+  renderFocusModal();
+  document.getElementById('focus-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFocus(){
+  document.getElementById('focus-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function onFmOverlayClick(e){
+  if(e.target === document.getElementById('focus-modal')) closeFocus();
+}
+
+/* keyboard navigation */
+document.addEventListener('keydown', e => {
+  const modal = document.getElementById('focus-modal');
+  if(!modal.classList.contains('open')) return;
+  if(e.key === 'Escape')      { closeFocus(); }
+  else if(e.key === 'ArrowRight' || e.key === 'ArrowDown')  { if(!['INPUT','TEXTAREA'].includes(e.target.tagName)) focusNav(1);  }
+  else if(e.key === 'ArrowLeft'  || e.key === 'ArrowUp')    { if(!['INPUT','TEXTAREA'].includes(e.target.tagName)) focusNav(-1); }
+});
+
+function focusNav(dir){
+  const next = focusIdx + dir;
+  if(next < 0 || next >= filteredRows.length) return;
+  focusIdx = next;
+  renderFocusModal();
+}
+
+/* ── at-a-glance badge strip ── */
+function renderGlance(r, el){
+  if(!el) return;
+  const matchBg = r.match >= 85 ? 'background:var(--green-bg);color:var(--green)' : 'background:var(--amber-bg);color:var(--amber)';
+  const statusPill = r.status
+    ? `<span class="status-pill ${STCLS[r.status]||'st-prog'}" style="font-size:11px;cursor:default">${r.status}</span>` : '';
+  el.innerHTML =
+    `<span style="display:inline-flex;align-items:center;gap:3px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;${matchBg}">⬥ ${r.match}% Match</span>` +
+    `<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;background:var(--bg);border:1px solid var(--border);color:var(--t2)">
+       <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+       GitHub ${r.github_score ?? '—'}
+     </span>` +
+    statusPill;
+}
+
+/* ── render all fields for current focusIdx ── */
+function renderFocusModal(){
+  const r = filteredRows[focusIdx];
+  if(!r) return;
+  const total    = filteredRows.length;
+  const initials = ini(r.name);
+  const stageKey = r.stage || '';
+  const stageCls = SCLS[stageKey] || '';
+
+  /* header – name · role · stage (no avatar) */
+  const fmHName = document.getElementById('fm-h-name');
+  fmHName.innerHTML = r.name + (r.stage==='R1' && r.interviewType==='ai' ? ' <span class="ai-badge" style="font-size:9.5px;vertical-align:middle">AI</span>' : '');
+  document.getElementById('fm-h-role').textContent = r.role;
+  const hStage = document.getElementById('fm-h-stage');
+  hStage.textContent = stageKey;
+  hStage.className   = 'fm-h-stage ' + stageCls;
+
+  /* at-a-glance strip */
+  renderGlance(r, document.getElementById('fm-glance'));
+
+  /* ── Contact ── */
+  const emailEl = document.getElementById('fm-email');
+  emailEl.textContent = r.email;
+  emailEl.href = 'mailto:' + r.email;
+  document.getElementById('fm-phone').textContent    = r.phone;
+  document.getElementById('fm-location').textContent = r.location || 'Austin, TX, United States';
+
+  /* ── Portfolio ── */
+  const website = 'https://' + r.name.toLowerCase().replace(' ', '.') + '.design';
+  const websiteEl = document.getElementById('fm-website');
+  websiteEl.textContent = website;
+  websiteEl.href = '#';
+  const githubEl = document.getElementById('fm-github');
+  githubEl.textContent = 'github.com/' + r.name.toLowerCase().replace(' ', '');
+  githubEl.href = '#';
+
+  /* ── Education ── */
+  document.getElementById('fm-college').textContent   = r.college   || '—';
+  document.getElementById('fm-grad-year').textContent = r.grad_year || '—';
+
+  /* ── Candidate Info (form responses) ── */
+  document.getElementById('fm-role-pref').textContent  = r.role_pref       || '—';
+  document.getElementById('fm-internship').textContent = r.internship       || '—';
+  document.getElementById('fm-top-skills').textContent = r.top_skills_form  || '—';
+
+  /* navigation buttons */
+  document.getElementById('fm-prev').disabled = focusIdx === 0;
+  document.getElementById('fm-next').disabled = focusIdx === total - 1;
+  document.getElementById('fm-counter').textContent = `${focusIdx + 1} of ${total} candidates`;
+
+  /* resume label */
+  document.getElementById('fm-resume-label').textContent = r.name + ' – Resume';
+
+  /* render resume document */
+  renderFocusResume(r);
+
+  /* dynamic footer based on stage */
+  renderFmFooter(r);
+
+  /* switch to remembered tab */
+  switchFmTab(fmTab);
+
+  /* notes */
+  renderFmNotes(focusIdx);
+  const fmNoteInput = document.getElementById('fm-note-input');
+  if(fmNoteInput){ fmNoteInput.value = ''; onFmNoteInput(); }
+
+  /* feedback */
+  renderFmFeedback(focusIdx);
+
+  /* action note */
+  document.getElementById('fm-act-note').textContent = r.status ? `Current: ${r.status}` : '';
+}
+
+/* ── generate a realistic resume document ── */
+function renderFocusResume(r){
+  const doc    = document.getElementById('fm-doc');
+  const loc    = 'New York, NY';
+  const school = ['MIT','Stanford University','UC Berkeley','Carnegie Mellon','Georgia Tech','University of Michigan','UT Austin'][r.exp % 7];
+  const deg    = ['Bachelor of Science','Bachelor of Engineering','Master of Science'][r.exp % 3];
+  const major  = ['Computer Science','Software Engineering','Electrical Engineering','Information Systems'][r.exp % 4];
+  const gradYr = 2026 - r.exp - 4;
+
+  const prevRoles   = ['Senior Engineer','Software Engineer II','Engineer','Associate Engineer'];
+  const bulletSets  = [
+    ['Led architecture of a distributed system serving 2M+ requests/day, reducing p99 latency by 40%.',
+     'Mentored 3 junior engineers; established code-review standards adopted across 4 teams.',
+     'Reduced CI/CD pipeline time by 35% through parallelisation and caching strategies.'],
+    ['Built microservices in ' + (r.skills[0]||'Python') + ' handling 500K+ daily transactions.',
+     'Improved test coverage from 42% to 87% by introducing TDD practices.',
+     'Integrated third-party APIs reducing manual ops workload by 60%.'],
+    ['Collaborated with product & design to ship 12 features in two quarters.',
+     'Optimised database queries resulting in 3× faster page loads.',
+     'On-call rotation: resolved 95% of P1 incidents within SLA.'],
+  ];
+
+  const currBullets = bulletSets[r.exp % 3];
+  const prevBullets = bulletSets[(r.exp + 1) % 3];
+  const startYr     = new Date().getFullYear() - Math.min(r.exp, 4);
+  const prevEndYr   = startYr;
+  const prevStartYr = prevEndYr - Math.max(1, r.exp - 4);
+
+  doc.innerHTML = `
+    <div class="fm-doc-name">${r.name}</div>
+    <div class="fm-doc-contact">
+      ${loc} &nbsp;|&nbsp; ${r.phone} &nbsp;|&nbsp; ${r.email}
+    </div>
+
+    <div class="fm-doc-section">
+      <div class="fm-doc-sh">Education</div>
+      <div class="fm-doc-job">
+        <div class="fm-doc-jh">
+          <span class="fm-doc-jco">${school}</span>
+          <span class="fm-doc-jloc">${loc}</span>
+        </div>
+        <div class="fm-doc-jh" style="margin-top:2px">
+          <span class="fm-doc-jtitle">${deg} in ${major}</span>
+          <span class="fm-doc-jdate">Expected May ${gradYr}</span>
+        </div>
+        <div style="font-size:11.5px;margin-top:4px;color:#555">Cumulative GPA: 3.8/4.0 &nbsp;·&nbsp; Dean's List ${gradYr - 1}–${gradYr}</div>
+      </div>
+    </div>
+
+    <div class="fm-doc-section">
+      <div class="fm-doc-sh">Work Experience</div>
+      <div class="fm-doc-job">
+        <div class="fm-doc-jh">
+          <span class="fm-doc-jco">${r.curr_company || 'Company'}</span>
+          <span class="fm-doc-jloc">${loc}</span>
+        </div>
+        <div class="fm-doc-jh" style="margin-top:2px">
+          <span class="fm-doc-jtitle">${r.role}</span>
+          <span class="fm-doc-jdate">${startYr} – Present</span>
+        </div>
+        <ul class="fm-doc-ul">
+          ${currBullets.map(b => `<li>${b}</li>`).join('')}
+        </ul>
+      </div>
+      ${r.exp > 1 ? `
+      <div class="fm-doc-job">
+        <div class="fm-doc-jh">
+          <span class="fm-doc-jco">${r.prev_company || 'Previous Co.'}</span>
+          <span class="fm-doc-jloc">${loc}</span>
+        </div>
+        <div class="fm-doc-jh" style="margin-top:2px">
+          <span class="fm-doc-jtitle">${prevRoles[r.exp % prevRoles.length]}</span>
+          <span class="fm-doc-jdate">${prevStartYr} – ${prevEndYr}</span>
+        </div>
+        <ul class="fm-doc-ul">
+          ${prevBullets.map(b => `<li>${b}</li>`).join('')}
+        </ul>
+      </div>` : ''}
+    </div>
+
+    <div class="fm-doc-section">
+      <div class="fm-doc-sh">Skills</div>
+      <div class="fm-doc-skills">
+        ${r.skills.map(s => `<span>${s}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="fm-doc-section">
+      <div class="fm-doc-sh">Projects</div>
+      <div class="fm-doc-job">
+        <div class="fm-doc-jh"><span class="fm-doc-jco">Open Source Contributions</span></div>
+        <ul class="fm-doc-ul">
+          <li>Contributed to ${r.skills[0]} ecosystem — 240+ GitHub stars on personal projects.</li>
+          <li>Published npm/PyPI package with 1,200+ weekly downloads.</li>
+        </ul>
+      </div>
+    </div>
+  `;
+}
+
+/* ── tab switching ── */
+function switchFmTab(tab){
+  fmTab = tab;
+  ['overview','notes','feedback'].forEach(t => {
+    document.getElementById('fmtb-' + t).style.display = t === tab ? '' : 'none';
+    document.getElementById('fmt-'  + t).classList.toggle('active', t === tab);
+  });
+}
+
+/* ── actions: receives a status string directly ── */
+function focusAction(status){
+  if(focusIdx < 0 || focusIdx >= filteredRows.length) return;
+  const r = filteredRows[focusIdx];
+  r.status = status;
+
+  /* flash note */
+  renderFmFooter(r); /* re-render footer first so #fm-act-note exists */
+  const note = document.getElementById('fm-act-note');
+  if(note){
+    const COLOR = {
+      'Shortlisted':'var(--green)','Completed':'var(--accent)','Reviewed':'var(--purple)',
+      'Rejected':'var(--red)','On Hold':'var(--amber)','Hired':'var(--green)',
+    };
+    note.textContent = `Set to: ${status}`;
+    note.style.color = COLOR[status] || 'var(--t2)';
+    setTimeout(()=>{ if(note) note.style.color=''; }, 1800);
   }
+
+  /* sync glance badges + table */
+  const glanceEl = document.getElementById('fm-glance');
+  if(glanceEl) renderGlance(r, glanceEl);
+  renderTable();
+  updateStats();
+
+  /* auto-advance on decisive actions */
+  const advance = ['Shortlisted','Rejected','Completed','Reviewed'];
+  if(advance.includes(status) && focusIdx < filteredRows.length - 1){
+    setTimeout(() => focusNav(1), 380);
+  }
+}
+
+/* ── Focus Mode notes (mirrors main notes, same notesStore) ── */
+function onFmNoteInput(){
+  const v = (document.getElementById('fm-note-input').value || '').trim();
+  document.getElementById('fm-note-submit').disabled = !v;
+}
+function onFmNoteKey(e){
+  if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); submitFmNote(); }
+}
+function submitFmNote(){
+  const text = (document.getElementById('fm-note-input').value || '').trim();
+  if(!text) return;
+  const key = focusIdx;
+  if(!notesStore[key]) notesStore[key] = [];
+  notesStore[key].unshift({ id:Date.now(), author:NOTE_AUTHOR, initials:NOTE_INITIALS, ts:new Date(), text });
+  document.getElementById('fm-note-input').value = '';
+  onFmNoteInput();
+  renderFmNotes(key);
+  /* sync right panel notes if same candidate */
+  if(currentNoteCandidate === key) renderNotes(key);
+}
+function renderFmNotes(key){
+  const list  = document.getElementById('fm-note-list');
+  const empty = document.getElementById('fm-note-empty');
+  const notes = notesStore[key] || [];
+  list.innerHTML = '';
+  if(!notes.length){ empty.style.display = ''; return; }
+  empty.style.display = 'none';
+  notes.forEach(n => {
+    const card = document.createElement('div');
+    card.className = 'note-card';
+    const safe = n.text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+                       .replace(/@(\w+)/g,'<span class="mention">@$1</span>');
+    card.innerHTML = `
+      <div class="nc-head">
+        <div class="nc-avatar">${n.initials}</div>
+        <span class="nc-author">${n.author}</span>
+        <span class="nc-time">${timeAgo(n.ts)}</span>
+        <button class="nc-del" onclick="deleteFmNote(${n.id})">×</button>
+      </div>
+      <div class="nc-body">${safe}</div>`;
+    list.appendChild(card);
+  });
+}
+function deleteFmNote(id){
+  const key = focusIdx;
+  if(notesStore[key]) notesStore[key] = notesStore[key].filter(n => n.id !== id);
+  renderFmNotes(key);
+  if(currentNoteCandidate === key) renderNotes(key);
+}
+
+/* ── feedback / scorecard ── */
+function renderFmFeedback(key){
+  const saved  = fmFeedbackStore[key] || {};
+  const stars  = { tech:0, comm:0, cult:0, prob:0, ...saved };
+  fmStars.tech = stars.tech; fmStars.comm = stars.comm;
+  fmStars.cult = stars.cult; fmStars.prob = stars.prob;
+  ['tech','comm','cult','prob'].forEach(k => paintStars(k, stars[k]));
+  const ta = document.getElementById('fm-fb-text');
+  if(ta) ta.value = saved.text || '';
+}
+function setFmStar(key, val){
+  fmStars[key] = val;
+  paintStars(key, val);
+}
+function paintStars(key, val){
+  const row = document.querySelector(`.fm-stars[data-key="${key}"]`);
+  if(!row) return;
+  row.querySelectorAll('.fm-star').forEach(s => {
+    s.classList.toggle('lit', parseInt(s.dataset.v) <= val);
+  });
+}
+function saveFmFeedback(){
+  const key = focusIdx;
+  fmFeedbackStore[key] = {
+    tech: fmStars.tech || 0,
+    comm: fmStars.comm || 0,
+    cult: fmStars.cult || 0,
+    prob: fmStars.prob || 0,
+    text: (document.getElementById('fm-fb-text').value || '').trim(),
+  };
+  const btn = document.querySelector('.fm-fb-foot .btn');
+  if(btn){ btn.textContent = 'Saved ✓'; setTimeout(() => btn.textContent = 'Save Feedback', 1800); }
+}
+
+function downloadFmResume(){
+  const r = filteredRows[focusIdx];
+  if(!r) return;
+  alert(`Downloading resume for ${r.name}…\n(In production this would trigger a real file download.)`);
+}
+
+/* ═══════════════════════════════════════════
+   NOTES
+═══════════════════════════════════════════ */
+/* notes stored per-candidate: key = filteredRows index, value = [{id,author,initials,ts,text}] */
+const notesStore = {};
+let currentNoteCandidate = -1;
+
+const NOTE_AUTHOR = 'Rahul M.';
+const NOTE_INITIALS = 'RM';
+
+function onNoteInput() {
+  const val = document.getElementById('note-input').value.trim();
+  document.getElementById('note-submit').disabled = !val;
+}
+
+function onNoteKey(e) {
+  /* Enter alone submits; Shift+Enter inserts newline */
+  if(e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    const btn = document.getElementById('note-submit');
+    if(!btn.disabled) submitNote();
+  }
+}
+
+function submitNote() {
+  const input = document.getElementById('note-input');
+  const text = input.value.trim();
+  if(!text) return;
+
+  const key = currentNoteCandidate;
+  if(!notesStore[key]) notesStore[key] = [];
+
+  const note = {
+    id:       Date.now(),
+    author:   NOTE_AUTHOR,
+    initials: NOTE_INITIALS,
+    ts:       new Date(),
+    text,
+  };
+  notesStore[key].unshift(note);   /* prepend – latest first */
+
+  input.value = '';
+  onNoteInput();
+  renderNotes(key);
+}
+
+function renderNotes(key) {
+  const list     = document.getElementById('note-list');
+  const empty    = document.getElementById('note-empty');
+  const notes    = notesStore[key] || [];
+
+  list.innerHTML = '';
+
+  if(notes.length === 0) {
+    empty.style.display = '';
+    return;
+  }
+  empty.style.display = 'none';
+
+  notes.forEach(n => {
+    const card = document.createElement('div');
+    card.className = 'note-card';
+    card.dataset.id = n.id;
+
+    /* highlight @mentions */
+    const safeText = n.text
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/@(\w+)/g, '<span class="mention">@$1</span>');
+
+    card.innerHTML = `
+      <div class="nc-head">
+        <div class="nc-avatar">${n.initials}</div>
+        <span class="nc-author">${n.author}</span>
+        <span class="nc-time">${timeAgo(n.ts)}</span>
+        <button class="nc-del" title="Delete note" onclick="deleteNote(${n.id})">×</button>
+      </div>
+      <div class="nc-body">${safeText}</div>`;
+    list.appendChild(card);
+  });
+}
+
+function deleteNote(id) {
+  const key = currentNoteCandidate;
+  if(!notesStore[key]) return;
+  notesStore[key] = notesStore[key].filter(n => n.id !== id);
+  renderNotes(key);
+}
+
+function timeAgo(date) {
+  const secs = Math.floor((Date.now() - date) / 1000);
+  if(secs <  60)  return 'just now';
+  if(secs < 3600) return Math.floor(secs/60)  + ' min ago';
+  if(secs < 86400)return Math.floor(secs/3600)+ ' hr ago';
+  return date.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+}
+
+/* called by selectRow to bind notes to the current candidate */
+function switchNoteCandidate(idx) {
+  currentNoteCandidate = idx;
+  /* reset compose */
+  const input = document.getElementById('note-input');
+  if(input) { input.value = ''; onNoteInput(); }
+  renderNotes(idx);
+}
+
+/* ═══════════════════════════════════════════
+   ADD CANDIDATE FLOW
+═══════════════════════════════════════════ */
+function showAddMenu(btn){
+  showPop('add-menu-pop', btn);
+}
+
+function openModal(type) {
+  closeAllPopovers();
+  const id = type === 'bulk' ? 'bulk-modal' : 'manual-modal';
+  document.getElementById(id).classList.add('open');
+  /* trap Escape to close */
+  document._modalOpen = type;
+}
+
+function closeModal(type) {
+  const id = type === 'bulk' ? 'bulk-modal' : 'manual-modal';
+  document.getElementById(id).classList.remove('open');
+  if(type === 'bulk')   clearFile('bulk');
+  if(type === 'manual') { clearFile('manual'); clearManualForm(); }
+  document._modalOpen = null;
+}
+
+/* ── file drop-zone helpers ── */
+function onDzDrag(e, type) {
+  e.preventDefault();
+  document.getElementById(`${type}-dz`).classList.add('drag-over');
+}
+function onDzLeave(type) {
+  document.getElementById(`${type}-dz`).classList.remove('drag-over');
+}
+function onDzDrop(e, type) {
+  e.preventDefault();
+  onDzLeave(type);
+  const file = e.dataTransfer.files[0];
+  if(file) applyFile(type, file);
+}
+function onFileSelect(type, input) {
+  if(input.files[0]) applyFile(type, input.files[0]);
+}
+
+/* Fake autofill data keyed by common name patterns in filename */
+function fakeParseResume(filename) {
+  const base = filename.replace(/\.[^.]+$/, '').replace(/[-_]/g, ' ');
+  const parts = base.trim().split(/\s+/);
+  const roles = ['Software Engineer','Frontend Developer','Backend Developer','Full Stack Engineer','Product Designer','Data Scientist'];
+  return {
+    first: parts[0] ? capitalize(parts[0]) : 'Alex',
+    last:  parts[1] ? capitalize(parts[1]) : 'Johnson',
+    email: (parts[0]||'alex').toLowerCase() + '.' + (parts[1]||'johnson').toLowerCase() + '@example.com',
+    role:  roles[Math.floor(Math.random() * roles.length)],
+    phone: '+1 555 ' + String(Math.floor(Math.random()*900)+100) + ' ' + String(Math.floor(Math.random()*9000)+1000),
+  };
+}
+function capitalize(s){ return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase(); }
+
+function applyFile(type, file) {
+  const dzEl   = document.getElementById(`${type}-dz`);
+  const nameEl = document.getElementById(`${type}-fname`);
+  const sizeEl = document.getElementById(`${type}-fsize`);
+
+  nameEl.textContent = file.name;
+  sizeEl.textContent = formatBytes(file.size);
+  dzEl.style.display = 'none';
+
+  if(type === 'bulk') {
+    document.getElementById('bulk-file-selected').classList.add('show');
+    document.getElementById('bulk-submit').disabled = false;
+    return;
+  }
+
+  /* manual: show spinner → autofill after short delay */
+  document.getElementById('manual-parsing').style.display = 'block';
+  setTimeout(() => {
+    document.getElementById('manual-parsing').style.display = 'none';
+    /* populate fields */
+    const data = fakeParseResume(file.name);
+    document.getElementById('mf-first').value = data.first;
+    document.getElementById('mf-last').value  = data.last;
+    document.getElementById('mf-email').value = data.email;
+    document.getElementById('mf-role').value  = data.role;
+    document.getElementById('mf-phone').value = data.phone;
+    /* reveal form */
+    document.getElementById('manual-filled').style.display = 'block';
+    updateManualSubmit();
+  }, 900);
+}
+
+function clearFile(type) {
+  const dzEl  = document.getElementById(`${type}-dz`);
+  const input = document.getElementById(`${type}-file`);
+  dzEl.style.display = '';
+  if(input) input.value = '';
+
+  if(type === 'bulk') {
+    document.getElementById('bulk-file-selected').classList.remove('show');
+    document.getElementById('bulk-submit').disabled = true;
+    return;
+  }
+
+  /* manual: hide form, clear fields, reset parsing */
+  document.getElementById('manual-parsing').style.display = 'none';
+  document.getElementById('manual-filled').style.display  = 'none';
+  clearManualForm();
+  updateManualSubmit();
+}
+
+function formatBytes(b) {
+  if(b < 1024)       return b + ' B';
+  if(b < 1024*1024)  return (b/1024).toFixed(1) + ' KB';
+  return (b/(1024*1024)).toFixed(1) + ' MB';
+}
+
+/* ── manual form: enable submit only when required fields filled ── */
+function updateManualSubmit() {
+  const first = (document.getElementById('mf-first').value||'').trim();
+  const last  = (document.getElementById('mf-last').value||'').trim();
+  const email = (document.getElementById('mf-email').value||'').trim();
+  const valid = first && last && email && email.includes('@');
+  document.getElementById('manual-submit').disabled = !valid;
+}
+
+function clearManualForm() {
+  ['mf-first','mf-last','mf-email','mf-role','mf-phone'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.value = '';
+  });
+  updateManualSubmit();
+}
+
+/* ── submit handlers (no-op stubs — replace with real API calls) ── */
+function submitBulk() {
+  /* TODO: POST file to /api/candidates/import */
+  closeModal('bulk');
+  alert('Bulk import started! (stub)');
+}
+function submitManual() {
+  /* TODO: POST form data to /api/candidates */
+  const name  = document.getElementById('mf-first').value.trim() + ' ' + document.getElementById('mf-last').value.trim();
+  closeModal('manual');
+  alert(`Candidate "${name}" added! (stub)`);
+}
+
+/* close modal on overlay click or Escape */
+document.addEventListener('mousedown', e => {
+  if(!document._modalOpen) return;
+  const id = document._modalOpen === 'bulk' ? 'bulk-modal' : 'manual-modal';
+  const overlay = document.getElementById(id);
+  /* click directly on overlay background (not modal box) */
+  if(e.target === overlay) closeModal(document._modalOpen);
+});
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && document._modalOpen) closeModal(document._modalOpen);
+});
+
+/* ── add-menu popover width override ── */
+
+/* ═══════════════════════════════════════════
+   INLINE STATUS PICKER
+═══════════════════════════════════════════ */
+let spEl = null; // currently open picker DOM node
+
+function showStatusPicker(event, pill){
+  event.stopPropagation();
+  closeSP();
+
+  const tr  = pill.closest('tr');
+  const idx = tr ? parseInt(tr.dataset.ridx) : -1;
+  if(idx < 0 || idx >= filteredRows.length) return;
+  const r   = filteredRows[idx];
+  const opts= STAGE_STATUS_MAP[r.stage] || [];
+
+  const picker = document.createElement('div');
+  picker.className = 'sp-picker';
+
+  opts.forEach(s => {
+    const opt = document.createElement('div');
+    opt.className = 'sp-opt' + (r.status === s ? ' sp-active' : '');
+    opt.innerHTML = `<span class="status-pill ${STCLS[s]||'st-empty'}">${s}</span>`;
+    opt.onclick = e => { e.stopPropagation(); setRowStatus(idx, s); closeSP(); };
+    picker.appendChild(opt);
+  });
+
+  document.body.appendChild(picker);
+  spEl = picker;
+
+  /* position below the pill, flip up if needed */
+  const rect = pill.getBoundingClientRect();
+  picker.style.visibility = 'hidden';
+  picker.style.top = '-9999px';
+  picker.style.left = rect.left + 'px';
+  requestAnimationFrame(() => {
+    const ph = picker.offsetHeight;
+    let top  = rect.bottom + 4;
+    if(top + ph > window.innerHeight - 8) top = rect.top - ph - 4;
+    let left = rect.left;
+    if(left + 170 > window.innerWidth - 8) left = window.innerWidth - 178;
+    picker.style.top  = Math.max(8, top) + 'px';
+    picker.style.left = Math.max(8, left) + 'px';
+    picker.style.visibility = '';
+  });
+}
+
+function closeSP(){ if(spEl){ spEl.remove(); spEl=null; } }
+
+function setRowStatus(idx, status){
+  if(idx < 0 || idx >= filteredRows.length) return;
+  filteredRows[idx].status = status;
+  renderTable();
+  updateStats();
+  renderChips();
+  /* update right panel badge if this candidate is open */
+  if(activeRow === idx) selectRow(idx);
+}
+
+/* close picker on outside click */
+document.addEventListener('mousedown', e => {
+  if(spEl && !spEl.contains(e.target)) closeSP();
+}, true);
+
+/* ═══════════════════════════════════════════
+   FOCUS MODE – DYNAMIC FOOTER
+═══════════════════════════════════════════ */
+function renderFmFooter(r){
+  const footer = document.getElementById('fm-footer');
+  if(!footer) return;
+  const stage  = r.stage  || '';
+  const status = r.status || '';
+
+  /* SVG icons */
+  const icoX    = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+  const icoPause= `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>`;
+  const icoCheck= `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+  let html = '';
+
+  if(stage === 'Screening'){
+    html = `
+      <button class="fm-action fm-act-reject"    onclick="focusAction('Rejected')">  ${icoX}     Reject</button>
+      <button class="fm-action fm-act-hold"       onclick="focusAction('On Hold')">   ${icoPause}  On Hold</button>
+      <button class="fm-action fm-act-prog"       onclick="focusAction('In Progress')">${icoCheck} In Progress</button>
+      <span  class="fm-act-note" id="fm-act-note"></span>
+      <button class="fm-action fm-act-shortlist"  onclick="focusAction('Shortlisted')">${icoCheck} Shortlist</button>`;
+  } else if(stage === 'R1'){
+    /* R1: AI only available here */
+    const isAI = r.interviewType === 'ai';
+    if(status === 'In Progress'){
+      if(isAI){
+        html = `
+          <span class="fm-act-note" id="fm-act-note" style="margin:0;font-style:italic">AI interview in progress</span>
+          <button class="fm-action fm-act-done" onclick="focusAction('Completed')">${icoCheck} Mark Completed</button>`;
+      } else {
+        html = `
+          <button class="fm-action fm-act-neutral" onclick="focusAction('In Progress')" style="display:flex;align-items:center;gap:5px">
+            <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Reschedule
+          </button>
+          <span class="fm-act-note" id="fm-act-note"></span>
+          <button class="fm-action fm-act-done" onclick="focusAction('Completed')">${icoCheck} Mark Completed</button>`;
+      }
+    } else {
+      if(isAI){
+        html = `
+          <button class="fm-action" onclick="switchFmTab('feedback')" style="background:var(--purple-bg);color:var(--purple);border-color:#c4b5fd;display:flex;align-items:center;gap:5px">
+            <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/></svg>
+            Review AI Results
+          </button>
+          <span class="fm-act-note" id="fm-act-note"></span>`;
+      } else {
+        html = `
+          <button class="fm-action fm-act-shortlist" onclick="focusAction('Completed')" style="display:flex;align-items:center;gap:5px">
+            <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+            Give Feedback
+          </button>
+          <span class="fm-act-note" id="fm-act-note"></span>`;
+      }
+    }
+  } else if(stage === 'R2' || stage === 'Final'){
+    /* R2 / Final — always manual, no AI options */
+    if(status === 'In Progress'){
+      html = `
+        <button class="fm-action fm-act-neutral" onclick="focusAction('In Progress')" style="display:flex;align-items:center;gap:5px">
+          <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Reschedule
+        </button>
+        <span class="fm-act-note" id="fm-act-note"></span>
+        <button class="fm-action fm-act-done" onclick="focusAction('Completed')">${icoCheck} Mark Completed</button>`;
+    } else {
+      html = `
+        <button class="fm-action fm-act-shortlist" onclick="focusAction('Completed')" style="display:flex;align-items:center;gap:5px">
+          <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+          Give Feedback
+        </button>
+        <span class="fm-act-note" id="fm-act-note"></span>`;
+    }
+  } else if(stage === 'Assignment'){
+    html = `
+      <button class="fm-action fm-act-neutral" onclick="focusAction('Pending')">  Pending</button>
+      <button class="fm-action fm-act-neutral" onclick="focusAction('Submitted')">${icoCheck} Submitted</button>
+      <span  class="fm-act-note" id="fm-act-note"></span>
+      <button class="fm-action fm-act-done"    onclick="focusAction('Reviewed')">${icoCheck} Mark Reviewed</button>`;
+  } else if(stage === 'Hired'){
+    html = `<span class="fm-footer-hired">${icoCheck} Candidate Hired</span><span class="fm-act-note" id="fm-act-note"></span>`;
+  } else {
+    html = `<span class="fm-act-note" id="fm-act-note"></span>`;
+  }
+
+  footer.innerHTML = html;
+}
+
+/* ═══════════════════════════════════════════
+   SCHEDULING MODAL
+═══════════════════════════════════════════ */
+let schedRidx = -1;
+let schedType = null;   // 'ai' | 'manual'
+let schedDate = null;
+let schedTime = null;
+let schedIvr  = null;
+
+const SCHED_DATES = (()=>{
+  const days   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const result = [];
+  const d = new Date(2026, 3, 13); // Apr 13 2026 (Monday)
+  while(result.length < 8){
+    if(d.getDay() !== 0 && d.getDay() !== 6){
+      result.push({ day: days[d.getDay()], label: `${months[d.getMonth()]} ${d.getDate()}`, full: `${months[d.getMonth()]} ${d.getDate()}, 2026` });
+    }
+    d.setDate(d.getDate() + 1);
+  }
+  return result;
+})();
+
+const SCHED_TIMES = ['9:00 AM','10:00 AM','11:00 AM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
+
+const SCHED_IVRS = [
+  { name:'Sarah K.',  role:'Senior Engineer',       initials:'SK' },
+  { name:'Tom R.',    role:'Engineering Manager',    initials:'TR' },
+  { name:'Mia P.',    role:'Staff Engineer',         initials:'MP' },
+  { name:'Jake L.',   role:'Tech Lead',              initials:'JL' },
+  { name:'Amy C.',    role:'Principal Engineer',     initials:'AC' },
+];
+
+function openSchedModal(ridx){
+  schedRidx = ridx;
+  schedType = null; schedDate = null; schedTime = null; schedIvr = null;
+  document.getElementById('sm-overlay').classList.add('open');
+  document.getElementById('sm-dialog').classList.add('open');
+  renderSchedModal();
+}
+
+function closeSchedModal(){
+  document.getElementById('sm-overlay').classList.remove('open');
+  document.getElementById('sm-dialog').classList.remove('open');
+}
+
+function smSetType(type){
+  schedType = type;
+  schedDate = null; schedTime = null;
+  schedIvr = type === 'ai' ? 'SDE AI Interviewer' : null;
+  renderSchedModal();
+}
+
+function smSetDate(full){
+  schedDate = full;
+  renderSchedModal();
+}
+
+function smSetTime(t){
+  schedTime = t;
+  renderSchedModal();
+}
+
+function smSetIvr(name){
+  schedIvr = name;
+  renderSchedModal();
+}
+
+function renderSchedModal(){
+  const body = document.getElementById('sm-body');
+
+  const ICO_BOT  = `<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="14" r="1.5" fill="#7c3aed" stroke="none"/></svg>`;
+  const ICO_USER = `<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="var(--accent)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+  const ICO_CAL  = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+  const ICO_BOT_WH = `<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="14" r="1.5" fill="#fff" stroke="none"/></svg>`;
+  const ICO_SEND = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`;
+
+  /* ── Type selector ── */
+  let html = `
+    <div class="sm-type-row">
+      <div class="sm-type-card ${schedType==='ai'?'sel-ai':''}" onclick="smSetType('ai')">
+        <div class="sm-type-icon" style="background:#ede9fe">${ICO_BOT}</div>
+        <div class="sm-type-name">AI Interview</div>
+        <div class="sm-type-desc">Automated · No scheduling needed</div>
+      </div>
+      <div class="sm-type-card ${schedType==='manual'?'sel-manual':''}" onclick="smSetType('manual')">
+        <div class="sm-type-icon" style="background:#e0e7ff">${ICO_USER}</div>
+        <div class="sm-type-name">Manual Interview</div>
+        <div class="sm-type-desc">Pick interviewer · Select time slot</div>
+      </div>
+    </div>`;
+
+  if(schedType === 'ai'){
+    /* ── AI form ── */
+    html += `
+      <div class="sm-ai-info">
+        <div class="sm-ai-av">${ICO_BOT_WH}</div>
+        <div>
+          <div class="sm-ai-name">SDE AI Interviewer</div>
+          <div class="sm-ai-sub">Automated · Sends invite directly to candidate</div>
+        </div>
+      </div>
+      <div class="sm-sec">
+        <div class="sm-lbl">Select Date</div>
+        <div class="sm-dates">
+          ${SCHED_DATES.map(d=>`
+            <div class="sm-date ${schedDate===d.full?'sel':''}" onclick="smSetDate('${d.full}')">
+              <div class="sm-date-day">${d.day}</div>
+              <div class="sm-date-num">${d.label.split(' ')[1]}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+      <hr class="sm-divider">
+      <button class="sm-cta sm-cta-ai" onclick="confirmSched()" ${!schedDate?'disabled':''}>
+        ${ICO_SEND} Send AI Interview
+      </button>`;
+
+  } else if(schedType === 'manual'){
+    /* ── Manual form ── */
+    html += `
+      <div class="sm-sec">
+        <div class="sm-lbl">Select Interviewer</div>
+        <div class="sm-ivrs">
+          ${SCHED_IVRS.map(iv=>`
+            <div class="sm-ivr ${schedIvr===iv.name?'sel':''}" onclick="smSetIvr('${iv.name}')">
+              <div class="sm-ivr-av">${iv.initials}</div>
+              <div style="flex:1;min-width:0">
+                <div class="sm-ivr-name">${iv.name}</div>
+                <div class="sm-ivr-role">${iv.role}</div>
+              </div>
+              <span class="sm-avail">Available</span>
+            </div>`).join('')}
+        </div>
+      </div>
+      <div class="sm-sec">
+        <div class="sm-lbl">Select Date</div>
+        <div class="sm-dates">
+          ${SCHED_DATES.map(d=>`
+            <div class="sm-date ${schedDate===d.full?'sel':''}" onclick="smSetDate('${d.full}')">
+              <div class="sm-date-day">${d.day}</div>
+              <div class="sm-date-num">${d.label.split(' ')[1]}</div>
+            </div>`).join('')}
+        </div>
+      </div>
+      <div class="sm-sec">
+        <div class="sm-lbl">Select Time</div>
+        <div class="sm-times">
+          ${SCHED_TIMES.map(t=>`
+            <div class="sm-time ${schedTime===t?'sel':''}" onclick="smSetTime('${t}')">${t}</div>`).join('')}
+        </div>
+      </div>
+      <hr class="sm-divider">
+      <button class="sm-cta sm-cta-manual" onclick="confirmSched()" ${!schedDate||!schedTime||!schedIvr?'disabled':''}>
+        ${ICO_CAL} Schedule R1 Interview
+      </button>`;
+  }
+
+  body.innerHTML = html;
+}
+
+function confirmSched(){
+  if(schedRidx < 0 || !schedType) return;
+  const r = filteredRows[schedRidx];
+  if(!r) return;
+
+  r.stage         = 'R1';
+  r.status        = 'In Progress';
+  r.interviewType = schedType;
+  r.interview_date = schedDate;
+  if(schedType === 'manual'){
+    r.interview_time = schedTime;
+    r.interviewer    = schedIvr;
+  } else {
+    r.interview_time = null;
+    r.interviewer    = 'SDE AI Interviewer';
+  }
+
+  closeSchedModal();
+  renderTable();
+  updateStats();
+  renderChips();
+  if(activeRow === schedRidx) selectRow(schedRidx);
 }
 
 /* ═══════════════════════════════════════════
