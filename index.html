@@ -224,6 +224,10 @@ tbody td:first-child{padding-left:20px}
 /* ── RIGHT PANEL ── */
 .rpanel{width:320px;min-width:320px;background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:width .2s,min-width .2s,opacity .2s}
 .rpanel.hidden{width:0;min-width:0;opacity:0}
+.rp-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;gap:6px}
+.rp-empty-ico{color:var(--t3);opacity:.3;margin-bottom:6px}
+.rp-empty-title{font-size:13px;font-weight:600;color:var(--t2)}
+.rp-empty-sub{font-size:11.5px;color:var(--t3);line-height:1.5}
 .rp-head{padding:14px 16px 0;border-bottom:1px solid var(--border);flex-shrink:0}
 .rp-row1{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:3px}
 .rp-left{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
@@ -237,8 +241,6 @@ tbody td:first-child{padding-left:20px}
 .gh-b{display:inline-flex;align-items:center;gap:3px;background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:2px 7px;font-size:10.5px;font-weight:600;color:var(--t2)}
 .ms-b{display:inline-flex;align-items:center;gap:3px;background:var(--green-bg);border-radius:20px;padding:2px 7px;font-size:10.5px;font-weight:700;color:var(--green)}
 .ms-dot{width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0}
-.rp-st-b{display:inline-flex;align-items:center;gap:3px;background:var(--green-bg);border-radius:20px;padding:2px 8px;font-size:10.5px;font-weight:600;color:var(--green);cursor:pointer;transition:filter .1s}
-.rp-st-b:hover{filter:brightness(.93)}
 .rp-tabs{display:flex}
 .rtab{padding:7px 12px;font-size:11.5px;font-weight:500;color:var(--t2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .1s,border-color .1s}
 .rtab:hover{color:var(--t1)}
@@ -419,6 +421,128 @@ tbody td:first-child{padding-left:20px}
 .sm-check-row{display:flex;align-items:center;gap:8px;padding:10px 0 4px}
 .sm-check-row input[type=checkbox]{width:15px;height:15px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
 .sm-check-label{font-size:12.5px;font-weight:500;color:var(--t1);cursor:pointer;user-select:none}
+
+/* ── AI TRANSCRIPT MODAL ── */
+.tr-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;opacity:0;pointer-events:none;transition:opacity .18s}
+.tr-overlay.open{opacity:1;pointer-events:all}
+.tr-dialog{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%);z-index:9001;background:var(--surface);border-radius:var(--r3);box-shadow:var(--s3);width:560px;max-width:calc(100vw - 32px);max-height:calc(100vh - 48px);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+.tr-dialog.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%)}
+.tr-head{display:flex;align-items:flex-start;justify-content:space-between;padding:18px 20px 14px;flex-shrink:0;border-bottom:1px solid var(--border)}
+.tr-head-left{display:flex;flex-direction:column;gap:3px}
+.tr-title{font-size:15px;font-weight:700;color:var(--t1)}
+.tr-meta{font-size:12px;color:var(--t3)}
+.tr-x{width:28px;height:28px;border:none;background:transparent;border-radius:6px;cursor:pointer;font-size:18px;color:var(--t3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tr-x:hover{background:var(--bg);color:var(--t1)}
+.tr-body{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:14px}
+.tr-msg{display:flex;flex-direction:column;gap:4px}
+.tr-msg-role{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.tr-msg-role.ai{color:#7c3aed}
+.tr-msg-role.cand{color:var(--accent)}
+.tr-msg-bubble{font-size:13px;color:var(--t1);line-height:1.6;background:var(--bg);border-radius:var(--r2);padding:10px 13px;border:1px solid var(--border)}
+.tr-msg-bubble.ai-bubble{border-left:3px solid #7c3aed;background:#faf5ff}
+.tr-msg-bubble.cand-bubble{border-left:3px solid var(--accent)}
+.tr-foot{padding:12px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.tr-foot-info{font-size:11.5px;color:var(--t3)}
+.tr-close-btn{height:36px;padding:0 20px;border:1px solid var(--border);border-radius:var(--r2);background:var(--surface);color:var(--t1);font-size:13px;font-weight:500;cursor:pointer}
+.tr-close-btn:hover{background:var(--bg)}
+
+/* ── VIDEO PLAYER MODAL ── */
+.vp-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:9000;opacity:0;pointer-events:none;transition:opacity .18s}
+.vp-overlay.open{opacity:1;pointer-events:all}
+.vp-dialog{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%);z-index:9001;background:#111827;border-radius:var(--r3);box-shadow:0 20px 60px rgba(0,0,0,.6);width:640px;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;overflow:hidden}
+.vp-dialog.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%)}
+.vp-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px}
+.vp-title{font-size:14px;font-weight:600;color:#f9fafb}
+.vp-meta{font-size:11.5px;color:#9ca3af;margin-top:2px}
+.vp-x{width:28px;height:28px;border:none;background:transparent;border-radius:6px;cursor:pointer;font-size:18px;color:#9ca3af;display:flex;align-items:center;justify-content:center}
+.vp-x:hover{background:rgba(255,255,255,.1);color:#f9fafb}
+.vp-screen{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#1e1b4b 0%,#0f172a 60%,#1e1b4b 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden}
+.vp-screen::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(124,58,237,.15),transparent 60%),radial-gradient(ellipse at 70% 70%,rgba(59,130,246,.1),transparent 60%)}
+.vp-ai-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#4f46e5);display:flex;align-items:center;justify-content:center;box-shadow:0 0 30px rgba(124,58,237,.5)}
+.vp-ai-label{font-size:13px;font-weight:600;color:#e0e7ff;letter-spacing:.02em}
+.vp-ai-sub{font-size:11px;color:#a5b4fc}
+.vp-timestamp{position:absolute;top:12px;right:14px;font-size:11px;font-weight:600;color:#e0e7ff;background:rgba(0,0,0,.45);padding:3px 8px;border-radius:20px;letter-spacing:.03em}
+.vp-live-dot{width:7px;height:7px;border-radius:50%;background:#ef4444;display:inline-block;margin-right:5px;animation:vpblink 1.4s ease-in-out infinite}
+@keyframes vpblink{0%,100%{opacity:1}50%{opacity:.3}}
+.vp-controls{padding:10px 16px 14px;background:#0f172a;display:flex;flex-direction:column;gap:8px}
+.vp-timeline-wrap{display:flex;align-items:center;gap:10px}
+.vp-time-cur{font-size:11px;font-weight:600;color:#9ca3af;min-width:34px}
+.vp-time-tot{font-size:11px;font-weight:600;color:#6b7280;min-width:34px;text-align:right}
+.vp-timeline{flex:1;height:4px;background:#374151;border-radius:2px;position:relative;cursor:pointer}
+.vp-timeline-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#7c3aed,#4f46e5);width:37%}
+.vp-timeline-thumb{position:absolute;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:0 0 6px rgba(124,58,237,.8);left:37%}
+.vp-btn-row{display:flex;align-items:center;justify-content:space-between}
+.vp-btn-grp{display:flex;align-items:center;gap:6px}
+.vp-btn{width:34px;height:34px;border:none;background:rgba(255,255,255,.07);border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#d1d5db;transition:background .15s}
+.vp-btn:hover{background:rgba(255,255,255,.14);color:#fff}
+.vp-btn.play-btn{width:40px;height:40px;background:linear-gradient(135deg,#7c3aed,#4f46e5);border-radius:50%;color:#fff}
+.vp-btn.play-btn:hover{opacity:.88}
+.vp-speed{font-size:11px;font-weight:600;color:#9ca3af;background:rgba(255,255,255,.07);border:none;border-radius:6px;padding:4px 8px;cursor:pointer;height:28px}
+.vp-chapter-bar{display:flex;gap:6px;padding:0 16px 14px;background:#0f172a;flex-wrap:wrap}
+.vp-chapter{font-size:10.5px;font-weight:500;color:#9ca3af;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;cursor:pointer;transition:all .15s}
+.vp-chapter:hover{background:rgba(124,58,237,.2);border-color:#7c3aed;color:#c4b5fd}
+.vp-chapter.active{background:rgba(124,58,237,.25);border-color:#7c3aed;color:#c4b5fd}
+
+/* ai results card bottom buttons */
+.ai-card-actions{display:flex;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
+.ai-card-btn{flex:1;height:34px;border-radius:var(--r2);font-size:12.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s}
+.ai-card-btn.outline{background:transparent;border:1.5px solid var(--border);color:var(--t1)}
+.ai-card-btn.outline:hover{border-color:var(--accent);color:var(--accent);background:#f0f9ff}
+.ai-card-btn.filled{background:#7c3aed;border:1.5px solid #7c3aed;color:#fff}
+.ai-card-btn.filled:hover{background:#6d28d9;border-color:#6d28d9}
+
+/* ── EDIT CANDIDATE MODAL ── */
+.ec-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;opacity:0;pointer-events:none;transition:opacity .18s}
+.ec-overlay.open{opacity:1;pointer-events:all}
+.ec-dialog{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%);z-index:9001;background:var(--surface);border-radius:var(--r3);box-shadow:var(--s3);width:580px;max-width:calc(100vw - 32px);max-height:calc(100vh - 48px);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+.ec-dialog.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%)}
+.ec-head{display:flex;align-items:flex-start;justify-content:space-between;padding:18px 20px 14px;flex-shrink:0;border-bottom:1px solid var(--border)}
+.ec-head-left{display:flex;flex-direction:column;gap:3px}
+.ec-title{font-size:15px;font-weight:700;color:var(--t1)}
+.ec-subtitle{font-size:12px;color:var(--t3)}
+.ec-x{width:28px;height:28px;border:none;background:transparent;border-radius:6px;cursor:pointer;font-size:18px;color:var(--t3);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ec-x:hover{background:var(--bg);color:var(--t1)}
+.ec-body{flex:1;overflow-y:auto;padding:20px}
+.ec-section{margin-bottom:24px}
+.ec-section:last-child{margin-bottom:4px}
+.ec-sec-title{font-size:10.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border)}
+.ec-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ec-grid.single{grid-template-columns:1fr}
+.ec-field{display:flex;flex-direction:column;gap:4px}
+.ec-lbl{font-size:11.5px;font-weight:600;color:var(--t2)}
+.ec-req{color:#ef4444;margin-left:2px}
+.ec-input{height:36px;border:1.5px solid var(--border);border-radius:var(--r2);padding:0 10px;font-size:13px;color:var(--t1);background:var(--surface);outline:none;transition:border-color .15s;width:100%;box-sizing:border-box;font-family:inherit}
+.ec-input:focus{border-color:var(--accent)}
+.ec-input.ec-err{border-color:#ef4444}
+.ec-textarea{border:1.5px solid var(--border);border-radius:var(--r2);padding:8px 10px;font-size:13px;color:var(--t1);background:var(--surface);outline:none;transition:border-color .15s;width:100%;box-sizing:border-box;resize:vertical;min-height:72px;font-family:inherit;line-height:1.5}
+.ec-textarea:focus{border-color:var(--accent)}
+.ec-errmsg{font-size:11px;color:#ef4444;display:none}
+.ec-foot{display:flex;align-items:center;justify-content:flex-end;padding:12px 20px;border-top:1px solid var(--border);flex-shrink:0;gap:8px}
+.ec-cancel{height:36px;padding:0 20px;border:1px solid var(--border);border-radius:var(--r2);background:var(--surface);color:var(--t1);font-size:13px;font-weight:500;cursor:pointer}
+.ec-cancel:hover{background:var(--bg)}
+.ec-save{height:36px;padding:0 22px;border:none;border-radius:var(--r2);background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .15s}
+.ec-save:disabled{opacity:.45;cursor:not-allowed}
+.ec-save:not(:disabled):hover{opacity:.88}
+
+/* ── ASSIGN TASK MODAL ── */
+.at-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:900;opacity:0;pointer-events:none;transition:opacity .18s}
+.at-overlay.open{opacity:1;pointer-events:all}
+.at-dialog{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%);z-index:901;background:var(--surface);border-radius:var(--r3);box-shadow:var(--s3);width:440px;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+.at-dialog.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%)}
+.at-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 12px}
+.at-title{font-size:15px;font-weight:700;color:var(--t1)}
+.at-x{width:26px;height:26px;border:none;background:transparent;border-radius:5px;cursor:pointer;font-size:18px;color:var(--t3);display:flex;align-items:center;justify-content:center;line-height:1;font-family:inherit}
+.at-x:hover{background:var(--bg);color:var(--t1)}
+.at-body{padding:4px 18px 16px;display:flex;flex-direction:column;gap:14px}
+.at-field{display:flex;flex-direction:column;gap:5px}
+.at-lbl{font-size:12px;font-weight:600;color:var(--t2);letter-spacing:.03em;text-transform:uppercase}
+.at-input{height:38px;border:1.5px solid var(--border);border-radius:var(--r2);padding:0 11px;font-size:13px;color:var(--t1);background:var(--surface);outline:none;transition:border-color .15s;width:100%;box-sizing:border-box}
+.at-input:focus{border-color:var(--accent)}
+.at-foot{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-top:1px solid var(--border);gap:10px}
+.at-cancel{height:38px;padding:0 20px;border:1px solid var(--border);border-radius:var(--r2);background:var(--surface);color:var(--t1);font-size:13px;font-weight:500;cursor:pointer}
+.at-cancel:hover{background:var(--bg)}
+.at-cta{height:38px;padding:0 22px;border:none;border-radius:var(--r2);background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px}
+.at-cta:hover{opacity:.9}
 
 /* ── POPOVERS ── */
 .popover{position:fixed;background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);box-shadow:var(--s3);z-index:600;min-width:200px;max-width:265px;opacity:0;transform:scale(.96) translateY(-4px);pointer-events:none;transition:opacity .14s ease,transform .14s ease}
@@ -796,7 +920,13 @@ tbody td:first-child{padding-left:20px}
 
     <!-- RIGHT PANEL -->
     <aside class="rpanel" id="rpanel">
-      <div class="rp-head">
+      <!-- empty state: shown when no candidate is selected -->
+      <div id="rp-empty" class="rp-empty">
+        <svg class="rp-empty-ico" width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <div class="rp-empty-title">No candidate selected</div>
+        <div class="rp-empty-sub">Select a candidate to view details</div>
+      </div>
+      <div class="rp-head" id="rp-head">
         <div class="rp-row1">
           <div class="rp-left">
             <span class="rp-name" id="rp-name">Kayla Morgan</span>
@@ -804,7 +934,7 @@ tbody td:first-child{padding-left:20px}
             <span class="rp-stage-badge">Screening</span>
           </div>
           <div class="rp-btns">
-            <div class="rp-ibtn"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+            <div class="rp-ibtn" onclick="openEditModal(activeRow)" title="Edit candidate"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
             <div class="rp-ibtn"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></div>
             <div class="rp-ibtn" onclick="closePanel()"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
           </div>
@@ -813,7 +943,6 @@ tbody td:first-child{padding-left:20px}
         <div class="rp-badges">
           <div class="gh-b"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.17c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013.01-.4c1.02 0 2.05.14 3.01.4 2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12.01 12.01 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>GitHub 78%</div>
           <div class="ms-b"><span class="ms-dot"></span>92% Match Score</div>
-          <div class="rp-st-b">Shortlisted <svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></div>
         </div>
         <div class="rp-tabs">
           <div class="rtab on" onclick="switchTab(this,'overview')">Overview</div>
@@ -822,22 +951,10 @@ tbody td:first-child{padding-left:20px}
           <div class="rtab" onclick="switchTab(this,'activity')">Activity</div>
         </div>
       </div>
-      <div class="rp-body">
+      <div class="rp-body" id="rp-body">
         <div id="tab-overview">
           <div id="rp-stage-block"></div>
-          <div class="rp-sec"><div class="rp-stitle">Contact</div>
-            <div class="rp-rw"><svg class="i" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a class="rl" href="#">kayla.morgan94@gmail.com</a></div>
-            <div class="rp-rw"><svg class="i" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>+1 512 555 2031</div>
-            <div class="rp-rw"><svg class="i" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Austin, TX, United States</div>
-          </div>
-          <div class="rp-sec"><div class="rp-stitle">Portfolio</div>
-            <div class="rp-rw"><svg class="i" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg><a class="rl" href="#">https://kaylamorgan.design</a></div>
-            <div class="rp-rw"><svg class="i" width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.17c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013.01-.4c1.02 0 2.05.14 3.01.4 2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12.01 12.01 0 0024 12c0-6.63-5.37-12-12-12z"/></svg><a class="rl" href="#">Github</a></div>
-            <div class="rp-rw"><svg class="i" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><a class="rl" href="#">Resume</a></div>
-          </div>
-          <div class="rp-sec"><div class="rp-stitle">Skills</div><div class="skw"><span class="sk-lg">Python</span><span class="sk-lg">Django</span><span class="sk-lg">PostgreSQL</span><span class="sk-lg">Docker</span></div></div>
-          <div class="rp-sec"><div class="rp-stitle">Work History</div><div class="wco">Microsoft</div><div class="wsu">Current Company</div><div class="wco">Tesla</div><div class="wsu">Previous Company</div></div>
-          <div class="rp-sec"><div class="rp-stitle">Details</div><div class="dr"><span class="dk">Experience:</span><span class="dv">2 yrs</span></div><div class="dr"><span class="dk">Applied:</span><span class="dv">Feb 20, 2026</span></div></div>
+          <div id="rp-ov-detail"></div>
         </div>
         <div id="tab-notes" style="display:none">
           <!-- compose area -->
@@ -883,6 +1000,119 @@ tbody td:first-child{padding-left:20px}
   <hr class="sm-hr">
   <div class="sm-body" id="sm-body"></div>
   <div class="sm-foot" id="sm-foot"></div>
+</div>
+
+<!-- ═══════════ EDIT CANDIDATE MODAL ═══════════ -->
+<div class="ec-overlay" id="ec-overlay" onclick="closeEditModal()"></div>
+<div class="ec-dialog" id="ec-dialog">
+  <div class="ec-head">
+    <div class="ec-head-left">
+      <span class="ec-title">Edit Candidate</span>
+      <span class="ec-subtitle" id="ec-subtitle"></span>
+    </div>
+    <button class="ec-x" onclick="closeEditModal()">×</button>
+  </div>
+  <div class="ec-body" id="ec-body"></div>
+  <div class="ec-foot">
+    <button class="ec-cancel" onclick="closeEditModal()">Cancel</button>
+    <button class="ec-save" id="ec-save" onclick="saveEditModal()" disabled>Save Changes</button>
+  </div>
+</div>
+
+<!-- ═══════════ ASSIGN TASK MODAL ═══════════ -->
+<div class="at-overlay" id="at-overlay" onclick="closeAssignModal()"></div>
+<div class="at-dialog" id="at-dialog">
+  <div class="at-head">
+    <span class="at-title">Assign Task</span>
+    <button class="at-x" onclick="closeAssignModal()">×</button>
+  </div>
+  <div class="at-body">
+    <div class="at-field">
+      <label class="at-lbl" for="at-link">Assignment Link</label>
+      <input class="at-input" type="url" id="at-link" placeholder="https://..." autocomplete="off">
+    </div>
+    <div class="at-field">
+      <label class="at-lbl" for="at-deadline">Deadline</label>
+      <input class="at-input" type="date" id="at-deadline">
+    </div>
+  </div>
+  <div class="at-foot">
+    <button class="at-cancel" onclick="closeAssignModal()">Cancel</button>
+    <button class="at-cta" onclick="confirmAssign()">
+      <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Send Assignment
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════ TRANSCRIPT MODAL ═══════════ -->
+<div class="tr-overlay" id="tr-overlay" onclick="closeTranscriptModal()"></div>
+<div class="tr-dialog" id="tr-dialog">
+  <div class="tr-head">
+    <div class="tr-head-left">
+      <span class="tr-title">Interview Transcript</span>
+      <span class="tr-meta" id="tr-meta"></span>
+    </div>
+    <button class="tr-x" onclick="closeTranscriptModal()">×</button>
+  </div>
+  <div class="tr-body" id="tr-body"></div>
+  <div class="tr-foot">
+    <span class="tr-foot-info" id="tr-foot-info"></span>
+    <button class="tr-close-btn" onclick="closeTranscriptModal()">Close</button>
+  </div>
+</div>
+
+<!-- ═══════════ VIDEO PLAYER MODAL ═══════════ -->
+<div class="vp-overlay" id="vp-overlay" onclick="closeRecordingModal()"></div>
+<div class="vp-dialog" id="vp-dialog">
+  <div class="vp-head">
+    <div>
+      <div class="vp-title" id="vp-title">AI Interview Recording</div>
+      <div class="vp-meta" id="vp-meta"></div>
+    </div>
+    <button class="vp-x" onclick="closeRecordingModal()">×</button>
+  </div>
+  <div class="vp-screen">
+    <div class="vp-ai-avatar">
+      <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="1.8"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="14" r="1.5" fill="#fff" stroke="none"/></svg>
+    </div>
+    <div class="vp-ai-label">SDE AI Interviewer</div>
+    <div class="vp-ai-sub" id="vp-cand-sub"></div>
+    <div class="vp-timestamp"><span class="vp-live-dot"></span>RECORDED</div>
+  </div>
+  <div class="vp-controls">
+    <div class="vp-timeline-wrap">
+      <span class="vp-time-cur" id="vp-cur">15:42</span>
+      <div class="vp-timeline" onclick="vpSeek(event,this)">
+        <div class="vp-timeline-fill" id="vp-fill"></div>
+        <div class="vp-timeline-thumb" id="vp-thumb"></div>
+      </div>
+      <span class="vp-time-tot" id="vp-tot">42:17</span>
+    </div>
+    <div class="vp-btn-row">
+      <div class="vp-btn-grp">
+        <button class="vp-btn" title="Rewind 10s" onclick="vpStep(-10)">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/><text x="12" y="17" font-size="6" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg>
+        </button>
+        <button class="vp-btn play-btn" id="vp-play-btn" onclick="vpTogglePlay()">
+          <svg id="vp-play-ico" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </button>
+        <button class="vp-btn" title="Forward 10s" onclick="vpStep(10)">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/><text x="12" y="17" font-size="6" fill="currentColor" stroke="none" text-anchor="middle">10</text></svg>
+        </button>
+        <button class="vp-btn" title="Volume">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+        </button>
+      </div>
+      <div class="vp-btn-grp">
+        <button class="vp-speed" id="vp-speed" onclick="vpCycleSpeed()">1×</button>
+        <button class="vp-btn" title="Fullscreen">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="vp-chapter-bar" id="vp-chapters"></div>
 </div>
 
 <div class="popover" id="stage-pop">
@@ -1843,38 +2073,101 @@ const EYE_ICO = `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" str
 const CHECK_ICO=`<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
 const USER_ICO= `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>`;
 
-function nextAction(r){
+function nextAction(r, ridx){
   const {stage, status} = r;
-  if(stage==='Screening'){
-    if(status==='Shortlisted') return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CAL_ICO}Schedule R1</button>`;
+  const fbDone = (ridx !== undefined) ? isFeedbackSubmitted(ridx) : false;
+  const act    = (a) => `event.stopPropagation();naAction(${ridx},'${a}')`; // shorthand
+
+  if(stage === 'Screening'){
+    if(status === 'Shortlisted') return `<button class="na-btn na-accent" onclick="${act('schedR1')}">${CAL_ICO}Schedule R1</button>`;
     return '';
   }
-  if(stage==='R1'){
-    if(status==='Completed'){
-      if(r.interviewType==='ai') return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CLIP_ICO}Preview AI Results</button>`;
-      return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CLIP_ICO}Give Feedback</button>`;
+
+  if(stage === 'R1'){
+    if(status === 'Completed'){
+      if(r.interviewType === 'ai')
+        return `<button class="na-btn na-accent" onclick="${act('previewAI')}">${EYE_ICO}Preview AI Results</button>`;
+      if(fbDone)
+        return `<button class="na-btn na-accent" onclick="${act('schedR2')}">${CAL_ICO}Schedule R2</button>`;
+      return `<button class="na-btn na-accent" onclick="${act('giveFeedback')}">${CLIP_ICO}Give Feedback</button>`;
     }
     return '';
   }
-  if(stage==='R2'){
-    if(status==='Completed') return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CLIP_ICO}Give Feedback</button>`;
+
+  if(stage === 'R2'){
+    if(status === 'Completed'){
+      if(fbDone)
+        return `<button class="na-btn na-accent" onclick="${act('assignTask')}">${SEND_ICO}Assign Task</button>`;
+      return `<button class="na-btn na-accent" onclick="${act('giveFeedback')}">${CLIP_ICO}Give Feedback</button>`;
+    }
     return '';
   }
-  if(stage==='Assignment'){
-    if(status==='Completed') return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CLIP_ICO}Give Feedback</button>`;
+
+  if(stage === 'Assignment'){
+    if(status === 'Completed'){
+      if(fbDone)
+        return `<button class="na-btn na-accent" onclick="${act('schedFinal')}">${CAL_ICO}Schedule Final</button>`;
+      return `<button class="na-btn na-accent" onclick="${act('giveFeedback')}">${CLIP_ICO}Give Feedback</button>`;
+    }
     return '';
   }
-  if(stage==='Final'){
-    if(status==='Completed') return `<button class="na-btn na-green" onclick="event.stopPropagation()">${CHECK_ICO}Make Decision</button>`;
+
+  if(stage === 'Final'){
+    if(status === 'Completed'){
+      if(fbDone)
+        return `<button class="na-btn na-green" onclick="${act('makeDecision')}">${CHECK_ICO}Make Decision</button>`;
+      return `<button class="na-btn na-accent" onclick="${act('giveFeedback')}">${CLIP_ICO}Give Feedback</button>`;
+    }
     return '';
   }
-  if(stage==='Hired'){
+
+  if(stage === 'Hired'){
     return `<button class="na-btn na-green" onclick="event.stopPropagation()">${CHECK_ICO}Send Offer</button>`;
   }
   return '';
 }
 
-function cellForCol(col,r){
+/* ── Table next-action dispatcher ── */
+function naAction(ridx, action){
+  selectRow(ridx);
+  switch(action){
+    case 'schedR1':
+      openSchedModal(ridx, 'R1');
+      break;
+    case 'previewAI':
+      switchTabByName('feedback');
+      break;
+    case 'giveFeedback':
+      switchTabByName('feedback');
+      /* scroll rp-body down so feedback form is visible */
+      setTimeout(()=>{
+        const body = document.querySelector('.rp-body');
+        if(body) body.scrollTop = body.scrollHeight;
+      }, 60);
+      break;
+    case 'schedR2':
+      openSchedModal(ridx, 'R2');
+      break;
+    case 'assignTask':
+      openAssignModal(ridx);
+      break;
+    case 'schedFinal':
+      openSchedModal(ridx, 'Final');
+      break;
+    case 'makeDecision': {
+      /* rp-foot is pinned — flash it to draw attention */
+      const foot = document.getElementById('rp-foot');
+      if(foot){
+        foot.style.transition = 'background .15s';
+        foot.style.background = '#eff6ff';
+        setTimeout(()=>{ foot.style.background = ''; }, 700);
+      }
+      break;
+    }
+  }
+}
+
+function cellForCol(col,r,ridx){
   switch(col.id){
     case 'name':{
       const aib = (r.stage==='R1' && r.interviewType==='ai') ? `<span class="ai-badge">AI</span>` : '';
@@ -1904,7 +2197,7 @@ function cellForCol(col,r){
       return r.status
         ? `<span class="status-pill ${STCLS[r.status]||'st-prog'}">${r.status}</span>`
         : `<span class="status-pill st-empty">—</span>`;
-    case 'action':       return nextAction(r);
+    case 'action':       return nextAction(r, ridx);
     case 'curr_company': return r.curr_company||'—';
     case 'prev_company': return r.prev_company||'—';
     case 'github_score': return r.github_score
@@ -1940,7 +2233,7 @@ function renderTable(){
       if(!col.visible) return;
       const td=document.createElement('td');
       td.dataset.colId=col.id;
-      td.innerHTML=cellForCol(col,r);
+      td.innerHTML=cellForCol(col,r,globalIdx);
       tr.appendChild(td);
     });
     tb.appendChild(tr);
@@ -2043,30 +2336,18 @@ function selectRow(i){
   const stageBadge = document.querySelector('.rp-stage-badge');
   if(stageBadge){ stageBadge.textContent = r.stage; }
 
-  /* update status badge */
-  const stBadge = document.querySelector('.rp-st-b');
-  if(stBadge){
-    const displayStatus = r.stage === 'Hired' ? 'Shortlisted' : (r.status || '—');
-    if(r.stage === 'Hired'){
-      stBadge.innerHTML = displayStatus;
-      stBadge.style.cssText = 'cursor:default;background:#dcfce7;color:#15803d';
-    } else {
-      stBadge.innerHTML = displayStatus +
-        `<svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
-      stBadge.style.cssText = '';
-    }
-  }
-
-  /* dynamic stage block, feedback, and footer */
+  /* dynamic stage block, overview, feedback, and footer */
   renderRPStageBlock(r);
+  renderRPOverview(r);
   renderRPFeedback(r);
   renderRPFoot(r);
 
   /* bind notes to this candidate */
   switchNoteCandidate(i);
 
-  /* show the panel (it may have been closed) */
+  /* show filled panel (removes empty state, ensures panel is visible) */
   document.getElementById('rpanel').classList.remove('hidden');
+  showRPFilled();
 }
 
 /* ── Feedback-first progression helpers ── */
@@ -2114,6 +2395,9 @@ function submitRPFeedback(ridx){
   delete rpFeedbackDraft[ridx];
   renderRPFeedback(r);
   renderRPFoot(r);
+  /* refresh action cell in table so button updates (e.g. → Schedule R2) */
+  const actionTd = document.querySelector(`#tbody tr[data-ridx="${ridx}"] td[data-col-id="action"]`);
+  if(actionTd) actionTd.innerHTML = nextAction(r, ridx);
 }
 
 function switchTabByName(name){
@@ -2192,12 +2476,12 @@ function renderRPStageBlock(r){
       <div class="rp-card-row">${ICO_CLK}<span class="rp-card-lbl">Status</span><span class="rp-card-val">${status}</span></div>
     </div>`;
   } else if(stage === 'Final'){
-    const ivrName = r.interviewer || 'Amy C.';
+    const ivrName = r.interviewer || '—';
     html = `<div class="rp-card">
-      <div class="rp-card-title">Final Interview Details</div>
-      <div class="rp-card-row">${ICO_USER}<span class="rp-card-lbl">Interviewer</span><span class="rp-card-val">${ivrName}</span></div>
-      <div class="rp-card-row">${ICO_CAL}<span class="rp-card-lbl">Date</span><span class="rp-card-val">${r.interview_date}</span></div>
-      <div class="rp-card-row">${ICO_CLK}<span class="rp-card-lbl">Time</span><span class="rp-card-val">${r.interview_time}</span></div>
+      <div class="rp-card-title">Final Round Details</div>
+      ${ivrName !== '—' ? `<div class="rp-card-row">${ICO_USER}<span class="rp-card-lbl">Interviewer</span><span class="rp-card-val">${ivrName}</span></div>` : ''}
+      ${r.interview_date ? `<div class="rp-card-row">${ICO_CAL}<span class="rp-card-lbl">Date</span><span class="rp-card-val">${r.interview_date}</span></div>` : ''}
+      ${r.interview_time ? `<div class="rp-card-row">${ICO_CLK}<span class="rp-card-lbl">Time</span><span class="rp-card-val">${r.interview_time}</span></div>` : ''}
     </div>`;
   }
 
@@ -2248,16 +2532,16 @@ function renderRPFoot(r){
   /* ── R1 ── */
   } else if(stage === 'R1'){
     if(status === 'In Progress'){
-      html += `<button class="fp-cta fp-cta-outline" onclick="openSchedModal(${ridx})">${ICO_RESCHED}Re-schedule R1</button>`;
+      html += `<button class="fp-cta fp-cta-outline" onclick="openSchedModal(${ridx},'R1')">${ICO_RESCHED}Re-schedule R1</button>`;
     } else {
       /* Completed */
       if(interviewType === 'ai'){
         html += `<button class="fp-cta fp-cta-purple" onclick="switchTabByName('feedback')">${ICO_BOT}Preview AI Results</button>`;
-        html += advanceTo('R2', 'Move to R2', ICO_ARR);
+        html += `<button class="fp-cta" onclick="openSchedModal(${ridx},'R2')">${ICO_CAL}Schedule R2</button>`;
       } else {
         /* manual */
         if(fbDone){
-          html += advanceTo('R2', 'Move to R2', ICO_ARR);
+          html += `<button class="fp-cta" onclick="openSchedModal(${ridx},'R2')">${ICO_CAL}Schedule R2</button>`;
         } else {
           html += giveFb;
           html += fbHint;
@@ -2269,11 +2553,11 @@ function renderRPFoot(r){
   /* ── R2 ── */
   } else if(stage === 'R2'){
     if(status === 'In Progress'){
-      html += `<button class="fp-cta fp-cta-outline">${ICO_RESCHED}Re-schedule R2</button>`;
+      html += `<button class="fp-cta fp-cta-outline" onclick="openSchedModal(${ridx},'R2')">${ICO_RESCHED}Re-schedule R2</button>`;
     } else {
       /* Completed */
       if(fbDone){
-        html += advanceTo('Assignment', 'Assign Task', ICO_TASK);
+        html += `<button class="fp-cta" onclick="openAssignModal(${ridx})">${ICO_TASK}Assign Task</button>`;
       } else {
         html += giveFb;
         html += fbHint;
@@ -2285,7 +2569,7 @@ function renderRPFoot(r){
   } else if(stage === 'Assignment'){
     if(status === 'Completed'){
       if(fbDone){
-        html += advanceTo('Final', 'Move to Final', ICO_ARR);
+        html += `<button class="fp-cta" onclick="openSchedModal(${ridx},'Final')">${ICO_CAL}Schedule Final Round</button>`;
       } else {
         html += giveFb;
         html += fbHint;
@@ -2298,7 +2582,7 @@ function renderRPFoot(r){
   } else if(stage === 'Final'){
     if(status === 'Completed'){
       if(fbDone){
-        html += advanceTo('Hired', 'Hire this person', ICO_CHECK, 'fp-cta-green', 'Shortlisted');
+        html += advanceTo('Hired', 'Hire this Candidate', ICO_CHECK, 'fp-cta-green', 'Shortlisted');
         html += rejHold;
       } else {
         html += giveFb;
@@ -2306,7 +2590,8 @@ function renderRPFoot(r){
         html += rejHold;
       }
     } else {
-      /* In Progress: no primary CTA */
+      /* In Progress: reschedule only */
+      html += `<button class="fp-cta fp-cta-outline" onclick="openSchedModal(${ridx},'Final')">${ICO_RESCHED}Re-schedule Final Interview</button>`;
       html += rejHold;
     }
 
@@ -2836,6 +3121,8 @@ function renderRPFeedback(r){
   };
 
   /* ── AI result card (read-only, rich) ── */
+  const ICO_TRANSCRIPT = `<svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`;
+  const ICO_VIDEO      = `<svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>`;
   const aiResultCard = () => `
     <div class="rp-card">
       <div class="rp-card-title" style="margin-bottom:10px;display:flex;align-items:center;gap:6px">${ICO_BOT} AI Interview Results <span class="ai-badge">AI</span></div>
@@ -2852,6 +3139,10 @@ function renderRPFeedback(r){
       ${metricBar('Problem Solving', probPct, '#8b5cf6')}
       <div class="fb-tag-row" style="margin-top:8px">
         ${MOCK_PROS[r.exp%4].map(p=>`<span class="fb-tag-pos">+ ${p}</span>`).join('')}
+      </div>
+      <div class="ai-card-actions">
+        <button class="ai-card-btn outline" onclick="openTranscriptModal(${ridx})">${ICO_TRANSCRIPT} View Transcript</button>
+        <button class="ai-card-btn filled"  onclick="openRecordingModal(${ridx})">${ICO_VIDEO} View Recording</button>
       </div>
     </div>`;
 
@@ -2953,10 +3244,22 @@ function switchTab(el,tab){
   const body = document.querySelector('.rp-body');
   if(body) body.scrollTop = 0;
 }
+function showRPEmpty(){
+  document.getElementById('rp-empty').style.display = '';
+  document.getElementById('rp-head').style.display  = 'none';
+  document.getElementById('rp-body').style.display  = 'none';
+  document.getElementById('rp-foot').style.display  = 'none';
+}
+function showRPFilled(){
+  document.getElementById('rp-empty').style.display = 'none';
+  document.getElementById('rp-head').style.display  = '';
+  document.getElementById('rp-body').style.display  = '';
+  document.getElementById('rp-foot').style.display  = '';
+}
 function closePanel(){
-  document.getElementById('rpanel').classList.add('hidden');
   activeRow = -1;
   document.querySelectorAll('#tbody tr').forEach(tr => tr.classList.remove('row-on'));
+  showRPEmpty();
 }
 
 /* ═══════════════════════════════════════════
@@ -3751,13 +4054,14 @@ function renderFmFooter(r){
 /* ═══════════════════════════════════════════
    SCHEDULING MODAL
 ═══════════════════════════════════════════ */
-let schedRidx      = -1;
-let schedType      = null;   // 'ai' | 'manual'
-let schedDate      = null;
-let schedTime      = null;
-let schedIvr       = null;
-let schedAutoInvite = true;
-let schedIvrFilter  = '';
+let schedRidx        = -1;
+let schedType        = null;   // 'ai' | 'manual'
+let schedDate        = null;
+let schedTime        = null;
+let schedIvr         = null;
+let schedAutoInvite  = true;
+let schedIvrFilter   = '';
+let schedTargetStage = 'R1';   // which stage we're scheduling into
 
 const SCHED_DATES = (()=>{
   const days   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -3783,18 +4087,24 @@ const SCHED_IVRS = [
   { name:'Sarah K.', role:'Senior Engineer',        initials:'SK', avail:{ type:'today',    label:'AVAILABLE',  text:'Today 9:00AM–6:00PM' } },
 ];
 
-function openSchedModal(ridx){
-  schedRidx      = ridx;
-  schedType      = null;
-  schedDate      = null;
-  schedTime      = null;
-  schedIvr       = null;
-  schedAutoInvite = true;
-  schedIvrFilter  = '';
+function openSchedModal(ridx, targetStage){
+  schedRidx        = ridx;
+  schedTargetStage = targetStage || 'R1';
+  schedDate        = null;
+  schedTime        = null;
+  schedIvr         = null;
+  schedAutoInvite  = true;
+  schedIvrFilter   = '';
+  /* R2 and beyond: skip type selector, go straight to Manual */
+  schedType = (schedTargetStage !== 'R1') ? 'manual' : null;
   const r = filteredRows[ridx];
   const bar = document.getElementById('sm-cand-bar');
   if(bar && r){
-    bar.innerHTML = `<div class="sm-cand-left"><strong>${r.name}</strong> &nbsp;${r.role} · ${r.exp} years</div><div class="sm-cand-stage">Stage: <strong>R1 Interview</strong></div>`;
+    const stageLabel = schedTargetStage === 'R1'    ? 'R1 Interview'
+                     : schedTargetStage === 'R2'    ? 'R2 Interview'
+                     : schedTargetStage === 'Final' ? 'Final Round'
+                     : schedTargetStage + ' Interview';
+    bar.innerHTML = `<div class="sm-cand-left"><strong>${r.name}</strong> &nbsp;${r.role} · ${r.exp} years</div><div class="sm-cand-stage">Stage: <strong>${stageLabel}</strong></div>`;
   }
   document.getElementById('sm-overlay').classList.add('open');
   document.getElementById('sm-dialog').classList.add('open');
@@ -3857,8 +4167,10 @@ function renderSchedModal(){
   const ICO_SEND   = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`;
   const ICO_SEARCH = `<svg class="sm-search-ico" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
 
-  /* ── Interview Type section label ── */
-  let html = `<div class="sm-sec" style="margin-bottom:12px">
+  /* ── Interview Type section label — only for R1 ── */
+  let html = '';
+  if(schedTargetStage === 'R1'){
+    html += `<div class="sm-sec" style="margin-bottom:12px">
     <div class="sm-lbl">Interview Type</div>
     <div class="sm-type-row">
       <div class="sm-type-card ${schedType==='ai'?'sel-ai':''}" onclick="smSetType('ai')">
@@ -3871,6 +4183,7 @@ function renderSchedModal(){
       </div>
     </div>
   </div>`;
+  }
 
   if(schedType === 'ai'){
     html += `
@@ -3939,14 +4252,18 @@ function renderSchedModal(){
 
   /* ── Footer ── */
   if(!foot) return;
+  const ctaLabel = schedTargetStage === 'R1'    ? 'R1 Interview'
+                 : schedTargetStage === 'R2'    ? 'R2 Interview'
+                 : schedTargetStage === 'Final' ? 'Final Round'
+                 : schedTargetStage + ' Interview';
   if(!schedType){
-    foot.innerHTML = `<button class="sm-cancel" onclick="closeSchedModal()">Cancel</button><button class="sm-foot-cta is-manual is-disabled" disabled>Schedule R1 Interview</button>`;
+    foot.innerHTML = `<button class="sm-cancel" onclick="closeSchedModal()">Cancel</button><button class="sm-foot-cta is-manual is-disabled" disabled>Schedule ${ctaLabel}</button>`;
   } else if(schedType === 'ai'){
     const ok = !!schedDate;
     foot.innerHTML = `<button class="sm-cancel" onclick="closeSchedModal()">Cancel</button><button class="sm-foot-cta is-ai" onclick="confirmSched()" ${ok?'':'disabled'}>${ICO_SEND} Send AI Interview</button>`;
   } else {
     const ok = !!(schedDate && schedTime && schedIvr);
-    foot.innerHTML = `<button class="sm-cancel" onclick="closeSchedModal()">Cancel</button><button class="sm-foot-cta is-manual" onclick="confirmSched()" ${ok?'':'disabled'}>${ICO_CAL} Schedule R1 Interview</button>`;
+    foot.innerHTML = `<button class="sm-cancel" onclick="closeSchedModal()">Cancel</button><button class="sm-foot-cta is-manual" onclick="confirmSched()" ${ok?'':'disabled'}>${ICO_CAL} Schedule ${ctaLabel}</button>`;
   }
 }
 
@@ -3955,7 +4272,7 @@ function confirmSched(){
   const r = filteredRows[schedRidx];
   if(!r) return;
 
-  r.stage         = 'R1';
+  r.stage         = schedTargetStage;
   r.status        = 'In Progress';
   r.interviewType = schedType;
   r.interview_date = schedDate;
@@ -3975,6 +4292,433 @@ function confirmSched(){
 }
 
 /* ═══════════════════════════════════════════
+   ASSIGN TASK MODAL
+═══════════════════════════════════════════ */
+let assignRidx = -1;
+
+function openAssignModal(ridx){
+  assignRidx = ridx;
+  /* reset fields */
+  const linkEl = document.getElementById('at-link');
+  const dlEl   = document.getElementById('at-deadline');
+  if(linkEl) linkEl.value = '';
+  if(dlEl)   dlEl.value  = '';
+  document.getElementById('at-overlay').classList.add('open');
+  document.getElementById('at-dialog').classList.add('open');
+}
+
+function closeAssignModal(){
+  document.getElementById('at-overlay').classList.remove('open');
+  document.getElementById('at-dialog').classList.remove('open');
+}
+
+function confirmAssign(){
+  if(assignRidx < 0) return;
+  const r = filteredRows[assignRidx];
+  if(!r) return;
+  r.assign_link    = document.getElementById('at-link')?.value || '';
+  r.assign_deadline = document.getElementById('at-deadline')?.value || '';
+  r.stage  = 'Assignment';
+  r.status = 'In Progress';
+  closeAssignModal();
+  renderTable();
+  updateStats();
+  renderChips();
+  if(activeRow === assignRidx) selectRow(assignRidx);
+}
+
+/* ═══════════════════════════════════════════
+   TRANSCRIPT MODAL
+═══════════════════════════════════════════ */
+const TRANSCRIPT_QA = [
+  [
+    "Can you walk me through your experience with system design? Specifically, how have you approached designing scalable services?",
+    "Sure — in my last role I designed the API gateway layer for a microservices migration. The main challenge was handling 50k+ concurrent connections. I used an event-driven architecture with Node.js and Redis pub/sub for real-time state sync. We ended up reducing p99 latency from 420ms down to 65ms after tuning the connection pool."
+  ],
+  [
+    "Interesting. How did you handle schema migrations without downtime?",
+    "We adopted a dual-write pattern. During migration, every write goes to both the old and new schema simultaneously. Reads stay on the old schema until validation passes, then we flip the read path. It's a bit more complex to reason about but zero-downtime migrations became standard practice for us."
+  ],
+  [
+    "What's your approach to writing testable code? Can you give a concrete example?",
+    "I'm a big fan of dependency injection and keeping business logic pure — no side effects. For instance, our payment processor had a hard dependency on Stripe's SDK, making unit tests brittle. I refactored it behind an interface, so tests inject a mock and the real implementation is swapped in at runtime. Coverage went from 40% to 91% on that module."
+  ],
+  [
+    "How do you prioritize technical debt versus feature work?",
+    "I use a rough cost-of-delay framework — estimate how much the debt slows down new features per sprint, multiply by quarters to maturity. If the compound cost exceeds a sprint's worth of refactor time within 6 months, it jumps the queue. I also advocate for debt budgets — 20% of every sprint dedicated to housekeeping so it doesn't accumulate silently."
+  ],
+  [
+    "Tell me about a time a deployment went wrong. How did you handle it?",
+    "We pushed a config change to production that accidentally set our CDN's cache TTL to zero. Traffic spiked 12x on origin servers within minutes. I caught it from an alert, rolled back the config within 4 minutes, but the origin had already started shedding connections. Post-mortem: we added a canary stage to all infra config changes and a TTL floor in our CDN policy — can't set it below 60 seconds without an override flag now."
+  ],
+  [
+    "Last question — where do you see yourself growing technically over the next two years?",
+    "I want to go deeper on distributed systems, specifically consensus protocols and eventual consistency patterns. I've been working through the Designing Data-Intensive Applications book and experimenting with CRDTs on a side project. Long term I'm interested in the staff engineer track — being the technical glue across teams rather than just owning a single codebase."
+  ],
+];
+
+const TRANSCRIPT_ALTS = [
+  [
+    "Walk me through your most technically challenging project.",
+    "The hardest project was rebuilding our search engine from scratch. We were on Elasticsearch 6 with heavily nested queries that timed out on large datasets. I re-modeled the indexing strategy using denormalized documents and rewrote the query layer with composite aggregations. Search latency dropped from 2.1 seconds to 180ms at the 95th percentile."
+  ],
+  [
+    "How do you approach code reviews? What do you look for?",
+    "I focus on three things: correctness first — does it do what it says, and are edge cases handled? Then readability — can a new team member understand it in five minutes? Finally, design — is this the simplest solution, or are we over-engineering? I try to leave comments that explain the 'why' of my suggestions, not just flag issues."
+  ],
+  [
+    "Describe your experience with frontend performance optimization.",
+    "On one project the initial bundle was 2.4MB which killed mobile load times. I introduced code-splitting at the route level, lazy-loaded non-critical components, and replaced a heavy charting library with a custom SVG renderer for our specific use case. Bundle dropped to 380KB. Lighthouse score went from 34 to 91."
+  ],
+  [
+    "How do you stay current with new technologies while managing day-to-day work?",
+    "I dedicate about 90 minutes on Friday afternoons to reading — usually the morning paper, Hacker News threads worth bookmarking, and release notes for tools I use. I pick one thing per quarter to actually build with — last quarter it was Rust, this quarter it's exploring WebAssembly for compute-heavy browser tasks."
+  ],
+];
+
+function openTranscriptModal(ridx){
+  const r = filteredRows[ridx];
+  if(!r) return;
+  const set = ridx % 2 === 0 ? TRANSCRIPT_QA : TRANSCRIPT_ALTS;
+  const dateStr = r.interview_date || 'Feb 2026';
+  document.getElementById('tr-meta').textContent = `${r.name} · AI Interview · ${dateStr}`;
+  document.getElementById('tr-foot-info').textContent = `${set.length} exchanges · ~${Math.round(set.length * 2.5)} min`;
+  const body = document.getElementById('tr-body');
+  body.innerHTML = set.map(([q, a]) => `
+    <div class="tr-msg">
+      <span class="tr-msg-role ai">AI Interviewer</span>
+      <div class="tr-msg-bubble ai-bubble">${q}</div>
+    </div>
+    <div class="tr-msg">
+      <span class="tr-msg-role cand">${r.name.split(' ')[0]}</span>
+      <div class="tr-msg-bubble cand-bubble">${a}</div>
+    </div>`).join('');
+  body.scrollTop = 0;
+  document.getElementById('tr-overlay').classList.add('open');
+  document.getElementById('tr-dialog').classList.add('open');
+}
+
+function closeTranscriptModal(){
+  document.getElementById('tr-overlay').classList.remove('open');
+  document.getElementById('tr-dialog').classList.remove('open');
+}
+
+/* ═══════════════════════════════════════════
+   VIDEO PLAYER MODAL
+═══════════════════════════════════════════ */
+let vpPlaying   = false;
+let vpProgress  = 37;   // percent
+let vpSpeedIdx  = 0;
+const VP_SPEEDS = ['1×','1.25×','1.5×','2×'];
+const VP_CHAPTERS = ['Intro','Background','Technical Q&A','System Design','Problem Solving','Wrap-up'];
+let vpTimer     = null;
+
+const VP_TOTAL_SECS  = 2537;  // 42:17
+function vpFmtTime(secs){ const m=Math.floor(secs/60),s=Math.floor(secs%60); return `${m}:${String(s).padStart(2,'0')}`; }
+
+function openRecordingModal(ridx){
+  const r = filteredRows[ridx];
+  if(!r) return;
+  vpPlaying  = false;
+  vpProgress = 30 + (ridx % 20);
+  vpSpeedIdx = 0;
+  clearInterval(vpTimer);
+  document.getElementById('vp-title').textContent = `AI Interview Recording — ${r.name}`;
+  document.getElementById('vp-meta').textContent  = `${r.role} · ${r.interview_date || 'Feb 2026'} · 42 min`;
+  document.getElementById('vp-cand-sub').textContent = `Interviewing ${r.name.split(' ')[0]}`;
+  document.getElementById('vp-speed').textContent = VP_SPEEDS[vpSpeedIdx];
+  vpRenderChapters();
+  vpUpdateUI();
+  document.getElementById('vp-overlay').classList.add('open');
+  document.getElementById('vp-dialog').classList.add('open');
+}
+
+function closeRecordingModal(){
+  clearInterval(vpTimer);
+  vpPlaying = false;
+  document.getElementById('vp-overlay').classList.remove('open');
+  document.getElementById('vp-dialog').classList.remove('open');
+}
+
+function vpUpdateUI(){
+  const curSecs = Math.round(VP_TOTAL_SECS * vpProgress / 100);
+  document.getElementById('vp-cur').textContent  = vpFmtTime(curSecs);
+  document.getElementById('vp-tot').textContent  = vpFmtTime(VP_TOTAL_SECS);
+  document.getElementById('vp-fill').style.width  = vpProgress + '%';
+  document.getElementById('vp-thumb').style.left  = vpProgress + '%';
+  const ico = document.getElementById('vp-play-ico');
+  if(ico) ico.innerHTML = vpPlaying
+    ? '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'
+    : '<polygon points="5 3 19 12 5 21 5 3"/>';
+  /* highlight active chapter */
+  const idx = Math.floor(vpProgress / (100 / VP_CHAPTERS.length));
+  document.querySelectorAll('.vp-chapter').forEach((el,i)=>el.classList.toggle('active', i===idx));
+}
+
+function vpTogglePlay(){
+  vpPlaying = !vpPlaying;
+  clearInterval(vpTimer);
+  if(vpPlaying){
+    const speedMul = parseFloat(VP_SPEEDS[vpSpeedIdx]) || 1;
+    vpTimer = setInterval(()=>{
+      vpProgress += (100 / VP_TOTAL_SECS) * 0.5 * speedMul;
+      if(vpProgress >= 100){ vpProgress = 100; clearInterval(vpTimer); vpPlaying = false; }
+      vpUpdateUI();
+    }, 500);
+  }
+  vpUpdateUI();
+}
+
+function vpStep(secs){
+  const delta = (secs / VP_TOTAL_SECS) * 100;
+  vpProgress = Math.max(0, Math.min(100, vpProgress + delta));
+  vpUpdateUI();
+}
+
+function vpSeek(e, el){
+  const rect = el.getBoundingClientRect();
+  vpProgress = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+  vpUpdateUI();
+}
+
+function vpCycleSpeed(){
+  vpSpeedIdx = (vpSpeedIdx + 1) % VP_SPEEDS.length;
+  document.getElementById('vp-speed').textContent = VP_SPEEDS[vpSpeedIdx];
+  if(vpPlaying){ clearInterval(vpTimer); vpPlaying = false; vpTogglePlay(); }
+}
+
+function vpRenderChapters(){
+  document.getElementById('vp-chapters').innerHTML = VP_CHAPTERS.map((c,i)=>`<span class="vp-chapter" onclick="vpJumpChapter(${i})">${c}</span>`).join('');
+}
+
+function vpJumpChapter(idx){
+  vpProgress = Math.round((idx / VP_CHAPTERS.length) * 100) + 1;
+  vpUpdateUI();
+}
+
+/* ═══════════════════════════════════════════
+   EDIT CANDIDATE MODAL
+═══════════════════════════════════════════ */
+let editRidx    = -1;
+let editOriginal = {};
+
+/* HTML-escape helper (scoped to edit modal use) */
+function ecEsc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+function openEditModal(ridx){
+  if(ridx < 0 || ridx === undefined) return;
+  editRidx = ridx;
+  const r = filteredRows[ridx];
+  if(!r) return;
+  document.getElementById('ec-subtitle').textContent = `${r.name} · ${r.role}`;
+  editOriginal = {
+    name:         r.name         || '',
+    email:        r.email        || '',
+    phone:        r.phone        || '',
+    location:     r.location     || '',
+    role:         r.role         || '',
+    exp:          String(r.exp   || 0),
+    curr_company: r.curr_company || '',
+    prev_company: r.prev_company || '',
+    skills:       (r.skills||[]).join(', '),
+    portfolio_url:r.portfolio_url|| '',
+    github_url:   r.github_url   || '',
+    resume_url:   r.resume_url   || '',
+    notes:        r.edit_notes   || '',
+  };
+  renderECBody();
+  document.getElementById('ec-save').disabled = true;
+  document.getElementById('ec-overlay').classList.add('open');
+  document.getElementById('ec-dialog').classList.add('open');
+}
+
+function renderECBody(){
+  const v = editOriginal;
+  document.getElementById('ec-body').innerHTML = `
+    <div class="ec-section">
+      <div class="ec-sec-title">Basic Info</div>
+      <div class="ec-grid">
+        <div class="ec-field">
+          <label class="ec-lbl" for="ec-name">Full Name<span class="ec-req">*</span></label>
+          <input class="ec-input" id="ec-name" type="text" value="${ecEsc(v.name)}" oninput="ecChanged()" autocomplete="off">
+          <span class="ec-errmsg" id="ec-name-err">Name is required</span>
+        </div>
+        <div class="ec-field">
+          <label class="ec-lbl" for="ec-email">Email<span class="ec-req">*</span></label>
+          <input class="ec-input" id="ec-email" type="email" value="${ecEsc(v.email)}" oninput="ecChanged()" autocomplete="off">
+          <span class="ec-errmsg" id="ec-email-err">Valid email required</span>
+        </div>
+        <div class="ec-field">
+          <label class="ec-lbl" for="ec-phone">Phone</label>
+          <input class="ec-input" id="ec-phone" type="text" value="${ecEsc(v.phone)}" oninput="ecChanged()">
+        </div>
+        <div class="ec-field">
+          <label class="ec-lbl" for="ec-location">Location</label>
+          <input class="ec-input" id="ec-location" type="text" value="${ecEsc(v.location)}" oninput="ecChanged()">
+        </div>
+      </div>
+    </div>
+    <div class="ec-section">
+      <div class="ec-sec-title">Professional Info</div>
+      <div class="ec-grid">
+        <div class="ec-field">
+          <label class="ec-lbl" for="ec-role">Role</label>
+          <input class="ec-input" id="ec-role" type="text" value="${ecEsc(v.role)}" oninput="ecChanged()">
+        </div>
+        <div class="ec-field">
+          <label class="ec-lbl" for="ec-exp">Experience (years)</label>
+          <input class="ec-input" id="ec-exp" type="number" min="0" max="40" value="${ecEsc(v.exp)}" oninput="ecChanged()">
+        </div>
+        <div class="ec-field">
+          <label class="ec-lbl" for="ec-curr-co">Current Company</label>
+          <input class="ec-input" id="ec-curr-co" type="text" value="${ecEsc(v.curr_company)}" oninput="ecChanged()">
+        </div>
+        <div class="ec-field">
+          <label class="ec-lbl" for="ec-prev-co">Previous Company</label>
+          <input class="ec-input" id="ec-prev-co" type="text" value="${ecEsc(v.prev_company)}" oninput="ecChanged()">
+        </div>
+      </div>
+    </div>
+    <div class="ec-section">
+      <div class="ec-sec-title">Skills</div>
+      <div class="ec-grid single">
+        <div class="ec-field">
+          <label class="ec-lbl" for="ec-skills">Skills <span style="font-weight:400;color:var(--t3);text-transform:none;letter-spacing:0">(comma-separated)</span></label>
+          <input class="ec-input" id="ec-skills" type="text" value="${ecEsc(v.skills)}" oninput="ecChanged()" placeholder="Python, React, PostgreSQL…">
+        </div>
+      </div>
+    </div>
+    <div class="ec-section">
+      <div class="ec-sec-title">Links</div>
+      <div class="ec-grid single">
+        <div class="ec-field">
+          <label class="ec-lbl" for="ec-portfolio">Portfolio</label>
+          <input class="ec-input" id="ec-portfolio" type="url" value="${ecEsc(v.portfolio_url)}" oninput="ecChanged()" placeholder="https://yourportfolio.com">
+        </div>
+        <div class="ec-field" style="margin-top:10px">
+          <label class="ec-lbl" for="ec-github">GitHub</label>
+          <input class="ec-input" id="ec-github" type="url" value="${ecEsc(v.github_url)}" oninput="ecChanged()" placeholder="https://github.com/username">
+        </div>
+        <div class="ec-field" style="margin-top:10px">
+          <label class="ec-lbl" for="ec-resume">Resume</label>
+          <input class="ec-input" id="ec-resume" type="url" value="${ecEsc(v.resume_url)}" oninput="ecChanged()" placeholder="https://drive.google.com/…">
+        </div>
+      </div>
+    </div>
+    <div class="ec-section">
+      <div class="ec-sec-title">Notes <span style="font-weight:400;color:var(--t3);text-transform:none;letter-spacing:0;font-size:10px">(optional)</span></div>
+      <div class="ec-grid single">
+        <div class="ec-field">
+          <textarea class="ec-textarea" id="ec-notes" oninput="ecChanged()" placeholder="Internal notes about this candidate…">${ecEsc(v.notes)}</textarea>
+        </div>
+      </div>
+    </div>`;
+}
+
+function ecGetValues(){
+  return {
+    name:         (document.getElementById('ec-name')?.value     || '').trim(),
+    email:        (document.getElementById('ec-email')?.value    || '').trim(),
+    phone:        (document.getElementById('ec-phone')?.value    || '').trim(),
+    location:     (document.getElementById('ec-location')?.value || '').trim(),
+    role:         (document.getElementById('ec-role')?.value     || '').trim(),
+    exp:          (document.getElementById('ec-exp')?.value      || '').trim(),
+    curr_company: (document.getElementById('ec-curr-co')?.value  || '').trim(),
+    prev_company: (document.getElementById('ec-prev-co')?.value  || '').trim(),
+    skills:       (document.getElementById('ec-skills')?.value   || '').trim(),
+    portfolio_url:(document.getElementById('ec-portfolio')?.value|| '').trim(),
+    github_url:   (document.getElementById('ec-github')?.value   || '').trim(),
+    resume_url:   (document.getElementById('ec-resume')?.value   || '').trim(),
+    notes:        (document.getElementById('ec-notes')?.value    || ''),
+  };
+}
+
+function ecChanged(){
+  const curr    = ecGetValues();
+  const changed = Object.keys(editOriginal).some(k => curr[k] !== editOriginal[k]);
+  document.getElementById('ec-save').disabled = !changed;
+}
+
+function closeEditModal(){
+  document.getElementById('ec-overlay').classList.remove('open');
+  document.getElementById('ec-dialog').classList.remove('open');
+  editRidx = -1;
+}
+
+function saveEditModal(){
+  const vals = ecGetValues();
+  /* validate */
+  let ok = true;
+  const nameInput  = document.getElementById('ec-name');
+  const emailInput = document.getElementById('ec-email');
+  const nameErr    = document.getElementById('ec-name-err');
+  const emailErr   = document.getElementById('ec-email-err');
+  if(!vals.name){
+    nameInput.classList.add('ec-err'); nameErr.style.display = ''; ok = false;
+  } else { nameInput.classList.remove('ec-err'); nameErr.style.display = 'none'; }
+  if(!vals.email || !/\S+@\S+\.\S+/.test(vals.email)){
+    emailInput.classList.add('ec-err'); emailErr.style.display = ''; ok = false;
+  } else { emailInput.classList.remove('ec-err'); emailErr.style.display = 'none'; }
+  if(!ok) return;
+  /* apply */
+  const r = filteredRows[editRidx];
+  r.name          = vals.name;
+  r.email         = vals.email;
+  r.phone         = vals.phone;
+  r.location      = vals.location;
+  r.role          = vals.role;
+  r.exp           = parseInt(vals.exp) || 0;
+  r.curr_company  = vals.curr_company;
+  r.prev_company  = vals.prev_company;
+  r.skills        = vals.skills.split(',').map(s=>s.trim()).filter(Boolean);
+  r.portfolio_url = vals.portfolio_url;
+  r.github_url    = vals.github_url;
+  r.resume_url    = vals.resume_url;
+  r.edit_notes    = vals.notes;
+  /* refresh table + panel */
+  renderTable();
+  if(activeRow === editRidx) selectRow(editRidx);
+  closeEditModal();
+}
+
+/* ── Dynamic overview tab renderer ── */
+function renderRPOverview(r){
+  const el = document.getElementById('rp-ov-detail');
+  if(!el) return;
+  const ICO_MAIL = `<svg class="i" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`;
+  const ICO_PHONE= `<svg class="i" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>`;
+  const ICO_LOC  = `<svg class="i" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+  const ICO_WEB  = `<svg class="i" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>`;
+  const ICO_GH   = `<svg class="i" width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.17c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013.01-.4c1.02 0 2.05.14 3.01.4 2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12.01 12.01 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>`;
+  const ICO_DOC  = `<svg class="i" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`;
+  const portfolioHref = r.portfolio_url || '#';
+  const githubHref    = r.github_url    || '#';
+  const resumeHref    = r.resume_url    || '#';
+  const skills = (r.skills||[]).map(s=>`<span class="sk-lg">${s}</span>`).join('');
+  el.innerHTML = `
+    <div class="rp-sec"><div class="rp-stitle">Contact</div>
+      <div class="rp-rw">${ICO_MAIL}<a class="rl" href="mailto:${r.email||''}">${r.email||'—'}</a></div>
+      <div class="rp-rw">${ICO_PHONE}${r.phone||'—'}</div>
+      ${r.location ? `<div class="rp-rw">${ICO_LOC}${r.location}</div>` : ''}
+    </div>
+    <div class="rp-sec"><div class="rp-stitle">Portfolio</div>
+      ${portfolioHref!=='#'||true ? `<div class="rp-rw">${ICO_WEB}<a class="rl" href="${portfolioHref}" target="_blank">${r.portfolio_url||'Portfolio'}</a></div>` : ''}
+      <div class="rp-rw">${ICO_GH}<a class="rl" href="${githubHref}" target="_blank">${r.github_url ? r.github_url.replace('https://github.com/','') : 'Github'}</a></div>
+      <div class="rp-rw">${ICO_DOC}<a class="rl" href="${resumeHref}" target="_blank">Resume</a></div>
+    </div>
+    ${skills ? `<div class="rp-sec"><div class="rp-stitle">Skills</div><div class="skw">${skills}</div></div>` : ''}
+    <div class="rp-sec"><div class="rp-stitle">Work History</div>
+      ${r.curr_company ? `<div class="wco">${r.curr_company}</div><div class="wsu">Current Company</div>` : ''}
+      ${r.prev_company ? `<div class="wco">${r.prev_company}</div><div class="wsu">Previous Company</div>` : ''}
+    </div>
+    <div class="rp-sec"><div class="rp-stitle">Details</div>
+      <div class="dr"><span class="dk">Experience:</span><span class="dv">${r.exp} yrs</span></div>
+      ${r.applied_date ? `<div class="dr"><span class="dk">Applied:</span><span class="dv">${r.applied_date}</span></div>` : ''}
+      ${r.edit_notes ? `<div class="dr" style="margin-top:6px"><span class="dk">Notes:</span></div><div style="font-size:11.5px;color:var(--t2);margin-top:3px;line-height:1.5">${r.edit_notes}</div>` : ''}
+    </div>`;
+}
+
+/* ═══════════════════════════════════════════
    FILTER BAR FADE INDICATOR
 ═══════════════════════════════════════════ */
 function checkFilterFade(){
@@ -3989,7 +4733,12 @@ function checkFilterFade(){
    INIT
 ═══════════════════════════════════════════ */
 renderHead();
+/* default filter: Screening stage */
+activeStages  = new Set(['Screening']);
+pendingStages = new Set(['Screening']);
 applyFilters();   // builds filteredRows, renderTable, updateStats, renderChips
+/* start with empty panel — no row selected */
+showRPEmpty();
 
 const fb = document.getElementById('filter-bar');
 fb.addEventListener('scroll', checkFilterFade);
