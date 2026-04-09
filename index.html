@@ -222,12 +222,8 @@ tbody td:first-child{padding-left:20px}
 .pag-select:hover{border-color:#c5cad3}
 
 /* ── RIGHT PANEL ── */
-.rpanel{width:320px;min-width:320px;background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;transition:width .2s,min-width .2s,opacity .2s}
-.rpanel.hidden{width:0;min-width:0;opacity:0}
-.rp-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;gap:6px}
-.rp-empty-ico{color:var(--t3);opacity:.3;margin-bottom:6px}
-.rp-empty-title{font-size:13px;font-weight:600;color:var(--t2)}
-.rp-empty-sub{font-size:11.5px;color:var(--t3);line-height:1.5}
+.rpanel{width:0;min-width:0;background:var(--surface);border-left:1px solid transparent;display:flex;flex-direction:column;overflow:hidden;opacity:0;pointer-events:none;transition:width .28s cubic-bezier(.4,0,.2,1),min-width .28s cubic-bezier(.4,0,.2,1),opacity .22s ease,border-color .28s ease}
+.rpanel.open{width:26%;min-width:280px;max-width:400px;opacity:1;pointer-events:auto;border-left-color:var(--border)}
 .rp-head{padding:14px 16px 0;border-bottom:1px solid var(--border);flex-shrink:0}
 .rp-row1{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:3px}
 .rp-left{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
@@ -920,12 +916,6 @@ tbody td:first-child{padding-left:20px}
 
     <!-- RIGHT PANEL -->
     <aside class="rpanel" id="rpanel">
-      <!-- empty state: shown when no candidate is selected -->
-      <div id="rp-empty" class="rp-empty">
-        <svg class="rp-empty-ico" width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.3"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <div class="rp-empty-title">No candidate selected</div>
-        <div class="rp-empty-sub">Select a candidate to view details</div>
-      </div>
       <div class="rp-head" id="rp-head">
         <div class="rp-row1">
           <div class="rp-left">
@@ -2345,8 +2335,7 @@ function selectRow(i){
   /* bind notes to this candidate */
   switchNoteCandidate(i);
 
-  /* show filled panel (removes empty state, ensures panel is visible) */
-  document.getElementById('rpanel').classList.remove('hidden');
+  /* slide panel in and show content */
   showRPFilled();
 }
 
@@ -3245,16 +3234,13 @@ function switchTab(el,tab){
   if(body) body.scrollTop = 0;
 }
 function showRPEmpty(){
-  document.getElementById('rp-empty').style.display = '';
-  document.getElementById('rp-head').style.display  = 'none';
-  document.getElementById('rp-body').style.display  = 'none';
-  document.getElementById('rp-foot').style.display  = 'none';
+  document.getElementById('rpanel').classList.remove('open');
 }
 function showRPFilled(){
-  document.getElementById('rp-empty').style.display = 'none';
-  document.getElementById('rp-head').style.display  = '';
-  document.getElementById('rp-body').style.display  = '';
-  document.getElementById('rp-foot').style.display  = '';
+  document.getElementById('rp-head').style.display = '';
+  document.getElementById('rp-body').style.display = '';
+  document.getElementById('rp-foot').style.display = '';
+  document.getElementById('rpanel').classList.add('open');
 }
 function closePanel(){
   activeRow = -1;
@@ -4737,8 +4723,6 @@ renderHead();
 activeStages  = new Set(['Screening']);
 pendingStages = new Set(['Screening']);
 applyFilters();   // builds filteredRows, renderTable, updateStats, renderChips
-/* start with empty panel — no row selected */
-showRPEmpty();
 
 const fb = document.getElementById('filter-bar');
 fb.addEventListener('scroll', checkFilterFade);
