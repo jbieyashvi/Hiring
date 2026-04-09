@@ -270,6 +270,8 @@ tbody td:first-child{padding-left:20px}
 .fp-cta-purple:hover{background:#6d28d9;box-shadow:0 3px 10px rgba(124,58,237,.25)}
 .fp-cta-green{background:var(--green);color:#fff}
 .fp-cta-green:hover{background:#15803d;box-shadow:0 3px 10px rgba(22,163,74,.25)}
+.fp-cta-outline{background:var(--surface);color:var(--t2);border:1px solid var(--border)}
+.fp-cta-outline:hover{background:var(--bg);border-color:#c5cad3;color:var(--t1)}
 .fp-no-action{text-align:center;font-size:11.5px;color:var(--t3);padding:6px 0;font-style:italic}
 .fp-hold:hover{background:var(--amber-bg);color:var(--amber);border-color:#fcd34d}
 .fp-sec-btn{width:100%;height:32px;background:transparent;border:1px solid var(--border);border-radius:var(--r);font-size:12px;font-weight:500;color:var(--t2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:7px;transition:background .12s,border-color .12s;font-family:inherit}
@@ -305,45 +307,76 @@ tbody td:first-child{padding-left:20px}
 .fb-tag-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px}
 .fb-tag-pos{background:#dcfce7;color:#15803d;border-radius:4px;padding:2px 7px;font-size:10.5px;font-weight:500}
 .fb-tag-neg{background:#fee2e2;color:#dc2626;border-radius:4px;padding:2px 7px;font-size:10.5px;font-weight:500}
-.fb-stars{display:flex;gap:2px}
-.fb-star{width:13px;height:13px;color:#f59e0b}
-.fb-star-empty{color:var(--border)}
+.fb-stars{display:flex;gap:3px}
+.fb-stars svg{width:14px;height:14px}
 .fb-pending{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--bg);border:1px dashed var(--border);border-radius:var(--r2);font-size:11.5px;color:var(--t2);margin-bottom:10px}
-/* Inline feedback form */
-.fb-form-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
-.fb-form-lbl{font-size:11.5px;color:var(--t2);min-width:100px}
-.fb-star-row{display:flex;gap:3px}
+/* Read-only previous round card */
+.fb-prev-card{background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);padding:11px 13px;margin-bottom:10px;opacity:.85}
+.fb-prev-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.fb-prev-title{font-size:11.5px;font-weight:700;color:var(--t2)}
+.fb-prev-badge{font-size:10px;font-weight:600;background:#dcfce7;color:#15803d;border-radius:20px;padding:1px 8px}
+.fb-prev-rating{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.fb-prev-rating-lbl{font-size:11px;color:var(--t3);min-width:44px}
+.fb-prev-pros{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.fb-prev-text{font-size:11px;color:var(--t2);line-height:1.5;margin-top:6px;padding-top:6px;border-top:1px solid var(--border-light)}
+/* Active feedback form */
+.fb-form-section{background:var(--surface);border:1.5px solid var(--accent);border-radius:var(--r2);padding:13px 14px;margin-bottom:10px}
+.fb-form-title{font-size:12px;font-weight:700;color:var(--t1);margin-bottom:12px}
+.fb-form-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.fb-form-lbl{font-size:12px;color:var(--t2);font-weight:500}
+.fb-star-row{display:flex;gap:4px}
 .fb-star-row svg{cursor:pointer;transition:fill .1s,stroke .1s}
 .fb-star-row svg:hover{opacity:.8}
-.fb-textarea{width:100%;border:1px solid var(--border);border-radius:var(--r);padding:7px 9px;font-size:11.5px;color:var(--t1);font-family:inherit;resize:none;outline:none;transition:border-color .12s;background:var(--surface);margin:8px 0 10px}
+.fb-pros-lbl{font-size:12px;color:var(--t2);font-weight:500;margin-bottom:5px}
+.fb-textarea{width:100%;border:1px solid var(--border);border-radius:var(--r);padding:7px 9px;font-size:11.5px;color:var(--t1);font-family:inherit;resize:none;outline:none;transition:border-color .12s;background:var(--surface);margin-bottom:10px}
 .fb-textarea:focus{border-color:#93c5fd}
 .fb-submit{width:100%;height:34px;background:#111827;color:#fff;border:none;border-radius:var(--r);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .12s}
 .fb-submit:hover{background:#1e2533}
 .fb-submit:disabled{opacity:.4;cursor:not-allowed}
-.fb-submitted-tag{display:inline-flex;align-items:center;gap:4px;background:#dcfce7;color:#15803d;border-radius:4px;padding:2px 8px;font-size:10.5px;font-weight:600;margin-bottom:8px}
+.fb-submitted-tag{display:inline-flex;align-items:center;gap:4px;background:#dcfce7;color:#15803d;border-radius:4px;padding:2px 8px;font-size:10.5px;font-weight:600;margin-bottom:10px}
 
 /* ── SCHEDULING MODAL ── */
 .sm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:900;opacity:0;pointer-events:none;transition:opacity .18s}
 .sm-overlay.open{opacity:1;pointer-events:all}
-.sm-dialog{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%);z-index:901;background:var(--surface);border-radius:var(--r3);box-shadow:var(--s3);width:460px;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+.sm-dialog{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%);z-index:901;background:var(--surface);border-radius:var(--r3);box-shadow:var(--s3);width:500px;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;display:flex;flex-direction:column;max-height:calc(100vh - 48px)}
 .sm-dialog.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%)}
-.sm-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 14px;border-bottom:1px solid var(--border)}
-.sm-title{font-size:14px;font-weight:700;color:var(--t1)}
+.sm-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 12px;flex-shrink:0}
+.sm-title{font-size:15px;font-weight:700;color:var(--t1)}
 .sm-x{width:26px;height:26px;border:none;background:transparent;border-radius:5px;cursor:pointer;font-size:18px;color:var(--t3);display:flex;align-items:center;justify-content:center;line-height:1;font-family:inherit}
 .sm-x:hover{background:var(--bg);color:var(--t1)}
-.sm-body{padding:16px 18px 18px;max-height:calc(100vh - 120px);overflow-y:auto}
+.sm-cand-bar{display:flex;align-items:center;justify-content:space-between;padding:0 18px 12px;flex-shrink:0}
+.sm-cand-left{font-size:12.5px;color:var(--t2)}
+.sm-cand-left strong{color:var(--t1);font-weight:600}
+.sm-cand-stage{font-size:12px;color:var(--t2)}
+.sm-cand-stage strong{color:var(--t1);font-weight:600}
+.sm-hr{border:none;border-top:1px solid var(--border);flex-shrink:0}
+.sm-body{padding:16px 18px 6px;overflow-y:auto;flex:1}
 .sm-body::-webkit-scrollbar{width:4px}
 .sm-body::-webkit-scrollbar-thumb{background:#e5e7eb;border-radius:2px}
+.sm-foot{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-top:1px solid var(--border);gap:10px;flex-shrink:0}
+.sm-cancel{height:38px;padding:0 20px;border:1px solid var(--border);border-radius:var(--r);background:transparent;font-size:13px;font-weight:500;color:var(--t2);cursor:pointer;font-family:inherit;transition:background .1s,border-color .1s}
+.sm-cancel:hover{background:var(--bg);border-color:#c5cad3}
+.sm-foot-cta{flex:1;height:38px;border:none;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:7px;transition:background .12s,box-shadow .12s}
+.sm-foot-cta.is-ai{background:#7c3aed;color:#fff}
+.sm-foot-cta.is-ai:hover:not(:disabled){background:#6d28d9;box-shadow:0 3px 10px rgba(124,58,237,.25)}
+.sm-foot-cta.is-manual{background:#111827;color:#fff}
+.sm-foot-cta.is-manual:hover:not(:disabled){background:#1e2533;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.sm-foot-cta.is-disabled,.sm-foot-cta:disabled{opacity:.35;cursor:not-allowed}
+/* Type selector – radio style */
 .sm-type-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
-.sm-type-card{border:2px solid var(--border);border-radius:var(--r2);padding:12px 14px;cursor:pointer;transition:border-color .12s,background .12s}
+.sm-type-card{border:1.5px solid var(--border);border-radius:var(--r2);padding:11px 14px;cursor:pointer;transition:border-color .12s,background .12s;display:flex;align-items:center;gap:10px}
 .sm-type-card:hover{border-color:#c5cad3;background:var(--bg)}
 .sm-type-card.sel-manual{border-color:var(--accent);background:var(--accent-bg)}
 .sm-type-card.sel-ai{border-color:#7c3aed;background:#f5f3ff}
-.sm-type-icon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:7px}
-.sm-type-name{font-size:12.5px;font-weight:600;color:var(--t1);margin-bottom:2px}
-.sm-type-desc{font-size:10.5px;color:var(--t3);line-height:1.4}
+.sm-radio{width:18px;height:18px;border:2px solid var(--border);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:border-color .12s}
+.sm-type-card.sel-manual .sm-radio{border-color:var(--accent)}
+.sm-type-card.sel-manual .sm-radio::after{content:'';width:9px;height:9px;border-radius:50%;background:var(--accent);display:block}
+.sm-type-card.sel-ai .sm-radio{border-color:#7c3aed}
+.sm-type-card.sel-ai .sm-radio::after{content:'';width:9px;height:9px;border-radius:50%;background:#7c3aed;display:block}
+.sm-type-name{font-size:13px;font-weight:500;color:var(--t1)}
 .sm-sec{margin-bottom:14px}
-.sm-lbl{font-size:10.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
+.sm-lbl{font-size:11px;font-weight:700;color:var(--t1);margin-bottom:8px}
+/* Date grid */
 .sm-dates{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
 .sm-date{border:1px solid var(--border);border-radius:var(--r);padding:7px 4px;text-align:center;cursor:pointer;transition:border-color .1s,background .1s}
 .sm-date:hover{border-color:#c5cad3;background:var(--bg)}
@@ -351,34 +384,41 @@ tbody td:first-child{padding-left:20px}
 .sm-date-day{font-size:9.5px;color:var(--t3);margin-bottom:2px}
 .sm-date-num{font-size:13px;font-weight:600;color:var(--t1)}
 .sm-date.sel .sm-date-day,.sm-date.sel .sm-date-num{color:var(--accent)}
-.sm-times{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+/* Time grid */
+.sm-times{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
 .sm-time{border:1px solid var(--border);border-radius:var(--r);padding:7px 4px;text-align:center;font-size:11.5px;font-weight:500;cursor:pointer;transition:border-color .1s,background .1s}
 .sm-time:hover{border-color:#c5cad3;background:var(--bg)}
 .sm-time.sel{border-color:var(--accent);background:var(--accent-bg);color:var(--accent);font-weight:600}
-.sm-ivrs{display:flex;flex-direction:column;gap:5px}
-.sm-ivr{display:flex;align-items:center;gap:9px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--r);cursor:pointer;transition:border-color .1s,background .1s}
+/* Interviewer list */
+.sm-search{position:relative;margin-bottom:8px}
+.sm-search input{width:100%;height:34px;padding:0 10px 0 30px;border:1px solid var(--border);border-radius:var(--r);font-size:12.5px;font-family:inherit;color:var(--t1);background:var(--surface);outline:none;transition:border-color .12s}
+.sm-search input:focus{border-color:var(--accent)}
+.sm-search input::placeholder{color:var(--t3)}
+.sm-search-ico{position:absolute;left:9px;top:50%;transform:translateY(-50%);pointer-events:none}
+.sm-ivrs{display:flex;flex-direction:column;gap:5px;max-height:200px;overflow-y:auto}
+.sm-ivrs::-webkit-scrollbar{width:3px}
+.sm-ivrs::-webkit-scrollbar-thumb{background:#e5e7eb}
+.sm-ivr{padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--r);cursor:pointer;transition:border-color .1s,background .1s}
 .sm-ivr:hover{border-color:#c5cad3;background:var(--bg)}
 .sm-ivr.sel{border-color:var(--accent);background:var(--accent-bg)}
-.sm-ivr-av{width:30px;height:30px;border-radius:50%;background:#e0e7ff;display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:700;color:var(--accent);flex-shrink:0}
-.sm-ivr.sel .sm-ivr-av{background:var(--accent);color:#fff}
-.sm-ivr-name{font-size:12px;font-weight:500;color:var(--t1);flex:1}
-.sm-ivr-role{font-size:10.5px;color:var(--t3)}
-.sm-avail{font-size:10.5px;color:var(--green);font-weight:500}
+.sm-ivr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px}
+.sm-ivr-names{display:flex;align-items:center;gap:0}
+.sm-ivr-fname{font-size:12.5px;font-weight:600;color:var(--t1)}
+.sm-ivr-frole{font-size:12px;color:var(--t3);margin-left:4px}
+.sm-ivr-avail-text{font-size:11px;color:var(--t3)}
+.sm-avail-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.03em}
+.sm-avail-today{background:#dcfce7;color:#15803d}
+.sm-avail-tomorrow{background:#e0e7ff;color:#4338ca}
+.sm-avail-week{background:#f3f4f6;color:#6b7280}
+/* AI info row */
 .sm-ai-info{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f5f3ff;border:1px solid #c4b5fd;border-radius:var(--r2);margin-bottom:14px}
 .sm-ai-av{width:34px;height:34px;border-radius:50%;background:#7c3aed;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .sm-ai-name{font-size:12.5px;font-weight:600;color:#5b21b6}
 .sm-ai-sub{font-size:11px;color:#7c3aed;margin-top:1px}
-.sm-divider{border:none;border-top:1px solid var(--border);margin:14px 0 16px}
-.sm-cta{width:100%;height:40px;border:none;border-radius:var(--r);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .12s,box-shadow .12s;display:flex;align-items:center;justify-content:center;gap:7px;margin-top:4px}
-.sm-cta-manual{background:#111827;color:#fff}
-.sm-cta-manual:hover:not(:disabled){background:#1e2533;box-shadow:0 3px 10px rgba(0,0,0,.2)}
-.sm-cta-ai{background:#7c3aed;color:#fff}
-.sm-cta-ai:hover:not(:disabled){background:#6d28d9;box-shadow:0 3px 10px rgba(124,58,237,.25)}
-.sm-cta:disabled{opacity:.35;cursor:not-allowed}
-.ivtype-toggle{display:flex;gap:0;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:3px;margin-bottom:10px}
-.ivtype-btn{flex:1;height:28px;border:none;background:transparent;border-radius:5px;font-size:11.5px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;color:var(--t2);transition:background .12s,color .12s,box-shadow .12s;font-family:inherit}
-.ivtype-btn.active-manual{background:var(--surface);color:var(--accent);font-weight:600;box-shadow:var(--s1)}
-.ivtype-btn.active-ai{background:var(--surface);color:#7c3aed;font-weight:600;box-shadow:var(--s1)}
+/* Calendar invite checkbox */
+.sm-check-row{display:flex;align-items:center;gap:8px;padding:10px 0 4px}
+.sm-check-row input[type=checkbox]{width:15px;height:15px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
+.sm-check-label{font-size:12.5px;font-weight:500;color:var(--t1);cursor:pointer;user-select:none}
 
 /* ── POPOVERS ── */
 .popover{position:fixed;background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);box-shadow:var(--s3);z-index:600;min-width:200px;max-width:265px;opacity:0;transform:scale(.96) translateY(-4px);pointer-events:none;transition:opacity .14s ease,transform .14s ease}
@@ -836,10 +876,13 @@ tbody td:first-child{padding-left:20px}
 <div class="sm-overlay" id="sm-overlay" onclick="closeSchedModal()"></div>
 <div class="sm-dialog" id="sm-dialog">
   <div class="sm-head">
-    <span class="sm-title" id="sm-title">Schedule R1 Interview</span>
+    <span class="sm-title">Schedule Interview</span>
     <button class="sm-x" onclick="closeSchedModal()">×</button>
   </div>
+  <div class="sm-cand-bar" id="sm-cand-bar"></div>
+  <hr class="sm-hr">
   <div class="sm-body" id="sm-body"></div>
+  <div class="sm-foot" id="sm-foot"></div>
 </div>
 
 <div class="popover" id="stage-pop">
@@ -1300,9 +1343,9 @@ const STAGE_STATUS_DIST={
   'Screening': ['In Progress','In Progress','In Progress','Shortlisted','Shortlisted','On Hold','Rejected','Rejected'],
   'R1':        ['In Progress','In Progress','Completed','Completed','Completed'],
   'R2':        ['In Progress','Completed','Completed','Completed'],
-  'Assignment':['Pending','Pending','Submitted','Submitted','Submitted'],
-  'Final':     ['Completed'],
-  'Hired':     ['Hired'],
+  'Assignment':['In Progress','In Progress','Completed','Completed','Completed'],
+  'Final':     ['In Progress','Completed','Completed'],
+  'Hired':     ['Shortlisted'],
 };
 const COMPANIES=['Google','Microsoft','Apple','Meta','Amazon','Netflix','Stripe','Airbnb','Uber','Lyft'];
 const PREV_COS=['Tesla','Intel','Cisco','IBM','Oracle','Salesforce','Adobe','Shopify','Twitter','Snap'];
@@ -1360,9 +1403,9 @@ const STAGE_STATUS_MAP = {
   'Screening':  ['In Progress','Shortlisted','On Hold','Rejected'],
   'R1':         ['In Progress','Completed'],
   'R2':         ['In Progress','Completed'],
-  'Assignment': ['Pending','Submitted','Reviewed'],
+  'Assignment': ['In Progress','Completed'],
   'Final':      ['In Progress','Completed'],
-  'Hired':      ['Hired'],
+  'Hired':      ['Shortlisted'],
 };
 
 const CHV=`<svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
@@ -1473,17 +1516,13 @@ const STAGE_DEFS = [
   { value:'Final',      label:'Final Round',  badge:`<span class="stage s-fin"  style="font-size:10px;padding:1px 6px;margin-left:auto">Final</span>` },
   { value:'Hired',      label:'Hired',        badge:`<span class="stage s-hire" style="font-size:10px;padding:1px 6px;margin-left:auto">Hired</span>` },
 ];
-/* STATUS_DEFS – used by the filter popover only; shows every possible status */
+/* STATUS_DEFS – used by the filter popover only */
 const STATUS_DEFS = [
   { value:'In Progress', label:'In Progress', badge:`<span class="status-pill st-prog"   style="font-size:10px;padding:1px 6px;margin-left:auto">In Progress</span>` },
   { value:'Shortlisted', label:'Shortlisted', badge:`<span class="status-pill st-short"  style="font-size:10px;padding:1px 6px;margin-left:auto">Shortlisted</span>` },
   { value:'On Hold',     label:'On Hold',     badge:`<span class="status-pill st-hold"   style="font-size:10px;padding:1px 6px;margin-left:auto">On Hold</span>` },
   { value:'Rejected',    label:'Rejected',    badge:`<span class="status-pill st-reject" style="font-size:10px;padding:1px 6px;margin-left:auto">Rejected</span>` },
   { value:'Completed',   label:'Completed',   badge:`<span class="status-pill st-done"   style="font-size:10px;padding:1px 6px;margin-left:auto">Completed</span>` },
-  { value:'Pending',     label:'Pending',     badge:`<span class="status-pill st-pend"   style="font-size:10px;padding:1px 6px;margin-left:auto">Pending</span>` },
-  { value:'Submitted',   label:'Submitted',   badge:`<span class="status-pill st-sub"    style="font-size:10px;padding:1px 6px;margin-left:auto">Submitted</span>` },
-  { value:'Reviewed',    label:'Reviewed',    badge:`<span class="status-pill st-rev"    style="font-size:10px;padding:1px 6px;margin-left:auto">Reviewed</span>` },
-  { value:'Hired',       label:'Hired',       badge:`<span class="status-pill st-hire"   style="font-size:10px;padding:1px 6px;margin-left:auto">Hired</span>` },
 ];
 
 /* ═══════════════════════════════════════════
@@ -1808,14 +1847,12 @@ function nextAction(r){
   const {stage, status} = r;
   if(stage==='Screening'){
     if(status==='Shortlisted') return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CAL_ICO}Schedule R1</button>`;
-    if(status==='On Hold')     return `<button class="na-btn" onclick="event.stopPropagation()">${CAL_ICO}Follow Up</button>`;
-    if(status==='Rejected')    return `<button class="na-btn na-disabled" disabled>No Action</button>`;
     return '';
   }
   if(stage==='R1'){
     if(status==='Completed'){
-      if(r.interviewType==='manual') return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CLIP_ICO}Give Feedback</button>`;
-      return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CLIP_ICO}Review Results</button>`;
+      if(r.interviewType==='ai') return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CLIP_ICO}Preview AI Results</button>`;
+      return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CLIP_ICO}Give Feedback</button>`;
     }
     return '';
   }
@@ -1824,16 +1861,15 @@ function nextAction(r){
     return '';
   }
   if(stage==='Assignment'){
-    if(status==='Submitted') return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${EYE_ICO}Review Submission</button>`;
-    if(status==='Reviewed')  return `<button class="na-btn na-green"  onclick="event.stopPropagation()">${CAL_ICO}Schedule Final</button>`;
+    if(status==='Completed') return `<button class="na-btn na-accent" onclick="event.stopPropagation()">${CLIP_ICO}Give Feedback</button>`;
     return '';
   }
   if(stage==='Final'){
-    if(status==='Completed') return `<button class="na-btn na-green" onclick="event.stopPropagation()">${CHECK_ICO}Make Offer</button>`;
+    if(status==='Completed') return `<button class="na-btn na-green" onclick="event.stopPropagation()">${CHECK_ICO}Make Decision</button>`;
     return '';
   }
   if(stage==='Hired'){
-    return `<button class="na-btn na-green" onclick="event.stopPropagation()">${USER_ICO}Onboard</button>`;
+    return `<button class="na-btn na-green" onclick="event.stopPropagation()">${CHECK_ICO}Send Offer</button>`;
   }
   return '';
 }
@@ -1857,7 +1893,10 @@ function cellForCol(col,r){
     case 'match':  return `<span class="match match-g">${r.match}%</span>`;
     case 'stage':  return `<span class="stage ${SCLS[r.stage]||'s-scr'}">${r.stage}</span>`;
     case 'status':
-      if(r.stage==='Screening'){
+      if(r.stage === 'Hired'){
+        return `<span class="status-pill st-hire" style="cursor:default">Shortlisted</span>`;
+      }
+      if(r.stage === 'Screening'){
         return r.status
           ? `<span class="status-pill ${STCLS[r.status]||'st-prog'}" onclick="showStatusPicker(event,this)">${r.status}${CHV}</span>`
           : `<span class="status-pill st-empty" onclick="showStatusPicker(event,this)">Set status${CHV}</span>`;
@@ -2007,8 +2046,15 @@ function selectRow(i){
   /* update status badge */
   const stBadge = document.querySelector('.rp-st-b');
   if(stBadge){
-    stBadge.innerHTML = (r.status||'—') +
-      `<svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
+    const displayStatus = r.stage === 'Hired' ? 'Shortlisted' : (r.status || '—');
+    if(r.stage === 'Hired'){
+      stBadge.innerHTML = displayStatus;
+      stBadge.style.cssText = 'cursor:default;background:#dcfce7;color:#15803d';
+    } else {
+      stBadge.innerHTML = displayStatus +
+        `<svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
+      stBadge.style.cssText = '';
+    }
   }
 
   /* dynamic stage block, feedback, and footer */
@@ -2024,18 +2070,28 @@ function selectRow(i){
 }
 
 /* ── Feedback-first progression helpers ── */
-const rpFeedbackDraft = {}; // { tech,comm,cult,prob } — live star selections per ridx
+// feedbackStore[ridx][round] = { rating, pros }  where round = 'R1'|'R2'|'Assignment'|'Final'
+const feedbackStore = {};
+const rpFeedbackDraft = {}; // { rating } — live star during editing, keyed by ridx
 
-function isFeedbackSubmitted(ridx){
-  const fb = fmFeedbackStore[ridx];
-  return !!(fb && (fb.tech || fb.comm || fb.cult || fb.prob));
+function getFeedback(ridx, round){
+  return (feedbackStore[ridx] || {})[round] || null;
 }
 
-function setRPFeedbackStar(ridx, cat, val){
+function isFeedbackSubmitted(ridx){
+  const r = filteredRows[ridx];
+  if(!r) return false;
+  const round = r.stage === 'R1' ? 'R1' : r.stage === 'R2' ? 'R2' : r.stage === 'Assignment' ? 'Assignment' : r.stage === 'Final' ? 'Final' : null;
+  if(!round) return false;
+  // AI R1 is always "done" once Completed
+  if(r.stage === 'R1' && r.interviewType === 'ai' && r.status === 'Completed') return true;
+  return !!(getFeedback(ridx, round));
+}
+
+function setRPFeedbackStar(ridx, val){
   if(!rpFeedbackDraft[ridx]) rpFeedbackDraft[ridx] = {};
-  rpFeedbackDraft[ridx][cat] = val;
-  /* update stars in place without full re-render */
-  const container = document.getElementById(`rp-stars-${ridx}-${cat}`);
+  rpFeedbackDraft[ridx].rating = val;
+  const container = document.getElementById(`rp-stars-${ridx}`);
   if(container){
     container.querySelectorAll('svg').forEach((svg, i) => {
       const on = i + 1 <= val;
@@ -2043,23 +2099,31 @@ function setRPFeedbackStar(ridx, cat, val){
       svg.setAttribute('stroke', on ? '#f59e0b' : '#d1d5db');
     });
   }
-  /* enable submit button once at least one star is set */
   const btn = document.getElementById(`rp-fb-submit-${ridx}`);
   if(btn) btn.disabled = false;
 }
 
 function submitRPFeedback(ridx){
-  const draft = rpFeedbackDraft[ridx] || {};
-  const text  = document.getElementById(`rp-fb-text-${ridx}`)?.value || '';
-  fmFeedbackStore[ridx] = { tech:draft.tech||0, comm:draft.comm||0, cult:draft.cult||0, prob:draft.prob||0, text };
   const r = filteredRows[ridx];
+  if(!r) return;
+  const round  = r.stage === 'R1' ? 'R1' : r.stage === 'R2' ? 'R2' : r.stage === 'Assignment' ? 'Assignment' : 'Final';
+  const draft  = rpFeedbackDraft[ridx] || {};
+  const pros   = document.getElementById(`rp-fb-pros-${ridx}`)?.value || '';
+  if(!feedbackStore[ridx]) feedbackStore[ridx] = {};
+  feedbackStore[ridx][round] = { rating: draft.rating || 0, pros };
+  delete rpFeedbackDraft[ridx];
   renderRPFeedback(r);
   renderRPFoot(r);
 }
 
 function switchTabByName(name){
   const el = document.querySelector(`.rtab[onclick*="'${name}'"]`);
-  if(el) switchTab(el, name);
+  if(el){
+    switchTab(el, name);
+    /* scroll rp-body to top so the form is fully visible */
+    const body = document.querySelector('.rp-body');
+    if(body) body.scrollTop = 0;
+  }
 }
 
 function setInterviewType(ridx, type){
@@ -2084,40 +2148,60 @@ function renderRPStageBlock(r){
   const el = document.getElementById('rp-stage-block');
   if(!el) return;
   const {stage, status, interviewType} = r;
-  const ridx = filteredRows.indexOf(r);
 
   const ICO_USER = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
   const ICO_CAL  = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
   const ICO_CLK  = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
-  const ICO_EDIT = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color:var(--t3);cursor:pointer"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
   const ICO_BOT  = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="13" r="1.5" fill="currentColor" stroke="none"/></svg>`;
+  const ICO_TASK = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>`;
 
-  if(stage === 'R1' || stage === 'R2'){
-    let html = '';
+  let html = '';
 
-    if(stage === 'R1' && interviewType === 'ai'){
+  if(stage === 'R1'){
+    if(interviewType === 'ai'){
       const stLabel = status === 'Completed' ? 'Interview complete' : 'Pending candidate response';
-      html = `
-        <div class="rp-card">
-          <div class="rp-card-title" style="display:flex;align-items:center;gap:6px">Interview Details <span class="ai-badge">AI</span></div>
-          <div class="rp-card-row">${ICO_BOT}<span class="rp-card-lbl">Method</span><span class="rp-card-val" style="color:#7c3aed">AI Automated</span></div>
-          <div class="rp-card-row">${ICO_CLK}<span class="rp-card-lbl">Status</span><span class="rp-card-val">${stLabel}</span></div>
-        </div>`;
+      html = `<div class="rp-card">
+        <div class="rp-card-title" style="display:flex;align-items:center;gap:6px">Interview Details <span class="ai-badge">AI</span></div>
+        <div class="rp-card-row">${ICO_BOT}<span class="rp-card-lbl">Method</span><span class="rp-card-val" style="color:#7c3aed">AI Automated</span></div>
+        <div class="rp-card-row">${ICO_CLK}<span class="rp-card-lbl">Status</span><span class="rp-card-val">${stLabel}</span></div>
+        ${r.interview_date ? `<div class="rp-card-row">${ICO_CAL}<span class="rp-card-lbl">Sent on</span><span class="rp-card-val">${r.interview_date}</span></div>` : ''}
+      </div>`;
     } else {
       const ivrName = r.interviewer || 'Sarah K.';
-      html = `
-        <div class="rp-card">
-          <div class="rp-card-title">Interview Details</div>
-          <div class="rp-card-row">${ICO_USER}<span class="rp-card-lbl">Interviewer</span><span class="rp-card-val">${ivrName}</span></div>
-          <div class="rp-card-row">${ICO_CAL}<span class="rp-card-lbl">Date</span><span class="rp-card-val">${r.interview_date}</span></div>
-          <div class="rp-card-row">${ICO_CLK}<span class="rp-card-lbl">Time</span><span class="rp-card-val">${r.interview_time}</span></div>
-        </div>`;
+      html = `<div class="rp-card">
+        <div class="rp-card-title">R1 Interview Details</div>
+        <div class="rp-card-row">${ICO_USER}<span class="rp-card-lbl">Interviewer</span><span class="rp-card-val">${ivrName}</span></div>
+        <div class="rp-card-row">${ICO_CAL}<span class="rp-card-lbl">Date</span><span class="rp-card-val">${r.interview_date}</span></div>
+        <div class="rp-card-row">${ICO_CLK}<span class="rp-card-lbl">Time</span><span class="rp-card-val">${r.interview_time}</span></div>
+      </div>`;
     }
-
-    el.innerHTML = html;
-  } else {
-    el.innerHTML = '';
+  } else if(stage === 'R2'){
+    const ivrName = r.interviewer || 'Tom R.';
+    html = `<div class="rp-card">
+      <div class="rp-card-title">R2 Interview Details</div>
+      <div class="rp-card-row">${ICO_USER}<span class="rp-card-lbl">Interviewer</span><span class="rp-card-val">${ivrName}</span></div>
+      <div class="rp-card-row">${ICO_CAL}<span class="rp-card-lbl">Date</span><span class="rp-card-val">${r.interview_date}</span></div>
+      <div class="rp-card-row">${ICO_CLK}<span class="rp-card-lbl">Time</span><span class="rp-card-val">${r.interview_time}</span></div>
+    </div>`;
+  } else if(stage === 'Assignment'){
+    const dueDate = r.interview_date || 'Apr 20, 2026';
+    html = `<div class="rp-card">
+      <div class="rp-card-title">Assignment</div>
+      <div class="rp-card-row">${ICO_TASK}<span class="rp-card-lbl">Type</span><span class="rp-card-val">Take-home Task</span></div>
+      <div class="rp-card-row">${ICO_CAL}<span class="rp-card-lbl">Due date</span><span class="rp-card-val">${dueDate}</span></div>
+      <div class="rp-card-row">${ICO_CLK}<span class="rp-card-lbl">Status</span><span class="rp-card-val">${status}</span></div>
+    </div>`;
+  } else if(stage === 'Final'){
+    const ivrName = r.interviewer || 'Amy C.';
+    html = `<div class="rp-card">
+      <div class="rp-card-title">Final Interview Details</div>
+      <div class="rp-card-row">${ICO_USER}<span class="rp-card-lbl">Interviewer</span><span class="rp-card-val">${ivrName}</span></div>
+      <div class="rp-card-row">${ICO_CAL}<span class="rp-card-lbl">Date</span><span class="rp-card-val">${r.interview_date}</span></div>
+      <div class="rp-card-row">${ICO_CLK}<span class="rp-card-lbl">Time</span><span class="rp-card-val">${r.interview_time}</span></div>
+    </div>`;
   }
+
+  el.innerHTML = html;
 }
 
 function renderRPFoot(r){
@@ -2125,82 +2209,110 @@ function renderRPFoot(r){
   if(!foot) return;
   const {stage, status, interviewType} = r;
 
-  const ICO_CAL   = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
-  const ICO_CLIP  = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>`;
-  const ICO_BOT   = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><line x1="12" y1="12" x2="12" y2="16"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>`;
-  const ICO_REJ   = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
-  const ICO_HOLD  = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg>`;
-  const ICO_CHECK = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
+  /* ── icons ── */
+  const ICO_CAL     = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+  const ICO_CLIP    = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>`;
+  const ICO_BOT     = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="14" r="1.5" fill="currentColor" stroke="none"/></svg>`;
+  const ICO_REJ     = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
+  const ICO_HOLD    = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg>`;
+  const ICO_CHECK   = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
+  const ICO_ARR     = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
+  const ICO_TASK    = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>`;
+  const ICO_RESCHED = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>`;
+  const ICO_MAIL    = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`;
+  const ICO_EYE     = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`;
 
   const ridx   = filteredRows.indexOf(r);
   const fbDone = isFeedbackSubmitted(ridx);
-  const ICO_ARR  = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
-  const ICO_TASK = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>`;
+
+  /* shared building blocks */
+  const rejHold   = `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+  const giveFb    = `<button class="fp-cta fp-cta-green" onclick="switchTabByName('feedback')">${ICO_CLIP}Give Feedback</button>`;
+  const fbHint    = `<div style="font-size:10.5px;color:var(--t3);text-align:center;margin-bottom:4px">Submit feedback to unlock next step</div>`;
+  const advanceTo = (toStage, label, ico='', cls='', toStatus='In Progress') => {
+    const fn = `filteredRows[${ridx}].stage='${toStage}';filteredRows[${ridx}].status='${toStatus}';renderTable();updateStats();renderChips();selectRow(${ridx})`;
+    return `<button class="fp-cta ${cls}" onclick="${fn}">${ico}${label}</button>`;
+  };
 
   let html = `<div class="fp-label">Actions</div>`;
 
+  /* ── SCREENING ── */
   if(stage === 'Screening'){
     if(status === 'Shortlisted'){
       html += `<button class="fp-cta" onclick="openSchedModal(${ridx})">${ICO_CAL}Schedule R1 Interview</button>`;
-    } else if(status === 'Rejected'){
-      html += `<button class="fp-cta" disabled style="opacity:.45;cursor:not-allowed">${ICO_CAL}Rejected</button>`;
-    } else {
-      html += `<button class="fp-cta">${ICO_CAL}Move to Shortlist</button>`;
+    } else if(status === 'In Progress'){
+      html += `<button class="fp-cta" onclick="setRowStatus(${ridx},'Shortlisted')">${ICO_CHECK}Move to Shortlist</button>`;
     }
-    html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+    html += rejHold;
 
+  /* ── R1 ── */
   } else if(stage === 'R1'){
     if(status === 'In Progress'){
-      /* interview not done — no progression, just Reject/Hold */
-      html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+      html += `<button class="fp-cta fp-cta-outline" onclick="openSchedModal(${ridx})">${ICO_RESCHED}Re-schedule R1</button>`;
     } else {
+      /* Completed */
       if(interviewType === 'ai'){
-        html += `<button class="fp-cta fp-cta-purple" onclick="switchTabByName('feedback')">${ICO_BOT}Review AI Results</button>`;
-        html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
-      } else if(fbDone){
-        html += `<button class="fp-cta">${ICO_ARR}Move to R2</button>`;
-        html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+        html += `<button class="fp-cta fp-cta-purple" onclick="switchTabByName('feedback')">${ICO_BOT}Preview AI Results</button>`;
+        html += advanceTo('R2', 'Move to R2', ICO_ARR);
       } else {
-        html += `<button class="fp-cta fp-cta-green" onclick="switchTabByName('feedback')">${ICO_CLIP}Give Feedback</button>`;
-        html += `<div style="font-size:10.5px;color:var(--t3);text-align:center;margin-bottom:4px">Submit feedback to unlock progression</div>`;
-        html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+        /* manual */
+        if(fbDone){
+          html += advanceTo('R2', 'Move to R2', ICO_ARR);
+        } else {
+          html += giveFb;
+          html += fbHint;
+        }
       }
     }
+    html += rejHold;
 
+  /* ── R2 ── */
   } else if(stage === 'R2'){
     if(status === 'In Progress'){
-      html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+      html += `<button class="fp-cta fp-cta-outline">${ICO_RESCHED}Re-schedule R2</button>`;
     } else {
+      /* Completed */
       if(fbDone){
-        html += `<button class="fp-cta">${ICO_TASK}Assign Task</button>`;
-        html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+        html += advanceTo('Assignment', 'Assign Task', ICO_TASK);
       } else {
-        html += `<button class="fp-cta fp-cta-green" onclick="switchTabByName('feedback')">${ICO_CLIP}Give Feedback</button>`;
-        html += `<div style="font-size:10.5px;color:var(--t3);text-align:center;margin-bottom:4px">Submit feedback to unlock progression</div>`;
-        html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
+        html += giveFb;
+        html += fbHint;
       }
     }
+    html += rejHold;
 
-  } else if(stage === 'Final'){
-    if(status === 'In Progress'){
-      html += `<div class="fp-row"><button class="fp-s fp-reject">${ICO_REJ}Reject</button><button class="fp-s fp-hold">${ICO_HOLD}Hold</button></div>`;
-    } else {
-      if(fbDone){
-        html += `<button class="fp-cta fp-cta-green">${ICO_CHECK}Make Offer</button>`;
-      } else {
-        html += `<button class="fp-cta fp-cta-green" onclick="switchTabByName('feedback')">${ICO_CLIP}Give Feedback</button>`;
-        html += `<div style="font-size:10.5px;color:var(--t3);text-align:center;margin-bottom:4px">Submit feedback to unlock offer</div>`;
-      }
-    }
-
+  /* ── ASSIGNMENT ── */
   } else if(stage === 'Assignment'){
-    if(status === 'Submitted'){
-      html += `<button class="fp-cta">${ICO_CLIP}Review Submission</button>`;
-    } else if(status === 'Reviewed'){
-      html += `<button class="fp-cta fp-cta-green">${ICO_CAL}Schedule Final</button>`;
+    if(status === 'Completed'){
+      if(fbDone){
+        html += advanceTo('Final', 'Move to Final', ICO_ARR);
+      } else {
+        html += giveFb;
+        html += fbHint;
+      }
     }
+    /* In Progress: no primary CTA */
+    html += rejHold;
+
+  /* ── FINAL ── */
+  } else if(stage === 'Final'){
+    if(status === 'Completed'){
+      if(fbDone){
+        html += advanceTo('Hired', 'Hire this person', ICO_CHECK, 'fp-cta-green', 'Shortlisted');
+        html += rejHold;
+      } else {
+        html += giveFb;
+        html += fbHint;
+        html += rejHold;
+      }
+    } else {
+      /* In Progress: no primary CTA */
+      html += rejHold;
+    }
+
+  /* ── HIRED ── */
   } else if(stage === 'Hired'){
-    html += `<button class="fp-cta fp-cta-green">${ICO_CHECK}Begin Onboarding</button>`;
+    html += `<button class="fp-cta fp-cta-green">${ICO_MAIL}Send Offer</button>`;
   }
 
   foot.innerHTML = html;
@@ -2650,26 +2762,34 @@ function renderRPFeedback(r){
   const {stage, status, interviewType} = r;
   const ridx = filteredRows.indexOf(r);
 
-  /* ── helpers ── */
-  const ICO_MSG  = `<svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="display:block;margin:0 auto 8px;opacity:.3"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>`;
-  const ICO_CLK  = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="flex-shrink:0;opacity:.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
-  const ICO_BOT  = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="13" r="1.5" fill="currentColor" stroke="none"/></svg>`;
-  const ICO_EDIT = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="flex-shrink:0;opacity:.5"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+  /* ── icon helpers ── */
+  const ICO_MSG = `<svg width="26" height="26" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" style="display:block;margin:0 auto 8px;opacity:.3"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>`;
+  const ICO_CLK = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="flex-shrink:0;opacity:.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+  const ICO_BOT = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="13" r="1.5" fill="currentColor" stroke="none"/></svg>`;
 
   const emptyState = (title, sub='') => `
     <div class="fb-empty">${ICO_MSG}
       <div class="fb-empty-title">${title}</div>
-      ${sub?`<div class="fb-empty-sub">${sub}</div>`:''}
+      ${sub ? `<div class="fb-empty-sub">${sub}</div>` : ''}
     </div>`;
 
   const pendingBanner = (msg) => `
     <div class="fb-pending">${ICO_CLK}<span>${msg}</span></div>`;
 
-  const starsHTML = (n, max=5) => {
+  /* read-only stars */
+  const starsRO = (n, max=5) => {
     let s = '<div class="fb-stars">';
-    for(let i=1;i<=max;i++) s += `<svg class="fb-star${i<=n?'':'-empty'}" viewBox="0 0 24 24" fill="${i<=n?'currentColor':'none'}" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    for(let i=1;i<=max;i++) s += `<svg viewBox="0 0 24 24" fill="${i<=n?'#f59e0b':'none'}" stroke="${i<=n?'#f59e0b':'#d1d5db'}" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
     return s + '</div>';
   };
+
+  /* deterministic mock scores for AI results */
+  const score   = (r.github_score || 70);
+  const techPct = Math.min(98, score + 2);
+  const commPct = 55 + (r.exp % 5) * 8;
+  const cultPct = 60 + (r.exp % 4) * 9;
+  const probPct = 50 + (r.exp % 6) * 7;
+  const overall = Math.round((techPct + commPct + cultPct + probPct) / 4);
 
   const metricBar = (label, pct, color='var(--accent)') => `
     <div class="fb-metric">
@@ -2678,59 +2798,52 @@ function renderRPFeedback(r){
       <span class="fb-metric-num">${Math.round(pct)}%</span>
     </div>`;
 
-  /* deterministic mock scores from candidate data */
-  const score    = (r.github_score || 70);
-  const techPct  = Math.min(98, score + 2);
-  const commPct  = 55 + (r.exp % 5) * 8;
-  const cultPct  = 60 + (r.exp % 4) * 9;
-  const probPct  = 50 + (r.exp % 6) * 7;
-  const overall  = Math.round((techPct + commPct + cultPct + probPct) / 4);
-  const r1Rating = 6 + (r.exp % 4);
-  const r2Rating = 5 + ((r.exp + 2) % 5);
+  const MOCK_PROS = [
+    ['Strong communicator','Fast learner','Good culture fit'],
+    ['Deep technical knowledge','Collaborative mindset','Well-prepared'],
+    ['Clear problem-solving','Excellent code quality','Asks good questions'],
+    ['Adaptable','Team player','Broad skill set'],
+  ];
+  const MOCK_TEXTS = [
+    'Impressed by their approach to complex problems. Recommend advancing.',
+    'Solid candidate overall — technical fundamentals are strong. Proceed to next round.',
+    'Great cultural fit, good communication. Minor gaps in advanced topics, but trainable.',
+    'Strong performer with clear potential. Some areas to develop but good baseline.',
+  ];
+  const mockR1Rating = 3 + (r.exp % 3);  // 3–5
+  const mockR2Rating = 3 + ((r.exp+1) % 3);
 
-  const PROS  = [['Strong communicator','Fast learner','Good culture fit'],['Deep technical knowledge','Collaborative mindset','Well-prepared'],['Clear problem-solving','Excellent code quality','Asks good questions'],['Adaptable','Team player','Broad skill set']];
-  const CONS  = [['Needs more system design experience','Slightly slow on edge cases'],['Limited leadership experience','Could improve code documentation'],['Less experienced with scaling','New to distributed systems'],['Room to grow in architecture','Rushed through final problem']];
-  const TEXTS = ['Impressed by their approach to complex problems. Recommend advancing.','Solid candidate overall — technical fundamentals are strong. Proceed to next round.','Great cultural fit, good communication. Minor gaps in advanced topics, but trainable.','Strong performer with clear potential. Some areas to develop but good baseline.'];
+  /* ── read-only previous round card ── */
+  const prevCard = (roundLabel, roundKey, mockRating, mockPros, mockText) => {
+    const saved = getFeedback(ridx, roundKey);
+    const rating = saved ? saved.rating : mockRating;
+    const pros   = saved ? saved.pros   : mockText;
+    const proTags = saved
+      ? (saved.pros ? `<div class="fb-prev-text">${saved.pros}</div>` : '')
+      : mockPros.map(p=>`<span class="fb-tag-pos">+ ${p}</span>`).join('');
+    return `
+      <div class="fb-prev-card">
+        <div class="fb-prev-head">
+          <span class="fb-prev-title">${roundLabel}</span>
+          <span class="fb-prev-badge">Completed</span>
+        </div>
+        <div class="fb-prev-rating">
+          <span class="fb-prev-rating-lbl">Rating</span>
+          ${starsRO(rating)}
+        </div>
+        ${saved ? (saved.pros ? `<div class="fb-prev-text">${saved.pros}</div>` : '') : `<div class="fb-prev-pros">${proTags}</div>`}
+      </div>`;
+  };
 
-  const r1SummaryCard = () => `
-    <div class="rp-card">
-      <div class="rp-card-title" style="margin-bottom:10px">Round 1 Feedback ${ICO_EDIT}</div>
-      <div style="font-size:11.5px;color:var(--t2);line-height:1.55;margin-bottom:10px">${TEXTS[r.exp%4]}</div>
-      ${metricBar('Technical',techPct)}
-      ${metricBar('Communication',commPct,'#10b981')}
-      ${metricBar('Culture Fit',cultPct,'#f59e0b')}
-      <div class="rp-rating-row" style="margin-top:8px">
-        <div class="rp-rating-bar"><div class="rp-rating-fill" style="width:${r1Rating*10}%"></div></div>
-        <span class="rp-rating-num">${r1Rating} / 10</span>
-      </div>
-      <div class="fb-tag-row" style="margin-top:8px">
-        ${PROS[r.exp%4].map(p=>`<span class="fb-tag-pos">+ ${p}</span>`).join('')}
-        ${CONS[r.exp%4].map(c=>`<span class="fb-tag-neg">− ${c}</span>`).join('')}
-      </div>
-    </div>`;
-
-  const r2SummaryCard = () => `
-    <div class="rp-card">
-      <div class="rp-card-title" style="margin-bottom:10px">Round 2 Feedback ${ICO_EDIT}</div>
-      <div style="font-size:11.5px;color:var(--t2);line-height:1.55;margin-bottom:10px">${TEXTS[(r.exp+1)%4]}</div>
-      ${metricBar('Technical',techPct-5)}
-      ${metricBar('Problem Solving',probPct,'#8b5cf6')}
-      <div class="rp-rating-row" style="margin-top:8px">
-        <div class="rp-rating-bar"><div class="rp-rating-fill" style="width:${r2Rating*10}%"></div></div>
-        <span class="rp-rating-num">${r2Rating} / 10</span>
-      </div>
-    </div>`;
-
+  /* ── AI result card (read-only, rich) ── */
   const aiResultCard = () => `
     <div class="rp-card">
-      <div class="rp-card-title" style="margin-bottom:10px">${ICO_BOT} AI Interview Results</div>
+      <div class="rp-card-title" style="margin-bottom:10px;display:flex;align-items:center;gap:6px">${ICO_BOT} AI Interview Results <span class="ai-badge">AI</span></div>
       <div class="fb-score-row">
-        <div class="fb-score-ring" style="--pct:${overall}">
-          <span class="fb-score-val">${overall}</span>
-        </div>
+        <div class="fb-score-ring" style="--pct:${overall}"><span class="fb-score-val">${overall}</span></div>
         <div class="fb-score-meta">
           <div class="fb-score-label">Overall Score</div>
-          <div class="fb-score-sub">Based on AI analysis of ${r.name.split(' ')[0]}'s responses</div>
+          <div class="fb-score-sub">AI analysis of ${r.name.split(' ')[0]}'s responses</div>
         </div>
       </div>
       ${metricBar('Technical Depth', techPct)}
@@ -2738,45 +2851,40 @@ function renderRPFeedback(r){
       ${metricBar('Culture Fit',     cultPct, '#f59e0b')}
       ${metricBar('Problem Solving', probPct, '#8b5cf6')}
       <div class="fb-tag-row" style="margin-top:8px">
-        ${PROS[r.exp%4].map(p=>`<span class="fb-tag-pos">+ ${p}</span>`).join('')}
-        ${CONS[r.exp%4].slice(0,1).map(c=>`<span class="fb-tag-neg">− ${c}</span>`).join('')}
+        ${MOCK_PROS[r.exp%4].map(p=>`<span class="fb-tag-pos">+ ${p}</span>`).join('')}
       </div>
     </div>`;
 
-  const starInput = (cat, label) => {
-    const val = (rpFeedbackDraft[ridx]||{})[cat] || 0;
-    let stars = '';
-    for(let i=1;i<=5;i++){
-      const on = i<=val;
-      stars += `<svg onclick="setRPFeedbackStar(${ridx},'${cat}',${i})" width="15" height="15" viewBox="0 0 24 24" fill="${on?'#f59e0b':'none'}" stroke="${on?'#f59e0b':'#d1d5db'}" stroke-width="1.5" style="cursor:pointer"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
-    }
-    return `<div class="fb-form-row"><span class="fb-form-lbl">${label}</span><div class="fb-star-row" id="rp-stars-${ridx}-${cat}">${stars}</div></div>`;
-  };
-
-  const manualFeedbackCard = (round='R1') => {
-    const saved = fmFeedbackStore[ridx];
-    if(saved && (saved.tech||saved.comm||saved.cult||saved.prob)){
+  /* ── active feedback form (rating + pros) ── */
+  const feedbackForm = (roundLabel) => {
+    const saved    = getFeedback(ridx, roundLabel);
+    if(saved){
       return `
-        <div class="rp-card">
-          <div class="rp-card-title" style="margin-bottom:6px">${round} Interviewer Feedback</div>
-          <div class="fb-submitted-tag">✓ Submitted</div>
-          <div class="fb-metric"><span class="fb-metric-lbl">Technical</span>${starsHTML(saved.tech||0)}</div>
-          <div class="fb-metric"><span class="fb-metric-lbl">Communication</span>${starsHTML(saved.comm||0)}</div>
-          <div class="fb-metric"><span class="fb-metric-lbl">Culture Fit</span>${starsHTML(saved.cult||0)}</div>
-          <div class="fb-metric"><span class="fb-metric-lbl">Problem Solving</span>${starsHTML(saved.prob||0)}</div>
-          ${saved.text ? `<div style="font-size:11.5px;color:var(--t2);margin-top:8px;padding-top:8px;border-top:1px solid var(--border-light);line-height:1.55">${saved.text}</div>` : ''}
+        <div class="fb-form-section">
+          <div class="fb-form-title">${roundLabel} Feedback <span class="fb-submitted-tag" style="margin:0 0 0 6px">✓ Saved</span></div>
+          <div class="fb-prev-rating" style="margin-bottom:8px">
+            <span class="fb-prev-rating-lbl">Rating</span>${starsRO(saved.rating)}
+          </div>
+          ${saved.pros ? `<div style="font-size:11.5px;color:var(--t2);line-height:1.55">${saved.pros}</div>` : ''}
         </div>`;
     }
-    const hasDraft = rpFeedbackDraft[ridx] && Object.values(rpFeedbackDraft[ridx]).some(v=>v>0);
+    const draft    = rpFeedbackDraft[ridx] || {};
+    const rating   = draft.rating || 0;
+    let   starHtml = '';
+    for(let i=1;i<=5;i++){
+      const on = i <= rating;
+      starHtml += `<svg onclick="setRPFeedbackStar(${ridx},${i})" width="20" height="20" viewBox="0 0 24 24" fill="${on?'#f59e0b':'none'}" stroke="${on?'#f59e0b':'#d1d5db'}" stroke-width="1.5" style="cursor:pointer"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    }
     return `
-      <div class="rp-card">
-        <div class="rp-card-title" style="margin-bottom:10px">${round} Interviewer Feedback</div>
-        ${starInput('tech','Technical')}
-        ${starInput('comm','Communication')}
-        ${starInput('cult','Culture Fit')}
-        ${starInput('prob','Problem Solving')}
-        <textarea id="rp-fb-text-${ridx}" class="fb-textarea" rows="3" placeholder="Add feedback notes…"></textarea>
-        <button id="rp-fb-submit-${ridx}" class="fb-submit" onclick="submitRPFeedback(${ridx})" ${hasDraft?'':'disabled'}>Submit Feedback</button>
+      <div class="fb-form-section">
+        <div class="fb-form-title">${roundLabel} Feedback</div>
+        <div class="fb-form-row">
+          <span class="fb-form-lbl">Rating</span>
+          <div class="fb-star-row" id="rp-stars-${ridx}">${starHtml}</div>
+        </div>
+        <div class="fb-pros-lbl">Pros / Notes</div>
+        <textarea id="rp-fb-pros-${ridx}" class="fb-textarea" rows="3" placeholder="What stood out? Key observations…"></textarea>
+        <button id="rp-fb-submit-${ridx}" class="fb-submit" onclick="submitRPFeedback(${ridx})" ${rating>0?'':'disabled'}>Save Feedback</button>
       </div>`;
   };
 
@@ -2784,38 +2892,46 @@ function renderRPFeedback(r){
   let html = '';
 
   if(stage === 'Screening'){
-    html = emptyState('No interview feedback yet','Move to R1 to begin the interview process.');
+    html = emptyState('No interview feedback yet', 'Move to R1 to begin the interview process.');
+
   } else if(stage === 'R1'){
     if(status === 'In Progress'){
-      if(interviewType === 'ai'){
-        html = pendingBanner('AI interview in progress — results will appear here once complete.') + emptyState('Awaiting AI Results','The AI system is processing the interview.');
-      } else {
-        html = pendingBanner('Interview scheduled — feedback can be added after completion.') + emptyState('Awaiting Feedback','Submit feedback after the interview is done.');
-      }
+      html = interviewType === 'ai'
+        ? pendingBanner('AI interview in progress — results will appear once complete.') + emptyState('Awaiting AI Results')
+        : pendingBanner('Interview scheduled — add feedback after completion.') + emptyState('Awaiting Feedback');
     } else {
-      html = (interviewType === 'ai') ? aiResultCard() : manualFeedbackCard('R1');
+      html = interviewType === 'ai' ? aiResultCard() : feedbackForm('R1');
     }
+
   } else if(stage === 'R2'){
-    html = r1SummaryCard();
-    html += (status === 'In Progress')
-      ? pendingBanner('R2 interview in progress — feedback will appear after completion.')
-      : manualFeedbackCard('R2');
-  } else if(stage === 'Final'){
-    html = r1SummaryCard() + r2SummaryCard();
-    html += (status === 'In Progress')
-      ? pendingBanner('Final interview in progress.')
-      : manualFeedbackCard('Final');
+    html = prevCard('Round 1', 'R1', mockR1Rating, MOCK_PROS[r.exp%4], MOCK_TEXTS[r.exp%4]);
+    html += status === 'In Progress'
+      ? pendingBanner('R2 interview in progress — add feedback after completion.')
+      : feedbackForm('R2');
+
   } else if(stage === 'Assignment'){
-    html = r1SummaryCard() + r2SummaryCard();
-    if(status === 'Submitted' || status === 'Reviewed'){
-      html += `<div class="fb-pending">${ICO_EDIT}<span>Assignment ${status.toLowerCase()} — review in the assignment tab.</span></div>`;
-    }
+    html  = prevCard('Round 1', 'R1', mockR1Rating, MOCK_PROS[r.exp%4], MOCK_TEXTS[r.exp%4]);
+    html += prevCard('Round 2', 'R2', mockR2Rating, MOCK_PROS[(r.exp+1)%4], MOCK_TEXTS[(r.exp+1)%4]);
+    html += status === 'In Progress'
+      ? pendingBanner('Assignment in progress — add feedback once submitted.')
+      : feedbackForm('Assignment');
+
+  } else if(stage === 'Final'){
+    html  = prevCard('Round 1',    'R1',         mockR1Rating, MOCK_PROS[r.exp%4],       MOCK_TEXTS[r.exp%4]);
+    html += prevCard('Round 2',    'R2',         mockR2Rating, MOCK_PROS[(r.exp+1)%4],   MOCK_TEXTS[(r.exp+1)%4]);
+    html += prevCard('Assignment', 'Assignment', mockR1Rating, MOCK_PROS[(r.exp+2)%4],   MOCK_TEXTS[(r.exp+2)%4]);
+    html += status === 'In Progress'
+      ? pendingBanner('Final interview in progress — add feedback after completion.')
+      : feedbackForm('Final');
+
   } else if(stage === 'Hired'){
-    html = r1SummaryCard() + r2SummaryCard() + `
-      <div class="rp-card" style="border-color:#86efac;background:#f0fdf4">
-        <div class="rp-card-title" style="color:var(--green);margin-bottom:4px">✓ Hired</div>
-        <div style="font-size:11.5px;color:var(--t2)">Candidate completed all rounds and was successfully hired.</div>
-      </div>`;
+    html  = prevCard('Round 1',    'R1',         mockR1Rating, MOCK_PROS[r.exp%4],     MOCK_TEXTS[r.exp%4]);
+    html += prevCard('Round 2',    'R2',         mockR2Rating, MOCK_PROS[(r.exp+1)%4], MOCK_TEXTS[(r.exp+1)%4]);
+    html += `<div class="rp-card" style="border-color:#86efac;background:#f0fdf4;margin-top:2px">
+      <div class="rp-card-title" style="color:var(--green)">✓ Hired</div>
+      <div style="font-size:11.5px;color:var(--t2);margin-top:4px">Candidate completed all rounds and was successfully hired.</div>
+    </div>`;
+
   } else {
     html = emptyState('No feedback available');
   }
@@ -2834,6 +2950,8 @@ function switchTab(el,tab){
     if(d) d.style.display=t===tab?'':'none';
   });
   if(tab === 'feedback' && activeRow >= 0) renderRPFeedback(filteredRows[activeRow]);
+  const body = document.querySelector('.rp-body');
+  if(body) body.scrollTop = 0;
 }
 function closePanel(){
   document.getElementById('rpanel').classList.add('hidden');
@@ -3097,8 +3215,8 @@ function focusAction(status){
   const note = document.getElementById('fm-act-note');
   if(note){
     const COLOR = {
-      'Shortlisted':'var(--green)','Completed':'var(--accent)','Reviewed':'var(--purple)',
-      'Rejected':'var(--red)','On Hold':'var(--amber)','Hired':'var(--green)',
+      'Shortlisted':'var(--green)','Completed':'var(--accent)',
+      'Rejected':'var(--red)','On Hold':'var(--amber)',
     };
     note.textContent = `Set to: ${status}`;
     note.style.color = COLOR[status] || 'var(--t2)';
@@ -3609,11 +3727,18 @@ function renderFmFooter(r){
         <span class="fm-act-note" id="fm-act-note"></span>`;
     }
   } else if(stage === 'Assignment'){
-    html = `
-      <button class="fm-action fm-act-neutral" onclick="focusAction('Pending')">  Pending</button>
-      <button class="fm-action fm-act-neutral" onclick="focusAction('Submitted')">${icoCheck} Submitted</button>
-      <span  class="fm-act-note" id="fm-act-note"></span>
-      <button class="fm-action fm-act-done"    onclick="focusAction('Reviewed')">${icoCheck} Mark Reviewed</button>`;
+    if(status === 'In Progress'){
+      html = `
+        <span class="fm-act-note" id="fm-act-note" style="margin:0;font-style:italic;color:var(--t3)">Assignment in progress</span>
+        <button class="fm-action fm-act-done" onclick="focusAction('Completed')">${icoCheck} Mark Completed</button>`;
+    } else {
+      html = `
+        <button class="fm-action fm-act-shortlist" onclick="switchFmTab('feedback')" style="display:flex;align-items:center;gap:5px">
+          <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+          Give Feedback
+        </button>
+        <span class="fm-act-note" id="fm-act-note"></span>`;
+    }
   } else if(stage === 'Hired'){
     html = `<span class="fm-footer-hired">${icoCheck} Candidate Hired</span><span class="fm-act-note" id="fm-act-note"></span>`;
   } else {
@@ -3626,11 +3751,13 @@ function renderFmFooter(r){
 /* ═══════════════════════════════════════════
    SCHEDULING MODAL
 ═══════════════════════════════════════════ */
-let schedRidx = -1;
-let schedType = null;   // 'ai' | 'manual'
-let schedDate = null;
-let schedTime = null;
-let schedIvr  = null;
+let schedRidx      = -1;
+let schedType      = null;   // 'ai' | 'manual'
+let schedDate      = null;
+let schedTime      = null;
+let schedIvr       = null;
+let schedAutoInvite = true;
+let schedIvrFilter  = '';
 
 const SCHED_DATES = (()=>{
   const days   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -3646,19 +3773,29 @@ const SCHED_DATES = (()=>{
   return result;
 })();
 
-const SCHED_TIMES = ['9:00 AM','10:00 AM','11:00 AM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
+const SCHED_TIMES = ['9:00 AM','9:30 AM','10:00 AM','10:30 AM','11:00 AM','11:30 AM','12:00 PM','12:30 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM'];
 
 const SCHED_IVRS = [
-  { name:'Sarah K.',  role:'Senior Engineer',       initials:'SK' },
-  { name:'Tom R.',    role:'Engineering Manager',    initials:'TR' },
-  { name:'Mia P.',    role:'Staff Engineer',         initials:'MP' },
-  { name:'Jake L.',   role:'Tech Lead',              initials:'JL' },
-  { name:'Amy C.',    role:'Principal Engineer',     initials:'AC' },
+  { name:'Yashvi',   role:'Product Designer',      initials:'YV', avail:{ type:'today',    label:'AVAILABLE',  text:'Today 11:00AM–9:00PM' } },
+  { name:'Nisha',    role:'Marketing Strategist',   initials:'NI', avail:{ type:'today',    label:'AVAILABLE',  text:'Today 1:00PM–7:00PM' } },
+  { name:'Jatin',    role:'Software Engineer',      initials:'JT', avail:{ type:'tomorrow', label:'TOMORROW',   text:'Tomorrow 2:00PM–5:00PM' } },
+  { name:'Arjun',    role:'Data Scientist',         initials:'AR', avail:{ type:'week',     label:'NEXT WEEK',  text:'Monday to Friday 10:00AM–4:00PM' } },
+  { name:'Sarah K.', role:'Senior Engineer',        initials:'SK', avail:{ type:'today',    label:'AVAILABLE',  text:'Today 9:00AM–6:00PM' } },
 ];
 
 function openSchedModal(ridx){
-  schedRidx = ridx;
-  schedType = null; schedDate = null; schedTime = null; schedIvr = null;
+  schedRidx      = ridx;
+  schedType      = null;
+  schedDate      = null;
+  schedTime      = null;
+  schedIvr       = null;
+  schedAutoInvite = true;
+  schedIvrFilter  = '';
+  const r = filteredRows[ridx];
+  const bar = document.getElementById('sm-cand-bar');
+  if(bar && r){
+    bar.innerHTML = `<div class="sm-cand-left"><strong>${r.name}</strong> &nbsp;${r.role} · ${r.exp} years</div><div class="sm-cand-stage">Stage: <strong>R1 Interview</strong></div>`;
+  }
   document.getElementById('sm-overlay').classList.add('open');
   document.getElementById('sm-dialog').classList.add('open');
   renderSchedModal();
@@ -3670,9 +3807,11 @@ function closeSchedModal(){
 }
 
 function smSetType(type){
-  schedType = type;
-  schedDate = null; schedTime = null;
-  schedIvr = type === 'ai' ? 'SDE AI Interviewer' : null;
+  schedType      = type;
+  schedDate      = null;
+  schedTime      = null;
+  schedIvrFilter = '';
+  schedIvr       = type === 'ai' ? 'SDE AI Interviewer' : null;
   renderSchedModal();
 }
 
@@ -3691,38 +3830,58 @@ function smSetIvr(name){
   renderSchedModal();
 }
 
+function smFilterIvr(val){
+  schedIvrFilter = val.toLowerCase();
+  const list = document.getElementById('sm-ivr-list');
+  if(!list) return;
+  list.querySelectorAll('.sm-ivr').forEach(el=>{
+    const name = el.dataset.name || '';
+    const role = el.dataset.role || '';
+    const match = name.toLowerCase().includes(schedIvrFilter) || role.toLowerCase().includes(schedIvrFilter);
+    el.style.display = match ? '' : 'none';
+  });
+}
+
+function smToggleAutoInvite(){
+  schedAutoInvite = !schedAutoInvite;
+  const cb = document.getElementById('sm-auto-invite');
+  if(cb) cb.checked = schedAutoInvite;
+}
+
 function renderSchedModal(){
   const body = document.getElementById('sm-body');
+  const foot = document.getElementById('sm-foot');
 
-  const ICO_BOT  = `<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#7c3aed" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="14" r="1.5" fill="#7c3aed" stroke="none"/></svg>`;
-  const ICO_USER = `<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="var(--accent)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
-  const ICO_CAL  = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
   const ICO_BOT_WH = `<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="14" r="1.5" fill="#fff" stroke="none"/></svg>`;
-  const ICO_SEND = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`;
+  const ICO_CAL    = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+  const ICO_SEND   = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`;
+  const ICO_SEARCH = `<svg class="sm-search-ico" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
 
-  /* ── Type selector ── */
-  let html = `
+  /* ── Interview Type section label ── */
+  let html = `<div class="sm-sec" style="margin-bottom:12px">
+    <div class="sm-lbl">Interview Type</div>
     <div class="sm-type-row">
       <div class="sm-type-card ${schedType==='ai'?'sel-ai':''}" onclick="smSetType('ai')">
-        <div class="sm-type-icon" style="background:#ede9fe">${ICO_BOT}</div>
-        <div class="sm-type-name">AI Interview</div>
-        <div class="sm-type-desc">Automated · No scheduling needed</div>
+        <div class="sm-radio"></div>
+        <span class="sm-type-name">AI Interview</span>
       </div>
       <div class="sm-type-card ${schedType==='manual'?'sel-manual':''}" onclick="smSetType('manual')">
-        <div class="sm-type-icon" style="background:#e0e7ff">${ICO_USER}</div>
-        <div class="sm-type-name">Manual Interview</div>
-        <div class="sm-type-desc">Pick interviewer · Select time slot</div>
+        <div class="sm-radio"></div>
+        <span class="sm-type-name">Manual Interview</span>
       </div>
-    </div>`;
+    </div>
+  </div>`;
 
   if(schedType === 'ai'){
-    /* ── AI form ── */
     html += `
-      <div class="sm-ai-info">
-        <div class="sm-ai-av">${ICO_BOT_WH}</div>
-        <div>
-          <div class="sm-ai-name">SDE AI Interviewer</div>
-          <div class="sm-ai-sub">Automated · Sends invite directly to candidate</div>
+      <div class="sm-sec">
+        <div class="sm-lbl">Interviewer</div>
+        <div class="sm-ai-info">
+          <div class="sm-ai-av">${ICO_BOT_WH}</div>
+          <div>
+            <div class="sm-ai-name">SDE AI Interviewer</div>
+            <div class="sm-ai-sub">Automated · Sends invite directly to candidate</div>
+          </div>
         </div>
       </div>
       <div class="sm-sec">
@@ -3735,52 +3894,60 @@ function renderSchedModal(){
             </div>`).join('')}
         </div>
       </div>
-      <hr class="sm-divider">
-      <button class="sm-cta sm-cta-ai" onclick="confirmSched()" ${!schedDate?'disabled':''}>
-        ${ICO_SEND} Send AI Interview
-      </button>`;
+      <div class="sm-check-row">
+        <input type="checkbox" id="sm-auto-invite" ${schedAutoInvite?'checked':''} onchange="smToggleAutoInvite()">
+        <label class="sm-check-label" for="sm-auto-invite">Automatically send calendar invites</label>
+      </div>`;
 
   } else if(schedType === 'manual'){
-    /* ── Manual form ── */
+    const filtered = SCHED_IVRS.filter(iv =>
+      !schedIvrFilter ||
+      iv.name.toLowerCase().includes(schedIvrFilter) ||
+      iv.role.toLowerCase().includes(schedIvrFilter)
+    );
     html += `
       <div class="sm-sec">
-        <div class="sm-lbl">Select Interviewer</div>
-        <div class="sm-ivrs">
-          ${SCHED_IVRS.map(iv=>`
-            <div class="sm-ivr ${schedIvr===iv.name?'sel':''}" onclick="smSetIvr('${iv.name}')">
-              <div class="sm-ivr-av">${iv.initials}</div>
-              <div style="flex:1;min-width:0">
-                <div class="sm-ivr-name">${iv.name}</div>
-                <div class="sm-ivr-role">${iv.role}</div>
+        <div class="sm-lbl">Interviewer</div>
+        <div class="sm-search">${ICO_SEARCH}<input type="text" placeholder="Search" value="${schedIvrFilter}" oninput="smFilterIvr(this.value)" autocomplete="off"></div>
+        <div class="sm-ivrs" id="sm-ivr-list">
+          ${filtered.map(iv=>`
+            <div class="sm-ivr ${schedIvr===iv.name?'sel':''}" data-name="${iv.name}" data-role="${iv.role}" onclick="smSetIvr('${iv.name}')">
+              <div class="sm-ivr-top">
+                <div class="sm-ivr-names">
+                  <span class="sm-ivr-fname">${iv.name}</span><span class="sm-ivr-frole"> -${iv.role}</span>
+                </div>
+                <span class="sm-avail-badge sm-avail-${iv.avail.type}">${iv.avail.label}</span>
               </div>
-              <span class="sm-avail">Available</span>
+              <div class="sm-ivr-avail-text">Availability: ${iv.avail.text}</div>
             </div>`).join('')}
         </div>
       </div>
       <div class="sm-sec">
-        <div class="sm-lbl">Select Date</div>
-        <div class="sm-dates">
-          ${SCHED_DATES.map(d=>`
-            <div class="sm-date ${schedDate===d.full?'sel':''}" onclick="smSetDate('${d.full}')">
-              <div class="sm-date-day">${d.day}</div>
-              <div class="sm-date-num">${d.label.split(' ')[1]}</div>
-            </div>`).join('')}
-        </div>
-      </div>
-      <div class="sm-sec">
-        <div class="sm-lbl">Select Time</div>
+        <div class="sm-lbl">Select Time Slots</div>
         <div class="sm-times">
           ${SCHED_TIMES.map(t=>`
             <div class="sm-time ${schedTime===t?'sel':''}" onclick="smSetTime('${t}')">${t}</div>`).join('')}
         </div>
       </div>
-      <hr class="sm-divider">
-      <button class="sm-cta sm-cta-manual" onclick="confirmSched()" ${!schedDate||!schedTime||!schedIvr?'disabled':''}>
-        ${ICO_CAL} Schedule R1 Interview
-      </button>`;
+      <div class="sm-check-row">
+        <input type="checkbox" id="sm-auto-invite" ${schedAutoInvite?'checked':''} onchange="smToggleAutoInvite()">
+        <label class="sm-check-label" for="sm-auto-invite">Automatically send calendar invites</label>
+      </div>`;
   }
 
   body.innerHTML = html;
+
+  /* ── Footer ── */
+  if(!foot) return;
+  if(!schedType){
+    foot.innerHTML = `<button class="sm-cancel" onclick="closeSchedModal()">Cancel</button><button class="sm-foot-cta is-manual is-disabled" disabled>Schedule R1 Interview</button>`;
+  } else if(schedType === 'ai'){
+    const ok = !!schedDate;
+    foot.innerHTML = `<button class="sm-cancel" onclick="closeSchedModal()">Cancel</button><button class="sm-foot-cta is-ai" onclick="confirmSched()" ${ok?'':'disabled'}>${ICO_SEND} Send AI Interview</button>`;
+  } else {
+    const ok = !!(schedDate && schedTime && schedIvr);
+    foot.innerHTML = `<button class="sm-cancel" onclick="closeSchedModal()">Cancel</button><button class="sm-foot-cta is-manual" onclick="confirmSched()" ${ok?'':'disabled'}>${ICO_CAL} Schedule R1 Interview</button>`;
+  }
 }
 
 function confirmSched(){
