@@ -266,18 +266,30 @@ tbody td:first-child{padding-left:20px}
 .jo-table-wrap::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:3px}
 .jo-table{border-collapse:collapse;min-width:100%;width:max-content}
 .jo-table thead th{padding:11px 16px;text-align:left;font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--border);white-space:nowrap;background:var(--surface)}
-.jo-table thead th:nth-child(1){min-width:160px}.jo-table thead th:nth-child(2){min-width:150px}.jo-table thead th:nth-child(3){min-width:130px}.jo-table thead th:nth-child(4){min-width:140px}.jo-table thead th:nth-child(5){min-width:100px}.jo-table thead th:nth-child(6){min-width:80px}.jo-table thead th:nth-child(7){min-width:110px}
+.jo-table thead th:nth-child(1){min-width:160px}.jo-table thead th:nth-child(2){min-width:150px}.jo-table thead th:nth-child(3){min-width:110px}.jo-table thead th:nth-child(4){min-width:130px}.jo-table thead th:nth-child(5){min-width:140px}.jo-table thead th:nth-child(6){min-width:100px}.jo-table thead th:nth-child(7){min-width:80px}.jo-table thead th:nth-child(8){min-width:110px}
+/* user avatar stack */
+.jo-av-wrap{display:inline-flex;align-items:center;gap:7px;position:relative;cursor:pointer}
+.jo-av-stack{display:flex;align-items:center}
+.jo-av{width:24px;height:24px;border-radius:50%;font-size:9.5px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid var(--surface);margin-left:-7px;flex-shrink:0;position:relative;transition:transform .12s}
+.jo-av:first-child{margin-left:0}
+.jo-av-wrap:hover .jo-av{transform:translateX(-1px)}
+.jo-av-wrap:hover .jo-av:first-child{transform:none}
+.jo-av-more{width:24px;height:24px;border-radius:50%;background:#e5e7eb;border:2px solid var(--surface);font-size:9px;font-weight:700;color:var(--t2);display:flex;align-items:center;justify-content:center;margin-left:-7px;flex-shrink:0}
+#jo-av-portal{position:fixed;z-index:9999;background:#1e293b;color:#f1f5f9;font-size:11.5px;line-height:1.65;padding:8px 11px;border-radius:7px;white-space:nowrap;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.22);opacity:0;transition:opacity .15s;transform:translateX(-50%)}
+#jo-av-portal.visible{opacity:1}
+#jo-av-portal::after{content:'';position:absolute;top:100%;left:var(--caret-left,50%);transform:translateX(-50%);border:5px solid transparent;border-top-color:#1e293b}
 .jo-table tbody td{padding:12px 16px;font-size:12.5px;border-bottom:1px solid var(--border-light);vertical-align:middle;white-space:nowrap}
 .jo-table tbody tr{transition:background .08s;cursor:pointer}
 .jo-table tbody tr:hover{background:#f8f9fb}
 .jo-table tbody tr.jo-row-on{background:#f0f5ff;border-left:2px solid var(--accent)}
+.jo-table tbody tr.jo-row-new{background:#f0fdf4;animation:jo-row-fade 2s ease forwards}
+@keyframes jo-row-fade{0%{background:#dcfce7}100%{background:transparent}}
 /* jr-specific: full-width fixed table */
 #jr-table{width:100%;table-layout:fixed}
-#jr-table thead th:nth-child(1){width:28%}
-#jr-table thead th:nth-child(2){width:22%}
-#jr-table thead th:nth-child(3){width:12%}
-#jr-table thead th:nth-child(4){width:22%}
-#jr-table thead th:nth-child(5){width:16%;text-align:right}
+#jr-table thead th:nth-child(1){width:32%}
+#jr-table thead th:nth-child(2){width:26%}
+#jr-table thead th:nth-child(3){width:24%}
+#jr-table thead th:nth-child(4){width:18%;text-align:right}
 #jr-table tbody td{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #jr-table tbody td:last-child{text-align:right}
 /* toggle */
@@ -331,8 +343,9 @@ tbody td:first-child{padding-left:20px}
 .jo-fdd-chk{width:13px;height:13px;border-radius:3px;border:1.5px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .1s}
 .jo-fdd-opt.selected .jo-fdd-chk{background:var(--accent);border-color:var(--accent);color:#fff}
 /* user roles tab */
-.jr-ur-item{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r2);padding:12px 14px;margin-bottom:8px;transition:border-color .12s}
+.jr-ur-item{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r2);padding:12px 14px;margin-bottom:8px;transition:border-color .15s,background .15s}
 .jr-ur-item:hover{border-color:#d1d5db}
+.jo-ur-item-editing{border-color:#93c5fd !important;background:#f8fbff}
 .jr-ur-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .jr-ur-name{font-size:12.5px;font-weight:600;color:var(--t1);flex:1}
 .jr-ur-type{font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:20px;background:#e0f2fe;color:#0369a1;white-space:nowrap}
@@ -364,8 +377,8 @@ tbody td:first-child{padding-left:20px}
 .jp-ur-badges{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px}
 .jp-ur-badge{font-size:10px;font-weight:500;padding:1px 6px;border-radius:20px;background:#fef9c3;color:#713f12;border:1px solid #fde68a}
 /* autofill banner */
-.jo-autofill-banner{display:flex;align-items:center;gap:6px;padding:7px 10px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--r);font-size:11.5px;color:#15803d;margin-bottom:14px;opacity:0;transform:translateY(-4px);transition:opacity .2s ease,transform .2s ease}
-.jo-autofill-banner.show{opacity:1;transform:translateY(0)}
+.jo-autofill-banner{display:flex;align-items:center;gap:6px;padding:0 10px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--r);font-size:11.5px;color:#15803d;max-height:0;overflow:hidden;opacity:0;margin-bottom:0;border-width:0;transition:max-height .22s ease,opacity .2s ease,margin-bottom .22s ease,padding .22s ease,border-width .22s ease}
+.jo-autofill-banner.show{max-height:48px;padding:7px 10px;opacity:1;margin-bottom:14px;border-width:1px}
 /* date filter custom range */
 .jo-date-range{padding:8px 4px 4px;border-top:1px solid var(--border);margin-top:2px;display:none;flex-direction:column;gap:6px}
 .jo-date-range.show{display:flex}
@@ -399,25 +412,29 @@ tbody td:first-child{padding-left:20px}
 .jp-confirm-btn{height:30px;padding:0 14px;border-radius:5px;border:none;background:var(--accent);color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .1s}
 .jp-confirm-btn:hover{background:var(--accent-dark)}
 .jp-stage-type-tag{font-size:10px;font-weight:600;padding:1px 6px;border-radius:20px;background:#e0f2fe;color:#0369a1;margin-left:4px}
-/* right edit panel */
-.jo-panel{width:0;min-width:0;background:var(--surface);border-left:1px solid transparent;display:flex;flex-direction:column;overflow:hidden;opacity:0;pointer-events:none;transition:width .28s cubic-bezier(.4,0,.2,1),min-width .28s cubic-bezier(.4,0,.2,1),opacity .22s ease,border-color .28s ease;flex-shrink:0}
-.jo-panel.open{width:360px;min-width:340px;opacity:1;pointer-events:auto;border-left-color:var(--border)}
-.jo-panel-head{padding:16px 18px 0;border-bottom:1px solid var(--border);flex-shrink:0}
+/* right edit panel – overlay drawer */
+.jo-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.2);z-index:499;opacity:0;pointer-events:none;transition:opacity .22s ease}
+.jo-backdrop.open{opacity:1;pointer-events:auto}
+.jo-panel{position:fixed;top:0;right:0;height:100vh;width:35%;max-width:500px;background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;z-index:500;box-shadow:-4px 0 20px rgba(0,0,0,0.08);transform:translateX(100%);transition:transform .24s ease-out;pointer-events:none}
+.jo-panel.open{transform:translateX(0);pointer-events:auto}
+.jo-panel-head{padding:16px 22px 0;border-bottom:1px solid var(--border);flex-shrink:0}
 .jo-panel-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .jo-panel-title{font-size:14px;font-weight:700;color:var(--t1)}
-.jo-panel-x{width:28px;height:28px;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:5px;color:var(--t3);transition:background .1s;font-size:18px;line-height:1}
+.jo-panel-x{width:30px;height:30px;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:6px;color:var(--t3);transition:background .1s,color .1s;font-size:18px;line-height:1}
 .jo-panel-x:hover{background:var(--bg);color:var(--t1)}
 .jo-tabs{display:flex;margin-top:2px}
 .jo-tab{padding:8px 14px;font-size:12.5px;font-weight:500;color:var(--t2);cursor:pointer;border-bottom:2px solid transparent;transition:color .1s,border-color .1s;white-space:nowrap}
 .jo-tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
 .jo-tab:hover:not(.active){color:var(--t1)}
-.jo-panel-body{flex:1;overflow-y:auto;padding:18px 18px 8px}
+.jo-panel-body{flex:1;overflow-y:auto;padding:14px 22px 10px}
 .jo-panel-body::-webkit-scrollbar{width:4px}
 .jo-panel-body::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:2px}
-.jo-panel-foot{padding:12px 18px;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0}
+.jo-panel-foot{padding:14px 22px;border-top:1px solid var(--border);background:var(--surface);flex-shrink:0}
+@media(max-width:1024px){.jo-panel{width:42%}}
+@media(max-width:640px){.jo-panel{width:100%;max-width:none}}
 /* form */
-.jo-field{margin-bottom:16px}
-.jo-lbl{font-size:11.5px;font-weight:600;color:var(--t2);margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.jo-field{margin-bottom:14px}.jo-field:first-child{margin-top:0}
+.jo-lbl{font-size:11.5px;font-weight:600;color:var(--t2);margin-bottom:4px;display:flex;align-items:center;gap:6px}
 .jo-lbl-hint{font-size:10.5px;font-weight:400;color:var(--t3)}
 .jo-input{width:100%;height:34px;border:1.5px solid var(--border);border-radius:var(--r2);padding:0 10px;font-size:12.5px;font-family:inherit;color:var(--t1);outline:none;transition:border-color .12s;background:var(--surface);box-sizing:border-box}
 .jo-input:focus{border-color:#93c5fd}
@@ -563,6 +580,21 @@ tbody td:first-child{padding-left:20px}
 .sm-overlay.open{opacity:1;pointer-events:all}
 .sm-dialog{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%);z-index:901;background:var(--surface);border-radius:var(--r3);box-shadow:var(--s3);width:500px;max-width:calc(100vw - 32px);opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;display:flex;flex-direction:column;max-height:calc(100vh - 48px)}
 .sm-dialog.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%)}
+/* delete confirm modal */
+.dc-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:1100;opacity:0;pointer-events:none;transition:opacity .18s}
+.dc-backdrop.open{opacity:1;pointer-events:auto}
+.dc-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-46%);z-index:1101;background:var(--surface);border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.18);width:380px;max-width:calc(100vw - 32px);padding:28px 26px 22px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s}
+.dc-modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%)}
+.dc-icon{width:42px;height:42px;border-radius:50%;background:#fef2f2;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#ef4444}
+.dc-title{font-size:15px;font-weight:700;color:var(--t1);text-align:center;margin-bottom:6px}
+.dc-desc{font-size:12.5px;color:var(--t3);text-align:center;line-height:1.55;margin-bottom:20px}
+.dc-desc strong{color:var(--t2);font-weight:600}
+.dc-actions{display:flex;gap:10px;justify-content:center}
+.dc-cancel{flex:1;height:36px;border:1.5px solid var(--border);border-radius:var(--r2);background:var(--surface);color:var(--t1);font-size:13px;font-weight:500;cursor:pointer;transition:background .1s,border-color .1s}
+.dc-cancel:hover{background:var(--bg);border-color:#d1d5db}
+.dc-confirm{flex:1;height:36px;border:none;border-radius:var(--r2);background:#ef4444;color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:background .12s,opacity .12s}
+.dc-confirm:hover{background:#dc2626}
+.dc-confirm:disabled{opacity:.6;cursor:not-allowed}
 .sm-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 12px;flex-shrink:0}
 .sm-title{font-size:15px;font-weight:700;color:var(--t1)}
 .sm-x{width:26px;height:26px;border:none;background:transparent;border-radius:5px;cursor:pointer;font-size:18px;color:var(--t3);display:flex;align-items:center;justify-content:center;line-height:1;font-family:inherit}
@@ -1381,12 +1413,18 @@ tbody td:first-child{padding-left:20px}
           Clear Filters
         </button>
       </div>
+      <div class="stats-bar" id="jo-stats-bar">
+        <div class="stat">Total: <strong id="jo-stat-total">0</strong></div>
+        <div class="stat">Active: <span class="cn cn-g" id="jo-stat-active">0</span></div>
+        <div class="stat">Inactive: <span class="cn" style="color:var(--t3)" id="jo-stat-inactive">0</span></div>
+      </div>
       <div class="jo-table-wrap">
         <table class="jo-table">
           <thead>
             <tr>
               <th>Title</th>
               <th>Role</th>
+              <th>Users</th>
               <th>Status</th>
               <th>Integration</th>
               <th>Last Sync</th>
@@ -1399,7 +1437,8 @@ tbody td:first-child{padding-left:20px}
         </table>
       </div>
     </div>
-    <!-- JO RIGHT PANEL -->
+    <!-- JO BACKDROP + RIGHT PANEL -->
+    <div class="jo-backdrop" id="jo-backdrop" onclick="closeJOPanel()"></div>
     <aside class="jo-panel" id="jo-panel">
       <div class="jo-panel-head">
         <div class="jo-panel-title-row">
@@ -1407,8 +1446,9 @@ tbody td:first-child{padding-left:20px}
           <button class="jo-panel-x" onclick="closeJOPanel()">×</button>
         </div>
         <div class="jo-tabs">
-          <div class="jo-tab active" id="jo-tab-details" onclick="switchJOTab('details')">Job Details</div>
-          <div class="jo-tab" id="jo-tab-pipeline" onclick="switchJOTab('pipeline')">Hiring Pipeline</div>
+          <div class="jo-tab active" id="jo-tab-details"  onclick="switchJOTab('details')">Job Details</div>
+          <div class="jo-tab"        id="jo-tab-pipeline" onclick="switchJOTab('pipeline')">Hiring Pipeline</div>
+          <div class="jo-tab"        id="jo-tab-users"    onclick="switchJOTab('users')">Users</div>
         </div>
       </div>
       <div class="jo-panel-body" id="jo-panel-body"></div>
@@ -1431,7 +1471,6 @@ tbody td:first-child{padding-left:20px}
               <th>Role Name</th>
               <th>Default Title</th>
               <th>Stages</th>
-              <th>User Roles</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -1439,6 +1478,7 @@ tbody td:first-child{padding-left:20px}
         </table>
       </div>
     </div>
+    <div class="jo-backdrop" id="jr-backdrop" onclick="jrClosePanel()"></div>
     <aside class="jo-panel" id="jr-panel">
       <div class="jo-panel-head">
         <div class="jo-panel-title-row">
@@ -1446,9 +1486,8 @@ tbody td:first-child{padding-left:20px}
           <button class="jo-panel-x" onclick="jrClosePanel()">×</button>
         </div>
         <div class="jo-tabs">
-          <div class="jo-tab active" id="jr-tab-overview"  onclick="jrSwitchTab('overview')">Overview</div>
-          <div class="jo-tab"        id="jr-tab-pipeline"  onclick="jrSwitchTab('pipeline')">Hiring Pipeline</div>
-          <div class="jo-tab"        id="jr-tab-userroles" onclick="jrSwitchTab('userroles')">User Roles</div>
+          <div class="jo-tab active" id="jr-tab-overview" onclick="jrSwitchTab('overview')">Overview</div>
+          <div class="jo-tab"        id="jr-tab-pipeline" onclick="jrSwitchTab('pipeline')">Hiring Pipeline</div>
         </div>
       </div>
       <div class="jo-panel-body" id="jr-panel-body"></div>
@@ -1462,6 +1501,20 @@ tbody td:first-child{padding-left:20px}
 
 <!-- ═══════════ POPOVERS – bodies rendered by JS ═══════════ -->
 <!-- ═══════════ SCHEDULING MODAL ═══════════ -->
+<!-- DELETE CONFIRM MODAL -->
+<div class="dc-backdrop" id="dc-backdrop" onclick="dcCancel()"></div>
+<div class="dc-modal" id="dc-modal" role="dialog" aria-modal="true">
+  <div class="dc-icon">
+    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+  </div>
+  <div class="dc-title">Delete this item?</div>
+  <div class="dc-desc" id="dc-desc">This action cannot be undone.</div>
+  <div class="dc-actions">
+    <button class="dc-cancel" onclick="dcCancel()">Cancel</button>
+    <button class="dc-confirm" id="dc-confirm-btn" onclick="dcConfirm()">Delete</button>
+  </div>
+</div>
+
 <div class="sm-overlay" id="sm-overlay" onclick="closeSchedModal()"></div>
 <div class="sm-dialog" id="sm-dialog">
   <div class="sm-head">
@@ -3634,6 +3687,13 @@ document.addEventListener('keydown', e => {
   }
 });
 
+/* ── Escape key closes overlay drawers ── */
+document.addEventListener('keydown', e => {
+  if(e.key !== 'Escape') return;
+  if(document.getElementById('jo-panel')?.classList.contains('open')) closeJOPanel();
+  else if(document.getElementById('jr-panel')?.classList.contains('open')) jrClosePanel();
+});
+
 /* ═══════════════════════════════════════════
    SIDEBAR
 ═══════════════════════════════════════════ */
@@ -5785,7 +5845,6 @@ const JR_ROLE_DEFAULTS = {
   'Reviewer':        ()=>'View Only',
 };
 const JR_USERS = ['Jatin','Yashvi','Rahul','Priya','Arjun','Divya','Karan'];
-let jrUrEditId = null; // id of user being edited, null = adding new
 
 // Seed jrData from JO_ROLE_TEMPLATES
 let jrData = Object.entries(JO_ROLE_TEMPLATES).map(([roleName, tpl], i) => ({
@@ -5795,11 +5854,13 @@ let jrData = Object.entries(JO_ROLE_TEMPLATES).map(([roleName, tpl], i) => ({
   description: tpl.description,
   pipeline: tpl.pipeline.map(s => ({...s})),
   userRoles: [],
+  updatedAt: new Date(Date.now() - (i + 1) * 3 * 24*60*60*1000).toISOString(),
 }));
 
-let jrEditId   = null;
+let jrEditId    = null;
 let jrActiveTab = 'overview';
-let jrDragSrc  = null;
+let jrDragSrc   = null;
+let jrNewId     = null; // tracks newly created id for highlight
 
 function jrById(id){ return jrData.find(r=>r.id===id); }
 
@@ -5818,20 +5879,20 @@ function renderJRTable(){
   tb.innerHTML = '';
   if(!jrData.length){
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td colspan="5" style="text-align:center;padding:32px;color:var(--t3);font-size:12.5px">No job roles yet. Click "Create Job Role" to get started.</td>`;
+    tr.innerHTML = `<td colspan="4" style="text-align:center;padding:32px;color:var(--t3);font-size:12.5px">No job roles yet. Click "Create Job Role" to get started.</td>`;
     tb.appendChild(tr); return;
   }
-  jrData.forEach(jr => {
+  // always latest-updated first
+  const sorted = [...jrData].sort((a,b) => new Date(b.updatedAt||0) - new Date(a.updatedAt||0));
+  sorted.forEach(jr => {
     const tr = document.createElement('tr');
     if(jrEditId === jr.id) tr.classList.add('jo-row-on');
+    if(jrNewId  === jr.id) tr.classList.add('jo-row-new');
     tr.onclick = () => jrOpenPanel(jr.id);
     tr.innerHTML = `
       <td style="font-weight:600;color:var(--t1)">${jr.name}</td>
       <td style="color:var(--t2)">${jr.title}</td>
       <td><span style="font-size:12px;color:var(--t2)">${jr.pipeline.length} stage${jr.pipeline.length!==1?'s':''}</span></td>
-      <td>${jr.userRoles.length
-        ? jr.userRoles.map(u=>`<span style="font-size:10.5px;font-weight:500;padding:1px 7px;border-radius:20px;background:#e0f2fe;color:#0369a1;margin-right:3px">${u.user}</span>`).join('')
-        : `<span style="color:var(--t3);font-size:12px">—</span>`}</td>
       <td>
         <div style="display:flex;gap:5px;justify-content:flex-end">
           <button class="jo-act-btn" onclick="event.stopPropagation();jrOpenPanel(${jr.id})" title="Edit">${ICO_EDIT} Edit</button>
@@ -5845,6 +5906,7 @@ function renderJRTable(){
 function jrOpenPanel(id){
   jrEditId = id;
   document.getElementById('jr-panel').classList.add('open');
+  document.getElementById('jr-backdrop').classList.add('open');
   document.getElementById('jr-panel-title').textContent = jrById(id)?.name || 'Edit Job Role';
   document.querySelectorAll('#jr-tbody tr').forEach(tr => tr.classList.remove('jo-row-on'));
   document.querySelectorAll('#jr-tbody tr').forEach((tr,i) => {
@@ -5856,17 +5918,17 @@ function jrOpenPanel(id){
 function jrClosePanel(){
   jrEditId = null;
   document.getElementById('jr-panel').classList.remove('open');
+  document.getElementById('jr-backdrop').classList.remove('open');
   document.querySelectorAll('#jr-tbody tr').forEach(tr=>tr.classList.remove('jo-row-on'));
 }
 
 function jrSwitchTab(tab){
   jrActiveTab = tab;
-  ['overview','pipeline','userroles'].forEach(t => {
+  ['overview','pipeline'].forEach(t => {
     document.getElementById(`jr-tab-${t}`)?.classList.toggle('active', t===tab);
   });
   if(tab==='overview')  jrRenderOverview();
   if(tab==='pipeline')  jrRenderPipeline();
-  if(tab==='userroles') jrRenderUserRoles();
 }
 
 function jrRenderOverview(){
@@ -5894,7 +5956,7 @@ function jrRenderPipeline(){
   const JP_TYPES_OPTS = JP_TYPES.map(t=>`<option value="${t}">${t}</option>`).join('');
   body.innerHTML = `
     <!-- Section 1: Stage List -->
-    <div style="margin-bottom:24px">
+    <div style="margin-bottom:14px">
       <div class="jp-section-label">Stages</div>
       <ul class="jp-list" id="jrp-list"></ul>
       <!-- Section 2: Add Stage -->
@@ -6015,228 +6077,193 @@ function jrpConfirmAdd(){
   jr.pipeline.push({name,type,desc}); jrpCancelAdd(); jrpRenderList();
 }
 
-function jrRenderUserRoles(){
-  const jr = jrById(jrEditId); if(!jr) return;
-  jrUrEditId = null;
-  const body = document.getElementById('jr-panel-body');
-  const userOpts = JR_USERS.map(u=>`<option value="${u}">${u}</option>`).join('');
-  const typeOpts = JR_ROLE_TYPES.map(t=>`<option value="${t}">${t}</option>`).join('');
-  body.innerHTML = `
-    <p style="font-size:11.5px;color:var(--t3);margin-bottom:12px">Assign users and set their access level per stage.</p>
-    <div id="jr-ur-list"></div>
-    <div class="jr-ur-form" id="jr-ur-form">
-      <div class="jr-ur-form-inner">
-        <div style="font-size:12px;font-weight:700;color:var(--t1);margin-bottom:12px" id="jr-ur-form-title">Add User</div>
-        <div class="jo-field" style="margin-bottom:10px">
-          <label class="jo-lbl">User</label>
-          <select class="jo-sel" id="jr-ur-f-user">
-            <option value="">Select user…</option>${userOpts}
-          </select>
-          <div class="jp-err" id="jr-ur-f-user-err">Please select a user</div>
-        </div>
-        <div class="jo-field" style="margin-bottom:12px">
-          <label class="jo-lbl">Role Type</label>
-          <select class="jo-sel" id="jr-ur-f-type" onchange="jrUrApplyDefaults()">
-            <option value="">Select role type…</option>${typeOpts}
-          </select>
-          <div class="jp-err" id="jr-ur-f-type-err">Please select a role type</div>
-        </div>
-        <div class="jo-field" style="margin-bottom:10px">
-          <label class="jo-lbl">Stage Permissions</label>
-          <div class="jr-perm-header"><span>Stage</span><span>Access Level</span></div>
-          <div class="jr-perm-grid" id="jr-perm-rows"></div>
-        </div>
-        <div class="jp-form-actions">
-          <button class="jp-cancel-btn" onclick="jrUrCancelAdd()">Cancel</button>
-          <button class="jp-confirm-btn" id="jr-ur-save-btn" onclick="jrUrConfirmAdd()">Add User</button>
-        </div>
-      </div>
-    </div>
-    <button class="jp-add" id="jr-ur-add-btn" onclick="jrUrStartAdd()">
-      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      + Add User
-    </button>`;
-  jrUrBuildPermRows();
-  jrUrRenderList();
-}
-
-function jrUrBuildPermRows(defaults){
-  const jr = jrById(jrEditId); if(!jr) return;
-  const grid = document.getElementById('jr-perm-rows'); if(!grid) return;
-  grid.innerHTML = jr.pipeline.map((s,i) => {
-    const sel = defaults ? (defaults[s.name] || 'View Only') : 'View Only';
-    return `<span class="jr-perm-stage" title="${s.name}">${s.name}</span>
-    <select class="jr-perm-sel" data-stage="${s.name.replace(/"/g,'&quot;')}" data-sidx="${i}">
-      ${JR_ACCESS_LEVELS.map(a=>`<option value="${a}"${a===sel?' selected':''}>${a}</option>`).join('')}
-    </select>`;
-  }).join('');
-}
-
-function jrUrApplyDefaults(){
-  const type = document.getElementById('jr-ur-f-type')?.value;
-  if(!type) return;
-  const jr = jrById(jrEditId); if(!jr) return;
-  const fn = JR_ROLE_DEFAULTS[type] || (()=>'View Only');
-  const defaults = {};
-  jr.pipeline.forEach(s => { defaults[s.name] = fn(s.type); });
-  jrUrBuildPermRows(defaults);
-}
-
-function jrUrRenderList(){
-  const jr = jrById(jrEditId); if(!jr) return;
-  const list = document.getElementById('jr-ur-list'); if(!list) return;
-  const ICO_EDIT = `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
-  const ICO_X   = `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
-  if(!jr.userRoles.length){
-    list.innerHTML = `<div style="font-size:12px;color:var(--t3);padding:4px 0 12px">No users assigned yet.</div>`; return;
-  }
-  list.innerHTML = jr.userRoles.map(u => {
-    const permRows = Object.entries(u.permissions||{}).map(([stage, access]) => {
-      const cls = JR_ACCESS_CLASS[access] || 'view';
-      return `<div class="jr-ur-perm-row"><span class="jr-ur-stage-name">${stage}</span><span class="jr-ur-access ${cls}">${access}</span></div>`;
-    }).join('');
-    return `<div class="jr-ur-item">
-      <div class="jr-ur-head">
-        <span class="jr-ur-name">${u.user}</span>
-        <span class="jr-ur-type">${u.type}</span>
-        <div class="jr-ur-actions">
-          <button class="jr-ur-edit" onclick="jrUrStartEdit(${u.id})" title="Edit">${ICO_EDIT}</button>
-          <button class="jr-ur-del"  onclick="jrUrDelete(${u.id})"    title="Remove">${ICO_X}</button>
-        </div>
-      </div>
-      <div class="jr-ur-perms">${permRows || '<span style="font-size:11px;color:var(--t3)">No stage permissions set</span>'}</div>
-    </div>`;
-  }).join('');
-}
-
-function jrUrStartAdd(){
-  jrUrEditId = null;
-  const form=document.getElementById('jr-ur-form'), btn=document.getElementById('jr-ur-add-btn');
-  if(!form) return;
-  document.getElementById('jr-ur-f-user').value='';
-  document.getElementById('jr-ur-f-type').value='';
-  document.getElementById('jr-ur-f-user-err').style.display='none';
-  document.getElementById('jr-ur-f-type-err').style.display='none';
-  document.getElementById('jr-ur-form-title').textContent='Add User';
-  document.getElementById('jr-ur-save-btn').textContent='Add User';
-  jrUrBuildPermRows();
-  form.classList.add('open'); if(btn) btn.style.display='none';
-  setTimeout(()=>document.getElementById('jr-ur-f-user')?.focus(), 60);
-}
-
-function jrUrStartEdit(uid){
-  const jr=jrById(jrEditId); if(!jr) return;
-  const u=jr.userRoles.find(r=>r.id===uid); if(!u) return;
-  jrUrEditId = uid;
-  const form=document.getElementById('jr-ur-form'), btn=document.getElementById('jr-ur-add-btn');
-  if(!form) return;
-  document.getElementById('jr-ur-f-user').value=u.user||'';
-  document.getElementById('jr-ur-f-type').value=u.type||'';
-  document.getElementById('jr-ur-f-user-err').style.display='none';
-  document.getElementById('jr-ur-f-type-err').style.display='none';
-  document.getElementById('jr-ur-form-title').textContent='Edit User';
-  document.getElementById('jr-ur-save-btn').textContent='Save Changes';
-  jrUrBuildPermRows(u.permissions||{});
-  form.classList.add('open'); if(btn) btn.style.display='none';
-  form.scrollIntoView({behavior:'smooth', block:'nearest'});
-}
-
-function jrUrCancelAdd(){
-  jrUrEditId = null;
-  document.getElementById('jr-ur-form')?.classList.remove('open');
-  const btn=document.getElementById('jr-ur-add-btn'); if(btn) btn.style.display='';
-}
-
-function jrUrConfirmAdd(){
-  const userEl=document.getElementById('jr-ur-f-user'), typeEl=document.getElementById('jr-ur-f-type');
-  const user=userEl?.value||'', type=typeEl?.value||'';
-  document.getElementById('jr-ur-f-user-err').style.display=user?'none':'';
-  document.getElementById('jr-ur-f-type-err').style.display=type?'none':'';
-  if(!user||!type){ if(!user) userEl?.focus(); else typeEl?.focus(); return; }
-  const permissions={};
-  document.querySelectorAll('#jr-perm-rows .jr-perm-sel').forEach(sel=>{
-    if(sel.dataset.stage) permissions[sel.dataset.stage]=sel.value;
-  });
-  const jr=jrById(jrEditId); if(!jr) return;
-  if(jrUrEditId !== null){
-    // editing existing
-    const u=jr.userRoles.find(r=>r.id===jrUrEditId);
-    if(u){ u.user=user; u.type=type; u.permissions=permissions; }
-  } else {
-    const newId=(jr.userRoles.length?Math.max(...jr.userRoles.map(u=>u.id)):0)+1;
-    jr.userRoles.push({id:newId, user, type, permissions});
-  }
-  jrUrCancelAdd(); jrUrRenderList();
-  // refresh pipeline tab badges if open
-  if(jrActiveTab==='pipeline') jrpRenderList();
-}
-
-function jrUrDelete(uid){
-  const jr=jrById(jrEditId); if(!jr) return;
-  jr.userRoles=jr.userRoles.filter(u=>u.id!==uid);
-  if(jrUrEditId===uid) jrUrCancelAdd();
-  jrUrRenderList();
-  if(jrActiveTab==='pipeline') jrpRenderList();
-}
-
 function jrCreate(){
-  const newId=(jrData.length?Math.max(...jrData.map(j=>j.id)):0)+1;
-  const name = JO_ROLES.find(r=>!jrData.find(j=>j.name===r)) || 'New Role';
-  jrData.push({id:newId, name, title:name, description:'', pipeline:[{name:'Screening',type:'Screening',desc:''},{name:'Interview',type:'Manual Interview',desc:''},{name:'Final Interview',type:'Final Interview',desc:''}], userRoles:[]});
+  const newId = (jrData.length ? Math.max(...jrData.map(j=>j.id)) : 0) + 1;
+  const name  = JO_ROLES.find(r=>!jrData.find(j=>j.name===r)) || 'New Role';
+  // unshift = prepend so it appears at top when sorted by updatedAt DESC
+  jrData.unshift({ id:newId, name, title:name, description:'',
+    pipeline:[{name:'Screening',type:'Screening',desc:''},{name:'Interview',type:'Manual Interview',desc:''},{name:'Final Interview',type:'Final Interview',desc:''}],
+    userRoles:[], updatedAt: new Date().toISOString() });
+  jrNewId = newId;
   renderJRTable();
+  document.querySelector('.jo-table-wrap')?.scrollTo({ top:0, behavior:'smooth' });
+  setTimeout(()=>{ jrNewId = null; }, 2000);
   jrOpenPanel(newId);
 }
 
 function jrDelete(id){
-  jrData=jrData.filter(j=>j.id!==id);
-  if(jrEditId===id) jrClosePanel();
-  renderJRTable();
+  const jr = jrById(id);
+  showDeleteConfirm(jr?.name, ()=>{
+    jrData = jrData.filter(j=>j.id!==id);
+    if(jrEditId===id) jrClosePanel();
+    renderJRTable();
+    showToast('success', `Job role <strong>${jr?.name||'Role'}</strong> deleted`);
+  });
 }
 
 function jrSave(){
-  const jr=jrById(jrEditId); if(!jr) return;
-  if(jrActiveTab==='overview'){
-    const name=document.getElementById('jr-f-name')?.value;
-    const title=document.getElementById('jr-f-title')?.value?.trim();
-    const desc=document.getElementById('jr-f-desc')?.value;
-    if(name) jr.name=name;
-    if(title) jr.title=title;
-    jr.description=desc||'';
-    document.getElementById('jr-panel-title').textContent=jr.name;
+  const jr = jrById(jrEditId); if(!jr) return;
+  const btn = document.querySelector('#jr-panel .jo-save-btn');
+
+  // apply edits from overview form
+  if(jrActiveTab === 'overview'){
+    const name  = document.getElementById('jr-f-name')?.value;
+    const title = document.getElementById('jr-f-title')?.value?.trim();
+    const desc  = document.getElementById('jr-f-desc')?.value;
+    if(name)  jr.name  = name;
+    if(title) jr.title = title;
+    jr.description = desc||'';
   }
-  renderJRTable();
-  document.querySelectorAll('#jr-tbody tr').forEach((tr,i)=>{ if(jrData[i]?.id===jrEditId) tr.classList.add('jo-row-on'); });
-  const btn=document.querySelector('#jr-panel .jo-save-btn');
-  if(btn){ const orig=btn.textContent; btn.textContent='✓ Saved'; btn.style.background='var(--green)'; setTimeout(()=>{ btn.textContent=orig; btn.style.background=''; },1500); }
+
+  // stamp updatedAt so it bubbles to top
+  jr.updatedAt = new Date().toISOString();
+
+  // loading state
+  if(btn){ btn.textContent = 'Saving…'; btn.disabled = true; }
+
+  setTimeout(()=>{
+    const savedName = jr.name;
+    renderJRTable();
+    jrClosePanel();
+    showToast('success', `Job role <strong>${savedName}</strong> updated`);
+    if(btn){ btn.textContent = 'Save Changes'; btn.disabled = false; }
+  }, 160);
 }
 
 let joData = [
   { id:1, title:'SDE Intern', role:'Software Engineer', active:true,
-    integration:'Google Sheets', lastSync:'2 hrs ago',
+    integration:'Google Sheets', lastSync:'1 hr ago',
     createdAt: new Date(Date.now() - 2*24*60*60*1000).toISOString(),
     description:'We are looking for a talented software engineering intern to join our team and help build scalable systems.',
     sheetId:'1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms',
-    pipeline:['Screening','R1','R2','Assignment','Final'] },
+    pipeline:['Screening','R1','R2','Assignment','Final'],
+    users:[
+      {id:1, user:'Yashvi',  type:'Hiring Manager', permissions:{}},
+      {id:2, user:'Rahul',   type:'Recruiter',      permissions:{}},
+      {id:3, user:'Jatin',   type:'Interviewer',    permissions:{}},
+    ]},
   { id:2, title:'Frontend Engineer', role:'Frontend Engineer', active:true,
-    integration:'Google Sheets', lastSync:'1 day ago',
+    integration:'Google Sheets', lastSync:'3 hrs ago',
     createdAt: new Date(Date.now() - 8*24*60*60*1000).toISOString(),
-    description:'Join our frontend team to build beautiful, high-performance user interfaces.',
+    description:'Join our frontend team to build beautiful, high-performance user interfaces that delight millions of users.',
     sheetId:'1Cx2NWt1YRA5nGNLMvCeBAkhmVVrptmcs85PgXF3vpnt',
-    pipeline:['Screening','R1','R2','Final'] },
-  { id:3, title:'Senior Data Scientist', role:'Data Scientist', active:false,
+    pipeline:['Screening','R1','R2','Final'],
+    users:[
+      {id:1, user:'Priya',   type:'Hiring Manager', permissions:{}},
+      {id:2, user:'Arjun',   type:'Interviewer',    permissions:{}},
+    ]},
+  { id:3, title:'Backend Engineer', role:'Backend Engineer', active:true,
+    integration:'Google Sheets', lastSync:'2 days ago',
+    createdAt: new Date(Date.now() - 11*24*60*60*1000).toISOString(),
+    description:'Build and scale the core APIs and microservices that power our platform.',
+    sheetId:'1Dx3OXu2ZSB6oHOMNwDfCBlimWWsqumdt96QhYG4wqou',
+    pipeline:['Screening','R1','R2','System Design','Final'],
+    users:[
+      {id:1, user:'Karan',   type:'Hiring Manager', permissions:{}},
+      {id:2, user:'Neha',    type:'Recruiter',      permissions:{}},
+      {id:3, user:'Ankit',   type:'Interviewer',    permissions:{}},
+      {id:4, user:'Rahul',   type:'Coordinator',    permissions:{}},
+    ]},
+  { id:4, title:'Senior Data Scientist', role:'Data Scientist', active:false,
     integration:null, lastSync:'—',
     createdAt: new Date(Date.now() - 35*24*60*60*1000).toISOString(),
-    description:'', sheetId:'',
-    pipeline:['Screening','R1','Assignment','Final'] },
-  { id:4, title:'DevOps Lead', role:'DevOps Engineer', active:true,
+    description:'Drive data-informed decisions by building predictive models and uncovering insights at scale.',
+    sheetId:'',
+    pipeline:['Screening','R1','Take-home','Final'],
+    users:[]},
+  { id:5, title:'DevOps Lead', role:'DevOps Engineer', active:true,
     integration:'Google Sheets', lastSync:'3 days ago',
     createdAt: new Date(Date.now() - 14*24*60*60*1000).toISOString(),
-    description:'Lead our infrastructure and DevOps initiatives, driving reliability and efficiency.',
-    sheetId:'', pipeline:['Screening','R1','R2','Final'] },
+    description:'Lead our infrastructure and DevOps initiatives, driving reliability and efficiency across all environments.',
+    sheetId:'1Ex4PYv3ATС7pIPONxEgDCmjnXXtrvneo07RiZH5xrpv',
+    pipeline:['Screening','R1','R2','Final'],
+    users:[
+      {id:1, user:'Arjun',   type:'Hiring Manager', permissions:{}},
+      {id:2, user:'Jatin',   type:'Interviewer',    permissions:{}},
+    ]},
+  { id:6, title:'Product Manager', role:'Product Manager', active:true,
+    integration:'Google Sheets', lastSync:'5 hrs ago',
+    createdAt: new Date(Date.now() - 5*24*60*60*1000).toISOString(),
+    description:'Own the product roadmap and work cross-functionally to ship features that customers love.',
+    sheetId:'1Fx5QZw4BUD8qJQPOyFhEDnkoYYuvsonf18SjAI6ysqw',
+    pipeline:['Screening','R1','Case Study','Final'],
+    users:[
+      {id:1, user:'Yashvi',  type:'Admin',          permissions:{}},
+      {id:2, user:'Priya',   type:'Hiring Manager', permissions:{}},
+      {id:3, user:'Neha',    type:'Recruiter',      permissions:{}},
+    ]},
+  { id:7, title:'UX Designer', role:'Designer', active:true,
+    integration:null, lastSync:'—',
+    createdAt: new Date(Date.now() - 19*24*60*60*1000).toISOString(),
+    description:'Craft intuitive, pixel-perfect experiences across our web and mobile products.',
+    sheetId:'',
+    pipeline:['Screening','Portfolio Review','R1','Final'],
+    users:[
+      {id:1, user:'Ankit',   type:'Hiring Manager', permissions:{}},
+    ]},
+  { id:8, title:'QA Engineer', role:'QA Engineer', active:true,
+    integration:'Google Sheets', lastSync:'6 hrs ago',
+    createdAt: new Date(Date.now() - 7*24*60*60*1000).toISOString(),
+    description:'Champion quality across the engineering org — own automated test coverage end-to-end.',
+    sheetId:'1Gx6RAs5CVE9rKRQPzGiFeolZZvvwtonG29TkBJ7ztRx',
+    pipeline:['Screening','R1','Technical Test','Final'],
+    users:[
+      {id:1, user:'Karan',   type:'Hiring Manager', permissions:{}},
+      {id:2, user:'Rahul',   type:'Coordinator',    permissions:{}},
+    ]},
+  { id:9, title:'Full Stack Engineer', role:'Full Stack Engineer', active:false,
+    integration:null, lastSync:'—',
+    createdAt: new Date(Date.now() - 52*24*60*60*1000).toISOString(),
+    description:'',
+    sheetId:'',
+    pipeline:['Screening','R1','R2','Final'],
+    users:[]},
+  { id:10, title:'Data Engineer', role:'Data Scientist', active:true,
+    integration:'Google Sheets', lastSync:'12 hrs ago',
+    createdAt: new Date(Date.now() - 3*24*60*60*1000).toISOString(),
+    description:'Design and maintain scalable data pipelines that power our analytics and ML infrastructure.',
+    sheetId:'1Hx7SBt6DWF0sLSRQ0HjGfpmAAowxupnH30UlCK8AuSy',
+    pipeline:['Screening','R1','SQL Test','Final'],
+    users:[
+      {id:1, user:'Neha',    type:'Hiring Manager', permissions:{}},
+      {id:2, user:'Yashvi',  type:'Recruiter',      permissions:{}},
+      {id:3, user:'Jatin',   type:'Interviewer',    permissions:{}},
+      {id:4, user:'Ankit',   type:'Interviewer',    permissions:{}},
+    ]},
+  { id:11, title:'iOS Engineer', role:'Software Engineer', active:true,
+    integration:'Google Sheets', lastSync:'1 day ago',
+    createdAt: new Date(Date.now() - 16*24*60*60*1000).toISOString(),
+    description:'Build native iOS features for our mobile app used by over 2 million users.',
+    sheetId:'1Ix8TCu7EXG1tMTSR1IkHgqnBBpxyvoH41VmDL9BvTzz',
+    pipeline:['Screening','R1','R2','Final'],
+    users:[
+      {id:1, user:'Arjun',   type:'Hiring Manager', permissions:{}},
+      {id:2, user:'Priya',   type:'Recruiter',      permissions:{}},
+    ]},
+  { id:12, title:'Security Engineer', role:'DevOps Engineer', active:false,
+    integration:null, lastSync:'—',
+    createdAt: new Date(Date.now() - 43*24*60*60*1000).toISOString(),
+    description:'',
+    sheetId:'',
+    pipeline:['Screening','R1','R2','Final'],
+    users:[
+      {id:1, user:'Karan',   type:'Admin',          permissions:{}},
+    ]},
+  { id:13, title:'ML Engineer', role:'Data Scientist', active:true,
+    integration:'Google Sheets', lastSync:'4 days ago',
+    createdAt: new Date(Date.now() - 22*24*60*60*1000).toISOString(),
+    description:'Research and productionise machine learning models that power our recommendation and ranking systems.',
+    sheetId:'1Jx9UDv8FYH2uNUTS2JlIhroCCqyzwpnI52WnEM0CwAA',
+    pipeline:['Screening','R1','ML Design','Take-home','Final'],
+    users:[
+      {id:1, user:'Rahul',   type:'Hiring Manager', permissions:{}},
+      {id:2, user:'Neha',    type:'Interviewer',    permissions:{}},
+    ]},
 ];
 
 let joEditId    = null;
 let joActiveTab = 'details';
+let joUrEditId  = null; // id of user being edited in JO Users tab, null = adding new
 let joDragSrc   = null;
 let joSearch       = '';
 // pending = selections in open dropdown (not yet applied)
@@ -6255,7 +6282,7 @@ let joAppliedDatePreset = 'all';
 let joAppliedDateFrom   = '';
 let joAppliedDateTo     = '';
 // sort
-let joSortDir = '';  // 'asc' | 'desc' | ''
+let joSortDir = 'desc';  // default: newest first
 
 const JP_TYPES = ['Screening','AI Interview','Manual Interview','Assignment','Final Interview','Custom'];
 const JP_TYPE_HINTS = {
@@ -6363,7 +6390,7 @@ function joClearFilters(){
   joAppliedStatus.clear(); joAppliedRole.clear(); joAppliedIntg.clear();
   joPendingDatePreset = 'all'; joPendingDateFrom = ''; joPendingDateTo = '';
   joAppliedDatePreset = 'all'; joAppliedDateFrom = ''; joAppliedDateTo = '';
-  joSortDir = '';
+  joSortDir = 'desc'; // keep default newest-first sort; don't reset to unsorted
   const si = document.getElementById('jo-search-input');
   if(si) si.value = '';
   renderJOTable();
@@ -6388,14 +6415,19 @@ function joSelectDatePreset(preset){
 }
 
 function joToggleSort(){
-  joSortDir = joSortDir === 'asc' ? 'desc' : joSortDir === 'desc' ? '' : 'asc';
+  joSortDir = joSortDir === 'desc' ? 'asc' : 'desc'; // toggle between desc ↔ asc (always sorted)
   const el = document.getElementById('jo-sort-created');
   if(el){
-    el.classList.toggle('asc', joSortDir === 'asc');
+    el.classList.toggle('asc',  joSortDir === 'asc');
     el.classList.toggle('desc', joSortDir === 'desc');
   }
   renderJOTable();
   updateJOClearBtn();
+}
+
+function joInitSortArrow(){
+  const el = document.getElementById('jo-sort-created');
+  if(el){ el.classList.toggle('asc', joSortDir==='asc'); el.classList.toggle('desc', joSortDir==='desc'); }
 }
 
 function joFmtDate(iso){
@@ -6411,7 +6443,7 @@ function joFmtDateTime(iso){
 
 function updateJOClearBtn(){
   const hasAny = joSearch || joAppliedStatus.size || joAppliedRole.size || joAppliedIntg.size
-               || joAppliedDatePreset !== 'all' || joSortDir;
+               || joAppliedDatePreset !== 'all';
   document.getElementById('jo-clear-filters')?.classList.toggle('visible', !!hasAny);
 }
 
@@ -6506,12 +6538,43 @@ function closeAllJOFdds(){
   document.querySelectorAll('.jo-fdd-menu').forEach(m=>m.classList.remove('open'));
 }
 
+function updateJOStats(){
+  const rows   = getFilteredJO();
+  const active = rows.filter(j=>j.active).length;
+  const el = (id, v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+  el('jo-stat-total',    rows.length);
+  el('jo-stat-active',   active);
+  el('jo-stat-inactive', rows.length - active);
+}
+
 function renderJOScreen(){ renderJOTable(); updateJOFddButtons(); updateJOClearBtn(); }
+
+function joAvColor(name){
+  const palette=['#3b82f6','#10b981','#f59e0b','#ef4444','#8b5cf6','#ec4899','#06b6d4','#84cc16'];
+  let h=0; for(let i=0;i<name.length;i++) h=name.charCodeAt(i)+((h<<5)-h);
+  return palette[Math.abs(h)%palette.length];
+}
+
+function joRenderUserAvatars(job){
+  if(!job.users||!job.users.length) return `<span style="color:var(--t3);font-size:12px">—</span>`;
+  const MAX=3, shown=job.users.slice(0,MAX), extra=job.users.length-MAX;
+  // tooltip lines stored as data attr; rendered via portal to avoid overflow clipping
+  const tipLines=job.users.map(u=>`${u.user} — ${u.type}`).join('|');
+  const avatars=shown.map(u=>{
+    const init=u.user.split(' ').map(p=>p[0]).join('').slice(0,2).toUpperCase();
+    return `<div class="jo-av" style="background:${joAvColor(u.user)}">${init}</div>`;
+  }).join('');
+  const more=extra>0?`<div class="jo-av-more">+${extra}</div>`:'';
+  return `<div class="jo-av-wrap" data-tip="${tipLines}" onclick="event.stopPropagation();openJOPanel(${job.id});setTimeout(()=>switchJOTab('users'),60)">
+    <div class="jo-av-stack">${avatars}${more}</div>
+  </div>`;
+}
 
 function renderJOTable(){
   const tb = document.getElementById('jo-tbody');
   if(!tb) return;
   const rows = getFilteredJO();
+  updateJOStats();
   tb.innerHTML = '';
   const ICO_SYNC = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>`;
   const ICO_EDIT = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
@@ -6519,16 +6582,18 @@ function renderJOTable(){
   const ICO_GS   = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>`;
   if(!rows.length){
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td colspan="8" style="text-align:center;padding:32px;color:var(--t3);font-size:12.5px">No job openings match your filters</td>`;
+    tr.innerHTML = `<td colspan="9" style="text-align:center;padding:32px;color:var(--t3);font-size:12.5px">No job openings match your filters</td>`;
     tb.appendChild(tr); return;
   }
   rows.forEach(job => {
     const tr = document.createElement('tr');
     if(joEditId === job.id) tr.classList.add('jo-row-on');
+    if(joNewId  === job.id) tr.classList.add('jo-row-new');
     tr.onclick = () => openJOPanel(job.id);
     tr.innerHTML = `
       <td style="font-weight:600;color:var(--t1)">${job.title}</td>
       <td style="color:var(--t2)">${job.role}</td>
+      <td>${joRenderUserAvatars(job)}</td>
       <td>
         <div class="jo-toggle" onclick="event.stopPropagation();joToggle(${job.id})">
           <div class="tog-track${job.active?' on':''}" id="tog-${job.id}"><div class="tog-thumb"></div></div>
@@ -6651,28 +6716,40 @@ function joConnectSheet(id){
 }
 
 function joDelete(id){
-  joData = joData.filter(j=>j.id!==id);
-  if(joEditId===id) closeJOPanel();
-  renderJOTable();
+  const job = joData.find(j=>j.id===id);
+  showDeleteConfirm(job?.title, ()=>{
+    joData = joData.filter(j=>j.id!==id);
+    if(joEditId===id) closeJOPanel();
+    renderJOTable();
+    showToast('success', `<strong>${job?.title||'Opening'}</strong> deleted`);
+  });
 }
+
+let joNewId = null; // tracks newly created id for highlight
 
 function joCreateOpening(){
   const newId = (joData.length ? Math.max(...joData.map(j=>j.id)) : 0) + 1;
   const defaultRole = JO_ROLES[0];
   const tpl = jrGetTemplate(defaultRole) || JO_ROLE_TEMPLATES[defaultRole];
-  joData.push({ id:newId, title: tpl?.title||'New Job Opening', role:defaultRole, active:true,
+  // prepend so newest appears first when sorted desc
+  joData.unshift({ id:newId, title: tpl?.title||'New Job Opening', role:defaultRole, active:true,
     integration:null, lastSync:'—', createdAt: new Date().toISOString(),
     description: tpl?.description||'', sheetId:'',
-    pipeline: tpl ? tpl.pipeline.map(s=>({...s})) : ['Screening','R1','Final'] });
+    pipeline: tpl ? tpl.pipeline.map(s=>({...s})) : ['Screening','R1','Final'], users:[] });
+  joNewId = newId;
   renderJOTable();
+  // scroll table back to top so new row is visible
+  document.querySelector('.jo-table-wrap')?.scrollTo({ top:0, behavior:'smooth' });
+  // clear highlight after 2s
+  setTimeout(()=>{ joNewId = null; }, 2000);
   openJOPanel(newId);
-  // show autofill banner after panel renders
   setTimeout(joShowAutofillBanner, 50);
 }
 
 function openJOPanel(id){
   joEditId = id;
   document.getElementById('jo-panel').classList.add('open');
+  document.getElementById('jo-backdrop').classList.add('open');
   document.querySelectorAll('#jo-tbody tr').forEach((tr,i)=>{
     tr.classList.toggle('jo-row-on', joData[i]?.id===id);
   });
@@ -6682,6 +6759,7 @@ function openJOPanel(id){
 function closeJOPanel(){
   joEditId = null;
   document.getElementById('jo-panel').classList.remove('open');
+  document.getElementById('jo-backdrop').classList.remove('open');
   document.querySelectorAll('#jo-tbody tr').forEach(tr=>tr.classList.remove('jo-row-on'));
 }
 
@@ -6689,7 +6767,10 @@ function switchJOTab(tab){
   joActiveTab = tab;
   document.getElementById('jo-tab-details').classList.toggle('active', tab==='details');
   document.getElementById('jo-tab-pipeline').classList.toggle('active', tab==='pipeline');
-  if(tab==='details') renderJODetails(); else renderJOPipeline();
+  document.getElementById('jo-tab-users')?.classList.toggle('active', tab==='users');
+  if(tab==='details')  renderJODetails();
+  else if(tab==='pipeline') renderJOPipeline();
+  else if(tab==='users')    renderJOUsers();
 }
 
 function renderJODetails(){
@@ -6759,7 +6840,7 @@ function renderJOPipeline(){
   normalizePipeline(job);
   const body = document.getElementById('jo-panel-body');
   body.innerHTML = `
-    <div style="margin-bottom:24px">
+    <div style="margin-bottom:14px">
       <div class="jp-section-label">Stages</div>
       <ul class="jp-list" id="jp-list"></ul>
       <div class="jp-add-form" id="jp-add-form">
@@ -6916,8 +6997,211 @@ function jpConfirmAdd(){
   renderJPList();
 }
 
+/* ── Job Opening Users Tab ── */
+let joUrAdding = false; // true when add-new form is open at bottom
+
+function renderJOUsers(){
+  const job = joData.find(j=>j.id===joEditId); if(!job) return;
+  joUrEditId = null;
+  joUrAdding = false;
+  if(!job.users) job.users = [];
+  const body = document.getElementById('jo-panel-body'); if(!body) return;
+  body.innerHTML = `
+    <p style="font-size:11.5px;color:var(--t3);margin-bottom:12px">Assign users to this opening and configure their stage-level permissions.</p>
+    <div id="jo-ur-list"></div>
+    <div id="jo-ur-add-area"></div>`;
+  joUrRenderList();
+}
+
+/* builds the inline form HTML — used both for edit-in-card and add-at-bottom */
+function joUrBuildFormHTML(u){
+  const job = joData.find(j=>j.id===joEditId); if(!job) return '';
+  const pipeline = (job.pipeline||[]).map(s => typeof s==='object'?s.name:s);
+  const userOpts = JR_USERS.map(n=>`<option value="${n}"${u&&n===u.user?' selected':''}>${n}</option>`).join('');
+  const typeOpts = JR_ROLE_TYPES.map(t=>`<option value="${t}"${u&&t===u.type?' selected':''}>${t}</option>`).join('');
+  const permRows = pipeline.map((name,i)=>{
+    const fn  = u ? (JR_ROLE_DEFAULTS[u.type]||(()=>'View Only')) : (()=>'View Only');
+    const sel = u ? (u.permissions?.[name] || fn(pipeline[i]||'')) : 'View Only';
+    return `<span class="jr-perm-stage" title="${name}">${name}</span>
+      <select class="jr-perm-sel" data-stage="${name.replace(/"/g,'&quot;')}" data-sidx="${i}">
+        ${JR_ACCESS_LEVELS.map(a=>`<option value="${a}"${a===sel?' selected':''}>${a}</option>`).join('')}
+      </select>`;
+  }).join('');
+  const isEdit = !!u;
+  return `<div class="jr-ur-form-inner" style="margin-top:8px">
+    <div style="font-size:11.5px;font-weight:700;color:var(--t1);margin-bottom:11px">${isEdit?'Edit User':'Add User'}</div>
+    <div class="jo-field" style="margin-bottom:10px">
+      <label class="jo-lbl">User</label>
+      <select class="jo-sel" id="jo-ur-f-user">
+        <option value="">Select user…</option>${userOpts}
+      </select>
+      <div class="jp-err" id="jo-ur-f-user-err" style="display:none">Please select a user</div>
+    </div>
+    <div class="jo-field" style="margin-bottom:12px">
+      <label class="jo-lbl">Role Type</label>
+      <select class="jo-sel" id="jo-ur-f-type" onchange="joUrApplyDefaults()">
+        <option value="">Select role type…</option>${typeOpts}
+      </select>
+      <div class="jp-err" id="jo-ur-f-type-err" style="display:none">Please select a role type</div>
+    </div>
+    <div class="jo-field" style="margin-bottom:10px">
+      <label class="jo-lbl">Stage Permissions</label>
+      <div class="jr-perm-header"><span>Stage</span><span>Access Level</span></div>
+      <div class="jr-perm-grid" id="jo-perm-rows">${permRows}</div>
+    </div>
+    <div class="jp-form-actions">
+      <button class="jp-cancel-btn" onclick="joUrCancelAdd()">Cancel</button>
+      <button class="jp-confirm-btn" onclick="joUrConfirmAdd()">${isEdit?'Save Changes':'Add User'}</button>
+    </div>
+  </div>`;
+}
+
+function joUrBuildPermRows(defaults){
+  // Re-renders only the perm grid inside the currently open inline form
+  const job = joData.find(j=>j.id===joEditId); if(!job) return;
+  const grid = document.getElementById('jo-perm-rows'); if(!grid) return;
+  const pipeline = (job.pipeline||[]).map(s => typeof s==='object'?s.name:s);
+  grid.innerHTML = pipeline.map((name,i) => {
+    const sel = defaults ? (defaults[name] || 'View Only') : 'View Only';
+    return `<span class="jr-perm-stage" title="${name}">${name}</span>
+    <select class="jr-perm-sel" data-stage="${name.replace(/"/g,'&quot;')}" data-sidx="${i}">
+      ${JR_ACCESS_LEVELS.map(a=>`<option value="${a}"${a===sel?' selected':''}>${a}</option>`).join('')}
+    </select>`;
+  }).join('');
+}
+
+function joUrApplyDefaults(){
+  const type = document.getElementById('jo-ur-f-type')?.value; if(!type) return;
+  const job = joData.find(j=>j.id===joEditId); if(!job) return;
+  const fn = JR_ROLE_DEFAULTS[type] || (()=>'View Only');
+  const pipeline = (job.pipeline||[]).map(s => typeof s==='object'?{...s}:({name:s,type:''}));
+  const defaults = {};
+  pipeline.forEach(s => { defaults[s.name] = fn(s.type||''); });
+  joUrBuildPermRows(defaults);
+}
+
+function joUrRenderList(){
+  const job = joData.find(j=>j.id===joEditId); if(!job) return;
+  const list    = document.getElementById('jo-ur-list');    if(!list) return;
+  const addArea = document.getElementById('jo-ur-add-area'); if(!addArea) return;
+  const ICO_EDIT = `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+  const ICO_X   = `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+
+  if(!job.users.length){
+    list.innerHTML = `<div style="font-size:12px;color:var(--t3);padding:4px 0 12px">No users assigned yet.</div>`;
+  } else {
+    list.innerHTML = job.users.map(u => {
+      const isEditing = joUrEditId === u.id;
+      const permRows = Object.entries(u.permissions||{}).map(([stage, access]) => {
+        const cls = JR_ACCESS_CLASS[access] || 'view';
+        return `<div class="jr-ur-perm-row"><span class="jr-ur-stage-name">${stage}</span><span class="jr-ur-access ${cls}">${access}</span></div>`;
+      }).join('');
+      // edit actions hidden while this card is in edit mode
+      const readView = `
+        <div class="jr-ur-head">
+          <span class="jr-ur-name">${u.user}</span>
+          <span class="jr-ur-type">${u.type}</span>
+          <div class="jr-ur-actions">
+            <button class="jr-ur-edit" onclick="joUrStartEdit(${u.id})" title="Edit">${ICO_EDIT}</button>
+            <button class="jr-ur-del"  onclick="joUrDelete(${u.id})"  title="Remove">${ICO_X}</button>
+          </div>
+        </div>
+        <div class="jr-ur-perms">${permRows || '<span style="font-size:11px;color:var(--t3)">No stage permissions set</span>'}</div>`;
+      return `<div class="jr-ur-item${isEditing?' jo-ur-item-editing':''}" id="jo-ur-card-${u.id}">
+        ${isEditing ? joUrBuildFormHTML(u) : readView}
+      </div>`;
+    }).join('');
+  }
+
+  // Add-new form or button at the bottom
+  if(joUrAdding){
+    addArea.innerHTML = joUrBuildFormHTML(null);
+    setTimeout(()=>document.getElementById('jo-ur-f-user')?.focus(), 60);
+  } else if(!joUrEditId) {
+    // Only show Add button when nothing is being edited
+    addArea.innerHTML = `<button class="jp-add" onclick="joUrStartAdd()">
+      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      + Add User
+    </button>`;
+  } else {
+    addArea.innerHTML = ''; // hide Add button while editing a card
+  }
+}
+
+function joUrStartAdd(){
+  joUrAdding = true;
+  joUrEditId = null;
+  joUrRenderList();
+  setTimeout(()=>document.getElementById('jo-ur-f-user')?.focus(), 60);
+}
+
+function joUrStartEdit(uid){
+  const job = joData.find(j=>j.id===joEditId); if(!job) return;
+  if(!job.users.find(r=>r.id===uid)) return;
+  joUrEditId = uid;
+  joUrAdding = false;
+  joUrRenderList();
+  // scroll the editing card into view
+  setTimeout(()=>document.getElementById(`jo-ur-card-${uid}`)?.scrollIntoView({behavior:'smooth',block:'nearest'}), 40);
+}
+
+function joUrCancelAdd(){
+  joUrEditId = null;
+  joUrAdding = false;
+  joUrRenderList();
+}
+
+function joUrConfirmAdd(){
+  const userEl = document.getElementById('jo-ur-f-user'), typeEl = document.getElementById('jo-ur-f-type');
+  const user = userEl?.value||'', type = typeEl?.value||'';
+  document.getElementById('jo-ur-f-user-err').style.display = user?'none':'';
+  document.getElementById('jo-ur-f-type-err').style.display = type?'none':'';
+  if(!user||!type){ if(!user) userEl?.focus(); else typeEl?.focus(); return; }
+  const permissions = {};
+  document.querySelectorAll('#jo-perm-rows .jr-perm-sel').forEach(sel=>{
+    if(sel.dataset.stage) permissions[sel.dataset.stage] = sel.value;
+  });
+  const job = joData.find(j=>j.id===joEditId); if(!job) return;
+  if(joUrEditId !== null){
+    const u = job.users.find(r=>r.id===joUrEditId);
+    if(u){ u.user=user; u.type=type; u.permissions=permissions; }
+  } else {
+    const newId = (job.users.length ? Math.max(...job.users.map(u=>u.id)) : 0) + 1;
+    job.users.push({id:newId, user, type, permissions});
+  }
+  joUrEditId = null;
+  joUrAdding = false;
+  joUrRenderList();
+  renderJOTable(); // keep avatar stack in sync after inline add/edit
+}
+
+function joUrDelete(uid){
+  const job = joData.find(j=>j.id===joEditId); if(!job) return;
+  const u = job.users.find(r=>r.id===uid);
+  showDeleteConfirm(u?.user, ()=>{
+    job.users = job.users.filter(u=>u.id!==uid);
+    if(joUrEditId===uid) joUrCancelAdd();
+    joUrRenderList();
+    renderJOTable();
+    showToast('success', `User <strong>${u?.user||'User'}</strong> removed`);
+  });
+}
+
 function saveJOPanel(){
   const job = joData.find(j=>j.id===joEditId); if(!job) return;
+  const btn = document.querySelector('.jo-save-btn');
+
+  if(joActiveTab==='users'){
+    // Users are already mutated in-place; just re-render table + toast + close
+    if(btn){ btn.textContent='Saving…'; btn.disabled=true; }
+    setTimeout(()=>{
+      renderJOTable();
+      closeJOPanel();
+      showToast('success', `Users updated for <strong>${job.title}</strong>`);
+    }, 150);
+    return;
+  }
+
   if(joActiveTab==='details'){
     const role  = document.getElementById('jo-f-role')?.value;
     const title = document.getElementById('jo-f-title')?.value?.trim();
@@ -6930,13 +7214,97 @@ function saveJOPanel(){
     if(job.sheetId){ job.integration='Google Sheets'; job.lastSync='Just now'; }
   }
   renderJOTable();
-  const btn = document.querySelector('.jo-save-btn');
-  if(btn){ const orig=btn.textContent; btn.textContent='✓ Saved'; btn.style.background='var(--green)'; setTimeout(()=>{ btn.textContent=orig; btn.style.background=''; },1500); }
+  if(btn){ const orig=btn.textContent; btn.textContent='✓ Saved'; btn.style.background='var(--green)'; setTimeout(()=>{ btn.textContent=orig; btn.style.background=''; btn.disabled=false; },1500); }
 }
 
 /* ═══════════════════════════════════════════
    INIT
 ═══════════════════════════════════════════ */
+/* ── Delete confirmation modal ── */
+let _dcCallback = null;
+
+function showDeleteConfirm(label, onConfirm){
+  _dcCallback = onConfirm;
+  const desc = document.getElementById('dc-desc');
+  const btn  = document.getElementById('dc-confirm-btn');
+  if(desc) desc.innerHTML = label
+    ? `Are you sure you want to delete <strong>${label}</strong>? This action cannot be undone.`
+    : 'This action cannot be undone.';
+  if(btn){ btn.textContent = 'Delete'; btn.disabled = false; }
+  document.getElementById('dc-backdrop').classList.add('open');
+  document.getElementById('dc-modal').classList.add('open');
+  setTimeout(()=>btn?.focus(), 60);
+}
+
+function dcCancel(){
+  _dcCallback = null;
+  document.getElementById('dc-backdrop').classList.remove('open');
+  document.getElementById('dc-modal').classList.remove('open');
+}
+
+function dcConfirm(){
+  const btn = document.getElementById('dc-confirm-btn');
+  if(btn){ btn.textContent = 'Deleting…'; btn.disabled = true; }
+  setTimeout(()=>{
+    if(_dcCallback) _dcCallback();
+    dcCancel();
+  }, 140);
+}
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && document.getElementById('dc-modal')?.classList.contains('open')) dcCancel();
+});
+
+/* ── Avatar portal tooltip ── */
+(()=>{
+  const portal = document.createElement('div');
+  portal.id = 'jo-av-portal';
+  document.body.appendChild(portal);
+
+  let hideTimer = null;
+
+  function showPortalTip(wrap){
+    clearTimeout(hideTimer);
+    const lines = wrap.dataset.tip?.split('|') || [];
+    if(!lines.length) return;
+    portal.innerHTML = lines.join('<br>');
+    portal.classList.add('visible');
+    positionPortalTip(wrap);
+  }
+
+  function positionPortalTip(wrap){
+    const r = wrap.getBoundingClientRect();
+    const midX = r.left + r.width / 2;
+    const topY  = r.top - 8; // 8px gap above the wrap
+    portal.style.left = midX + 'px';
+    portal.style.top  = (topY - portal.offsetHeight) + 'px';
+    // clamp horizontally so it never goes off screen
+    const pw = portal.offsetWidth;
+    const clampedLeft = Math.min(Math.max(pw/2 + 8, midX), window.innerWidth - pw/2 - 8);
+    portal.style.left = clampedLeft + 'px';
+    // update caret to track real center
+    const caretOffset = midX - clampedLeft + pw/2;
+    portal.style.setProperty('--caret-left', Math.min(Math.max(caretOffset, 12), pw - 12) + 'px');
+  }
+
+  function hidePortalTip(){
+    hideTimer = setTimeout(()=>{ portal.classList.remove('visible'); }, 80);
+  }
+
+  // Event delegation — works for any .jo-av-wrap rendered now or later
+  document.addEventListener('mouseover', e => {
+    const wrap = e.target.closest('.jo-av-wrap');
+    if(wrap && wrap.dataset.tip) showPortalTip(wrap);
+  });
+  document.addEventListener('mouseout', e => {
+    const wrap = e.target.closest('.jo-av-wrap');
+    if(wrap) hidePortalTip();
+  });
+  // Reposition on scroll/resize while tooltip is shown
+  document.addEventListener('scroll', ()=>{ portal.classList.remove('visible'); }, true);
+  window.addEventListener('resize',   ()=>{ portal.classList.remove('visible'); });
+})();
+
 renderHead();
 /* default filter: Screening stage */
 activeStages  = new Set(['Screening']);
