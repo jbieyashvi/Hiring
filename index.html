@@ -66,6 +66,10 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 .btn-sm{height:26px;padding:0 9px;font-size:11.5px}
 .btn-ghost{background:transparent;border-color:transparent;color:var(--t2)}
 .btn-ghost:hover{background:var(--bg);border-color:var(--border);color:var(--t1)}
+.btn-toggle{background:transparent;border-color:var(--border);color:var(--t2)}
+.btn-toggle:hover{background:var(--bg);border-color:var(--border-dark,#d1d5db);color:var(--t1)}
+.btn-toggle.focus-active{background:#eff6ff;border-color:#bfdbfe;color:#1d4ed8}
+.btn-toggle.focus-active svg{color:#2563eb}
 .btn.pop-active{background:var(--accent-bg);border-color:#93c5fd;color:var(--accent)}
 
 /* CONTENT */
@@ -638,7 +642,74 @@ tbody td:first-child{padding-left:20px}
 .sm-check-row{display:flex;align-items:center;gap:8px;padding:10px 0 4px}
 .sm-check-row input[type=checkbox]{width:15px;height:15px;accent-color:var(--accent);cursor:pointer;flex-shrink:0}
 .sm-check-label{font-size:12.5px;font-weight:500;color:var(--t1);cursor:pointer;user-select:none}
+.sm-time.booked{background:#f3f4f6;color:#9ca3af;border-color:#e5e7eb;cursor:not-allowed;text-decoration:line-through}
+.sm-time.booked:hover{background:#f3f4f6;border-color:#e5e7eb;box-shadow:none}
+/* ── BULK SCHEDULING ── */
+.sm-warn{display:flex;align-items:center;gap:7px;margin-top:8px;padding:8px 11px;background:#fff7ed;border:1px solid #fed7aa;border-radius:var(--r);font-size:12px;color:#c2410c;font-weight:500}
+.sm-warn svg{flex-shrink:0;color:#ea580c}
+.bs-ivr-select{width:100%;height:42px;padding:0 12px;border:1.5px solid var(--border);border-radius:var(--r2);font-size:13.5px;font-family:inherit;color:var(--t1);background:var(--surface);cursor:pointer;outline:none}
+.bs-ivr-select:focus{border-color:var(--accent)}
+.bs-dur-date-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.bs-field-group .sm-lbl{margin-bottom:6px}
+.bs-dur-wrap{display:flex;align-items:center;height:42px;border:1.5px solid var(--border);border-radius:var(--r2);padding:0 12px;gap:8px;background:var(--surface);transition:border-color .12s}
+.bs-dur-wrap:focus-within{border-color:var(--accent)}
+.bs-dur-ico{color:var(--t3);flex-shrink:0;display:flex;align-items:center}
+.bs-dur-input{flex:1;border:none;outline:none;font-size:14px;font-weight:500;color:var(--t1);font-family:inherit;background:transparent;width:0;min-width:0;-moz-appearance:textfield}
+.bs-dur-input::-webkit-inner-spin-button,.bs-dur-input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.bs-dur-unit{font-size:13px;color:var(--t3);font-weight:500}
+.bs-date-input{width:100%;height:42px;padding:0 12px;border:1.5px solid var(--border);border-radius:var(--r2);font-size:13.5px;font-family:inherit;color:var(--t1);background:var(--surface);cursor:pointer;box-sizing:border-box;outline:none;transition:border-color .12s}
+.bs-date-input:focus{border-color:var(--accent)}
+.bs-slots-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.bs-slot{padding:9px 4px;text-align:center;font-size:12px;font-weight:500;border-radius:var(--r);cursor:pointer;transition:background .1s,border-color .1s,color .1s;background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe}
+.bs-slot:hover:not(.bs-slot-dis):not(.bs-slot-sel){background:#dbeafe;border-color:#93c5fd}
+.bs-slot.bs-slot-sel{background:#1e3a8a;color:#fff;border-color:#1e3a8a}
+.bs-slot.bs-slot-dis{opacity:.4;cursor:default;pointer-events:none}
+.bs-cands-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.bs-auto-link{background:none;border:none;font-size:12.5px;font-weight:600;color:var(--accent);cursor:pointer;padding:0;font-family:inherit}
+.bs-auto-link:hover{text-decoration:underline;color:#1d4ed8}
+.bs-cand-list{display:flex;flex-direction:column;gap:5px;max-height:210px;overflow-y:auto}
+.bs-cand-list::-webkit-scrollbar{width:3px}
+.bs-cand-list::-webkit-scrollbar-thumb{background:#e5e7eb}
+.bs-cand-item{display:flex;align-items:center;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);gap:10px;background:var(--surface)}
+.bs-cand-info{flex:1;min-width:0}
+.bs-cand-name{font-size:13px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bs-cand-role{font-size:11.5px;color:var(--t3);margin-top:2px}
+.bs-cand-slot-badge{font-size:12px;font-weight:600;color:#2563eb;background:#eff6ff;border:1px solid #bfdbfe;border-radius:20px;padding:3px 10px;white-space:nowrap;flex-shrink:0}
+.bs-cand-noslot{font-size:12.5px;color:#9ca3af;flex-shrink:0}
+.bs-slot.bs-slot-booked{background:#f3f4f6;color:#9ca3af;border-color:#e5e7eb;cursor:not-allowed;text-decoration:line-through;pointer-events:none}
+.sm-avail-loading{display:flex;align-items:center;gap:9px;padding:14px 2px;color:var(--t3);font-size:12.5px;font-weight:500}
+.bs-avail-spinner{width:15px;height:15px;border:2px solid #e5e7eb;border-top-color:var(--accent);border-radius:50%;animation:bs-spin .65s linear infinite;flex-shrink:0}
+@keyframes bs-spin{to{transform:rotate(360deg)}}
+.sm-avail-locked{padding:12px 2px;color:var(--t3);font-size:12px;font-style:italic}
 
+/* ── TOAST NOTIFICATIONS ── */
+#toast-container{position:fixed;bottom:24px;right:24px;z-index:10000;display:flex;flex-direction:column;gap:8px;align-items:flex-end;pointer-events:none}
+.toast{display:flex;align-items:flex-start;gap:10px;padding:13px 14px 16px 13px;border-radius:10px;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.13),0 1px 4px rgba(0,0,0,.06);min-width:290px;max-width:370px;pointer-events:all;position:relative;overflow:hidden;border-left:3.5px solid transparent;transform:translateX(calc(100% + 28px));opacity:0;transition:transform .28s cubic-bezier(.34,1.46,.64,1),opacity .2s}
+.toast.toast-in{transform:translateX(0);opacity:1}
+.toast.toast-out{transform:translateX(calc(100% + 28px));opacity:0;transition:transform .22s ease,opacity .18s}
+.toast-success{border-left-color:#22c55e}
+.toast-warning{border-left-color:#f59e0b}
+.toast-error{border-left-color:#ef4444}
+.toast-info{border-left-color:#3b82f6}
+.toast-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.toast-success .toast-icon{background:#dcfce7;color:#16a34a}
+.toast-warning .toast-icon{background:#fef9c3;color:#ca8a04}
+.toast-error .toast-icon{background:#fee2e2;color:#dc2626}
+.toast-info .toast-icon{background:#dbeafe;color:#2563eb}
+.toast-body{flex:1;min-width:0}
+.toast-msg{font-size:13px;font-weight:500;color:#111827;line-height:1.45}
+.toast-actions{display:flex;gap:10px;margin-top:6px}
+.toast-act{font-size:12px;font-weight:600;color:var(--accent);background:none;border:none;padding:0;cursor:pointer;font-family:inherit;line-height:1}
+.toast-act:hover{text-decoration:underline}
+.toast-act.danger{color:#dc2626}
+.toast-close{width:20px;height:20px;border:none;background:transparent;cursor:pointer;color:#9ca3af;font-size:17px;line-height:1;display:flex;align-items:center;justify-content:center;border-radius:4px;padding:0;flex-shrink:0;font-family:inherit;margin-top:1px}
+.toast-close:hover{background:#f3f4f6;color:#374151}
+.toast-bar{position:absolute;bottom:0;left:0;height:2.5px;width:100%;transform-origin:left;animation:toast-shrink linear forwards}
+.toast-success .toast-bar{background:#22c55e}
+.toast-warning .toast-bar{background:#f59e0b}
+.toast-error .toast-bar{background:#ef4444}
+.toast-info .toast-bar{background:#3b82f6}
+@keyframes toast-shrink{from{transform:scaleX(1)}to{transform:scaleX(0)}}
 /* ── AI TRANSCRIPT MODAL ── */
 .tr-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000;opacity:0;pointer-events:none;transition:opacity .18s}
 .tr-overlay.open{opacity:1;pointer-events:all}
@@ -1090,7 +1161,7 @@ tbody td:first-child{padding-left:20px}
             <button class="btn" id="col-btn" onclick="showPop('col-pop',this)">
               <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>Column
             </button>
-            <button class="btn btn-accent" id="focus-btn" onclick="toggleFocus()">
+            <button class="btn btn-toggle" id="focus-btn" onclick="toggleFocus()" title="Toggle focus mode">
               <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M3 9V5a2 2 0 012-2h4M3 15v4a2 2 0 002 2h4M15 3h4a2 2 0 012 2v4M15 21h4a2 2 0 002-2v-4"/></svg>Focus Mode
             </button>
           </div>
@@ -3094,6 +3165,11 @@ function closeBulkDds(){
 }
 
 function bulkMoveStage(stage){
+  const count = selectedRows.size;
+  const snapshot = [...selectedRows].map(ridx=>{
+    const r = filteredRows[ridx];
+    return r ? {ridx, stage:r.stage, status:r.status} : null;
+  }).filter(Boolean);
   selectedRows.forEach(ridx=>{
     const r=filteredRows[ridx];
     if(r){r.stage=stage;r.status='In Progress';}
@@ -3101,27 +3177,43 @@ function bulkMoveStage(stage){
   closeBulkDds();
   clearBulkSelection();
   renderTable();updateStats();renderChips();
+  showToast('success', `${count} candidate${count!==1?'s':''} moved to <strong>${stage}</strong>`, {
+    undo: ()=>{
+      snapshot.forEach(({ridx,stage,status})=>{ const r=filteredRows[ridx]; if(r){r.stage=stage;r.status=status;} });
+      renderTable();updateStats();renderChips();
+      showToast('info','Move undone');
+    }
+  });
 }
 
 function bulkSchedule(type){
-  selectedRows.forEach(ridx=>{
-    const r=filteredRows[ridx];
-    if(!r) return;
-    if(type==='ai'){r.stage='R1';r.status='In Progress';r.interviewType='ai';}
-    else{r.stage=type;r.status='In Progress';r.interviewType='manual';}
-  });
   closeBulkDds();
-  clearBulkSelection();
-  renderTable();updateStats();renderChips();
+  openBulkSchedModal(type);
 }
 
 function bulkSetStatus(status){
+  const count = selectedRows.size;
+  const snapshot = [...selectedRows].map(ridx=>{
+    const r = filteredRows[ridx];
+    return r ? {ridx, status:r.status} : null;
+  }).filter(Boolean);
   selectedRows.forEach(ridx=>{
     if(filteredRows[ridx]) filteredRows[ridx].status=status;
   });
   closeBulkDds();
   clearBulkSelection();
   renderTable();updateStats();renderChips();
+  const type = status==='Rejected' ? 'warning' : 'info';
+  const msg  = status==='Rejected'
+    ? `${count} candidate${count!==1?'s':''} rejected`
+    : `${count} candidate${count!==1?'s':''} put on hold`;
+  showToast(type, msg, {
+    undo: ()=>{
+      snapshot.forEach(({ridx,status})=>{ if(filteredRows[ridx]) filteredRows[ridx].status=status; });
+      renderTable();updateStats();renderChips();
+      showToast('info','Status change undone');
+    }
+  });
 }
 
 /* ═══════════════════════════════════════════
@@ -3815,11 +3907,13 @@ function openFocus(idx){
   fmTab = 'overview';
   renderFocusModal();
   document.getElementById('focus-modal').classList.add('open');
+  document.getElementById('focus-btn').classList.add('focus-active');
   document.body.style.overflow = 'hidden';
 }
 
 function closeFocus(){
   document.getElementById('focus-modal').classList.remove('open');
+  document.getElementById('focus-btn').classList.remove('focus-active');
   document.body.style.overflow = '';
 }
 
@@ -4608,6 +4702,24 @@ let schedIvr         = null;
 let schedAutoInvite  = true;
 let schedIvrFilter   = '';
 let schedTargetStage = 'R1';   // which stage we're scheduling into
+let schedAvailability = null;  // Set of available slots | null = not fetched
+let schedBookedSlots  = new Set();
+let schedAvailLoading = false;
+let schedAvailReqId   = 0;
+/* ── Bulk scheduling state ── */
+let schedBulkMode  = false;
+let bsCandidates   = [];    // array of ridx
+let bsType         = null;  // 'ai' | 'R1' | 'R2' | 'Assignment' | 'Final'
+let bsIvr          = null;
+let bsIvrFilter    = '';
+let bsDate         = null;
+let bsDuration     = 45;
+let bsSlots        = new Set();
+let bsAssignments  = {};    // ridx → slot string
+let bsAvailability  = null; // Set of available slots | null = not fetched
+let bsBookedSlots   = new Set();
+let bsAvailLoading  = false;
+let bsAvailReqId    = 0;
 
 const SCHED_DATES = (()=>{
   const days   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
@@ -4633,14 +4745,32 @@ const SCHED_IVRS = [
   { name:'Sarah K.', role:'Senior Engineer',        initials:'SK', avail:{ type:'today',    label:'AVAILABLE',  text:'Today 9:00AM–6:00PM' } },
 ];
 
+/* ── Interviewer booked slots (simulated per-interviewer calendar) ── */
+const SM_BOOKED = {
+  'Yashvi':   ['9:00 AM','9:30 AM','2:00 PM','2:30 PM'],
+  'Nisha':    ['10:00 AM','10:30 AM','3:00 PM','3:30 PM'],
+  'Jatin':    ['9:00 AM','11:00 AM','1:00 PM','4:00 PM'],
+  'Arjun':    ['10:00 AM','11:00 AM','2:00 PM','2:30 PM','5:00 PM','5:30 PM'],
+  'Sarah K.': ['9:30 AM','12:00 PM','4:30 PM','5:00 PM'],
+};
+async function fetchAvailability(ivrName, date, slots){
+  await new Promise(r => setTimeout(r, 350 + Math.random() * 350));
+  const booked    = new Set((SM_BOOKED[ivrName] || []).filter(s => slots.includes(s)));
+  const available = slots.filter(s => !booked.has(s));
+  return { available, booked: [...booked] };
+}
+
 function openSchedModal(ridx, targetStage){
-  schedRidx        = ridx;
-  schedTargetStage = targetStage || 'R1';
-  schedDate        = null;
-  schedTime        = null;
-  schedIvr         = null;
-  schedAutoInvite  = true;
-  schedIvrFilter   = '';
+  schedRidx         = ridx;
+  schedTargetStage  = targetStage || 'R1';
+  schedDate         = null;
+  schedTime         = null;
+  schedIvr          = null;
+  schedAutoInvite   = true;
+  schedIvrFilter    = '';
+  schedAvailability = null;
+  schedBookedSlots  = new Set();
+  schedAvailLoading = false;
   /* R2 and beyond: skip type selector, go straight to Manual */
   schedType = (schedTargetStage !== 'R1') ? 'manual' : null;
   const r = filteredRows[ridx];
@@ -4659,7 +4789,12 @@ function openSchedModal(ridx, targetStage){
 
 function closeSchedModal(){
   document.getElementById('sm-overlay').classList.remove('open');
-  document.getElementById('sm-dialog').classList.remove('open');
+  const dlg = document.getElementById('sm-dialog');
+  dlg.classList.remove('open');
+  dlg.classList.remove('bulk-mode');
+  schedBulkMode = false;
+  const titleEl = dlg.querySelector('.sm-title');
+  if(titleEl) titleEl.textContent = 'Schedule Interview';
 }
 
 function smSetType(type){
@@ -4672,7 +4807,11 @@ function smSetType(type){
 }
 
 function smSetDate(full){
-  schedDate = full;
+  schedDate         = full;
+  schedTime         = null;
+  schedAvailability = null;
+  schedBookedSlots  = new Set();
+  if(schedIvr && schedDate) smFetchAvailability();
   renderSchedModal();
 }
 
@@ -4682,7 +4821,11 @@ function smSetTime(t){
 }
 
 function smSetIvr(name){
-  schedIvr = name;
+  schedIvr          = name;
+  schedTime         = null;
+  schedAvailability = null;
+  schedBookedSlots  = new Set();
+  if(schedIvr && schedDate) smFetchAvailability();
   renderSchedModal();
 }
 
@@ -4704,7 +4847,22 @@ function smToggleAutoInvite(){
   if(cb) cb.checked = schedAutoInvite;
 }
 
+async function smFetchAvailability(){
+  if(!schedIvr || !schedDate) return;
+  schedAvailLoading = true;
+  schedAvailability = null;
+  const reqId = ++schedAvailReqId;
+  renderSchedModal();
+  const result = await fetchAvailability(schedIvr, schedDate, SCHED_TIMES);
+  if(reqId !== schedAvailReqId) return;
+  schedAvailability = new Set(result.available);
+  schedBookedSlots  = new Set(result.booked);
+  schedAvailLoading = false;
+  renderSchedModal();
+}
+
 function renderSchedModal(){
+  if(schedBulkMode){ renderBulkSchedModal(); return; }
   const body = document.getElementById('sm-body');
   const foot = document.getElementById('sm-foot');
 
@@ -4764,6 +4922,7 @@ function renderSchedModal(){
       iv.name.toLowerCase().includes(schedIvrFilter) ||
       iv.role.toLowerCase().includes(schedIvrFilter)
     );
+    const slotsLocked = !schedIvr || !schedDate;
     html += `
       <div class="sm-sec">
         <div class="sm-lbl">Interviewer</div>
@@ -4782,11 +4941,29 @@ function renderSchedModal(){
         </div>
       </div>
       <div class="sm-sec">
-        <div class="sm-lbl">Select Time Slots</div>
-        <div class="sm-times">
-          ${SCHED_TIMES.map(t=>`
-            <div class="sm-time ${schedTime===t?'sel':''}" onclick="smSetTime('${t}')">${t}</div>`).join('')}
+        <div class="sm-lbl">Select Date</div>
+        <div class="sm-dates">
+          ${SCHED_DATES.map(d=>`
+            <div class="sm-date ${schedDate===d.full?'sel':''}" onclick="smSetDate('${d.full}')">
+              <div class="sm-date-day">${d.day}</div>
+              <div class="sm-date-num">${d.label.split(' ')[1]}</div>
+            </div>`).join('')}
         </div>
+      </div>
+      <div class="sm-sec">
+        <div class="sm-lbl">Interviewer Availability</div>
+        ${slotsLocked
+          ? `<div class="sm-avail-locked">Select an interviewer and date to see availability</div>`
+          : schedAvailLoading
+            ? `<div class="sm-avail-loading"><div class="bs-avail-spinner"></div>Checking availability…</div>`
+            : `<div class="sm-times">
+                ${SCHED_TIMES.map(t=>{
+                  const booked = schedBookedSlots.has(t);
+                  return `<div class="sm-time ${schedTime===t?'sel':''} ${booked?'booked':''}"
+                               onclick="${booked?'':'smSetTime(\''+t+'\')'}">${t}</div>`;
+                }).join('')}
+               </div>`
+        }
       </div>
       <div class="sm-check-row">
         <input type="checkbox" id="sm-auto-invite" ${schedAutoInvite?'checked':''} onchange="smToggleAutoInvite()">
@@ -4830,11 +5007,272 @@ function confirmSched(){
     r.interviewer    = 'SDE AI Interviewer';
   }
 
+  const name = r.name;
+  const stageLabel = schedTargetStage === 'R1' ? 'R1 Interview'
+                   : schedTargetStage === 'R2' ? 'R2 Interview'
+                   : schedTargetStage === 'Final' ? 'Final Round'
+                   : schedTargetStage + ' Interview';
   closeSchedModal();
   renderTable();
   updateStats();
   renderChips();
   if(activeRow === schedRidx) selectRow(schedRidx);
+  showToast('success', `${schedType==='ai'?'AI interview':'Interview'} scheduled for <strong>${name}</strong> · ${stageLabel}`);
+}
+
+/* ═══════════════════════════════════════════
+   BULK SCHEDULING
+═══════════════════════════════════════════ */
+function bsGenerateSlots(durMin){
+  const slots = [];
+  let mins = 9 * 60; // start 9:00 AM
+  const end  = 18 * 60; // end 6:00 PM
+  while(mins < end){
+    const h  = Math.floor(mins / 60);
+    const m  = mins % 60;
+    const pd = h >= 12 ? 'PM' : 'AM';
+    const dh = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+    const dm = m === 0 ? '00' : String(m).padStart(2,'0');
+    slots.push(`${dh}:${dm} ${pd}`);
+    mins += Math.max(durMin, 15);
+  }
+  return slots;
+}
+
+function openBulkSchedModal(type){
+  schedBulkMode  = true;
+  bsCandidates   = [...selectedRows];
+  bsType         = type;
+  bsIvr          = type === 'ai' ? 'SDE AI Interviewer' : null;
+  bsDate         = null;
+  bsDuration     = 30;
+  bsSlots        = new Set();
+  bsAssignments  = {};
+  bsAvailability = null;
+  bsBookedSlots  = new Set();
+  bsAvailLoading = false;
+
+  const bar = document.getElementById('sm-cand-bar');
+  if(bar) bar.innerHTML = '';
+  document.getElementById('sm-dialog').classList.add('bulk-mode');
+  document.getElementById('sm-overlay').classList.add('open');
+  document.getElementById('sm-dialog').classList.add('open');
+  renderSchedModal();
+}
+
+function renderBulkSchedModal(){
+  const body = document.getElementById('sm-body');
+  const foot = document.getElementById('sm-foot');
+  const ICO_CAL  = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+  const ICO_WARN = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+  const ICO_BOT  = `<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="14" r="1.5" fill="#fff" stroke="none"/></svg>`;
+  const ICO_CLK  = `<svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+
+  const isAI  = bsType === 'ai';
+  const count = bsCandidates.length;
+  const assignedCount = Object.keys(bsAssignments).filter(k => bsAssignments[k]).length;
+  const slotsLocked   = !bsDate || (!isAI && !bsIvr);
+  const slots         = bsGenerateSlots(bsDuration);
+  const stageAbbr     = isAI ? 'R1' : bsType === 'R1' ? 'R1' : bsType === 'R2' ? 'R2'
+                       : bsType === 'Final' ? 'Final' : bsType === 'Assignment' ? 'Assignment' : bsType;
+
+  let html = '';
+
+  /* ── Interviewer ── */
+  if(isAI){
+    html += `<div class="sm-sec">
+      <div class="sm-lbl">Interviewer</div>
+      <div class="sm-ai-info">
+        <div class="sm-ai-av">${ICO_BOT}</div>
+        <div><div class="sm-ai-name">SDE AI Interviewer</div><div class="sm-ai-sub">Automated · Sends invite directly to each candidate</div></div>
+      </div>
+    </div>`;
+  } else {
+    html += `<div class="sm-sec">
+      <div class="sm-lbl">Interviewer</div>
+      <select class="bs-ivr-select" onchange="bsSetIvr(this.value)">
+        <option value="">Select Interviewer</option>
+        ${SCHED_IVRS.map(iv=>`<option value="${iv.name}" ${bsIvr===iv.name?'selected':''}>${iv.name} — ${iv.role}</option>`).join('')}
+      </select>
+    </div>`;
+  }
+
+  /* ── Duration + Date (2-col) ── */
+  html += `<div class="bs-dur-date-row">
+    <div class="bs-field-group">
+      <div class="sm-lbl">Duration per Candidate</div>
+      <div class="bs-dur-wrap">
+        <span class="bs-dur-ico">${ICO_CLK}</span>
+        <input type="number" class="bs-dur-input" value="${bsDuration}" min="15" max="180" step="15"
+               onchange="bsSetDuration(+this.value)" oninput="bsSetDuration(+this.value)">
+        <span class="bs-dur-unit">min</span>
+      </div>
+    </div>
+    <div class="bs-field-group">
+      <div class="sm-lbl">Select Date</div>
+      <input type="date" class="bs-date-input" value="${bsDate||''}" onchange="bsSetDate(this.value)">
+    </div>
+  </div>`;
+
+  /* ── Time Slots ── */
+  const availCount = bsAvailability ? bsAvailability.size : 0;
+  html += `<div class="sm-sec">
+    <div class="sm-lbl">Interviewer Availability</div>
+    ${slotsLocked
+      ? `<div class="sm-avail-locked">Select an interviewer and date to see availability</div>`
+      : bsAvailLoading
+        ? `<div class="sm-avail-loading"><div class="bs-avail-spinner"></div>Checking availability…</div>`
+        : `<div class="bs-slots-grid">
+            ${slots.map(t=>{
+              const booked   = bsBookedSlots.has(t);
+              const selected = bsSlots.has(t);
+              return `<div class="bs-slot ${selected?'bs-slot-sel':''} ${booked?'bs-slot-booked':''}"
+                           onclick="${booked?'':'bsToggleSlot(\''+t+'\')'}">${t}</div>`;
+            }).join('')}
+           </div>`
+    }`;
+
+  if(!slotsLocked && !bsAvailLoading && bsAvailability && availCount < count){
+    const need = count - availCount;
+    html += `<div class="sm-warn">${ICO_WARN} Only ${availCount} slot${availCount!==1?'s':''} available for ${count} candidates. ${need} candidate${need!==1?'s':''} won't be scheduled.</div>`;
+  }
+  html += `</div>`;
+
+  /* ── Candidate list ── */
+  html += `<div class="sm-sec">
+    <div class="bs-cands-hdr">
+      <div class="sm-lbl">Selected Candidates (${count})</div>
+      ${bsSlots.size > 0 ? `<button class="bs-auto-link" onclick="bsAutoAssign()">Auto Assign Slots</button>` : ''}
+    </div>
+    <div class="bs-cand-list">
+      ${bsCandidates.map(ridx=>{
+        const r = filteredRows[ridx];
+        if(!r) return '';
+        const assigned = bsAssignments[ridx] || '';
+        return `<div class="bs-cand-item">
+          <div class="bs-cand-info">
+            <div class="bs-cand-name">${r.name}</div>
+            <div class="bs-cand-role">${r.role}</div>
+          </div>
+          ${assigned
+            ? `<span class="bs-cand-slot-badge">${assigned}</span>`
+            : `<span class="bs-cand-noslot">No Slot</span>`}
+        </div>`;
+      }).join('')}
+    </div>
+  </div>`;
+
+  body.innerHTML = html;
+
+  /* ── Footer ── */
+  const canSchedule = assignedCount > 0;
+  foot.innerHTML = `
+    <button class="sm-cancel" onclick="closeSchedModal()">Cancel</button>
+    <button class="sm-foot-cta is-manual" onclick="confirmBulkSched()" ${canSchedule?'':'disabled'}>
+      ${ICO_CAL} Schedule ${canSchedule ? assignedCount : ''} ${stageAbbr} Interview${assignedCount!==1?'s':''}
+    </button>`;
+}
+
+function bsSetIvr(name){
+  bsIvr          = name;
+  bsSlots        = new Set();
+  bsAssignments  = {};
+  bsAvailability = null;
+  bsBookedSlots  = new Set();
+  if(bsIvr && bsDate) bsFetchAvailability();
+  renderSchedModal();
+}
+
+function bsSetDate(full){
+  bsDate         = full;
+  bsSlots        = new Set();
+  bsAssignments  = {};
+  bsAvailability = null;
+  bsBookedSlots  = new Set();
+  if(bsIvr && bsDate) bsFetchAvailability();
+  renderSchedModal();
+}
+
+function bsSetDuration(m){
+  if(!m || m < 15) return;
+  bsDuration     = m;
+  bsSlots        = new Set();
+  bsAssignments  = {};
+  bsAvailability = null;
+  bsBookedSlots  = new Set();
+  if(bsIvr && bsDate) bsFetchAvailability();
+  renderSchedModal();
+}
+
+async function bsFetchAvailability(){
+  if(!bsIvr || !bsDate) return;
+  bsAvailLoading = true;
+  bsAvailability = null;
+  const reqId = ++bsAvailReqId;
+  renderSchedModal();
+  const slots  = bsGenerateSlots(bsDuration);
+  const result = await fetchAvailability(bsIvr, bsDate, slots);
+  if(reqId !== bsAvailReqId) return;
+  bsAvailability = new Set(result.available);
+  bsBookedSlots  = new Set(result.booked);
+  bsAvailLoading = false;
+  renderSchedModal();
+}
+
+function bsToggleSlot(t){
+  if(bsSlots.has(t)){
+    bsSlots.delete(t);
+    Object.keys(bsAssignments).forEach(k=>{
+      if(bsAssignments[k] === t) delete bsAssignments[k];
+    });
+  } else {
+    bsSlots.add(t);
+  }
+  renderSchedModal();
+}
+
+function bsAutoAssign(){
+  /* Pull earliest available slots (non-booked), up to candidate count */
+  const allSlots  = bsGenerateSlots(bsDuration);
+  const available = bsAvailability
+    ? allSlots.filter(s => bsAvailability.has(s))
+    : allSlots.filter(s => !bsBookedSlots.has(s));
+  const toAssign = available.slice(0, bsCandidates.length);
+  bsSlots = new Set(toAssign);
+  bsAssignments = {};
+  bsCandidates.forEach((ridx, i)=>{
+    if(i < toAssign.length) bsAssignments[ridx] = toAssign[i];
+  });
+  renderSchedModal();
+}
+
+function confirmBulkSched(){
+  const stage = bsType === 'ai' ? 'R1'
+              : bsType === 'R1' ? 'R1'
+              : bsType === 'R2' ? 'R2'
+              : bsType === 'Assignment' ? 'Assignment'
+              : bsType === 'Final' ? 'Final' : bsType;
+  const itype = bsType === 'ai' ? 'ai' : 'manual';
+
+  bsCandidates.forEach(ridx=>{
+    const r = filteredRows[ridx];
+    if(!r || !bsAssignments[ridx]) return;
+    r.stage          = stage;
+    r.status         = 'In Progress';
+    r.interviewType  = itype;
+    r.interview_date  = bsDate;
+    r.interview_time  = bsAssignments[ridx];
+    r.interviewer     = bsIvr || 'SDE AI Interviewer';
+  });
+
+  const scheduledCount = Object.keys(bsAssignments).filter(k => bsAssignments[k]).length;
+  const stageLabel = stage === 'R1' ? 'R1' : stage === 'R2' ? 'R2' : stage === 'Final' ? 'Final Round' : stage;
+  closeSchedModal();
+  clearBulkSelection();
+  renderTable();
+  updateStats();
+  renderChips();
+  showToast('success', `<strong>${scheduledCount}</strong> interview${scheduledCount!==1?'s':''} scheduled for ${stageLabel}`);
 }
 
 /* ═══════════════════════════════════════════
@@ -5225,6 +5663,7 @@ function saveEditModal(){
   renderTable();
   if(activeRow === editRidx) selectRow(editRidx);
   closeEditModal();
+  showToast('success', `Candidate profile updated`);
 }
 
 /* ── Dynamic overview tab renderer ── */
@@ -6181,11 +6620,15 @@ function joSyncStart(id){
     const failed = Math.random() < 0.15;
     if(failed){
       joSyncState[id] = 'error';
+      showToast('error', `Sync failed for <strong>${job.title}</strong>`, {
+        action: { label:'Retry', onclick:`joSyncStart(${id})` }
+      });
     } else {
       joSyncState[id] = 'success';
       job.lastSync = 'Just now';
       const lsEl = document.getElementById(`jo-lastsync-${id}`);
       if(lsEl) lsEl.textContent = 'Just now';
+      showToast('success', `<strong>${job.title}</strong> synced successfully`);
       joSyncTimers[id] = setTimeout(()=>{
         joSyncState[id] = null;
         joSyncRefreshRow(id);
@@ -6503,7 +6946,97 @@ applyFilters();   // builds filteredRows, renderTable, updateStats, renderChips
 const fb = document.getElementById('filter-bar');
 fb.addEventListener('scroll', checkFilterFade);
 window.addEventListener('resize', checkFilterFade);
+
+/* ═══════════════════════════════════════════
+   TOAST NOTIFICATION ENGINE
+═══════════════════════════════════════════ */
+const TOAST_DURATION = 4500;
+const TOAST_MAX      = 3;
+let   _toastIdCtr    = 0;
+let   _toastQueue    = [];
+const _toastUndoFns  = new Map();
+
+const TOAST_ICONS = {
+  success: `<svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>`,
+  warning: `<svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+  error:   `<svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`,
+  info:    `<svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+};
+
+function showToast(type, message, opts = {}){
+  /* Cap at TOAST_MAX — remove oldest */
+  while(_toastQueue.length >= TOAST_MAX){
+    dismissToast(_toastQueue[0].id, true);
+  }
+
+  const id       = ++_toastIdCtr;
+  const duration = opts.duration || TOAST_DURATION;
+
+  /* Build undo / action buttons */
+  let actHTML = '';
+  if(opts.undo){
+    _toastUndoFns.set(id, opts.undo);
+    actHTML += `<button class="toast-act" onclick="_toastDoUndo(${id})">Undo</button>`;
+  }
+  if(opts.action){
+    actHTML += `<button class="toast-act${opts.action.danger?' danger':''}" onclick="${opts.action.onclick}">${opts.action.label}</button>`;
+  }
+
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`;
+  el.id = `toast-${id}`;
+  el.innerHTML = `
+    <div class="toast-icon">${TOAST_ICONS[type]||''}</div>
+    <div class="toast-body">
+      <div class="toast-msg">${message}</div>
+      ${actHTML ? `<div class="toast-actions">${actHTML}</div>` : ''}
+    </div>
+    <button class="toast-close" onclick="dismissToast(${id})">×</button>
+    <div class="toast-bar" style="animation-duration:${duration}ms"></div>`;
+
+  document.getElementById('toast-container').appendChild(el);
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('toast-in')));
+
+  const item = { id, remaining: duration, startTime: Date.now(), timer: null };
+  item.timer = setTimeout(() => dismissToast(id), duration);
+
+  el.addEventListener('mouseenter', () => {
+    clearTimeout(item.timer);
+    item.remaining = Math.max(0, item.remaining - (Date.now() - item.startTime));
+    const bar = el.querySelector('.toast-bar');
+    if(bar) bar.style.animationPlayState = 'paused';
+  });
+  el.addEventListener('mouseleave', () => {
+    item.startTime = Date.now();
+    item.timer = setTimeout(() => dismissToast(id), item.remaining);
+    const bar = el.querySelector('.toast-bar');
+    if(bar) bar.style.animationPlayState = 'running';
+  });
+
+  _toastQueue.push(item);
+  return id;
+}
+
+function dismissToast(id, immediate = false){
+  const el   = document.getElementById(`toast-${id}`);
+  const item = _toastQueue.find(t => t.id === id);
+  if(item) clearTimeout(item.timer);
+  _toastQueue = _toastQueue.filter(t => t.id !== id);
+  _toastUndoFns.delete(id);
+  if(!el) return;
+  if(immediate){ el.remove(); return; }
+  el.classList.add('toast-out');
+  setTimeout(() => el.remove(), 280);
+}
+
+function _toastDoUndo(id){
+  const fn = _toastUndoFns.get(id);
+  if(fn) fn();
+  dismissToast(id);
+}
 </script>
+<!-- ═══════════ TOAST CONTAINER ═══════════ -->
+<div id="toast-container"></div>
 </body>
 </html>
 
