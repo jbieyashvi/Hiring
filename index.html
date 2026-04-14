@@ -261,12 +261,21 @@ tbody td:first-child{padding-left:20px}
 .jo-table-wrap::-webkit-scrollbar{width:6px;height:6px}
 .jo-table-wrap::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:3px}
 .jo-table{border-collapse:collapse;min-width:100%;width:max-content}
-.jo-table thead th{padding:9px 14px;text-align:left;font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--border);white-space:nowrap;background:var(--surface)}
+.jo-table thead th{padding:11px 16px;text-align:left;font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--border);white-space:nowrap;background:var(--surface)}
 .jo-table thead th:nth-child(1){min-width:160px}.jo-table thead th:nth-child(2){min-width:150px}.jo-table thead th:nth-child(3){min-width:130px}.jo-table thead th:nth-child(4){min-width:140px}.jo-table thead th:nth-child(5){min-width:100px}.jo-table thead th:nth-child(6){min-width:80px}.jo-table thead th:nth-child(7){min-width:110px}
-.jo-table tbody td{padding:11px 14px;font-size:12.5px;border-bottom:1px solid var(--border-light);vertical-align:middle;white-space:nowrap}
+.jo-table tbody td{padding:12px 16px;font-size:12.5px;border-bottom:1px solid var(--border-light);vertical-align:middle;white-space:nowrap}
 .jo-table tbody tr{transition:background .08s;cursor:pointer}
-.jo-table tbody tr:hover{background:#fafbfd}
+.jo-table tbody tr:hover{background:#f8f9fb}
 .jo-table tbody tr.jo-row-on{background:#f0f5ff;border-left:2px solid var(--accent)}
+/* jr-specific: full-width fixed table */
+#jr-table{width:100%;table-layout:fixed}
+#jr-table thead th:nth-child(1){width:28%}
+#jr-table thead th:nth-child(2){width:22%}
+#jr-table thead th:nth-child(3){width:12%}
+#jr-table thead th:nth-child(4){width:22%}
+#jr-table thead th:nth-child(5){width:16%;text-align:right}
+#jr-table tbody td{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#jr-table tbody td:last-child{text-align:right}
 /* toggle */
 .jo-toggle{display:inline-flex;align-items:center;gap:7px;cursor:pointer;user-select:none}
 .tog-track{width:32px;height:18px;border-radius:9px;background:#d1d5db;transition:background .18s;position:relative;flex-shrink:0}
@@ -278,8 +287,23 @@ tbody td:first-child{padding-left:20px}
 .jo-intg{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:4px;background:#f0fdf4;border:1px solid #bbf7d0;font-size:11.5px;font-weight:500;color:#15803d;white-space:nowrap}
 .jo-intg.none{background:var(--bg);border-color:var(--border);color:var(--t3)}
 /* sync */
-.jo-sync-btn{height:26px;padding:0 9px;border-radius:5px;border:1px solid var(--border);background:var(--surface);font-size:11.5px;font-weight:500;cursor:pointer;color:var(--t2);font-family:inherit;display:inline-flex;align-items:center;gap:5px;transition:border-color .12s,color .12s}
+.jo-sync-btn{height:26px;padding:0 9px;border-radius:5px;border:1px solid var(--border);background:var(--surface);font-size:11.5px;font-weight:500;cursor:pointer;color:var(--t2);font-family:inherit;display:inline-flex;align-items:center;gap:5px;transition:border-color .15s,color .15s,background .15s}
 .jo-sync-btn:hover{border-color:var(--accent);color:var(--accent)}
+.jo-sync-btn.syncing{border-color:#93c5fd;color:var(--accent);background:var(--accent-bg);cursor:default}
+.jo-sync-btn.success{border-color:#86efac;color:var(--green);background:var(--green-bg);cursor:default}
+.jo-sync-btn.error{border-color:#fca5a5;color:var(--red);background:var(--red-bg)}
+.jo-sync-btn.connect{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+.jo-sync-btn.connect:hover{background:#dbeafe}
+.jo-stop-btn{height:26px;padding:0 9px;border-radius:5px;border:1px solid #fca5a5;background:#fff1f2;font-size:11.5px;font-weight:500;cursor:pointer;color:var(--red);font-family:inherit;display:inline-flex;align-items:center;gap:4px;transition:background .1s}
+.jo-stop-btn:hover{background:#fee2e2}
+.jo-retry-btn{height:26px;padding:0 9px;border-radius:5px;border:1px solid var(--border);background:var(--surface);font-size:11.5px;font-weight:500;cursor:pointer;color:var(--t2);font-family:inherit;display:inline-flex;align-items:center;gap:4px;transition:background .1s,color .1s}
+.jo-retry-btn:hover{border-color:var(--accent);color:var(--accent)}
+.jo-sync-cell{display:flex;align-items:center;gap:5px}
+/* spinner */
+@keyframes jo-spin{to{transform:rotate(360deg)}}
+.jo-spinner{width:10px;height:10px;border:1.5px solid currentColor;border-top-color:transparent;border-radius:50%;animation:jo-spin .7s linear infinite;flex-shrink:0}
+/* row highlight during sync */
+.jo-table tbody tr.jo-syncing{background:#f5f8ff}
 /* action */
 .jo-act-btn{height:26px;padding:0 9px;border-radius:5px;border:1px solid var(--border);background:transparent;font-size:11.5px;cursor:pointer;color:var(--t2);font-family:inherit;display:inline-flex;align-items:center;gap:5px;transition:background .1s,color .1s}
 .jo-act-btn:hover{background:var(--bg);color:var(--t1)}
@@ -302,6 +326,52 @@ tbody td:first-child{padding-left:20px}
 .jo-fdd-opt.selected{color:var(--accent);font-weight:600}
 .jo-fdd-chk{width:13px;height:13px;border-radius:3px;border:1.5px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .1s}
 .jo-fdd-opt.selected .jo-fdd-chk{background:var(--accent);border-color:var(--accent);color:#fff}
+/* user roles tab */
+.jr-ur-item{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r2);padding:12px 14px;margin-bottom:8px;transition:border-color .12s}
+.jr-ur-item:hover{border-color:#d1d5db}
+.jr-ur-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.jr-ur-name{font-size:12.5px;font-weight:600;color:var(--t1);flex:1}
+.jr-ur-type{font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:20px;background:#e0f2fe;color:#0369a1;white-space:nowrap}
+.jr-ur-actions{display:flex;gap:4px;flex-shrink:0}
+.jr-ur-edit{width:24px;height:24px;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:4px;color:var(--t3);transition:background .08s,color .08s;padding:0}
+.jr-ur-edit:hover{background:var(--bg);color:var(--t1)}
+.jr-ur-del{width:24px;height:24px;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:4px;color:var(--t3);transition:background .08s,color .08s;padding:0}
+.jr-ur-del:hover{background:#fee2e2;color:var(--red)}
+.jr-ur-perms{display:flex;flex-direction:column;gap:4px}
+.jr-ur-perm-row{display:flex;align-items:center;gap:6px;font-size:11.5px}
+.jr-ur-stage-name{color:var(--t2);min-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.jr-ur-access{font-size:11px;font-weight:600;padding:1px 7px;border-radius:20px;white-space:nowrap}
+.jr-ur-access.full{background:#dcfce7;color:#15803d}
+.jr-ur-access.edit{background:#dbeafe;color:#1d4ed8}
+.jr-ur-access.feedback{background:#fef9c3;color:#92400e}
+.jr-ur-access.view{background:#f3f4f6;color:#6b7280}
+.jr-ur-access.none{background:#fee2e2;color:#dc2626}
+/* user role form */
+.jr-ur-form{overflow:hidden;max-height:0;opacity:0;pointer-events:none;transition:max-height .35s cubic-bezier(.4,0,.2,1),opacity .22s ease}
+.jr-ur-form.open{max-height:800px;opacity:1;pointer-events:auto}
+.jr-ur-form-inner{background:var(--surface);border:1.5px solid #93c5fd;border-radius:var(--r2);padding:16px;margin-bottom:8px}
+.jr-perm-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;align-items:center;margin-top:4px}
+.jr-perm-header{display:grid;grid-template-columns:1fr 1fr;gap:0 12px;margin-bottom:4px}
+.jr-perm-header span{font-size:10.5px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.05em}
+.jr-perm-stage{font-size:12.5px;font-weight:500;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jr-perm-sel{height:32px;border:1.5px solid var(--border);border-radius:5px;padding:0 8px;font-size:12px;font-family:inherit;color:var(--t1);outline:none;background:var(--surface);width:100%;cursor:pointer;transition:border-color .12s}
+.jr-perm-sel:focus{border-color:#93c5fd}
+/* pipeline stage user role badges */
+.jp-ur-badges{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px}
+.jp-ur-badge{font-size:10px;font-weight:500;padding:1px 6px;border-radius:20px;background:#fef9c3;color:#713f12;border:1px solid #fde68a}
+/* autofill banner */
+.jo-autofill-banner{display:flex;align-items:center;gap:6px;padding:7px 10px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--r);font-size:11.5px;color:#15803d;margin-bottom:14px;opacity:0;transform:translateY(-4px);transition:opacity .2s ease,transform .2s ease}
+.jo-autofill-banner.show{opacity:1;transform:translateY(0)}
+/* date filter custom range */
+.jo-date-range{padding:8px 4px 4px;border-top:1px solid var(--border);margin-top:2px;display:none;flex-direction:column;gap:6px}
+.jo-date-range.show{display:flex}
+.jo-date-range-row{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--t2)}
+.jo-date-range-row input[type="date"]{flex:1;height:28px;border:1.5px solid var(--border);border-radius:var(--r);padding:0 7px;font-size:11.5px;font-family:inherit;color:var(--t1);outline:none;background:var(--surface);transition:border-color .12s}
+.jo-date-range-row input[type="date"]:focus{border-color:#93c5fd}
+/* sort indicator */
+.jo-th-sort{cursor:pointer;user-select:none;white-space:nowrap;display:inline-flex;align-items:center;gap:3px}
+.jo-th-sort svg{opacity:.35;transition:opacity .1s}
+.jo-th-sort.asc svg.ico-asc,.jo-th-sort.desc svg.ico-desc{opacity:1;color:var(--accent)}
 /* filter dropdown footer + apply */
 .jo-fdd-footer{padding:6px 4px 4px;border-top:1px solid var(--border);margin-top:2px;display:flex;justify-content:flex-end}
 .jo-fdd-apply{height:26px;padding:0 12px;border-radius:5px;border:none;background:var(--accent);color:#fff;font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .1s}
@@ -354,22 +424,23 @@ tbody td:first-child{padding-left:20px}
 .jo-save-btn{width:100%;height:34px;border:none;border-radius:var(--r2);background:var(--accent);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .1s}
 .jo-save-btn:hover{background:var(--accent-dark)}
 /* pipeline */
-.jp-list{list-style:none;margin-bottom:10px}
-.jp-item{display:flex;align-items:center;gap:8px;padding:9px 10px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r2);margin-bottom:6px;cursor:grab;user-select:none;transition:box-shadow .15s,border-color .15s}
+.jp-section-label{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);margin-bottom:10px}
+.jp-list{list-style:none;margin-bottom:0}
+.jp-item{display:flex;align-items:flex-start;gap:8px;padding:10px 12px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r2);margin-bottom:8px;cursor:grab;user-select:none;transition:box-shadow .15s,border-color .15s}
 .jp-item:active{cursor:grabbing}
 .jp-item.jp-dragging{opacity:.45}
 .jp-item.jp-over{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg)}
-.jp-drag-h{color:var(--t3);flex-shrink:0;opacity:.45;font-size:14px;line-height:1}
+.jp-drag-h{color:var(--t3);flex-shrink:0;opacity:.4;font-size:14px;line-height:1;margin-top:1px}
 .jp-stage-name{flex:1;font-size:12.5px;font-weight:500;color:var(--t1)}
-.jp-del{width:24px;height:24px;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:4px;color:var(--t3);flex-shrink:0;transition:background .08s,color .08s}
+.jp-del{width:26px;height:26px;border:none;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:5px;color:var(--t3);flex-shrink:0;transition:background .08s,color .08s}
 .jp-del:hover{background:#fee2e2;color:#dc2626}
-.jp-add{display:flex;align-items:center;gap:6px;padding:9px 10px;border:1.5px dashed var(--border);border-radius:var(--r2);font-size:12.5px;font-weight:500;color:var(--accent);cursor:pointer;transition:background .08s,border-color .08s;background:transparent;font-family:inherit;width:100%}
+.jp-add{display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border:1.5px dashed #d1d5db;border-radius:var(--r2);font-size:12.5px;font-weight:500;color:var(--accent);cursor:pointer;transition:background .1s,border-color .1s;background:transparent;font-family:inherit;width:100%;margin-top:4px}
 .jp-add:hover{background:var(--accent-bg);border-color:#93c5fd}
-.jp-preview{margin-top:16px;padding:13px 14px;background:var(--bg);border-radius:var(--r2);border:1px solid var(--border-light)}
+.jp-preview{padding:14px 16px;background:#f9fafb;border-radius:var(--r2);border:1px solid var(--border-light);overflow-x:auto}
 .jp-preview-ttl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--t3);margin-bottom:10px}
-.jp-preview-flow{display:flex;align-items:center;flex-wrap:wrap;gap:5px}
-.jp-prev-stage{font-size:11px;font-weight:600;padding:3px 9px;background:var(--surface);border:1px solid var(--border);border-radius:20px;color:var(--t1);white-space:nowrap}
-.jp-prev-arrow{color:var(--t3);font-size:12px;line-height:1}
+.jp-preview-flow{display:flex;align-items:center;gap:5px;flex-wrap:nowrap;min-width:max-content}
+.jp-prev-stage{font-size:11px;font-weight:600;padding:3px 10px;background:var(--surface);border:1px solid var(--border);border-radius:20px;color:var(--t1);white-space:nowrap}
+.jp-prev-arrow{color:var(--t3);font-size:11px;line-height:1;flex-shrink:0}
 
 /* ── RIGHT PANEL ── */
 .rpanel{width:0;min-width:0;background:var(--surface);border-left:1px solid transparent;display:flex;flex-direction:column;overflow:hidden;opacity:0;pointer-events:none;transition:width .28s cubic-bezier(.4,0,.2,1),min-width .28s cubic-bezier(.4,0,.2,1),opacity .22s ease,border-color .28s ease}
@@ -999,6 +1070,9 @@ tbody td:first-child{padding-left:20px}
     <button class="btn btn-dark" id="create-jo-btn" style="display:none" onclick="joCreateOpening()">
       <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Create Job Opening
     </button>
+    <button class="btn btn-dark" id="create-jr-btn" style="display:none" onclick="jrCreate()">
+      <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Create Job Role
+    </button>
   </header>
 
   <div class="content-wrap" id="screen-candidates">
@@ -1207,6 +1281,30 @@ tbody td:first-child{padding-left:20px}
             <div class="jo-fdd-footer"><button class="jo-fdd-apply" onclick="joApplyDropdown('intg')">Apply</button></div>
           </div>
         </div>
+        <div class="jo-fdd" id="jo-fdd-date">
+          <button class="jo-fdd-btn" id="jo-fdd-date-btn" onclick="toggleJOFdd('jo-fdd-date-menu')">
+            <span id="jo-fdd-date-label">Created Date</span>
+            <svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="jo-fdd-menu" id="jo-fdd-date-menu" style="min-width:210px">
+            <div class="jo-fdd-opt" id="jo-dopt-all"    onclick="joSelectDatePreset('all')"><span class="jo-fdd-chk"></span>All Time</div>
+            <div class="jo-fdd-opt" id="jo-dopt-today"  onclick="joSelectDatePreset('today')"><span class="jo-fdd-chk"></span>Today</div>
+            <div class="jo-fdd-opt" id="jo-dopt-7d"     onclick="joSelectDatePreset('7d')"><span class="jo-fdd-chk"></span>Last 7 days</div>
+            <div class="jo-fdd-opt" id="jo-dopt-30d"    onclick="joSelectDatePreset('30d')"><span class="jo-fdd-chk"></span>Last 30 days</div>
+            <div class="jo-fdd-opt" id="jo-dopt-custom" onclick="joSelectDatePreset('custom')"><span class="jo-fdd-chk"></span>Custom Range</div>
+            <div class="jo-date-range" id="jo-date-range">
+              <div class="jo-date-range-row">
+                <span style="min-width:26px">From</span>
+                <input type="date" id="jo-date-from" oninput="joPendingDateFrom=this.value">
+              </div>
+              <div class="jo-date-range-row">
+                <span style="min-width:26px">To</span>
+                <input type="date" id="jo-date-to" oninput="joPendingDateTo=this.value">
+              </div>
+            </div>
+            <div class="jo-fdd-footer"><button class="jo-fdd-apply" onclick="joApplyDropdown('date')">Apply</button></div>
+          </div>
+        </div>
         <button class="jo-clear-filters" id="jo-clear-filters" onclick="joClearFilters()">
           <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           Clear Filters
@@ -1221,6 +1319,7 @@ tbody td:first-child{padding-left:20px}
               <th>Status</th>
               <th>Integration</th>
               <th>Last Sync</th>
+              <th><span class="jo-th-sort" id="jo-sort-created" onclick="joToggleSort()">Created On<svg class="ico-asc" width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="margin-left:2px"><polyline points="18 15 12 9 6 15"/></svg><svg class="ico-desc" width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></th>
               <th></th>
               <th>Actions</th>
             </tr>
@@ -1244,6 +1343,46 @@ tbody td:first-child{padding-left:20px}
       <div class="jo-panel-body" id="jo-panel-body"></div>
       <div class="jo-panel-foot">
         <button class="jo-save-btn" onclick="saveJOPanel()">Save Changes</button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ═══════════ JOB ROLES SCREEN ═══════════ -->
+  <div class="content-wrap" id="screen-job-roles" style="display:none">
+    <div class="jo-main">
+      <div class="jo-header">
+        <div class="jo-ph-row"><span class="jo-title">Job Roles</span></div>
+      </div>
+      <div class="jo-table-wrap">
+        <table class="jo-table" id="jr-table">
+          <thead>
+            <tr>
+              <th>Role Name</th>
+              <th>Default Title</th>
+              <th>Stages</th>
+              <th>User Roles</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="jr-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <aside class="jo-panel" id="jr-panel">
+      <div class="jo-panel-head">
+        <div class="jo-panel-title-row">
+          <span class="jo-panel-title" id="jr-panel-title">Edit Job Role</span>
+          <button class="jo-panel-x" onclick="jrClosePanel()">×</button>
+        </div>
+        <div class="jo-tabs">
+          <div class="jo-tab active" id="jr-tab-overview"  onclick="jrSwitchTab('overview')">Overview</div>
+          <div class="jo-tab"        id="jr-tab-pipeline"  onclick="jrSwitchTab('pipeline')">Hiring Pipeline</div>
+          <div class="jo-tab"        id="jr-tab-userroles" onclick="jrSwitchTab('userroles')">User Roles</div>
+        </div>
+      </div>
+      <div class="jo-panel-body" id="jr-panel-body"></div>
+      <div class="jo-panel-foot">
+        <button class="jo-save-btn" onclick="jrSave()">Save Changes</button>
       </div>
     </aside>
   </div>
@@ -3418,8 +3557,10 @@ function setNav(el){
   // hide all screens + topbar buttons
   document.getElementById('screen-candidates').style.display    = 'none';
   document.getElementById('screen-job-openings').style.display  = 'none';
-  document.getElementById('add-cand-btn').style.display  = 'none';
-  document.getElementById('create-jo-btn').style.display = 'none';
+  document.getElementById('screen-job-roles').style.display     = 'none';
+  document.getElementById('add-cand-btn').style.display   = 'none';
+  document.getElementById('create-jo-btn').style.display  = 'none';
+  document.getElementById('create-jr-btn').style.display  = 'none';
   if(label === 'Candidates'){
     document.getElementById('screen-candidates').style.display   = '';
     document.getElementById('add-cand-btn').style.display = '';
@@ -3427,6 +3568,10 @@ function setNav(el){
     document.getElementById('screen-job-openings').style.display = '';
     document.getElementById('create-jo-btn').style.display = '';
     renderJOScreen();
+  } else if(label === 'Job Roles'){
+    document.getElementById('screen-job-roles').style.display = '';
+    document.getElementById('create-jr-btn').style.display = '';
+    renderJRScreen();
   }
 }
 
@@ -5137,22 +5282,516 @@ const JO_ROLES = ['Software Engineer','Frontend Engineer','Backend Engineer',
   'Full Stack Engineer','DevOps Engineer','Data Scientist',
   'Product Manager','Designer','QA Engineer'];
 
+const JO_ROLE_TEMPLATES = {
+  'Software Engineer': {
+    title: 'Software Engineer',
+    description: 'We are looking for a skilled Software Engineer to design, develop, and maintain high-quality software systems. You will collaborate with cross-functional teams to deliver reliable, scalable solutions.\n\nResponsibilities:\n• Design and implement software features\n• Write clean, maintainable, and tested code\n• Participate in code reviews and technical discussions\n• Collaborate with product and design teams\n\nRequirements:\n• 2+ years of software engineering experience\n• Proficiency in one or more programming languages\n• Strong problem-solving skills',
+    pipeline: [{name:'Screening',type:'Screening',desc:'Initial resume and background screen'},{name:'R1 Interview',type:'Manual Interview',desc:'Technical phone screen'},{name:'Technical Assessment',type:'Assignment',desc:'Take-home coding challenge'},{name:'R2 Interview',type:'Manual Interview',desc:'In-depth technical interview'},{name:'Final Interview',type:'Final Interview',desc:'Culture fit and leadership round'}],
+  },
+  'Frontend Engineer': {
+    title: 'Frontend Engineer',
+    description: 'We are seeking a Frontend Engineer to build exceptional user interfaces. You will work closely with designers and backend engineers to create fast, accessible, and delightful web experiences.\n\nResponsibilities:\n• Build responsive, pixel-perfect UIs\n• Optimize performance and accessibility\n• Collaborate with design and product teams\n• Write unit and integration tests\n\nRequirements:\n• 2+ years of frontend development experience\n• Proficiency in React, Vue, or similar frameworks\n• Strong CSS and HTML fundamentals',
+    pipeline: [{name:'Screening',type:'Screening',desc:'Resume and portfolio review'},{name:'R1 Interview',type:'Manual Interview',desc:'Frontend fundamentals screen'},{name:'UI Challenge',type:'Assignment',desc:'Take-home UI implementation task'},{name:'Final Interview',type:'Final Interview',desc:'Team fit and culture round'}],
+  },
+  'Backend Engineer': {
+    title: 'Backend Engineer',
+    description: 'We are looking for a Backend Engineer to build robust APIs and services that power our product. You will design scalable architectures and work closely with the infrastructure and frontend teams.\n\nResponsibilities:\n• Design and build RESTful or GraphQL APIs\n• Optimize database performance and queries\n• Ensure system reliability and observability\n• Collaborate with frontend and DevOps teams\n\nRequirements:\n• 2+ years of backend development experience\n• Experience with Node.js, Python, Go, or similar\n• Strong knowledge of databases and caching',
+    pipeline: [{name:'Screening',type:'Screening',desc:'Resume and background review'},{name:'R1 Interview',type:'Manual Interview',desc:'Systems design and fundamentals'},{name:'Coding Assessment',type:'Assignment',desc:'Backend coding challenge'},{name:'R2 Interview',type:'Manual Interview',desc:'Deep-dive technical interview'},{name:'Final Interview',type:'Final Interview',desc:'Leadership and culture round'}],
+  },
+  'Full Stack Engineer': {
+    title: 'Full Stack Engineer',
+    description: 'We are looking for a Full Stack Engineer who is comfortable across the entire product stack. You will own features end-to-end — from database schema to UI component.\n\nResponsibilities:\n• Build and maintain full-stack features\n• Collaborate across frontend and backend codebases\n• Participate in architecture discussions\n• Write tests at multiple levels\n\nRequirements:\n• 3+ years of full stack experience\n• Proficiency in a modern frontend framework and backend language\n• Experience with relational and/or NoSQL databases',
+    pipeline: [{name:'Screening',type:'Screening',desc:'Initial screen'},{name:'R1 Interview',type:'Manual Interview',desc:'Technical screen (full stack)'},{name:'Take-Home Project',type:'Assignment',desc:'Full stack mini-project'},{name:'Final Interview',type:'Final Interview',desc:'Team and culture interview'}],
+  },
+  'DevOps Engineer': {
+    title: 'DevOps Engineer',
+    description: 'We are hiring a DevOps Engineer to build and maintain our CI/CD pipelines, cloud infrastructure, and observability stack. You will enable engineering teams to ship faster and more reliably.\n\nResponsibilities:\n• Design and manage cloud infrastructure (AWS/GCP/Azure)\n• Build and improve CI/CD pipelines\n• Drive reliability, monitoring, and incident response\n• Automate repetitive operational tasks\n\nRequirements:\n• 3+ years of DevOps or SRE experience\n• Proficiency with Terraform, Kubernetes, or similar\n• Strong knowledge of Linux and scripting',
+    pipeline: [{name:'Screening',type:'Screening',desc:'Background and experience review'},{name:'Technical Screen',type:'Manual Interview',desc:'Infrastructure and tooling discussion'},{name:'Ops Challenge',type:'Assignment',desc:'Infrastructure-as-code take-home'},{name:'Final Interview',type:'Final Interview',desc:'Team and culture round'}],
+  },
+  'Data Scientist': {
+    title: 'Data Scientist',
+    description: 'We are looking for a Data Scientist to extract insights from complex datasets and build models that drive product decisions. You will work closely with engineering and product teams.\n\nResponsibilities:\n• Analyze large datasets to surface actionable insights\n• Build and deploy machine learning models\n• Define and track key product and business metrics\n• Communicate findings to non-technical stakeholders\n\nRequirements:\n• 2+ years of data science or ML experience\n• Proficiency in Python and SQL\n• Experience with ML frameworks (scikit-learn, PyTorch, etc.)',
+    pipeline: [{name:'Screening',type:'Screening',desc:'Resume and background review'},{name:'Analytics Screen',type:'AI Interview',desc:'AI-driven analytical skills assessment'},{name:'Case Study',type:'Assignment',desc:'Data analysis take-home'},{name:'Technical Interview',type:'Manual Interview',desc:'Modeling and statistics deep-dive'},{name:'Final Interview',type:'Final Interview',desc:'Culture and stakeholder fit'}],
+  },
+  'Product Manager': {
+    title: 'Product Manager',
+    description: 'We are seeking a Product Manager to own the roadmap and vision for our core product. You will work at the intersection of engineering, design, and business to deliver impactful features.\n\nResponsibilities:\n• Define and prioritize the product roadmap\n• Write clear product specs and user stories\n• Collaborate with engineering and design teams\n• Track and analyze product metrics\n\nRequirements:\n• 3+ years of product management experience\n• Strong analytical and communication skills\n• Experience working in an agile environment',
+    pipeline: [{name:'Screening',type:'Screening',desc:'Resume and background review'},{name:'Product Screen',type:'AI Interview',desc:'AI-assisted product thinking assessment'},{name:'Product Case',type:'Assignment',desc:'Product strategy take-home exercise'},{name:'Leadership Interview',type:'Manual Interview',desc:'Cross-functional collaboration and vision'},{name:'Final Interview',type:'Final Interview',desc:'Exec and culture round'}],
+  },
+  'Designer': {
+    title: 'Product Designer',
+    description: 'We are looking for a Product Designer to craft intuitive and delightful user experiences. You will lead design from concept to pixel-perfect handoff, collaborating with product and engineering.\n\nResponsibilities:\n• Own end-to-end design for product features\n• Conduct user research and usability testing\n• Build and maintain the design system\n• Collaborate closely with engineers during implementation\n\nRequirements:\n• 2+ years of product or UX design experience\n• Proficiency in Figma\n• Strong portfolio demonstrating product thinking',
+    pipeline: [{name:'Screening',type:'Screening',desc:'Portfolio and background review'},{name:'Design Screen',type:'Manual Interview',desc:'Portfolio walkthrough and design discussion'},{name:'Design Challenge',type:'Assignment',desc:'Take-home design exercise'},{name:'Final Interview',type:'Final Interview',desc:'Team and culture round'}],
+  },
+  'QA Engineer': {
+    title: 'QA Engineer',
+    description: 'We are hiring a QA Engineer to ensure the reliability and quality of our product. You will design test plans, write automated tests, and work closely with engineering teams to ship confidently.\n\nResponsibilities:\n• Create and maintain automated test suites\n• Define and execute manual test plans\n• Identify and track bugs through to resolution\n• Champion quality across the engineering team\n\nRequirements:\n• 2+ years of QA or SDET experience\n• Experience with test automation frameworks (Cypress, Playwright, Selenium, etc.)\n• Strong attention to detail',
+    pipeline: [{name:'Screening',type:'Screening',desc:'Resume and background review'},{name:'Technical Screen',type:'Manual Interview',desc:'Testing fundamentals and strategy'},{name:'QA Assessment',type:'Assignment',desc:'Test plan and automation take-home'},{name:'Final Interview',type:'Final Interview',desc:'Team and culture round'}],
+  },
+};
+
+/* ═══════════════════════════════════════════
+   JOB ROLES
+═══════════════════════════════════════════ */
+const JR_ROLE_TYPES = ['Admin','Hiring Manager','Recruiter','Interviewer','Coordinator','Reviewer'];
+const JR_ACCESS_LEVELS = ['Full Access','Edit Access','Feedback Only','View Only','No Access'];
+const JR_ACCESS_CLASS  = {'Full Access':'full','Edit Access':'edit','Feedback Only':'feedback','View Only':'view','No Access':'none'};
+// Default permissions per role type per stage type
+const JR_ROLE_DEFAULTS = {
+  'Admin':           ()=>'Full Access',
+  'Hiring Manager':  (st)=>st==='Final Interview'?'Full Access':'View Only',
+  'Recruiter':       (st)=>st==='Screening'?'Full Access':st==='Final Interview'?'View Only':'Edit Access',
+  'Interviewer':     (st)=>['Manual Interview','AI Interview','Final Interview'].includes(st)?'Feedback Only':'View Only',
+  'Coordinator':     ()=>'Edit Access',
+  'Reviewer':        ()=>'View Only',
+};
+const JR_USERS = ['Jatin','Yashvi','Rahul','Priya','Arjun','Divya','Karan'];
+let jrUrEditId = null; // id of user being edited, null = adding new
+
+// Seed jrData from JO_ROLE_TEMPLATES
+let jrData = Object.entries(JO_ROLE_TEMPLATES).map(([roleName, tpl], i) => ({
+  id: i + 1,
+  name: roleName,
+  title: tpl.title,
+  description: tpl.description,
+  pipeline: tpl.pipeline.map(s => ({...s})),
+  userRoles: [],
+}));
+
+let jrEditId   = null;
+let jrActiveTab = 'overview';
+let jrDragSrc  = null;
+
+function jrById(id){ return jrData.find(r=>r.id===id); }
+
+function jrGetTemplate(roleName){
+  const jr = jrData.find(r=>r.name===roleName);
+  if(!jr) return null;
+  return { title: jr.title, description: jr.description, pipeline: jr.pipeline.map(s=>({...s})) };
+}
+
+function renderJRScreen(){ renderJRTable(); }
+
+function renderJRTable(){
+  const tb = document.getElementById('jr-tbody'); if(!tb) return;
+  const ICO_EDIT = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+  const ICO_DEL  = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>`;
+  tb.innerHTML = '';
+  if(!jrData.length){
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td colspan="5" style="text-align:center;padding:32px;color:var(--t3);font-size:12.5px">No job roles yet. Click "Create Job Role" to get started.</td>`;
+    tb.appendChild(tr); return;
+  }
+  jrData.forEach(jr => {
+    const tr = document.createElement('tr');
+    if(jrEditId === jr.id) tr.classList.add('jo-row-on');
+    tr.onclick = () => jrOpenPanel(jr.id);
+    tr.innerHTML = `
+      <td style="font-weight:600;color:var(--t1)">${jr.name}</td>
+      <td style="color:var(--t2)">${jr.title}</td>
+      <td><span style="font-size:12px;color:var(--t2)">${jr.pipeline.length} stage${jr.pipeline.length!==1?'s':''}</span></td>
+      <td>${jr.userRoles.length
+        ? jr.userRoles.map(u=>`<span style="font-size:10.5px;font-weight:500;padding:1px 7px;border-radius:20px;background:#e0f2fe;color:#0369a1;margin-right:3px">${u.user}</span>`).join('')
+        : `<span style="color:var(--t3);font-size:12px">—</span>`}</td>
+      <td>
+        <div style="display:flex;gap:5px;justify-content:flex-end">
+          <button class="jo-act-btn" onclick="event.stopPropagation();jrOpenPanel(${jr.id})" title="Edit">${ICO_EDIT} Edit</button>
+          <button class="jo-act-btn del" onclick="event.stopPropagation();jrDelete(${jr.id})" title="Delete">${ICO_DEL}</button>
+        </div>
+      </td>`;
+    tb.appendChild(tr);
+  });
+}
+
+function jrOpenPanel(id){
+  jrEditId = id;
+  document.getElementById('jr-panel').classList.add('open');
+  document.getElementById('jr-panel-title').textContent = jrById(id)?.name || 'Edit Job Role';
+  document.querySelectorAll('#jr-tbody tr').forEach(tr => tr.classList.remove('jo-row-on'));
+  document.querySelectorAll('#jr-tbody tr').forEach((tr,i) => {
+    if(jrData[i]?.id === id) tr.classList.add('jo-row-on');
+  });
+  jrSwitchTab(jrActiveTab);
+}
+
+function jrClosePanel(){
+  jrEditId = null;
+  document.getElementById('jr-panel').classList.remove('open');
+  document.querySelectorAll('#jr-tbody tr').forEach(tr=>tr.classList.remove('jo-row-on'));
+}
+
+function jrSwitchTab(tab){
+  jrActiveTab = tab;
+  ['overview','pipeline','userroles'].forEach(t => {
+    document.getElementById(`jr-tab-${t}`)?.classList.toggle('active', t===tab);
+  });
+  if(tab==='overview')  jrRenderOverview();
+  if(tab==='pipeline')  jrRenderPipeline();
+  if(tab==='userroles') jrRenderUserRoles();
+}
+
+function jrRenderOverview(){
+  const jr = jrById(jrEditId); if(!jr) return;
+  const body = document.getElementById('jr-panel-body');
+  body.innerHTML = `
+    <div class="jo-field">
+      <label class="jo-lbl">Role Name</label>
+      <input class="jo-input" id="jr-f-name" type="text" value="${jr.name.replace(/"/g,'&quot;')}" placeholder="e.g. Senior Backend Engineer">
+      <div style="font-size:11px;color:var(--t3);margin-top:4px">This role will be used as a template for job openings.</div>
+    </div>
+    <div class="jo-field">
+      <label class="jo-lbl">Default Job Title</label>
+      <input class="jo-input" id="jr-f-title" type="text" value="${jr.title.replace(/"/g,'&quot;')}" placeholder="e.g. Senior Software Engineer">
+    </div>
+    <div class="jo-field">
+      <label class="jo-lbl">Default Description</label>
+      <textarea class="jo-textarea" id="jr-f-desc" placeholder="Describe the role…">${jr.description||''}</textarea>
+    </div>`;
+}
+
+function jrRenderPipeline(){
+  const jr = jrById(jrEditId); if(!jr) return;
+  const body = document.getElementById('jr-panel-body');
+  const JP_TYPES_OPTS = JP_TYPES.map(t=>`<option value="${t}">${t}</option>`).join('');
+  body.innerHTML = `
+    <!-- Section 1: Stage List -->
+    <div style="margin-bottom:24px">
+      <div class="jp-section-label">Stages</div>
+      <ul class="jp-list" id="jrp-list"></ul>
+      <!-- Section 2: Add Stage -->
+      <div class="jp-add-form" id="jrp-add-form">
+        <div class="jp-add-form-inner">
+          <div class="jp-add-form-title">Add Stage</div>
+          <div class="jo-field" style="margin-bottom:10px">
+            <label class="jo-lbl">Stage Name</label>
+            <input class="jo-input" id="jrp-af-name" type="text" placeholder="e.g. Technical Screen" maxlength="32">
+            <div class="jp-err" id="jrp-af-name-err">Stage name is required</div>
+          </div>
+          <div class="jo-field" style="margin-bottom:10px">
+            <label class="jo-lbl">Stage Type</label>
+            <select class="jo-sel" id="jrp-af-type" onchange="jrpTypeChange()"><option value="">Select type…</option>${JP_TYPES_OPTS}</select>
+            <div class="jp-err" id="jrp-af-type-err">Stage type is required</div>
+            <div class="jp-type-hint" id="jrp-type-hint"></div>
+          </div>
+          <div class="jo-field" style="margin-bottom:10px">
+            <label class="jo-lbl">Description <span class="jo-lbl-hint">Optional</span></label>
+            <input class="jo-input" id="jrp-af-desc" type="text" placeholder="Brief stage description…">
+          </div>
+          <div class="jp-form-actions">
+            <button class="jp-cancel-btn" onclick="jrpCancelAdd()">Cancel</button>
+            <button class="jp-confirm-btn" onclick="jrpConfirmAdd()">Add Stage</button>
+          </div>
+        </div>
+      </div>
+      <button class="jp-add" id="jrp-add-btn" onclick="jrpAddStage()">
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        + Add Stage
+      </button>
+    </div>
+    <!-- Section 3: Pipeline Preview -->
+    <div>
+      <div class="jp-section-label">Pipeline Preview</div>
+      <div class="jp-preview" id="jrp-preview">
+        <div class="jp-prev-flow" id="jrp-prev-flow"></div>
+      </div>
+    </div>`;
+  jrpRenderList();
+}
+
+function jrpRenderList(){
+  const jr = jrById(jrEditId); if(!jr) return;
+  const list = document.getElementById('jrp-list'); if(!list) return;
+  list.innerHTML = '';
+  const ICO_X = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+  jr.pipeline.forEach((s, idx) => {
+    const li = document.createElement('li');
+    li.className = 'jp-item'; li.draggable = true; li.dataset.idx = idx;
+    // find user roles assigned to this stage (check permissions object)
+    const assigned = jr.userRoles.filter(u => u.permissions && u.permissions[s.name] && u.permissions[s.name] !== 'No Access');
+    const badges = assigned.map(u=>`<span class="jp-ur-badge">${u.user} <span style="opacity:.7;font-weight:400">${u.permissions[s.name]}</span></span>`).join('');
+    li.innerHTML = `
+      <span class="jp-drag-h">⠿</span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12.5px;font-weight:500;color:var(--t1)">${s.name}<span class="jp-stage-type-tag">${s.type}</span></div>
+        ${s.desc ? `<div style="font-size:11px;color:var(--t3);margin-top:1px">${s.desc}</div>` : ''}
+        ${assigned.length ? `<div class="jp-ur-badges">${badges}</div>` : ''}
+      </div>
+      <button class="jp-del" onclick="jrpDeleteStage(${idx})" title="Remove">${ICO_X}</button>`;
+    li.addEventListener('dragstart', e=>{ jrDragSrc=li; li.classList.add('jp-dragging'); e.dataTransfer.effectAllowed='move'; });
+    li.addEventListener('dragover',  e=>{ e.preventDefault(); li.classList.add('jp-over'); return false; });
+    li.addEventListener('dragleave', ()=>li.classList.remove('jp-over'));
+    li.addEventListener('dragend',   ()=>{ li.classList.remove('jp-dragging'); document.querySelectorAll('#jrp-list .jp-item').forEach(i=>i.classList.remove('jp-over')); });
+    li.addEventListener('drop', e=>{
+      e.stopPropagation(); if(jrDragSrc===li) return;
+      const jr2 = jrById(jrEditId); if(!jr2) return;
+      const si=parseInt(jrDragSrc.dataset.idx), di=parseInt(li.dataset.idx);
+      const [moved]=jr2.pipeline.splice(si,1); jr2.pipeline.splice(di,0,moved);
+      jrpRenderList();
+    });
+    list.appendChild(li);
+  });
+  // preview
+  const flow = document.getElementById('jrp-prev-flow');
+  if(flow) flow.innerHTML = jr.pipeline.map((s,i)=>
+    `<span class="jp-prev-stage">${s.name}</span>${i<jr.pipeline.length-1?'<span class="jp-prev-arrow">→</span>':''}`
+  ).join('');
+}
+
+function jrpDeleteStage(idx){
+  const jr = jrById(jrEditId); if(!jr||jr.pipeline.length<=1) return;
+  jr.pipeline.splice(idx,1); jrpRenderList();
+}
+function jrpAddStage(){
+  const form=document.getElementById('jrp-add-form'), btn=document.getElementById('jrp-add-btn');
+  if(!form) return;
+  ['jrp-af-name','jrp-af-type','jrp-af-desc'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('jrp-af-name-err').style.display='none';
+  document.getElementById('jrp-af-type-err').style.display='none';
+  document.getElementById('jrp-type-hint').className='jp-type-hint';
+  form.classList.add('open'); if(btn) btn.style.display='none';
+  setTimeout(()=>document.getElementById('jrp-af-name')?.focus(), 60);
+}
+function jrpCancelAdd(){
+  document.getElementById('jrp-add-form')?.classList.remove('open');
+  const btn=document.getElementById('jrp-add-btn'); if(btn) btn.style.display='';
+}
+function jrpTypeChange(){
+  const type=document.getElementById('jrp-af-type')?.value;
+  const hint=document.getElementById('jrp-type-hint'); if(!hint) return;
+  if(type && JP_TYPE_HINTS[type]){
+    const h=JP_TYPE_HINTS[type]; hint.innerHTML=`<span style="font-size:14px">${h.icon}</span><span>${h.text}</span>`; hint.className='jp-type-hint show';
+  } else { hint.className='jp-type-hint'; }
+}
+function jrpConfirmAdd(){
+  const nameEl=document.getElementById('jrp-af-name'), typeEl=document.getElementById('jrp-af-type'), descEl=document.getElementById('jrp-af-desc');
+  const name=nameEl?.value.trim()||'', type=typeEl?.value||'', desc=descEl?.value.trim()||'';
+  document.getElementById('jrp-af-name-err').style.display=name?'none':'';
+  document.getElementById('jrp-af-type-err').style.display=type?'none':'';
+  if(!name||!type){ if(!name) nameEl?.focus(); else typeEl?.focus(); return; }
+  const jr=jrById(jrEditId); if(!jr) return;
+  if(type==='Final Interview' && jr.pipeline.some(s=>s.type==='Final Interview')){
+    document.getElementById('jrp-af-type-err').textContent='A Final Interview stage already exists';
+    document.getElementById('jrp-af-type-err').style.display=''; typeEl?.focus(); return;
+  }
+  jr.pipeline.push({name,type,desc}); jrpCancelAdd(); jrpRenderList();
+}
+
+function jrRenderUserRoles(){
+  const jr = jrById(jrEditId); if(!jr) return;
+  jrUrEditId = null;
+  const body = document.getElementById('jr-panel-body');
+  const userOpts = JR_USERS.map(u=>`<option value="${u}">${u}</option>`).join('');
+  const typeOpts = JR_ROLE_TYPES.map(t=>`<option value="${t}">${t}</option>`).join('');
+  body.innerHTML = `
+    <p style="font-size:11.5px;color:var(--t3);margin-bottom:12px">Assign users and set their access level per stage.</p>
+    <div id="jr-ur-list"></div>
+    <div class="jr-ur-form" id="jr-ur-form">
+      <div class="jr-ur-form-inner">
+        <div style="font-size:12px;font-weight:700;color:var(--t1);margin-bottom:12px" id="jr-ur-form-title">Add User</div>
+        <div class="jo-field" style="margin-bottom:10px">
+          <label class="jo-lbl">User</label>
+          <select class="jo-sel" id="jr-ur-f-user">
+            <option value="">Select user…</option>${userOpts}
+          </select>
+          <div class="jp-err" id="jr-ur-f-user-err">Please select a user</div>
+        </div>
+        <div class="jo-field" style="margin-bottom:12px">
+          <label class="jo-lbl">Role Type</label>
+          <select class="jo-sel" id="jr-ur-f-type" onchange="jrUrApplyDefaults()">
+            <option value="">Select role type…</option>${typeOpts}
+          </select>
+          <div class="jp-err" id="jr-ur-f-type-err">Please select a role type</div>
+        </div>
+        <div class="jo-field" style="margin-bottom:10px">
+          <label class="jo-lbl">Stage Permissions</label>
+          <div class="jr-perm-header"><span>Stage</span><span>Access Level</span></div>
+          <div class="jr-perm-grid" id="jr-perm-rows"></div>
+        </div>
+        <div class="jp-form-actions">
+          <button class="jp-cancel-btn" onclick="jrUrCancelAdd()">Cancel</button>
+          <button class="jp-confirm-btn" id="jr-ur-save-btn" onclick="jrUrConfirmAdd()">Add User</button>
+        </div>
+      </div>
+    </div>
+    <button class="jp-add" id="jr-ur-add-btn" onclick="jrUrStartAdd()">
+      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      + Add User
+    </button>`;
+  jrUrBuildPermRows();
+  jrUrRenderList();
+}
+
+function jrUrBuildPermRows(defaults){
+  const jr = jrById(jrEditId); if(!jr) return;
+  const grid = document.getElementById('jr-perm-rows'); if(!grid) return;
+  grid.innerHTML = jr.pipeline.map((s,i) => {
+    const sel = defaults ? (defaults[s.name] || 'View Only') : 'View Only';
+    return `<span class="jr-perm-stage" title="${s.name}">${s.name}</span>
+    <select class="jr-perm-sel" data-stage="${s.name.replace(/"/g,'&quot;')}" data-sidx="${i}">
+      ${JR_ACCESS_LEVELS.map(a=>`<option value="${a}"${a===sel?' selected':''}>${a}</option>`).join('')}
+    </select>`;
+  }).join('');
+}
+
+function jrUrApplyDefaults(){
+  const type = document.getElementById('jr-ur-f-type')?.value;
+  if(!type) return;
+  const jr = jrById(jrEditId); if(!jr) return;
+  const fn = JR_ROLE_DEFAULTS[type] || (()=>'View Only');
+  const defaults = {};
+  jr.pipeline.forEach(s => { defaults[s.name] = fn(s.type); });
+  jrUrBuildPermRows(defaults);
+}
+
+function jrUrRenderList(){
+  const jr = jrById(jrEditId); if(!jr) return;
+  const list = document.getElementById('jr-ur-list'); if(!list) return;
+  const ICO_EDIT = `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+  const ICO_X   = `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>`;
+  if(!jr.userRoles.length){
+    list.innerHTML = `<div style="font-size:12px;color:var(--t3);padding:4px 0 12px">No users assigned yet.</div>`; return;
+  }
+  list.innerHTML = jr.userRoles.map(u => {
+    const permRows = Object.entries(u.permissions||{}).map(([stage, access]) => {
+      const cls = JR_ACCESS_CLASS[access] || 'view';
+      return `<div class="jr-ur-perm-row"><span class="jr-ur-stage-name">${stage}</span><span class="jr-ur-access ${cls}">${access}</span></div>`;
+    }).join('');
+    return `<div class="jr-ur-item">
+      <div class="jr-ur-head">
+        <span class="jr-ur-name">${u.user}</span>
+        <span class="jr-ur-type">${u.type}</span>
+        <div class="jr-ur-actions">
+          <button class="jr-ur-edit" onclick="jrUrStartEdit(${u.id})" title="Edit">${ICO_EDIT}</button>
+          <button class="jr-ur-del"  onclick="jrUrDelete(${u.id})"    title="Remove">${ICO_X}</button>
+        </div>
+      </div>
+      <div class="jr-ur-perms">${permRows || '<span style="font-size:11px;color:var(--t3)">No stage permissions set</span>'}</div>
+    </div>`;
+  }).join('');
+}
+
+function jrUrStartAdd(){
+  jrUrEditId = null;
+  const form=document.getElementById('jr-ur-form'), btn=document.getElementById('jr-ur-add-btn');
+  if(!form) return;
+  document.getElementById('jr-ur-f-user').value='';
+  document.getElementById('jr-ur-f-type').value='';
+  document.getElementById('jr-ur-f-user-err').style.display='none';
+  document.getElementById('jr-ur-f-type-err').style.display='none';
+  document.getElementById('jr-ur-form-title').textContent='Add User';
+  document.getElementById('jr-ur-save-btn').textContent='Add User';
+  jrUrBuildPermRows();
+  form.classList.add('open'); if(btn) btn.style.display='none';
+  setTimeout(()=>document.getElementById('jr-ur-f-user')?.focus(), 60);
+}
+
+function jrUrStartEdit(uid){
+  const jr=jrById(jrEditId); if(!jr) return;
+  const u=jr.userRoles.find(r=>r.id===uid); if(!u) return;
+  jrUrEditId = uid;
+  const form=document.getElementById('jr-ur-form'), btn=document.getElementById('jr-ur-add-btn');
+  if(!form) return;
+  document.getElementById('jr-ur-f-user').value=u.user||'';
+  document.getElementById('jr-ur-f-type').value=u.type||'';
+  document.getElementById('jr-ur-f-user-err').style.display='none';
+  document.getElementById('jr-ur-f-type-err').style.display='none';
+  document.getElementById('jr-ur-form-title').textContent='Edit User';
+  document.getElementById('jr-ur-save-btn').textContent='Save Changes';
+  jrUrBuildPermRows(u.permissions||{});
+  form.classList.add('open'); if(btn) btn.style.display='none';
+  form.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function jrUrCancelAdd(){
+  jrUrEditId = null;
+  document.getElementById('jr-ur-form')?.classList.remove('open');
+  const btn=document.getElementById('jr-ur-add-btn'); if(btn) btn.style.display='';
+}
+
+function jrUrConfirmAdd(){
+  const userEl=document.getElementById('jr-ur-f-user'), typeEl=document.getElementById('jr-ur-f-type');
+  const user=userEl?.value||'', type=typeEl?.value||'';
+  document.getElementById('jr-ur-f-user-err').style.display=user?'none':'';
+  document.getElementById('jr-ur-f-type-err').style.display=type?'none':'';
+  if(!user||!type){ if(!user) userEl?.focus(); else typeEl?.focus(); return; }
+  const permissions={};
+  document.querySelectorAll('#jr-perm-rows .jr-perm-sel').forEach(sel=>{
+    if(sel.dataset.stage) permissions[sel.dataset.stage]=sel.value;
+  });
+  const jr=jrById(jrEditId); if(!jr) return;
+  if(jrUrEditId !== null){
+    // editing existing
+    const u=jr.userRoles.find(r=>r.id===jrUrEditId);
+    if(u){ u.user=user; u.type=type; u.permissions=permissions; }
+  } else {
+    const newId=(jr.userRoles.length?Math.max(...jr.userRoles.map(u=>u.id)):0)+1;
+    jr.userRoles.push({id:newId, user, type, permissions});
+  }
+  jrUrCancelAdd(); jrUrRenderList();
+  // refresh pipeline tab badges if open
+  if(jrActiveTab==='pipeline') jrpRenderList();
+}
+
+function jrUrDelete(uid){
+  const jr=jrById(jrEditId); if(!jr) return;
+  jr.userRoles=jr.userRoles.filter(u=>u.id!==uid);
+  if(jrUrEditId===uid) jrUrCancelAdd();
+  jrUrRenderList();
+  if(jrActiveTab==='pipeline') jrpRenderList();
+}
+
+function jrCreate(){
+  const newId=(jrData.length?Math.max(...jrData.map(j=>j.id)):0)+1;
+  const name = JO_ROLES.find(r=>!jrData.find(j=>j.name===r)) || 'New Role';
+  jrData.push({id:newId, name, title:name, description:'', pipeline:[{name:'Screening',type:'Screening',desc:''},{name:'Interview',type:'Manual Interview',desc:''},{name:'Final Interview',type:'Final Interview',desc:''}], userRoles:[]});
+  renderJRTable();
+  jrOpenPanel(newId);
+}
+
+function jrDelete(id){
+  jrData=jrData.filter(j=>j.id!==id);
+  if(jrEditId===id) jrClosePanel();
+  renderJRTable();
+}
+
+function jrSave(){
+  const jr=jrById(jrEditId); if(!jr) return;
+  if(jrActiveTab==='overview'){
+    const name=document.getElementById('jr-f-name')?.value;
+    const title=document.getElementById('jr-f-title')?.value?.trim();
+    const desc=document.getElementById('jr-f-desc')?.value;
+    if(name) jr.name=name;
+    if(title) jr.title=title;
+    jr.description=desc||'';
+    document.getElementById('jr-panel-title').textContent=jr.name;
+  }
+  renderJRTable();
+  document.querySelectorAll('#jr-tbody tr').forEach((tr,i)=>{ if(jrData[i]?.id===jrEditId) tr.classList.add('jo-row-on'); });
+  const btn=document.querySelector('#jr-panel .jo-save-btn');
+  if(btn){ const orig=btn.textContent; btn.textContent='✓ Saved'; btn.style.background='var(--green)'; setTimeout(()=>{ btn.textContent=orig; btn.style.background=''; },1500); }
+}
+
 let joData = [
   { id:1, title:'SDE Intern', role:'Software Engineer', active:true,
     integration:'Google Sheets', lastSync:'2 hrs ago',
+    createdAt: new Date(Date.now() - 2*24*60*60*1000).toISOString(),
     description:'We are looking for a talented software engineering intern to join our team and help build scalable systems.',
     sheetId:'1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms',
     pipeline:['Screening','R1','R2','Assignment','Final'] },
   { id:2, title:'Frontend Engineer', role:'Frontend Engineer', active:true,
     integration:'Google Sheets', lastSync:'1 day ago',
+    createdAt: new Date(Date.now() - 8*24*60*60*1000).toISOString(),
     description:'Join our frontend team to build beautiful, high-performance user interfaces.',
     sheetId:'1Cx2NWt1YRA5nGNLMvCeBAkhmVVrptmcs85PgXF3vpnt',
     pipeline:['Screening','R1','R2','Final'] },
   { id:3, title:'Senior Data Scientist', role:'Data Scientist', active:false,
-    integration:null, lastSync:'—', description:'', sheetId:'',
+    integration:null, lastSync:'—',
+    createdAt: new Date(Date.now() - 35*24*60*60*1000).toISOString(),
+    description:'', sheetId:'',
     pipeline:['Screening','R1','Assignment','Final'] },
   { id:4, title:'DevOps Lead', role:'DevOps Engineer', active:true,
     integration:'Google Sheets', lastSync:'3 days ago',
+    createdAt: new Date(Date.now() - 14*24*60*60*1000).toISOString(),
     description:'Lead our infrastructure and DevOps initiatives, driving reliability and efficiency.',
     sheetId:'', pipeline:['Screening','R1','R2','Final'] },
 ];
@@ -5169,6 +5808,15 @@ let joPendingIntg   = new Set();
 let joAppliedStatus = new Set();
 let joAppliedRole   = new Set();
 let joAppliedIntg   = new Set();
+// date filter
+let joPendingDatePreset = 'all';  // 'all','today','7d','30d','custom'
+let joPendingDateFrom   = '';
+let joPendingDateTo     = '';
+let joAppliedDatePreset = 'all';
+let joAppliedDateFrom   = '';
+let joAppliedDateTo     = '';
+// sort
+let joSortDir = '';  // 'asc' | 'desc' | ''
 
 const JP_TYPES = ['Screening','AI Interview','Manual Interview','Assignment','Final Interview','Custom'];
 const JP_TYPE_HINTS = {
@@ -5194,89 +5842,232 @@ function guessStageType(n){
   return 'Manual Interview';
 }
 
+function joDateBounds(){
+  const now = new Date();
+  const startOfDay = d => { const x=new Date(d); x.setHours(0,0,0,0); return x; };
+  if(joAppliedDatePreset === 'today'){
+    return { from: startOfDay(now), to: new Date(now.getTime()+86400000) };
+  }
+  if(joAppliedDatePreset === '7d'){
+    return { from: new Date(now - 7*86400000), to: new Date(now.getTime()+1) };
+  }
+  if(joAppliedDatePreset === '30d'){
+    return { from: new Date(now - 30*86400000), to: new Date(now.getTime()+1) };
+  }
+  if(joAppliedDatePreset === 'custom'){
+    return {
+      from: joAppliedDateFrom ? new Date(joAppliedDateFrom) : null,
+      to:   joAppliedDateTo   ? new Date(new Date(joAppliedDateTo).getTime()+86400000) : null,
+    };
+  }
+  return null;
+}
+
 function getFilteredJO(){
   const q = joSearch.toLowerCase();
-  return joData.filter(job => {
+  const bounds = joDateBounds();
+  let rows = joData.filter(job => {
     if(q && !job.title.toLowerCase().includes(q) && !job.role.toLowerCase().includes(q)) return false;
-    if(joFilterStatus && (job.active ? 'Active' : 'Inactive') !== joFilterStatus) return false;
-    if(joFilterRole && job.role !== joFilterRole) return false;
-    if(joFilterIntg === 'connected' && !job.integration) return false;
-    if(joFilterIntg === 'none' && job.integration) return false;
+    if(joAppliedStatus.size && !joAppliedStatus.has(job.active ? 'Active' : 'Inactive')) return false;
+    if(joAppliedRole.size   && !joAppliedRole.has(job.role)) return false;
+    if(joAppliedIntg.size){
+      const has = !!job.integration;
+      if(joAppliedIntg.has('connected') && !joAppliedIntg.has('none') && !has) return false;
+      if(joAppliedIntg.has('none') && !joAppliedIntg.has('connected') && has) return false;
+    }
+    if(bounds && job.createdAt){
+      const d = new Date(job.createdAt);
+      if(bounds.from && d < bounds.from) return false;
+      if(bounds.to   && d >= bounds.to)  return false;
+    }
     return true;
+  });
+  if(joSortDir === 'asc')  rows = rows.slice().sort((a,b)=>new Date(a.createdAt)-new Date(b.createdAt));
+  if(joSortDir === 'desc') rows = rows.slice().sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt));
+  return rows;
+}
+
+// Called on search input — applies immediately (no dropdown)
+function joSearchInput(){
+  joSearch = document.getElementById('jo-search-input')?.value || '';
+  renderJOTable();
+  updateJOClearBtn();
+}
+
+// Toggle a pending selection inside a dropdown (before Apply)
+function joTogglePending(type, value){
+  const map = { status: joPendingStatus, role: joPendingRole, intg: joPendingIntg };
+  const s = map[type];
+  if(s.has(value)) s.delete(value); else s.add(value);
+  syncDropdownCheckmarks(type);
+}
+
+// Apply button inside a dropdown
+function joApplyDropdown(type){
+  if(type === 'status') joAppliedStatus = new Set(joPendingStatus);
+  if(type === 'role')   joAppliedRole   = new Set(joPendingRole);
+  if(type === 'intg')   joAppliedIntg   = new Set(joPendingIntg);
+  if(type === 'date'){
+    joAppliedDatePreset = joPendingDatePreset;
+    joAppliedDateFrom   = joPendingDateFrom;
+    joAppliedDateTo     = joPendingDateTo;
+  }
+  closeAllJOFdds();
+  renderJOTable();
+  updateJOFddButtons();
+  updateJOClearBtn();
+}
+
+function joClearFilters(){
+  joSearch = '';
+  joPendingStatus.clear(); joPendingRole.clear(); joPendingIntg.clear();
+  joAppliedStatus.clear(); joAppliedRole.clear(); joAppliedIntg.clear();
+  joPendingDatePreset = 'all'; joPendingDateFrom = ''; joPendingDateTo = '';
+  joAppliedDatePreset = 'all'; joAppliedDateFrom = ''; joAppliedDateTo = '';
+  joSortDir = '';
+  const si = document.getElementById('jo-search-input');
+  if(si) si.value = '';
+  renderJOTable();
+  updateJOFddButtons();
+  updateJOClearBtn();
+}
+
+function joSelectDatePreset(preset){
+  joPendingDatePreset = preset;
+  // show/hide custom range inputs
+  const range = document.getElementById('jo-date-range');
+  if(range) range.classList.toggle('show', preset === 'custom');
+  // update checkmarks
+  ['all','today','7d','30d','custom'].forEach(k => {
+    const el = document.getElementById(`jo-dopt-${k}`);
+    if(!el) return;
+    const sel = k === preset;
+    el.classList.toggle('selected', sel);
+    const chk = el.querySelector('.jo-fdd-chk');
+    if(chk) chk.textContent = sel ? '✓' : '';
   });
 }
 
-function joApplyFilters(){
-  joSearch = document.getElementById('jo-search-input')?.value || '';
+function joToggleSort(){
+  joSortDir = joSortDir === 'asc' ? 'desc' : joSortDir === 'desc' ? '' : 'asc';
+  const el = document.getElementById('jo-sort-created');
+  if(el){
+    el.classList.toggle('asc', joSortDir === 'asc');
+    el.classList.toggle('desc', joSortDir === 'desc');
+  }
   renderJOTable();
-  renderJOChips();
+  updateJOClearBtn();
 }
 
-function joSetFilter(type, value){
-  if(type === 'status'){ joFilterStatus = joFilterStatus === value ? '' : value; }
-  if(type === 'role')  { joFilterRole   = joFilterRole   === value ? '' : value; }
-  if(type === 'intg')  { joFilterIntg   = joFilterIntg   === value ? '' : value; }
-  closeAllJOFdds();
-  renderJOTable();
-  renderJOChips();
-  updateJOFddButtons();
+function joFmtDate(iso){
+  if(!iso) return '—';
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+}
+function joFmtDateTime(iso){
+  if(!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleString('en-US', { month:'short', day:'numeric', year:'numeric', hour:'numeric', minute:'2-digit' });
 }
 
-function joRemoveFilter(type){
-  if(type === 'status') joFilterStatus = '';
-  if(type === 'role')   joFilterRole   = '';
-  if(type === 'intg')   joFilterIntg   = '';
-  if(type === 'search') { joSearch = ''; const si = document.getElementById('jo-search-input'); if(si) si.value = ''; }
-  renderJOTable();
-  renderJOChips();
-  updateJOFddButtons();
+function updateJOClearBtn(){
+  const hasAny = joSearch || joAppliedStatus.size || joAppliedRole.size || joAppliedIntg.size
+               || joAppliedDatePreset !== 'all' || joSortDir;
+  document.getElementById('jo-clear-filters')?.classList.toggle('visible', !!hasAny);
 }
 
-function renderJOChips(){
-  const bar = document.getElementById('jo-chips-bar');
-  if(!bar) return;
-  const chips = [];
-  if(joSearch)       chips.push({ label:`"${joSearch}"`,      clear:()=>joRemoveFilter('search') });
-  if(joFilterStatus) chips.push({ label:`Status: ${joFilterStatus}`, clear:()=>joRemoveFilter('status') });
-  if(joFilterRole)   chips.push({ label:`Role: ${joFilterRole}`,     clear:()=>joRemoveFilter('role') });
-  if(joFilterIntg)   chips.push({ label: joFilterIntg==='connected'?'Google Sheets':'Not Connected', clear:()=>joRemoveFilter('intg') });
-  bar.innerHTML = chips.map((c,i) =>
-    `<span class="jo-chip">${c.label}<button class="jo-chip-x" onclick="(${c.clear.toString()})()">×</button></span>`
-  ).join('');
+function syncDropdownCheckmarks(type){
+  if(type === 'status'){
+    ['Active','Inactive'].forEach(v => {
+      const el = document.getElementById(`jo-fopt-${v.toLowerCase()}`);
+      if(el) el.classList.toggle('selected', joPendingStatus.has(v));
+      const chk = el?.querySelector('.jo-fdd-chk');
+      if(chk) chk.textContent = joPendingStatus.has(v) ? '✓' : '';
+    });
+  }
+  if(type === 'intg'){
+    ['connected','notconnected'].forEach(k => {
+      const val = k === 'connected' ? 'connected' : 'none';
+      const el = document.getElementById(`jo-fopt-${k}`);
+      if(el) el.classList.toggle('selected', joPendingIntg.has(val));
+      const chk = el?.querySelector('.jo-fdd-chk');
+      if(chk) chk.textContent = joPendingIntg.has(val) ? '✓' : '';
+    });
+  }
+  if(type === 'role'){
+    document.querySelectorAll('#jo-fdd-role-menu .jo-fdd-opt').forEach(el => {
+      const r = el.dataset.role;
+      el.classList.toggle('selected', joPendingRole.has(r));
+      const chk = el.querySelector('.jo-fdd-chk');
+      if(chk) chk.textContent = joPendingRole.has(r) ? '✓' : '';
+    });
+  }
 }
 
 function updateJOFddButtons(){
-  document.getElementById('jo-fdd-status-btn')?.classList.toggle('active', !!joFilterStatus);
-  document.getElementById('jo-fdd-role-btn')?.classList.toggle('active', !!joFilterRole);
-  document.getElementById('jo-fdd-intg-btn')?.classList.toggle('active', !!joFilterIntg);
-  // update checkmarks
-  ['active','inactive'].forEach(k => {
-    const v = k[0].toUpperCase()+k.slice(1);
-    document.getElementById(`jo-fopt-${k}`)?.classList.toggle('selected', joFilterStatus === v);
-  });
-  document.getElementById('jo-fopt-connected')?.classList.toggle('selected', joFilterIntg === 'connected');
-  document.getElementById('jo-fopt-notconnected')?.classList.toggle('selected', joFilterIntg === 'none');
-  // role menu
-  const roleMenu = document.getElementById('jo-fdd-role-menu');
-  if(roleMenu){
-    const roles = [...new Set(joData.map(j=>j.role))].sort();
-    roleMenu.innerHTML = roles.map(r =>
-      `<div class="jo-fdd-opt${joFilterRole===r?' selected':''}" onclick="joSetFilter('role','${r.replace(/'/g,"\\'")}')"><span class="jo-fdd-chk">${joFilterRole===r?'✓':''}</span>${r}</div>`
-    ).join('');
+  // Button label with count
+  function setLabel(btnId, labelId, set, base){
+    const n = set.size;
+    const btn = document.getElementById(btnId);
+    const lbl = document.getElementById(labelId);
+    if(lbl) lbl.textContent = n > 0 ? `${base} (${n})` : base;
+    btn?.classList.toggle('active', n > 0);
   }
+  setLabel('jo-fdd-status-btn','jo-fdd-status-label', joAppliedStatus,'Status');
+  setLabel('jo-fdd-role-btn',  'jo-fdd-role-label',   joAppliedRole,  'Role');
+  setLabel('jo-fdd-intg-btn',  'jo-fdd-intg-label',   joAppliedIntg,  'Integration');
+  // date label
+  const dateBtn = document.getElementById('jo-fdd-date-btn');
+  const dateLbl = document.getElementById('jo-fdd-date-label');
+  const dateActive = joAppliedDatePreset !== 'all';
+  const dateLabels = { all:'Created Date', today:'Today', '7d':'Last 7 days', '30d':'Last 30 days', custom:'Custom Range' };
+  if(dateLbl) dateLbl.textContent = dateActive ? dateLabels[joAppliedDatePreset] || 'Created Date' : 'Created Date';
+  dateBtn?.classList.toggle('active', dateActive);
+  // sort indicator
+  const sortEl = document.getElementById('jo-sort-created');
+  if(sortEl){
+    sortEl.classList.toggle('asc', joSortDir === 'asc');
+    sortEl.classList.toggle('desc', joSortDir === 'desc');
+  }
+}
+
+function buildRoleMenu(){
+  const roleMenu = document.getElementById('jo-fdd-role-menu');
+  if(!roleMenu) return;
+  const roles = [...new Set(joData.map(j=>j.role))].sort();
+  const opts = roles.map(r =>
+    `<div class="jo-fdd-opt${joPendingRole.has(r)?' selected':''}" data-role="${r.replace(/"/g,'&quot;')}" onclick="joTogglePending('role','${r.replace(/'/g,"\\'")}')"><span class="jo-fdd-chk">${joPendingRole.has(r)?'✓':''}</span>${r}</div>`
+  ).join('');
+  roleMenu.innerHTML = opts + `<div class="jo-fdd-footer"><button class="jo-fdd-apply" onclick="joApplyDropdown('role')">Apply</button></div>`;
 }
 
 function toggleJOFdd(id){
   const menu = document.getElementById(id);
   const isOpen = menu.classList.contains('open');
   closeAllJOFdds();
-  if(!isOpen){ menu.classList.add('open'); updateJOFddButtons(); }
+  if(!isOpen){
+    // sync pending to applied before opening
+    if(id === 'jo-fdd-status-menu'){ joPendingStatus = new Set(joAppliedStatus); syncDropdownCheckmarks('status'); }
+    if(id === 'jo-fdd-intg-menu')  { joPendingIntg   = new Set(joAppliedIntg);   syncDropdownCheckmarks('intg'); }
+    if(id === 'jo-fdd-role-menu')  { joPendingRole   = new Set(joAppliedRole);   buildRoleMenu(); }
+    if(id === 'jo-fdd-date-menu')  {
+      joPendingDatePreset = joAppliedDatePreset;
+      joPendingDateFrom   = joAppliedDateFrom;
+      joPendingDateTo     = joAppliedDateTo;
+      joSelectDatePreset(joPendingDatePreset);
+      const fromEl = document.getElementById('jo-date-from');
+      const toEl   = document.getElementById('jo-date-to');
+      if(fromEl) fromEl.value = joPendingDateFrom;
+      if(toEl)   toEl.value   = joPendingDateTo;
+    }
+    menu.classList.add('open');
+  }
 }
 function closeAllJOFdds(){
   document.querySelectorAll('.jo-fdd-menu').forEach(m=>m.classList.remove('open'));
 }
 
-function renderJOScreen(){ renderJOTable(); updateJOFddButtons(); }
+function renderJOScreen(){ renderJOTable(); updateJOFddButtons(); updateJOClearBtn(); }
 
 function renderJOTable(){
   const tb = document.getElementById('jo-tbody');
@@ -5289,7 +6080,7 @@ function renderJOTable(){
   const ICO_GS   = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>`;
   if(!rows.length){
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td colspan="7" style="text-align:center;padding:32px;color:var(--t3);font-size:12.5px">No job openings match your filters</td>`;
+    tr.innerHTML = `<td colspan="8" style="text-align:center;padding:32px;color:var(--t3);font-size:12.5px">No job openings match your filters</td>`;
     tb.appendChild(tr); return;
   }
   rows.forEach(job => {
@@ -5308,12 +6099,13 @@ function renderJOTable(){
       <td>${job.integration
         ? `<span class="jo-intg">${ICO_GS} ${job.integration}</span>`
         : `<span class="jo-intg none">—</span>`}</td>
-      <td style="color:var(--t3);font-size:12px">${job.lastSync}</td>
-      <td><button class="jo-sync-btn" onclick="event.stopPropagation();joSync(${job.id},this)" title="Sync now">${ICO_SYNC} Sync</button></td>
-      <td>
+      <td style="color:var(--t3);font-size:12px" id="jo-lastsync-${job.id}">${job.lastSync}</td>
+      <td style="color:var(--t2);font-size:12px" title="${joFmtDateTime(job.createdAt)}">${joFmtDate(job.createdAt)}</td>
+      <td><div class="jo-sync-cell" id="jo-sync-cell-${job.id}">${joSyncCellHTML(job)}</div></td>
+      <td id="jo-actions-${job.id}">
         <div style="display:flex;gap:5px">
-          <button class="jo-act-btn" onclick="event.stopPropagation();openJOPanel(${job.id})">${ICO_EDIT} Edit</button>
-          <button class="jo-act-btn del" onclick="event.stopPropagation();joDelete(${job.id})">${ICO_DEL}</button>
+          <button class="jo-act-btn" onclick="event.stopPropagation();openJOPanel(${job.id})" title="Edit">${ICO_EDIT} Edit</button>
+          <button class="jo-act-btn del" onclick="event.stopPropagation();joDelete(${job.id})" title="Delete">${ICO_DEL}</button>
         </div>
       </td>`;
     tb.appendChild(tr);
@@ -5329,10 +6121,90 @@ function joToggle(id){
   if(lbl)  { lbl.textContent = job.active ? 'Active' : 'Inactive'; }
 }
 
-function joSync(id, btn){
-  if(!btn) return;
-  btn.style.color = 'var(--green)'; btn.style.borderColor = 'var(--green)';
-  setTimeout(()=>{ btn.style.color=''; btn.style.borderColor=''; }, 1600);
+// sync state per job id: null | 'syncing' | 'success' | 'error'
+const joSyncState = {};
+const joSyncTimers = {};
+const joSyncAbort = {};
+
+const ICO_SYNC_SMALL = `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>`;
+const ICO_STOP = `<svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>`;
+const ICO_RETRY = `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>`;
+const ICO_LINK = `<svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>`;
+
+function joSyncCellHTML(job){
+  const state = joSyncState[job.id];
+  if(!job.integration){
+    return `<button class="jo-sync-btn connect" onclick="event.stopPropagation();joConnectSheet(${job.id})" title="Connect Google Sheet">${ICO_LINK} Connect Sheet</button>`;
+  }
+  if(state === 'syncing'){
+    return `<button class="jo-sync-btn syncing" disabled><span class="jo-spinner"></span>Syncing…</button>`
+         + `<button class="jo-stop-btn" onclick="event.stopPropagation();joSyncStop(${job.id})" title="Cancel sync">${ICO_STOP} Stop</button>`;
+  }
+  if(state === 'success'){
+    return `<button class="jo-sync-btn success" disabled>✔ Synced</button>`;
+  }
+  if(state === 'error'){
+    return `<button class="jo-sync-btn error" disabled>Sync Failed</button>`
+         + `<button class="jo-retry-btn" onclick="event.stopPropagation();joSyncStart(${job.id})" title="Retry sync">${ICO_RETRY} Retry</button>`;
+  }
+  return `<button class="jo-sync-btn" onclick="event.stopPropagation();joSyncStart(${job.id})" title="Sync now">${ICO_SYNC_SMALL} Sync</button>`;
+}
+
+function joSyncRefreshRow(id){
+  const cell = document.getElementById(`jo-sync-cell-${id}`);
+  const job = joData.find(j=>j.id===id);
+  if(cell && job) cell.innerHTML = joSyncCellHTML(job);
+  const tr = cell?.closest('tr');
+  if(tr) tr.classList.toggle('jo-syncing', joSyncState[id] === 'syncing');
+  // disable/enable actions during sync
+  const actTd = document.getElementById(`jo-actions-${id}`);
+  if(actTd){
+    actTd.querySelectorAll('button').forEach(b => {
+      b.disabled = joSyncState[id] === 'syncing';
+      b.style.opacity = joSyncState[id] === 'syncing' ? '0.4' : '';
+      b.style.pointerEvents = joSyncState[id] === 'syncing' ? 'none' : '';
+    });
+  }
+}
+
+function joSyncStart(id){
+  const job = joData.find(j=>j.id===id); if(!job) return;
+  clearTimeout(joSyncTimers[id]);
+  joSyncState[id] = 'syncing';
+  joSyncAbort[id] = false;
+  joSyncRefreshRow(id);
+  // simulate async sync (1.5–2.5s)
+  const delay = 1500 + Math.random()*1000;
+  joSyncTimers[id] = setTimeout(()=>{
+    if(joSyncAbort[id]) return;
+    // simulate ~15% failure rate
+    const failed = Math.random() < 0.15;
+    if(failed){
+      joSyncState[id] = 'error';
+    } else {
+      joSyncState[id] = 'success';
+      job.lastSync = 'Just now';
+      const lsEl = document.getElementById(`jo-lastsync-${id}`);
+      if(lsEl) lsEl.textContent = 'Just now';
+      joSyncTimers[id] = setTimeout(()=>{
+        joSyncState[id] = null;
+        joSyncRefreshRow(id);
+      }, 2000);
+    }
+    joSyncRefreshRow(id);
+  }, delay);
+}
+
+function joSyncStop(id){
+  joSyncAbort[id] = true;
+  clearTimeout(joSyncTimers[id]);
+  joSyncState[id] = null;
+  joSyncRefreshRow(id);
+}
+
+function joConnectSheet(id){
+  // Open the edit panel to the Job Details tab where Sheet ID can be set
+  openJOPanel(id);
 }
 
 function joDelete(id){
@@ -5343,11 +6215,16 @@ function joDelete(id){
 
 function joCreateOpening(){
   const newId = (joData.length ? Math.max(...joData.map(j=>j.id)) : 0) + 1;
-  joData.push({ id:newId, title:'New Job Opening', role:JO_ROLES[0], active:true,
-    integration:null, lastSync:'—', description:'', sheetId:'',
-    pipeline:['Screening','R1','Final'] });
+  const defaultRole = JO_ROLES[0];
+  const tpl = jrGetTemplate(defaultRole) || JO_ROLE_TEMPLATES[defaultRole];
+  joData.push({ id:newId, title: tpl?.title||'New Job Opening', role:defaultRole, active:true,
+    integration:null, lastSync:'—', createdAt: new Date().toISOString(),
+    description: tpl?.description||'', sheetId:'',
+    pipeline: tpl ? tpl.pipeline.map(s=>({...s})) : ['Screening','R1','Final'] });
   renderJOTable();
   openJOPanel(newId);
+  // show autofill banner after panel renders
+  setTimeout(joShowAutofillBanner, 50);
 }
 
 function openJOPanel(id){
@@ -5377,16 +6254,20 @@ function renderJODetails(){
   const body = document.getElementById('jo-panel-body');
   const rolesOpts = JO_ROLES.map(r=>`<option value="${r}"${r===job.role?' selected':''}>${r}</option>`).join('');
   body.innerHTML = `
-    <div class="jo-field">
-      <label class="jo-lbl">Job Role</label>
-      <select class="jo-sel" id="jo-f-role">${rolesOpts}</select>
+    <div class="jo-autofill-banner" id="jo-autofill-banner">
+      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Auto-filled from role template
     </div>
     <div class="jo-field">
-      <label class="jo-lbl">Title</label>
+      <label class="jo-lbl">Job Role</label>
+      <select class="jo-sel" id="jo-f-role" onchange="joRoleChanged(this.value)">${rolesOpts}</select>
+    </div>
+    <div class="jo-field">
+      <label class="jo-lbl" id="jo-f-title-lbl">Title</label>
       <input class="jo-input" id="jo-f-title" type="text" value="${job.title.replace(/"/g,'&quot;')}" placeholder="e.g. Senior Software Engineer">
     </div>
     <div class="jo-field">
-      <label class="jo-lbl">Job Description</label>
+      <label class="jo-lbl" id="jo-f-desc-lbl">Job Description</label>
       <textarea class="jo-textarea" id="jo-f-desc" placeholder="Describe the role, responsibilities, and requirements…">${job.description||''}</textarea>
     </div>
     <div class="jo-field">
@@ -5395,47 +6276,86 @@ function renderJODetails(){
     </div>`;
 }
 
+function joRoleChanged(newRole){
+  const job = joData.find(j=>j.id===joEditId); if(!job) return;
+  const tpl = jrGetTemplate(newRole) || JO_ROLE_TEMPLATES[newRole];
+  if(!tpl) return;
+
+  const hasEdits = (document.getElementById('jo-f-title')?.value?.trim() !== job.title) ||
+                   (document.getElementById('jo-f-desc')?.value !== (job.description||''));
+
+  const doApply = () => {
+    document.getElementById('jo-f-title').value = tpl.title;
+    document.getElementById('jo-f-desc').value  = tpl.description;
+    // update pipeline on job object immediately so switching tabs picks it up
+    job.pipeline = tpl.pipeline.map(s=>({...s}));
+    joShowAutofillBanner();
+  };
+
+  if(hasEdits){
+    if(confirm('Changing role will reset the current title, description, and pipeline. Continue?')){
+      doApply();
+    } else {
+      // revert select to previous role
+      document.getElementById('jo-f-role').value = job.role;
+    }
+  } else {
+    doApply();
+  }
+}
+
+function joShowAutofillBanner(){
+  const banner = document.getElementById('jo-autofill-banner');
+  if(!banner) return;
+  banner.classList.add('show');
+  setTimeout(()=>{ banner.classList.remove('show'); }, 3000);
+}
+
 function renderJOPipeline(){
   const job = joData.find(j=>j.id===joEditId); if(!job) return;
   normalizePipeline(job);
   const body = document.getElementById('jo-panel-body');
   body.innerHTML = `
-    <p style="font-size:11.5px;color:var(--t3);margin-bottom:12px">Drag to reorder. Changes apply to this job opening only.</p>
-    <ul class="jp-list" id="jp-list"></ul>
-    <div class="jp-add-form" id="jp-add-form">
-      <div class="jp-add-form-inner">
-        <div class="jp-add-form-title">New Stage</div>
-        <div class="jo-field" style="margin-bottom:10px">
-          <label class="jo-lbl">Stage Name</label>
-          <input class="jo-input" id="jp-af-name" type="text" placeholder="e.g. Technical Screen" maxlength="32">
-          <div class="jp-err" id="jp-af-name-err">Stage name is required</div>
-        </div>
-        <div class="jo-field" style="margin-bottom:10px">
-          <label class="jo-lbl">Stage Type</label>
-          <select class="jo-sel" id="jp-af-type" onchange="jpTypeChange()">
-            <option value="">Select type…</option>
-            ${JP_TYPES.map(t=>`<option value="${t}">${t}</option>`).join('')}
-          </select>
-          <div class="jp-err" id="jp-af-type-err">Stage type is required</div>
-        </div>
-        <div class="jp-type-hint" id="jp-type-hint"></div>
-        <div class="jo-field" style="margin-bottom:10px">
-          <label class="jo-lbl">Description <span class="jo-lbl-hint">Optional</span></label>
-          <textarea class="jo-textarea" id="jp-af-desc" placeholder="Describe what happens in this stage…" style="min-height:64px"></textarea>
-        </div>
-        <div class="jp-form-actions">
-          <button class="jp-cancel-btn" onclick="jpCancelAdd()">Cancel</button>
-          <button class="jp-confirm-btn" onclick="jpConfirmAdd()">Add Stage</button>
+    <div style="margin-bottom:24px">
+      <div class="jp-section-label">Stages</div>
+      <ul class="jp-list" id="jp-list"></ul>
+      <div class="jp-add-form" id="jp-add-form">
+        <div class="jp-add-form-inner">
+          <div class="jp-add-form-title">New Stage</div>
+          <div class="jo-field" style="margin-bottom:10px">
+            <label class="jo-lbl">Stage Name</label>
+            <input class="jo-input" id="jp-af-name" type="text" placeholder="e.g. Technical Screen" maxlength="32">
+            <div class="jp-err" id="jp-af-name-err">Stage name is required</div>
+          </div>
+          <div class="jo-field" style="margin-bottom:10px">
+            <label class="jo-lbl">Stage Type</label>
+            <select class="jo-sel" id="jp-af-type" onchange="jpTypeChange()">
+              <option value="">Select type…</option>
+              ${JP_TYPES.map(t=>`<option value="${t}">${t}</option>`).join('')}
+            </select>
+            <div class="jp-err" id="jp-af-type-err">Stage type is required</div>
+          </div>
+          <div class="jp-type-hint" id="jp-type-hint"></div>
+          <div class="jo-field" style="margin-bottom:10px">
+            <label class="jo-lbl">Description <span class="jo-lbl-hint">Optional</span></label>
+            <textarea class="jo-textarea" id="jp-af-desc" placeholder="Describe what happens in this stage…" style="min-height:64px"></textarea>
+          </div>
+          <div class="jp-form-actions">
+            <button class="jp-cancel-btn" onclick="jpCancelAdd()">Cancel</button>
+            <button class="jp-confirm-btn" onclick="jpConfirmAdd()">Add Stage</button>
+          </div>
         </div>
       </div>
+      <button class="jp-add" id="jp-add-btn" onclick="jpAddStage()">
+        <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        + Add Stage
+      </button>
     </div>
-    <button class="jp-add" id="jp-add-btn" onclick="jpAddStage()">
-      <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Add Stage
-    </button>
-    <div class="jp-preview">
-      <div class="jp-preview-ttl">Pipeline Preview</div>
-      <div class="jp-preview-flow" id="jp-preview-flow"></div>
+    <div>
+      <div class="jp-section-label">Pipeline Preview</div>
+      <div class="jp-preview">
+        <div class="jp-preview-flow" id="jp-preview-flow"></div>
+      </div>
     </div>`;
   renderJPList();
 }
