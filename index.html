@@ -90,28 +90,56 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 .search-inline input::placeholder{color:var(--t3)}
 
 /* FILTER BAR – single-line scroll + pinned Clear all */
-/* hidden by default; collapses to 0 when no filters active */
+/* ── FILTER BAR – single horizontal scrollable row ── */
 .filter-bar-wrap{display:flex;align-items:center;gap:8px;overflow:hidden;max-height:0;margin-bottom:0;opacity:0;pointer-events:none;transition:max-height .2s ease,margin-bottom .2s ease,opacity .15s ease}
 .filter-bar-wrap.has-filters{max-height:44px;margin-bottom:10px;opacity:1;pointer-events:auto}
-/* scroll zone wrapper – holds the scrollable bar + the right-fade overlay */
 .filter-scroll-wrap{position:relative;flex:1;min-width:0}
 .filter-bar{display:flex;align-items:center;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none}
 .filter-bar::-webkit-scrollbar{display:none}
-/* right-edge fade shown when chips overflow */
-.filter-fade-r{position:absolute;top:0;right:0;height:100%;width:52px;background:linear-gradient(to right,transparent,var(--surface));pointer-events:none;opacity:0;transition:opacity .15s}
+.filter-fade-r{position:absolute;top:0;right:0;height:100%;width:44px;background:linear-gradient(to right,transparent,var(--surface));pointer-events:none;opacity:0;transition:opacity .15s}
 .filter-fade-r.show{opacity:1}
-/* chips list – never wraps */
-#filter-chips{display:inline-flex;align-items:center;gap:5px;flex-wrap:nowrap;white-space:nowrap;padding:1px 0}
-.chip{display:inline-flex;align-items:center;gap:3px;padding:3px 8px 3px 9px;background:var(--accent-bg);color:var(--accent-dark);border-radius:20px;font-size:11px;font-weight:500;cursor:pointer;transition:background .1s;flex-shrink:0}
-.chip:hover{background:#dbeafe}
-.chip-x{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;font-size:10px;line-height:1;background:rgba(37,99,235,.18);cursor:pointer;transition:background .1s}
-.chip-x:hover{background:rgba(37,99,235,.38)}
-/* "+N more" / "Show less" overflow pill */
-.chip-more{display:inline-flex;align-items:center;padding:3px 10px;background:var(--surface);color:var(--t2);border:1px dashed var(--border);border-radius:20px;font-size:11px;font-weight:500;cursor:pointer;flex-shrink:0;transition:background .1s,color .1s,border-color .1s}
-.chip-more:hover{background:var(--accent-bg);color:var(--accent-dark);border-color:var(--accent)}
-/* pinned Clear all – lives outside the scroll zone, always visible */
-.clear-link{flex-shrink:0;white-space:nowrap;font-size:11.5px;font-weight:500;color:var(--t2);cursor:pointer;padding:2px 6px;border-radius:4px;transition:color .1s}
-.clear-link:hover{color:var(--red)}
+/* chips list – single row, no wrap */
+#filter-chips{display:inline-flex;align-items:center;gap:6px;flex-wrap:nowrap;white-space:nowrap;padding:1px 0}
+/* base chip */
+.chip{display:inline-flex;align-items:center;gap:3px;padding:3px 7px 3px 9px;border-radius:20px;font-size:11px;font-weight:500;cursor:pointer;transition:all .1s;flex-shrink:0;border:1.5px solid transparent}
+/* Stage – blue */
+.chip-stage{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+.chip-stage:hover{background:#dbeafe;border-color:#93c5fd}
+.chip-stage .chip-x{background:rgba(29,78,216,.14)}
+.chip-stage .chip-x:hover{background:rgba(29,78,216,.28)}
+/* Status – green (Shortlisted / Hired) */
+.chip-s-green{background:#dcfce7;color:#15803d;border-color:#86efac}
+.chip-s-green:hover{background:#bbf7d0;border-color:#4ade80}
+.chip-s-green .chip-x{background:rgba(21,128,61,.14)}
+.chip-s-green .chip-x:hover{background:rgba(21,128,61,.28)}
+/* Status – amber (On Hold) */
+.chip-s-amber{background:#fef3c7;color:#92400e;border-color:#fcd34d}
+.chip-s-amber:hover{background:#fde68a;border-color:#f59e0b}
+.chip-s-amber .chip-x{background:rgba(146,64,14,.12)}
+.chip-s-amber .chip-x:hover{background:rgba(146,64,14,.24)}
+/* Status – red (Rejected) */
+.chip-s-red{background:#fee2e2;color:#b91c1c;border-color:#fca5a5}
+.chip-s-red:hover{background:#fecaca;border-color:#f87171}
+.chip-s-red .chip-x{background:rgba(185,28,28,.12)}
+.chip-s-red .chip-x:hover{background:rgba(185,28,28,.24)}
+/* Status – blue (In Progress) */
+.chip-s-blue{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+.chip-s-blue:hover{background:#dbeafe;border-color:#93c5fd}
+.chip-s-blue .chip-x{background:rgba(29,78,216,.14)}
+.chip-s-blue .chip-x:hover{background:rgba(29,78,216,.28)}
+/* Other – neutral */
+.chip-other{background:#f4f5f7;color:#4b5563;border-color:#e5e7eb}
+.chip-other:hover{background:#e9eaec;border-color:#d1d5db}
+.chip-other .chip-x{background:rgba(75,85,99,.12)}
+.chip-other .chip-x:hover{background:rgba(75,85,99,.24)}
+/* x button */
+.chip-x{display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;border-radius:50%;font-size:10px;line-height:1;cursor:pointer;transition:background .1s;flex-shrink:0}
+/* "+N more" overflow pill */
+.chip-more{display:inline-flex;align-items:center;padding:3px 9px;background:var(--surface);color:var(--t2);border:1.5px dashed var(--border);border-radius:20px;font-size:11px;font-weight:500;cursor:pointer;flex-shrink:0;transition:all .1s}
+.chip-more:hover{background:var(--accent-bg);color:var(--accent);border-color:#93c5fd;border-style:solid}
+/* pinned Clear all */
+.clear-link{flex-shrink:0;white-space:nowrap;font-size:11px;font-weight:600;color:var(--t3);cursor:pointer;padding:3px 7px;border-radius:var(--r);border:1.5px solid var(--border);background:var(--surface);transition:all .1s}
+.clear-link:hover{color:var(--red);border-color:#fca5a5;background:#fff5f5}
 
 /* STATS BAR */
 .stats-bar{display:flex;align-items:center;padding:7px 20px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;gap:0;font-size:12px}
@@ -1202,6 +1230,74 @@ tbody td:first-child{padding-left:20px}
 .fm-act-prog:hover{background:#dbeafe}
 .fm-footer-hired {font-size:13px;font-weight:600;color:var(--green);display:flex;align-items:center;gap:6px}
 .fm-act-note     {font-size:11px;color:var(--t3);margin-left:auto;white-space:nowrap}
+
+/* ── SETTINGS LAYOUT ── */
+.stg-layout{display:flex;height:100%;overflow:hidden}
+.stg-sidenav{width:196px;min-width:196px;border-right:1px solid var(--border);padding:12px 8px;overflow-y:auto;flex-shrink:0;background:var(--surface)}
+.stg-sidenav-label{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;padding:10px 8px 3px;display:block}
+.stg-nav-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:var(--r);cursor:pointer;color:var(--t2);font-size:12.5px;font-weight:500;margin-bottom:1px;transition:background .1s,color .1s;white-space:nowrap}
+.stg-nav-item svg{flex-shrink:0;width:14px;height:14px}
+.stg-nav-item:hover{background:var(--bg);color:var(--t1)}
+.stg-nav-item.active{background:#eef2ff;color:var(--accent);font-weight:600}
+.stg-nav-item.disabled{opacity:.38;cursor:default;pointer-events:none}
+.stg-content{flex:1;overflow-y:auto}
+.stg-sec{padding:24px 28px;max-width:900px}
+.stg-sec-head{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border-light)}
+.stg-sec-title{font-size:15px;font-weight:700;color:var(--t1)}
+.stg-sec-sub{font-size:12px;color:var(--t2);margin-top:3px}
+/* template type badges */
+.tpl-type-tag{display:inline-flex;align-items:center;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.tpl-type-Rejection{background:var(--red-bg);color:var(--red)}
+.tpl-type-Interview{background:var(--accent-bg);color:var(--accent)}
+.tpl-type-Offer{background:var(--green-bg);color:var(--green)}
+.tpl-type-General{background:var(--bg);color:var(--t2);border:1px solid var(--border)}
+.tpl-edited{font-size:11.5px;color:var(--t3)}
+.tpl-empty{text-align:center;padding:44px 20px;color:var(--t3);font-size:13px}
+/* rejection reasons */
+.rr-wrap{border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-top:12px}
+.rr-item{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--border-light);background:var(--surface);transition:background .1s}
+.rr-item:last-child{border-bottom:none}
+.rr-item:hover{background:var(--bg)}
+.rr-drag{color:var(--t3);cursor:grab;display:flex;align-items:center;flex-shrink:0;opacity:.5}
+.rr-text{flex:1;font-size:13px;color:var(--t1)}
+.rr-edit-input{flex:1;height:28px;border:1.5px solid #93c5fd;border-radius:var(--r);padding:0 8px;font-size:12.5px;font-family:inherit;outline:none;background:#fff}
+.rr-actions{display:flex;gap:4px;flex-shrink:0;opacity:0;transition:opacity .1s}
+.rr-item:hover .rr-actions,.rr-item.editing .rr-actions{opacity:1}
+.rr-add-box{margin-top:12px;display:flex;gap:7px;padding:10px 14px;border:1px solid var(--border);border-radius:var(--r2);background:var(--surface)}
+.rr-add-input{flex:1;height:30px;border:1.5px solid var(--border);border-radius:var(--r);padding:0 9px;font-size:12.5px;font-family:inherit;outline:none;background:var(--bg);transition:border-color .12s}
+.rr-add-input:focus{border-color:#93c5fd;background:#fff}
+/* email settings */
+.es-form{max-width:480px;padding-top:6px}
+.es-field{margin-bottom:18px}
+.es-label{display:block;font-size:12px;font-weight:600;color:var(--t1);margin-bottom:5px}
+.es-sub{font-size:11px;color:var(--t3);margin-top:4px}
+.es-input{width:100%;height:34px;border:1.5px solid var(--border);border-radius:var(--r2);padding:0 10px;font-size:12.5px;font-family:inherit;outline:none;color:var(--t1);transition:border-color .12s}
+.es-input:focus{border-color:#93c5fd}
+.es-textarea{width:100%;min-height:80px;border:1.5px solid var(--border);border-radius:var(--r2);padding:8px 10px;font-size:12.5px;font-family:inherit;outline:none;resize:vertical;color:var(--t1);transition:border-color .12s}
+.es-textarea:focus{border-color:#93c5fd}
+.es-toggle-row{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg);border-radius:var(--r2);border:1.5px solid var(--border)}
+.es-toggle-info{flex:1}
+.es-toggle-title{font-size:12.5px;font-weight:600;color:var(--t1)}
+.es-toggle-desc{font-size:11.5px;color:var(--t2);margin-top:2px}
+.es-save-row{margin-top:22px;padding-top:16px;border-top:1px solid var(--border-light)}
+/* toggle switch */
+.sw-wrap{position:relative;display:inline-flex;align-items:center;cursor:pointer;user-select:none}
+.sw-inp{position:absolute;opacity:0;width:0;height:0}
+.sw-track{width:38px;height:22px;background:#d1d5db;border-radius:11px;transition:background .2s;position:relative;flex-shrink:0}
+.sw-track::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:8px;top:3px;left:3px;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .2s}
+.sw-inp:checked + .sw-track{background:var(--accent)}
+.sw-inp:checked + .sw-track::after{transform:translateX(16px)}
+/* template drawer fields */
+.tpl-field{margin-bottom:16px}
+.tpl-lbl{display:block;font-size:12px;font-weight:600;color:var(--t1);margin-bottom:5px}
+.tpl-input{width:100%;height:34px;border:1.5px solid var(--border);border-radius:var(--r2);padding:0 10px;font-size:12.5px;font-family:inherit;outline:none;color:var(--t1);background:var(--surface);transition:border-color .12s}
+.tpl-input:focus{border-color:#93c5fd}
+.tpl-select{width:100%;height:34px;border:1.5px solid var(--border);border-radius:var(--r2);padding:0 10px;font-size:12.5px;font-family:inherit;outline:none;color:var(--t1);background:var(--surface);transition:border-color .12s;cursor:pointer}
+.tpl-select:focus{border-color:#93c5fd}
+.tpl-body-ta{width:100%;min-height:180px;border:1.5px solid var(--border);border-radius:var(--r2);padding:9px 10px;font-size:12px;font-family:'Inter',monospace;line-height:1.6;outline:none;resize:vertical;color:var(--t1);background:var(--surface);transition:border-color .12s}
+.tpl-body-ta:focus{border-color:#93c5fd}
+.tpl-vars-hint{margin-top:6px;font-size:11px;color:var(--t3);line-height:1.7}
+.tpl-vars-hint code{background:var(--bg);padding:1px 5px;border-radius:3px;font-size:10.5px;color:var(--t2)}
 </style>
 </head>
 <body>
@@ -1755,6 +1851,121 @@ tbody td:first-child{padding-left:20px}
     </div>
   </aside>
 </div>
+
+  <!-- ═══════════ SETTINGS SCREEN ═══════════ -->
+  <div class="content-wrap" id="screen-settings" style="display:none">
+    <div class="stg-layout">
+
+      <!-- Left nav -->
+      <div class="stg-sidenav">
+        <span class="stg-sidenav-label">General</span>
+        <div class="stg-nav-item disabled">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0112 0v2"/></svg>
+          <span>Profile</span>
+        </div>
+        <div class="stg-nav-item disabled">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          <span>Appearance</span>
+        </div>
+        <span class="stg-sidenav-label">Communication</span>
+        <div class="stg-nav-item active" id="stg-nav-email" onclick="stgSelectSection('email')">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>Email & Communication</span>
+        </div>
+        <span class="stg-sidenav-label">System</span>
+        <div class="stg-nav-item disabled">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <span>Notifications</span>
+        </div>
+        <div class="stg-nav-item disabled">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+          <span>Integrations</span>
+        </div>
+        <div class="stg-nav-item disabled">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          <span>Security</span>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="stg-content" id="stg-content">
+
+        <!-- Email & Communication section -->
+        <div id="stg-sec-email" class="stg-sec">
+          <div class="stg-sec-head">
+            <div class="stg-sec-title">Email & Communication</div>
+            <div class="stg-sec-sub">Manage email templates, rejection reasons, and sending configuration.</div>
+          </div>
+          <div class="jo-tabs" style="margin:-4px 0 0;padding:0;border-bottom:1px solid var(--border)">
+            <div class="jo-tab active" id="stg-tab-templates" onclick="stgSwitchTab('templates')">Templates</div>
+            <div class="jo-tab"        id="stg-tab-reasons"   onclick="stgSwitchTab('reasons')">Rejection Reasons</div>
+            <div class="jo-tab"        id="stg-tab-esettings" onclick="stgSwitchTab('esettings')">Email Settings</div>
+          </div>
+
+          <!-- ── TEMPLATES PANE ── -->
+          <div id="stg-pane-templates">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 0 10px">
+              <span style="font-size:12px;color:var(--t2)" id="stg-tpl-count"></span>
+              <button class="btn btn-accent btn-sm" onclick="tplOpenDrawer(null)">
+                <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                New Template
+              </button>
+            </div>
+            <div class="jo-table-wrap" style="border:1px solid var(--border);border-radius:var(--r2);overflow:hidden">
+              <table class="jo-table" id="stg-tpl-table" style="margin:0">
+                <thead>
+                  <tr>
+                    <th style="width:30%">Name</th>
+                    <th style="width:14%">Type</th>
+                    <th style="width:30%">Subject</th>
+                    <th style="width:14%">Last Edited</th>
+                    <th style="width:12%;text-align:right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="stg-tpl-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ── REJECTION REASONS PANE ── -->
+          <div id="stg-pane-reasons" style="display:none">
+            <div style="padding:16px 0 6px">
+              <div style="font-size:12.5px;font-weight:600;color:var(--t1)">Rejection Reasons</div>
+              <div style="font-size:11.5px;color:var(--t2);margin-top:3px">These reasons appear in the Reject Candidate modal.</div>
+            </div>
+            <div class="rr-wrap" id="rr-list"></div>
+            <div class="rr-add-box">
+              <input class="rr-add-input" type="text" id="rr-new-input" placeholder="Add a new reason…" onkeydown="if(event.key==='Enter')rrAddReason()">
+              <button class="btn btn-accent btn-sm" onclick="rrAddReason()">Add</button>
+            </div>
+          </div>
+
+          <!-- ── EMAIL SETTINGS PANE ── -->
+          <div id="stg-pane-esettings" style="display:none">
+            <div id="es-form" class="es-form"></div>
+          </div>
+
+        </div><!-- /stg-sec-email -->
+      </div><!-- /stg-content -->
+
+    </div><!-- /stg-layout -->
+
+    <!-- Template drawer -->
+    <div class="jo-backdrop" id="tpl-backdrop" onclick="tplCloseDrawer()"></div>
+    <aside class="jo-panel" id="tpl-panel">
+      <div class="jo-panel-head">
+        <div class="jo-panel-title-row">
+          <span class="jo-panel-title" id="tpl-panel-title">New Template</span>
+          <button class="jo-panel-x" onclick="tplCloseDrawer()">×</button>
+        </div>
+      </div>
+      <div class="jo-panel-body" id="tpl-panel-body" style="padding:20px"></div>
+      <div class="jo-panel-foot">
+        <button class="jo-save-btn" onclick="tplSaveDrawer()">Save Template</button>
+      </div>
+    </aside>
+
+  </div><!-- /screen-settings -->
 
 </div>
 
@@ -2548,8 +2759,8 @@ const STATUS_DEFS = [
    active* = currently applied (drives the table)
    pending* = in-progress inside an open popover
 ═══════════════════════════════════════════ */
-const MAX_VISIBLE_CHIPS = 5;   // max chips before "+N more" collapses them
-let chipsExpanded = false;     // whether overflow chips are shown
+const MAX_VISIBLE_CHIPS = 8;   // max chips before "+N more"
+let chipsExpanded = false;
 
 let activeStages      = new Set();
 let activeStatuses    = new Set();
@@ -2723,7 +2934,7 @@ function applyFilters() {
   updateBulkBar();
 }
 
-/* ── chips container: renders active-filter chips inside #filter-chips ── */
+/* ── chips container: single horizontal row, color-coded by filter type ── */
 function renderChips() {
   const chipsEl  = document.getElementById('filter-chips');
   const clearBtn = document.getElementById('clear-all-btn');
@@ -2732,55 +2943,63 @@ function renderChips() {
   const hasAny = activeStages.size || activeStatuses.size || activeSkills.size || activeExp.size
               || activeCurrCompany.size || activePrevCompany.size || activeGithubScore.size;
 
-  /* ── build the full ordered list of chip specs ── */
-  const allChips = [];
-  activeStages.forEach(v      => allChips.push({ label:`Stage: ${v}`,    remove:()=>{ activeStages.delete(v);      pendingStages.delete(v);      applyFilters(); }, pop:'stage-pop'        }));
-  activeStatuses.forEach(v    => allChips.push({ label:`Status: ${v}`,   remove:()=>{ activeStatuses.delete(v);    pendingStatuses.delete(v);    applyFilters(); }, pop:'status-pop'       }));
-  activeSkills.forEach(v      => allChips.push({ label:`Skill: ${v}`,    remove:()=>{ activeSkills.delete(v);      pendingSkills.delete(v);      applyFilters(); }, pop:'skills-pop'       }));
-  activeExp.forEach(v         => { const d=EXP_DEFS.find(x=>x.value===v);
-                                   allChips.push({ label:`Exp: ${d?d.label:v}`,        remove:()=>{ activeExp.delete(v);          pendingExp.delete(v);          applyFilters(); }, pop:'exp-pop'          }); });
-  activeCurrCompany.forEach(v => allChips.push({ label:`Curr Co: ${v}`,  remove:()=>{ activeCurrCompany.delete(v); pendingCurrCompany.delete(v); applyFilters(); }, pop:'curr-company-pop' }));
-  activePrevCompany.forEach(v => allChips.push({ label:`Prev Co: ${v}`,  remove:()=>{ activePrevCompany.delete(v); pendingPrevCompany.delete(v); applyFilters(); }, pop:'prev-company-pop' }));
-  activeGithubScore.forEach(v => { const d=GITHUB_SCORE_DEFS.find(x=>x.value===v);
-                                   allChips.push({ label:`GitHub: ${d?d.label.split(' ')[0]:v}`, remove:()=>{ activeGithubScore.delete(v); pendingGithubScore.delete(v); applyFilters(); }, pop:'github-score-pop' }); });
+  /* status → semantic chip class */
+  const statusCls = v => {
+    if(v === 'Shortlisted' || v === 'Hired') return 'chip-s-green';
+    if(v === 'On Hold')                       return 'chip-s-amber';
+    if(v === 'Rejected')                      return 'chip-s-red';
+    return 'chip-s-blue'; // In Progress
+  };
 
-  /* ── decide how many to show ── */
-  const total      = allChips.length;
-  const showAll    = chipsExpanded || total <= MAX_VISIBLE_CHIPS;
-  const visible    = showAll ? total : MAX_VISIBLE_CHIPS;
-  const hiddenCnt  = total - visible;
+  /* flat ordered chip list: stages → statuses → skills → exp → company → github */
+  const all = [];
+  activeStages.forEach(v => all.push({ text:v, cls:'chip-stage', pop:'stage-pop',
+    remove:()=>{ activeStages.delete(v); pendingStages.delete(v); applyFilters(); } }));
+  activeStatuses.forEach(v => all.push({ text:v, cls:statusCls(v), pop:'status-pop',
+    remove:()=>{ activeStatuses.delete(v); pendingStatuses.delete(v); applyFilters(); } }));
+  activeSkills.forEach(v => all.push({ text:v, cls:'chip-other', pop:'skills-pop',
+    remove:()=>{ activeSkills.delete(v); pendingSkills.delete(v); applyFilters(); } }));
+  activeExp.forEach(v => {
+    const d = EXP_DEFS.find(x => x.value === v);
+    all.push({ text: d ? d.label : v, cls:'chip-other', pop:'exp-pop',
+      remove:()=>{ activeExp.delete(v); pendingExp.delete(v); applyFilters(); } });
+  });
+  activeCurrCompany.forEach(v => all.push({ text:v, cls:'chip-other', pop:'curr-company-pop',
+    remove:()=>{ activeCurrCompany.delete(v); pendingCurrCompany.delete(v); applyFilters(); } }));
+  activePrevCompany.forEach(v => all.push({ text:v, cls:'chip-other', pop:'prev-company-pop',
+    remove:()=>{ activePrevCompany.delete(v); pendingPrevCompany.delete(v); applyFilters(); } }));
+  activeGithubScore.forEach(v => {
+    const d = GITHUB_SCORE_DEFS.find(x => x.value === v);
+    all.push({ text: d ? d.label.split(' ')[0] : v, cls:'chip-other', pop:'github-score-pop',
+      remove:()=>{ activeGithubScore.delete(v); pendingGithubScore.delete(v); applyFilters(); } });
+  });
 
-  /* ── render visible chips ── */
-  allChips.slice(0, visible).forEach(spec => chipsEl.appendChild(makeChip(spec.label, spec.remove, spec.pop)));
+  /* visible / overflow */
+  const total   = all.length;
+  const showAll = chipsExpanded || total <= MAX_VISIBLE_CHIPS;
+  const visible = showAll ? total : MAX_VISIBLE_CHIPS;
+  const hidden  = total - visible;
 
-  /* ── overflow pill ── */
-  if(hiddenCnt > 0) {
-    /* collapsed: show "+N more" */
+  all.slice(0, visible).forEach(spec => chipsEl.appendChild(makeChip(spec.text, spec.remove, spec.pop, spec.cls)));
+
+  if(hidden > 0){
     const more = document.createElement('div');
     more.className   = 'chip-more';
-    more.textContent = `+${hiddenCnt} more`;
-    more.title       = 'Show all filters';
+    more.textContent = `+${hidden} more`;
     more.onclick     = () => { chipsExpanded = true; renderChips(); };
     chipsEl.appendChild(more);
-  } else if(chipsExpanded && total > MAX_VISIBLE_CHIPS) {
-    /* expanded: show "Show less" to collapse */
+  } else if(chipsExpanded && total > MAX_VISIBLE_CHIPS){
     const less = document.createElement('div');
     less.className   = 'chip-more';
-    less.textContent = 'Show less';
-    less.title       = 'Collapse filters';
+    less.textContent = '− less';
     less.onclick     = () => { chipsExpanded = false; renderChips(); };
     chipsEl.appendChild(less);
   }
 
-  /* ── show/hide the whole filter bar (collapses when no filters) ── */
   document.querySelector('.filter-bar-wrap').classList.toggle('has-filters', !!hasAny);
-
-  /* ── pinned Clear all button (outside scroll zone) ── */
   clearBtn.style.display = hasAny ? '' : 'none';
 
-  /* ── highlight column header filter icons ── */
   highlightFilterIcons();
-
   checkFilterFade();
 }
 
@@ -2806,12 +3025,11 @@ function highlightFilterIcons() {
   });
 }
 
-function makeChip(label, onRemove, popId) {
+function makeChip(label, onRemove, popId, chipCls = 'chip-stage') {
   const chip = document.createElement('div');
-  chip.className = 'chip';
+  chip.className = `chip ${chipCls}`;
   chip.onclick = e => {
     if(!e.target.classList.contains('chip-x')) {
-      /* find the th with matching filter id, fall back to chip itself */
       const popToFilter = {
         'skills-pop':       'skills',
         'exp-pop':          'exp',
@@ -2823,9 +3041,8 @@ function makeChip(label, onRemove, popId) {
       };
       const filterId = popToFilter[popId];
       const th = filterId
-        ? document.querySelector(`#thead-row th[data-col-id]`)
-            && [...document.querySelectorAll('#thead-row th[data-col-id]')]
-               .find(t => { const c = COL_DEFS.find(col => col.id === t.dataset.colId); return c && c.filter === filterId; })
+        ? [...document.querySelectorAll('#thead-row th[data-col-id]')]
+            .find(t => { const c = COL_DEFS.find(col => col.id === t.dataset.colId); return c && c.filter === filterId; })
         : null;
       showPop(popId, th || chip);
     }
@@ -2843,7 +3060,7 @@ function clearAllFilters() {
   activeCurrCompany = new Set(); pendingCurrCompany = new Set();
   activePrevCompany = new Set(); pendingPrevCompany = new Set();
   activeGithubScore = new Set(); pendingGithubScore = new Set();
-  chipsExpanded = false;   // reset overflow expansion on full clear
+  chipsExpanded = false;
   applyFilters();
 }
 
@@ -3980,6 +4197,7 @@ function setNav(el){
   document.getElementById('screen-job-openings').style.display  = 'none';
   document.getElementById('screen-job-roles').style.display     = 'none';
   document.getElementById('screen-users').style.display         = 'none';
+  document.getElementById('screen-settings').style.display      = 'none';
   document.getElementById('add-cand-btn').style.display   = 'none';
   document.getElementById('create-jo-btn').style.display  = 'none';
   document.getElementById('create-jr-btn').style.display  = 'none';
@@ -3999,6 +4217,9 @@ function setNav(el){
     document.getElementById('screen-users').style.display = '';
     document.getElementById('create-usr-btn').style.display = '';
     renderUsrScreen();
+  } else if(label === 'Settings'){
+    document.getElementById('screen-settings').style.display = '';
+    renderStgScreen();
   }
 }
 
@@ -6119,7 +6340,23 @@ const JR_ROLE_DEFAULTS = {
   'Coordinator':     ()=>'Edit Access',
   'Reviewer':        ()=>'View Only',
 };
-const JR_USERS = ['Jatin','Yashvi','Rahul','Priya','Arjun','Divya','Karan'];
+const JR_USERS = ['Jatin Sharma','Yashvi Patel','Rahul Verma','Priya Nair','Arjun Singh','Divya Menon','Karan Mehta'];
+
+// Per-role chip colors (used in JO Users tab read view)
+const JR_ROLE_COLORS = {
+  'Admin':          { bg:'#ede9fe', color:'#7c3aed' },
+  'Hiring Manager': { bg:'#eff6ff', color:'#1d4ed8' },
+  'Recruiter':      { bg:'#dcfce7', color:'#15803d' },
+  'Interviewer':    { bg:'#fef3c7', color:'#92400e' },
+  'Coordinator':    { bg:'#fff7ed', color:'#c2410c' },
+  'Reviewer':       { bg:'#f3f4f6', color:'#4b5563' },
+};
+
+// Resolve a stored user name (full or first) to their global role from usrData
+function joUrGetRole(name){
+  const u = usrData.find(u => u.name === name || u.name.split(' ')[0] === name);
+  return u?.role || null;
+}
 
 // Seed jrData from JO_ROLE_TEMPLATES
 let jrData = Object.entries(JO_ROLE_TEMPLATES).map(([roleName, tpl], i) => ({
@@ -6546,9 +6783,9 @@ let joData = [
     sheetId:'1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms',
     pipeline:['Screening','R1','R2','Assignment','Final'],
     users:[
-      {id:1, user:'Yashvi',  type:'Hiring Manager', permissions:{}},
-      {id:2, user:'Rahul',   type:'Recruiter',      permissions:{}},
-      {id:3, user:'Jatin',   type:'Interviewer',    permissions:{}},
+      {id:1, user:'Yashvi Patel',  type:'Hiring Manager', permissions:{}},
+      {id:2, user:'Rahul Verma',   type:'Recruiter',      permissions:{}},
+      {id:3, user:'Jatin Sharma',   type:'Interviewer',    permissions:{}},
     ]},
   { id:2, title:'Frontend Engineer', role:'Frontend Engineer', active:true,
     integration:'Google Sheets', lastSync:'3 hrs ago',
@@ -6557,8 +6794,8 @@ let joData = [
     sheetId:'1Cx2NWt1YRA5nGNLMvCeBAkhmVVrptmcs85PgXF3vpnt',
     pipeline:['Screening','R1','R2','Final'],
     users:[
-      {id:1, user:'Priya',   type:'Hiring Manager', permissions:{}},
-      {id:2, user:'Arjun',   type:'Interviewer',    permissions:{}},
+      {id:1, user:'Priya Nair',   type:'Hiring Manager', permissions:{}},
+      {id:2, user:'Arjun Singh',   type:'Interviewer',    permissions:{}},
     ]},
   { id:3, title:'Backend Engineer', role:'Backend Engineer', active:true,
     integration:'Google Sheets', lastSync:'2 days ago',
@@ -6567,10 +6804,10 @@ let joData = [
     sheetId:'1Dx3OXu2ZSB6oHOMNwDfCBlimWWsqumdt96QhYG4wqou',
     pipeline:['Screening','R1','R2','System Design','Final'],
     users:[
-      {id:1, user:'Karan',   type:'Hiring Manager', permissions:{}},
+      {id:1, user:'Karan Mehta',   type:'Hiring Manager', permissions:{}},
       {id:2, user:'Neha',    type:'Recruiter',      permissions:{}},
       {id:3, user:'Ankit',   type:'Interviewer',    permissions:{}},
-      {id:4, user:'Rahul',   type:'Coordinator',    permissions:{}},
+      {id:4, user:'Rahul Verma',   type:'Coordinator',    permissions:{}},
     ]},
   { id:4, title:'Senior Data Scientist', role:'Data Scientist', active:false,
     integration:null, lastSync:'—',
@@ -6586,8 +6823,8 @@ let joData = [
     sheetId:'1Ex4PYv3ATС7pIPONxEgDCmjnXXtrvneo07RiZH5xrpv',
     pipeline:['Screening','R1','R2','Final'],
     users:[
-      {id:1, user:'Arjun',   type:'Hiring Manager', permissions:{}},
-      {id:2, user:'Jatin',   type:'Interviewer',    permissions:{}},
+      {id:1, user:'Arjun Singh',   type:'Hiring Manager', permissions:{}},
+      {id:2, user:'Jatin Sharma',   type:'Interviewer',    permissions:{}},
     ]},
   { id:6, title:'Product Manager', role:'Product Manager', active:true,
     integration:'Google Sheets', lastSync:'5 hrs ago',
@@ -6596,8 +6833,8 @@ let joData = [
     sheetId:'1Fx5QZw4BUD8qJQPOyFhEDnkoYYuvsonf18SjAI6ysqw',
     pipeline:['Screening','R1','Case Study','Final'],
     users:[
-      {id:1, user:'Yashvi',  type:'Admin',          permissions:{}},
-      {id:2, user:'Priya',   type:'Hiring Manager', permissions:{}},
+      {id:1, user:'Yashvi Patel',  type:'Admin',          permissions:{}},
+      {id:2, user:'Priya Nair',   type:'Hiring Manager', permissions:{}},
       {id:3, user:'Neha',    type:'Recruiter',      permissions:{}},
     ]},
   { id:7, title:'UX Designer', role:'Designer', active:true,
@@ -6616,8 +6853,8 @@ let joData = [
     sheetId:'1Gx6RAs5CVE9rKRQPzGiFeolZZvvwtonG29TkBJ7ztRx',
     pipeline:['Screening','R1','Technical Test','Final'],
     users:[
-      {id:1, user:'Karan',   type:'Hiring Manager', permissions:{}},
-      {id:2, user:'Rahul',   type:'Coordinator',    permissions:{}},
+      {id:1, user:'Karan Mehta',   type:'Hiring Manager', permissions:{}},
+      {id:2, user:'Rahul Verma',   type:'Coordinator',    permissions:{}},
     ]},
   { id:9, title:'Full Stack Engineer', role:'Full Stack Engineer', active:false,
     integration:null, lastSync:'—',
@@ -6634,8 +6871,8 @@ let joData = [
     pipeline:['Screening','R1','SQL Test','Final'],
     users:[
       {id:1, user:'Neha',    type:'Hiring Manager', permissions:{}},
-      {id:2, user:'Yashvi',  type:'Recruiter',      permissions:{}},
-      {id:3, user:'Jatin',   type:'Interviewer',    permissions:{}},
+      {id:2, user:'Yashvi Patel',  type:'Recruiter',      permissions:{}},
+      {id:3, user:'Jatin Sharma',   type:'Interviewer',    permissions:{}},
       {id:4, user:'Ankit',   type:'Interviewer',    permissions:{}},
     ]},
   { id:11, title:'iOS Engineer', role:'Software Engineer', active:true,
@@ -6645,8 +6882,8 @@ let joData = [
     sheetId:'1Ix8TCu7EXG1tMTSR1IkHgqnBBpxyvoH41VmDL9BvTzz',
     pipeline:['Screening','R1','R2','Final'],
     users:[
-      {id:1, user:'Arjun',   type:'Hiring Manager', permissions:{}},
-      {id:2, user:'Priya',   type:'Recruiter',      permissions:{}},
+      {id:1, user:'Arjun Singh',   type:'Hiring Manager', permissions:{}},
+      {id:2, user:'Priya Nair',   type:'Recruiter',      permissions:{}},
     ]},
   { id:12, title:'Security Engineer', role:'DevOps Engineer', active:false,
     integration:null, lastSync:'—',
@@ -6655,7 +6892,7 @@ let joData = [
     sheetId:'',
     pipeline:['Screening','R1','R2','Final'],
     users:[
-      {id:1, user:'Karan',   type:'Admin',          permissions:{}},
+      {id:1, user:'Karan Mehta',   type:'Admin',          permissions:{}},
     ]},
   { id:13, title:'ML Engineer', role:'Data Scientist', active:true,
     integration:'Google Sheets', lastSync:'4 days ago',
@@ -6664,7 +6901,7 @@ let joData = [
     sheetId:'1Jx9UDv8FYH2uNUTS2JlIhroCCqyzwpnI52WnEM0CwAA',
     pipeline:['Screening','R1','ML Design','Take-home','Final'],
     users:[
-      {id:1, user:'Rahul',   type:'Hiring Manager', permissions:{}},
+      {id:1, user:'Rahul Verma',   type:'Hiring Manager', permissions:{}},
       {id:2, user:'Neha',    type:'Interviewer',    permissions:{}},
     ]},
 ];
@@ -6975,7 +7212,7 @@ function joRenderUserAvatars(job){
   if(!job.users||!job.users.length) return `<span style="color:var(--t3);font-size:12px">—</span>`;
   const MAX=3, shown=job.users.slice(0,MAX), extra=job.users.length-MAX;
   // tooltip lines stored as data attr; rendered via portal to avoid overflow clipping
-  const tipLines=job.users.map(u=>`${u.user} — ${u.type}`).join('|');
+  const tipLines=job.users.map(u=>`${u.user} — ${joUrGetRole(u.user)||u.type||'User'}`).join('|');
   const avatars=shown.map(u=>{
     const init=u.user.split(' ').map(p=>p[0]).join('').slice(0,2).toUpperCase();
     return `<div class="jo-av" style="background:${joAvColor(u.user)}">${init}</div>`;
@@ -7433,32 +7670,43 @@ function renderJOUsers(){
 function joUrBuildFormHTML(u){
   const job = joData.find(j=>j.id===joEditId); if(!job) return '';
   const pipeline = (job.pipeline||[]).map(s => typeof s==='object'?s.name:s);
-  const userOpts = JR_USERS.map(n=>`<option value="${n}"${u&&n===u.user?' selected':''}>${n}</option>`).join('');
-  const typeOpts = JR_ROLE_TYPES.map(t=>`<option value="${t}"${u&&t===u.type?' selected':''}>${t}</option>`).join('');
-  const permRows = pipeline.map((name,i)=>{
-    const fn  = u ? (JR_ROLE_DEFAULTS[u.type]||(()=>'View Only')) : (()=>'View Only');
-    const sel = u ? (u.permissions?.[name] || fn(pipeline[i]||'')) : 'View Only';
+
+  // User options from global usrData (single source of truth)
+  const userOpts = usrData.map(ud =>
+    `<option value="${ud.name}"${u && ud.name === u.user ? ' selected' : ''}>${ud.name}</option>`
+  ).join('');
+
+  // Pre-fill permissions from stored data (or role defaults if adding)
+  const role = u ? joUrGetRole(u.user) : null;
+  const fn   = role ? (JR_ROLE_DEFAULTS[role] || (()=>'View Only')) : (()=>'View Only');
+  const permRows = pipeline.map((name, i) => {
+    const stageType = (job.pipeline[i] && typeof job.pipeline[i]==='object') ? job.pipeline[i].type : '';
+    const defLevel  = fn(stageType);
+    const sel = u ? (u.permissions?.[name] || defLevel) : 'View Only';
     return `<span class="jr-perm-stage" title="${name}">${name}</span>
       <select class="jr-perm-sel" data-stage="${name.replace(/"/g,'&quot;')}" data-sidx="${i}">
         ${JR_ACCESS_LEVELS.map(a=>`<option value="${a}"${a===sel?' selected':''}>${a}</option>`).join('')}
       </select>`;
   }).join('');
+
   const isEdit = !!u;
+  // Role hint shown below user select
+  const roleC   = role ? (JR_ROLE_COLORS[role] || { bg:'#f3f4f6', color:'#6b7280' }) : null;
+  const roleHint = role
+    ? `<span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--t2)">
+         Role from global Users: <span style="padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:600;background:${roleC.bg};color:${roleC.color}">${role}</span>
+       </span>`
+    : '';
+
   return `<div class="jr-ur-form-inner" style="margin-top:8px">
     <div style="font-size:11.5px;font-weight:700;color:var(--t1);margin-bottom:11px">${isEdit?'Edit User':'Add User'}</div>
-    <div class="jo-field" style="margin-bottom:10px">
+    <div class="jo-field" style="margin-bottom:12px">
       <label class="jo-lbl">User</label>
-      <select class="jo-sel" id="jo-ur-f-user">
+      <select class="jo-sel" id="jo-ur-f-user" onchange="joUrApplyDefaults()">
         <option value="">Select user…</option>${userOpts}
       </select>
+      <div id="jo-ur-role-hint" style="margin-top:6px;min-height:18px">${roleHint}</div>
       <div class="jp-err" id="jo-ur-f-user-err" style="display:none">Please select a user</div>
-    </div>
-    <div class="jo-field" style="margin-bottom:12px">
-      <label class="jo-lbl">Role Type</label>
-      <select class="jo-sel" id="jo-ur-f-type" onchange="joUrApplyDefaults()">
-        <option value="">Select role type…</option>${typeOpts}
-      </select>
-      <div class="jp-err" id="jo-ur-f-type-err" style="display:none">Please select a role type</div>
     </div>
     <div class="jo-field" style="margin-bottom:10px">
       <label class="jo-lbl">Stage Permissions</label>
@@ -7487,10 +7735,32 @@ function joUrBuildPermRows(defaults){
 }
 
 function joUrApplyDefaults(){
-  const type = document.getElementById('jo-ur-f-type')?.value; if(!type) return;
+  const userName = document.getElementById('jo-ur-f-user')?.value;
+  const hintEl   = document.getElementById('jo-ur-role-hint');
+
+  if(!userName){
+    if(hintEl) hintEl.innerHTML = '';
+    return;
+  }
+
+  const role = joUrGetRole(userName);
+
+  // Update inline role hint
+  if(hintEl){
+    if(role){
+      const c = JR_ROLE_COLORS[role] || { bg:'#f3f4f6', color:'#6b7280' };
+      hintEl.innerHTML = `<span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--t2)">
+        Role from global Users: <span style="padding:1px 8px;border-radius:20px;font-size:10.5px;font-weight:600;background:${c.bg};color:${c.color}">${role}</span>
+      </span>`;
+    } else {
+      hintEl.innerHTML = `<span style="font-size:11px;color:var(--t3)">User not found in global Users list</span>`;
+    }
+  }
+
+  if(!role) return;
   const job = joData.find(j=>j.id===joEditId); if(!job) return;
-  const fn = JR_ROLE_DEFAULTS[type] || (()=>'View Only');
-  const pipeline = (job.pipeline||[]).map(s => typeof s==='object'?{...s}:({name:s,type:''}));
+  const fn  = JR_ROLE_DEFAULTS[role] || (()=>'View Only');
+  const pipeline = (job.pipeline||[]).map(s => typeof s==='object'?{...s}:{name:s,type:''});
   const defaults = {};
   pipeline.forEach(s => { defaults[s.name] = fn(s.type||''); });
   joUrBuildPermRows(defaults);
@@ -7512,17 +7782,29 @@ function joUrRenderList(){
         const cls = JR_ACCESS_CLASS[access] || 'view';
         return `<div class="jr-ur-perm-row"><span class="jr-ur-stage-name">${stage}</span><span class="jr-ur-access ${cls}">${access}</span></div>`;
       }).join('');
+      // Resolve role from global usrData; fall back to stored type for legacy entries
+      const role    = joUrGetRole(u.user) || u.type || '—';
+      const roleC   = JR_ROLE_COLORS[role] || { bg:'#f3f4f6', color:'#6b7280' };
+      const initials= u.user.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+
       // edit actions hidden while this card is in edit mode
       const readView = `
-        <div class="jr-ur-head">
-          <span class="jr-ur-name">${u.user}</span>
-          <span class="jr-ur-type">${u.type}</span>
+        <div class="jr-ur-head" style="margin-bottom:0">
+          <div class="jo-av" style="background:${joAvColor(u.user)};width:28px;height:28px;font-size:10.5px;border:none;margin-left:0;flex-shrink:0">${initials}</div>
+          <div style="flex:1;min-width:0">
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+              <span class="jr-ur-name">${u.user}</span>
+              <span class="jr-ur-type" style="background:${roleC.bg};color:${roleC.color}">${role}</span>
+            </div>
+          </div>
           <div class="jr-ur-actions">
             <button class="jr-ur-edit" onclick="joUrStartEdit(${u.id})" title="Edit">${ICO_EDIT}</button>
             <button class="jr-ur-del"  onclick="joUrDelete(${u.id})"  title="Remove">${ICO_X}</button>
           </div>
         </div>
-        <div class="jr-ur-perms">${permRows || '<span style="font-size:11px;color:var(--t3)">No stage permissions set</span>'}</div>`;
+        <div class="jr-ur-perms" style="padding-left:36px;margin-top:6px;padding-top:8px;border-top:1px solid var(--border-light)">
+          ${permRows || '<span style="font-size:11px;color:var(--t3)">No stage permissions set</span>'}
+        </div>`;
       return `<div class="jr-ur-item${isEditing?' jo-ur-item-editing':''}" id="jo-ur-card-${u.id}">
         ${isEditing ? joUrBuildFormHTML(u) : readView}
       </div>`;
@@ -7568,11 +7850,10 @@ function joUrCancelAdd(){
 }
 
 function joUrConfirmAdd(){
-  const userEl = document.getElementById('jo-ur-f-user'), typeEl = document.getElementById('jo-ur-f-type');
-  const user = userEl?.value||'', type = typeEl?.value||'';
-  document.getElementById('jo-ur-f-user-err').style.display = user?'none':'';
-  document.getElementById('jo-ur-f-type-err').style.display = type?'none':'';
-  if(!user||!type){ if(!user) userEl?.focus(); else typeEl?.focus(); return; }
+  const userEl = document.getElementById('jo-ur-f-user');
+  const user   = userEl?.value || '';
+  document.getElementById('jo-ur-f-user-err').style.display = user ? 'none' : '';
+  if(!user){ userEl?.focus(); return; }
   const permissions = {};
   document.querySelectorAll('#jo-perm-rows .jr-perm-sel').forEach(sel=>{
     if(sel.dataset.stage) permissions[sel.dataset.stage] = sel.value;
@@ -7580,15 +7861,15 @@ function joUrConfirmAdd(){
   const job = joData.find(j=>j.id===joEditId); if(!job) return;
   if(joUrEditId !== null){
     const u = job.users.find(r=>r.id===joUrEditId);
-    if(u){ u.user=user; u.type=type; u.permissions=permissions; }
+    if(u){ u.user=user; u.permissions=permissions; }
   } else {
     const newId = (job.users.length ? Math.max(...job.users.map(u=>u.id)) : 0) + 1;
-    job.users.push({id:newId, user, type, permissions});
+    job.users.push({id:newId, user, permissions});
   }
   joUrEditId = null;
   joUrAdding = false;
   joUrRenderList();
-  renderJOTable(); // keep avatar stack in sync after inline add/edit
+  renderJOTable(); // keep avatar stack in sync
 }
 
 function joUrDelete(uid){
@@ -8188,79 +8469,334 @@ document.addEventListener('keydown', e => {
 });
 
 /* ═══════════════════════════════════════════
+   EMAIL & COMMUNICATION DATA
+═══════════════════════════════════════════ */
+
+let emailTemplatesData = [
+  { id:1, name:'Generic Rejection',        type:'Rejection', lastEdited:'2026-04-10',
+    subject:'Your application for {{job_role}} at {{company_name}}',
+    body:`Hi {{candidate_name}},\n\nThank you for taking the time to apply for the {{job_role}} position at {{company_name}}.\n\nAfter careful consideration, we've decided not to move forward with your application at this time. This was a competitive process, and we appreciate the effort you put into your candidacy.\n\nWe encourage you to apply for future openings that match your skills and experience.\n\nWishing you all the best in your job search.\n\nWarm regards,\n{{company_name}} Hiring Team`
+  },
+  { id:2, name:'Post-Screening Rejection', type:'Rejection', lastEdited:'2026-04-10',
+    subject:'Update on your {{job_role}} application — {{company_name}}',
+    body:`Hi {{candidate_name}},\n\nThank you for applying for the {{job_role}} role at {{company_name}}.\n\nAfter reviewing your profile during our initial screening, we've decided not to proceed further at this stage. We appreciate your interest and the time you invested in applying.\n\nWe'll keep your information on file and may reach out if a suitable opportunity arises in the future.\n\nBest wishes,\n{{company_name}} Recruiting Team`
+  },
+  { id:3, name:'Post-Interview Rejection', type:'Rejection', lastEdited:'2026-04-10',
+    subject:'Your interview for {{job_role}} at {{company_name}}',
+    body:`Hi {{candidate_name}},\n\nThank you for interviewing for the {{job_role}} position at {{company_name}}. It was a pleasure speaking with you and learning more about your background.\n\nAfter thoughtful deliberation, we've decided to move forward with another candidate whose experience more closely aligns with our current needs.\n\nWe truly appreciate the time and effort you put into the interview process, and we wish you every success in your search.\n\nSincerely,\n{{company_name}} Hiring Team`
+  },
+  { id:4, name:'Interview Invitation',     type:'Interview', lastEdited:'2026-04-08',
+    subject:'Interview invitation: {{job_role}} at {{company_name}}',
+    body:`Hi {{candidate_name}},\n\nWe're pleased to invite you to interview for the {{job_role}} position at {{company_name}}.\n\nPlease let us know your availability for the next week and we'll confirm a time that works for both parties.\n\nLooking forward to speaking with you!\n\nBest,\n{{company_name}} Hiring Team`
+  },
+  { id:5, name:'Offer Letter',             type:'Offer',     lastEdited:'2026-04-05',
+    subject:'Job offer: {{job_role}} at {{company_name}}',
+    body:`Hi {{candidate_name}},\n\nWe are thrilled to extend an offer for the {{job_role}} position at {{company_name}}.\n\nPlease find the offer details attached. We'd love for you to join our team and look forward to your confirmation.\n\nBest regards,\n{{company_name}} HR Team`
+  },
+];
+let _tplNextId = 6;
+
+let rejectionReasonsData = [
+  { id:1, text:'Not enough experience' },
+  { id:2, text:'Skills mismatch' },
+  { id:3, text:'Salary expectations too high' },
+  { id:4, text:'Poor interview performance' },
+  { id:5, text:'Position filled' },
+  { id:6, text:'Culture fit concerns' },
+  { id:7, text:'Other' },
+];
+let _rrNextId = 8;
+
+let emailSettings = {
+  fromEmail:  'hiring@acmecorp.com',
+  replyTo:    'noreply@acmecorp.com',
+  signature:  'Best regards,\nThe Acme Corp Hiring Team',
+  enabled:    true,
+};
+
+/* ═══════════════════════════════════════════
+   SETTINGS SCREEN
+═══════════════════════════════════════════ */
+
+function renderStgScreen(){
+  stgSelectSection('email');
+}
+
+function stgSelectSection(sec){
+  document.querySelectorAll('#screen-settings .stg-nav-item:not(.disabled)').forEach(n => n.classList.remove('active'));
+  const navEl = document.getElementById('stg-nav-' + sec);
+  if(navEl) navEl.classList.add('active');
+  document.querySelectorAll('.stg-sec').forEach(s => s.style.display = 'none');
+  const secEl = document.getElementById('stg-sec-' + sec);
+  if(secEl) secEl.style.display = '';
+  if(sec === 'email') stgSwitchTab('templates');
+}
+
+function stgSwitchTab(tab){
+  ['templates','reasons','esettings'].forEach(t => {
+    document.getElementById('stg-tab-' + t)?.classList.toggle('active', t === tab);
+    const pane = document.getElementById('stg-pane-' + t);
+    if(pane) pane.style.display = t === tab ? '' : 'none';
+  });
+  if(tab === 'templates') renderStgTemplates();
+  if(tab === 'reasons')   renderStgReasons();
+  if(tab === 'esettings') renderStgEmailSettings();
+}
+
+/* ─── TEMPLATES ─── */
+const TPL_TYPES = ['Rejection','Interview','Offer','General'];
+
+const _ICO_EDIT_STG = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>`;
+const _ICO_DEL_STG  = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>`;
+
+function renderStgTemplates(){
+  const tbody = document.getElementById('stg-tpl-tbody');
+  const countEl = document.getElementById('stg-tpl-count');
+  if(!tbody) return;
+  const n = emailTemplatesData.length;
+  if(countEl) countEl.textContent = n + ' template' + (n !== 1 ? 's' : '');
+  if(!n){
+    tbody.innerHTML = `<tr><td colspan="5"><div class="tpl-empty">No templates yet — click "New Template" to create one.</div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = emailTemplatesData.map(t => `
+    <tr>
+      <td style="font-weight:500">${t.name}</td>
+      <td><span class="tpl-type-tag tpl-type-${t.type}">${t.type}</span></td>
+      <td style="color:var(--t2);font-size:12px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${t.subject.replace(/"/g,'&quot;')}">${t.subject}</td>
+      <td class="tpl-edited">${t.lastEdited}</td>
+      <td style="text-align:right">
+        <div style="display:flex;gap:5px;justify-content:flex-end">
+          <button class="jo-act-btn" onclick="tplOpenDrawer(${t.id})">${_ICO_EDIT_STG} Edit</button>
+          <button class="jo-act-btn del" onclick="tplDelete(${t.id})">${_ICO_DEL_STG}</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function tplOpenDrawer(id){
+  const isNew = id === null;
+  const t = isNew ? null : emailTemplatesData.find(x => x.id === id);
+  document.getElementById('tpl-panel-title').textContent = isNew ? 'New Template' : 'Edit Template';
+  const typeOpts = TPL_TYPES.map(ty =>
+    `<option${!isNew && t.type === ty ? ' selected' : ''}>${ty}</option>`
+  ).join('');
+  document.getElementById('tpl-panel-body').innerHTML = `
+    <input type="hidden" id="tpl-edit-id" value="${isNew ? '' : id}">
+    <div class="tpl-field">
+      <label class="tpl-lbl">Template Name</label>
+      <input class="tpl-input" type="text" id="tpl-f-name" placeholder="e.g. Post-Interview Rejection" value="${isNew ? '' : t.name.replace(/"/g,'&quot;')}">
+    </div>
+    <div class="tpl-field">
+      <label class="tpl-lbl">Type</label>
+      <select class="tpl-select" id="tpl-f-type">${typeOpts}</select>
+    </div>
+    <div class="tpl-field">
+      <label class="tpl-lbl">Subject</label>
+      <input class="tpl-input" type="text" id="tpl-f-subject" placeholder="Email subject…" value="${isNew ? '' : t.subject.replace(/"/g,'&quot;')}">
+    </div>
+    <div class="tpl-field">
+      <label class="tpl-lbl">Body</label>
+      <textarea class="tpl-body-ta" id="tpl-f-body" placeholder="Email body…">${isNew ? '' : t.body}</textarea>
+      <div class="tpl-vars-hint">Variables: <code>{{candidate_name}}</code> <code>{{job_role}}</code> <code>{{company_name}}</code></div>
+    </div>`;
+  document.getElementById('tpl-backdrop').classList.add('open');
+  document.getElementById('tpl-panel').classList.add('open');
+  setTimeout(() => document.getElementById('tpl-f-name')?.focus(), 80);
+}
+
+function tplCloseDrawer(){
+  document.getElementById('tpl-backdrop').classList.remove('open');
+  document.getElementById('tpl-panel').classList.remove('open');
+}
+
+function tplSaveDrawer(){
+  const idVal  = document.getElementById('tpl-edit-id').value;
+  const name   = document.getElementById('tpl-f-name').value.trim();
+  const type   = document.getElementById('tpl-f-type').value;
+  const subject= document.getElementById('tpl-f-subject').value.trim();
+  const body   = document.getElementById('tpl-f-body').value;
+  if(!name)   { document.getElementById('tpl-f-name').focus(); return; }
+  if(!subject){ document.getElementById('tpl-f-subject').focus(); return; }
+  const today = new Date().toISOString().slice(0, 10);
+  if(idVal){
+    const t = emailTemplatesData.find(x => x.id === Number(idVal));
+    if(t){ t.name = name; t.type = type; t.subject = subject; t.body = body; t.lastEdited = today; }
+    showToast('success', `Template <strong>${name}</strong> updated`);
+  } else {
+    emailTemplatesData.push({ id: _tplNextId++, name, type, subject, body, lastEdited: today });
+    showToast('success', `Template <strong>${name}</strong> created`);
+  }
+  tplCloseDrawer();
+  renderStgTemplates();
+}
+
+function tplDelete(id){
+  const t = emailTemplatesData.find(x => x.id === id);
+  if(!t) return;
+  showDeleteConfirm(`template "${t.name}"`, () => {
+    emailTemplatesData = emailTemplatesData.filter(x => x.id !== id);
+    renderStgTemplates();
+    showToast('success', 'Template deleted');
+  });
+}
+
+/* ─── REJECTION REASONS ─── */
+let _rrEditId = null;
+
+function renderStgReasons(){
+  const list = document.getElementById('rr-list');
+  if(!list) return;
+  const ICO_DRAG = `<svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24" opacity=".45"><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/></svg>`;
+  list.innerHTML = rejectionReasonsData.map(r => {
+    const editing = _rrEditId === r.id;
+    return `<div class="rr-item${editing ? ' editing' : ''}" data-id="${r.id}">
+      <span class="rr-drag">${ICO_DRAG}</span>
+      ${editing
+        ? `<input class="rr-edit-input" type="text" id="rr-ei-${r.id}" value="${r.text.replace(/"/g,'&quot;')}" onkeydown="if(event.key==='Enter')rrSaveEdit(${r.id});if(event.key==='Escape')rrCancelEdit()">`
+        : `<span class="rr-text">${r.text}</span>`}
+      <div class="rr-actions">
+        ${editing
+          ? `<button class="jo-act-btn" onclick="rrSaveEdit(${r.id})">Save</button>
+             <button class="jo-act-btn" onclick="rrCancelEdit()" style="margin-left:2px">Cancel</button>`
+          : `<button class="jo-act-btn" onclick="rrStartEdit(${r.id})">${_ICO_EDIT_STG} Edit</button>
+             <button class="jo-act-btn del" onclick="rrDelete(${r.id})">${_ICO_DEL_STG}</button>`}
+      </div>
+    </div>`;
+  }).join('');
+  if(_rrEditId !== null) document.getElementById(`rr-ei-${_rrEditId}`)?.focus();
+}
+
+function rrStartEdit(id){ _rrEditId = id; renderStgReasons(); }
+function rrCancelEdit(){ _rrEditId = null; renderStgReasons(); }
+
+function rrSaveEdit(id){
+  const val = document.getElementById(`rr-ei-${id}`)?.value.trim();
+  if(!val) return;
+  const r = rejectionReasonsData.find(x => x.id === id);
+  if(r) r.text = val;
+  _rrEditId = null;
+  renderStgReasons();
+  showToast('success', 'Reason updated');
+}
+
+function rrAddReason(){
+  const inp = document.getElementById('rr-new-input');
+  const val = inp?.value.trim();
+  if(!val) return;
+  rejectionReasonsData.push({ id: _rrNextId++, text: val });
+  inp.value = '';
+  renderStgReasons();
+  showToast('success', `Reason "<strong>${val}</strong>" added`);
+}
+
+function rrDelete(id){
+  const r = rejectionReasonsData.find(x => x.id === id);
+  if(!r) return;
+  showDeleteConfirm(`reason "${r.text}"`, () => {
+    rejectionReasonsData = rejectionReasonsData.filter(x => x.id !== id);
+    renderStgReasons();
+    showToast('success', 'Reason deleted');
+  });
+}
+
+/* ─── EMAIL SETTINGS ─── */
+function renderStgEmailSettings(){
+  const form = document.getElementById('es-form');
+  if(!form) return;
+  form.innerHTML = `
+    <div style="padding-top:16px">
+      <div class="es-toggle-row" style="margin-bottom:22px">
+        <div class="es-toggle-info">
+          <div class="es-toggle-title">Enable Email Sending</div>
+          <div class="es-toggle-desc">When disabled, emails are queued but not sent.</div>
+        </div>
+        <label class="sw-wrap" title="Toggle email sending">
+          <input class="sw-inp" type="checkbox" id="es-enabled" ${emailSettings.enabled ? 'checked' : ''}>
+          <div class="sw-track"></div>
+        </label>
+      </div>
+      <div class="es-field">
+        <label class="es-label" for="es-from">From Email</label>
+        <input class="es-input" type="email" id="es-from" value="${emailSettings.fromEmail}" placeholder="hiring@company.com">
+        <div class="es-sub">Emails will appear to come from this address.</div>
+      </div>
+      <div class="es-field">
+        <label class="es-label" for="es-replyto">Reply-To Email</label>
+        <input class="es-input" type="email" id="es-replyto" value="${emailSettings.replyTo}" placeholder="noreply@company.com">
+        <div class="es-sub">Candidate replies will be directed to this address.</div>
+      </div>
+      <div class="es-field">
+        <label class="es-label" for="es-sig">Email Signature</label>
+        <textarea class="es-textarea" id="es-sig" rows="4" placeholder="e.g. Best regards,&#10;The Hiring Team">${emailSettings.signature}</textarea>
+        <div class="es-sub">Appended to the bottom of all outgoing emails.</div>
+      </div>
+      <div class="es-save-row">
+        <button class="btn btn-accent" onclick="esSave()">Save Settings</button>
+      </div>
+    </div>`;
+}
+
+function esSave(){
+  const from = document.getElementById('es-from').value.trim();
+  const rt   = document.getElementById('es-replyto').value.trim();
+  if(from) emailSettings.fromEmail = from;
+  if(rt)   emailSettings.replyTo   = rt;
+  emailSettings.signature = document.getElementById('es-sig').value;
+  emailSettings.enabled   = document.getElementById('es-enabled').checked;
+  showToast('success', 'Email settings saved');
+}
+
+// ESC closes template drawer
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape' && document.getElementById('tpl-panel')?.classList.contains('open')) tplCloseDrawer();
+});
+
+/* ═══════════════════════════════════════════
    REJECT CANDIDATE MODAL
 ═══════════════════════════════════════════ */
 
 const COMPANY_NAME = 'Acme Corp';
 
-const REJ_TEMPLATES = {
-  generic: {
-    subject: 'Your application for {{job_role}} at {{company_name}}',
-    body: `Hi {{candidate_name}},
-
-Thank you for taking the time to apply for the {{job_role}} position at {{company_name}}.
-
-After careful consideration, we've decided not to move forward with your application at this time. This was a competitive process, and we appreciate the effort you put into your candidacy.
-
-We encourage you to apply for future openings that match your skills and experience.
-
-Wishing you all the best in your job search.
-
-Warm regards,
-The {{company_name}} Hiring Team`,
-  },
-  screening: {
-    subject: 'Update on your {{job_role}} application — {{company_name}}',
-    body: `Hi {{candidate_name}},
-
-Thank you for applying for the {{job_role}} role at {{company_name}}.
-
-After reviewing your profile during our initial screening, we've decided not to proceed further at this stage. We appreciate your interest and the time you invested in applying.
-
-We'll keep your information on file and may reach out if a suitable opportunity arises in the future.
-
-Best wishes,
-The {{company_name}} Recruiting Team`,
-  },
-  interview: {
-    subject: 'Your interview for {{job_role}} at {{company_name}}',
-    body: `Hi {{candidate_name}},
-
-Thank you for interviewing for the {{job_role}} position at {{company_name}}. It was a pleasure speaking with you and learning more about your background.
-
-After thoughtful deliberation, we've decided to move forward with another candidate whose experience more closely aligns with our current needs. This was a difficult decision given the strength of our applicant pool.
-
-We truly appreciate the time and effort you put into the interview process, and we wish you every success in your search.
-
-Sincerely,
-The {{company_name}} Hiring Team`,
-  },
-};
+// Templates now managed in emailTemplatesData (Settings → Email & Communication)
 
 let _rejRidx    = null;
-let _rejTpl     = 'generic';
-let _rejFromFM  = false; // true when opened from the full candidate modal
+let _rejTpl     = null; // numeric id of selected rejection template
+let _rejFromFM  = false;
 
 function openRejectModal(ridx, fromFM = false){
   _rejRidx   = ridx;
-  _rejTpl    = 'generic';
   _rejFromFM = fromFM;
   const r = filteredRows[ridx];
   if(!r) return;
+
+  // populate reason options from rejectionReasonsData
+  const reasonSel = document.getElementById('rej-reason');
+  if(reasonSel){
+    reasonSel.innerHTML = '<option value="">Select a reason…</option>'
+      + rejectionReasonsData.map(rr => `<option value="${rr.id}">${rr.text}</option>`).join('');
+    reasonSel.value = '';
+  }
+
+  // populate template pills from rejection templates
+  const rejTpls = emailTemplatesData.filter(t => t.type === 'Rejection');
+  _rejTpl = rejTpls.length ? rejTpls[0].id : null;
+  const tplRow = document.getElementById('rej-tpl-row');
+  if(tplRow){
+    tplRow.innerHTML = rejTpls.map((t, i) =>
+      `<button class="rej-tpl-btn${i === 0 ? ' active' : ''}" data-tpl="${t.id}" onclick="rejSelectTpl(${t.id})">${t.name}</button>`
+    ).join('');
+  }
 
   // subtitle
   document.getElementById('rej-subtitle').textContent = `${r.name} · ${r.role}`;
 
   // reset fields
-  document.getElementById('rej-reason').value = '';
   document.getElementById('rej-send-email').checked = true;
   document.getElementById('rej-email-section').classList.remove('hidden');
 
-  // reset template buttons
-  document.querySelectorAll('.rej-tpl-btn').forEach(b => b.classList.toggle('active', b.dataset.tpl === 'generic'));
-
   // fill template
-  rejFillTemplate(r);
+  if(_rejTpl !== null) rejFillTemplate(r);
 
   // CTA label
   document.getElementById('rej-confirm-btn').textContent = 'Reject & Send Email';
@@ -8271,17 +8807,17 @@ function openRejectModal(ridx, fromFM = false){
 }
 
 function rejFillTemplate(r){
-  const tpl = REJ_TEMPLATES[_rejTpl];
+  const tpl = emailTemplatesData.find(t => t.id === _rejTpl);
   if(!tpl) return;
   const vars = { candidate_name: r.name, job_role: r.role, company_name: COMPANY_NAME };
   const fill = str => str.replace(/\{\{(\w+)\}\}/g, (_, k) => vars[k] || `{{${k}}}`);
-  document.getElementById('rej-subject').value  = fill(tpl.subject);
+  document.getElementById('rej-subject').value = fill(tpl.subject);
   document.getElementById('rej-body-ta').value  = fill(tpl.body);
 }
 
-function rejSelectTpl(tplKey){
-  _rejTpl = tplKey;
-  document.querySelectorAll('.rej-tpl-btn').forEach(b => b.classList.toggle('active', b.dataset.tpl === tplKey));
+function rejSelectTpl(tplId){
+  _rejTpl = Number(tplId);
+  document.querySelectorAll('.rej-tpl-btn').forEach(b => b.classList.toggle('active', Number(b.dataset.tpl) === _rejTpl));
   const r = filteredRows[_rejRidx];
   if(r) rejFillTemplate(r);
 }
@@ -8335,4 +8871,3 @@ document.addEventListener('keydown', e => {
 <div id="toast-container"></div>
 </body>
 </html>
-
