@@ -83,6 +83,65 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 .role-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;background:var(--surface);border:1px solid var(--border);border-radius:20px;font-size:11.5px;font-weight:500;cursor:pointer;transition:border-color .1s}
 .role-pill:hover{border-color:#c5cad3}
 .badge-active{background:var(--green-bg);color:var(--green);border-radius:20px;padding:2px 9px;font-size:11px;font-weight:600}
+
+/* ── JOB OPENING SELECTOR ── */
+.job-sel-btn{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 9px 0 8px;background:var(--surface);color:var(--t2);border:1px solid var(--border);border-radius:20px;font-size:11.5px;font-weight:500;cursor:pointer;font-family:inherit;transition:border-color .12s,color .12s,background .12s;white-space:nowrap;flex-shrink:0}
+.job-sel-btn:hover{border-color:#c5cad3;color:var(--t1)}
+.job-sel-btn.pop-active,.job-sel-btn.job-filtered{background:var(--accent-bg);border-color:#93c5fd;color:var(--accent);font-weight:600}
+.job-sel-btn svg{opacity:.7;flex-shrink:0;transition:opacity .12s}
+.job-sel-btn:hover svg,.job-sel-btn.pop-active svg,.job-sel-btn.job-filtered svg{opacity:1}
+.job-sel-drop{min-width:240px;max-width:310px;overflow:hidden}
+.job-sel-drop-head{padding:8px 12px 6px;font-size:10.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border-light)}
+.job-sel-body{padding:4px 0;max-height:280px;overflow-y:auto}
+.job-sel-body::-webkit-scrollbar{width:3px}
+.job-sel-body::-webkit-scrollbar-thumb{background:#e5e7eb}
+.job-sel-opt{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;cursor:pointer;font-size:12.5px;color:var(--t2);transition:background .08s;gap:8px}
+.job-sel-opt:hover{background:var(--bg);color:var(--t1)}
+.job-sel-opt.sel-active{color:var(--accent);background:var(--accent-bg)}
+.job-sel-opt-name{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.job-sel-opt.sel-active .job-sel-opt-name{font-weight:600}
+.job-sel-opt-cnt{font-size:11px;font-weight:600;color:var(--t3);background:var(--bg);border-radius:20px;padding:1px 7px;flex-shrink:0;min-width:22px;text-align:center}
+.job-sel-opt.sel-active .job-sel-opt-cnt{background:#dbeafe;color:var(--accent-dark)}
+.job-sel-sep{height:1px;background:var(--border-light);margin:3px 0}
+/* ── AI SECTION (inside page-header, talent pool mode) ── */
+.ai-section{display:none;flex-direction:column;gap:0;border-top:1px solid var(--border-light);padding:10px 0 12px}
+.ai-section.ai-visible{display:flex}
+.ai-inp-row{display:flex;align-items:center;gap:8px}
+.ai-inp-wrap{display:flex;align-items:center;flex:1;height:32px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r2);padding:0 10px;gap:8px;transition:border-color .15s,box-shadow .15s}
+.ai-inp-wrap:focus-within{background:#fff;border-color:#a5b4fc;box-shadow:0 0 0 3px rgba(99,102,241,.08)}
+.ai-inp-wrap svg{flex-shrink:0;color:#818cf8;opacity:.8}
+.ai-inp-wrap input{flex:1;border:none;background:transparent;outline:none;font-size:12.5px;color:var(--t1);font-family:inherit}
+.ai-inp-wrap input::placeholder{color:var(--t3)}
+.ai-run-btn{height:32px;padding:0 13px;background:var(--surface);color:#6366f1;border:1px solid #c7d2fe;border-radius:var(--r2);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .1s,border-color .1s;white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;gap:5px}
+.ai-run-btn:hover{background:#eef2ff;border-color:#a5b4fc}
+/* AI source banner — slim strip shown below chips when AI filters are active */
+.ai-source-banner{display:none;align-items:center;gap:7px;padding:5px 0 8px;font-size:11.5px;color:#6366f1;flex-shrink:0}
+.ai-source-banner.asb-visible{display:flex}
+.asb-icon{width:16px;height:16px;background:#eef2ff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.asb-text{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.asb-text em{font-style:normal;color:#4338ca;font-weight:600}
+.asb-clear{font-size:11px;color:var(--t3);cursor:pointer;padding:2px 7px;border-radius:var(--r);border:1px solid var(--border);background:var(--surface);font-family:inherit;transition:color .1s,border-color .1s;white-space:nowrap;flex-shrink:0}
+.asb-clear:hover{color:var(--red);border-color:#fca5a5}
+/* Top Match badge in table name cell */
+.top-match-badge{display:inline-flex;align-items:center;gap:3px;padding:1px 6px;background:#eef2ff;border:1px solid #c7d2fe;border-radius:20px;font-size:10px;font-weight:700;color:#6366f1;margin-left:6px;vertical-align:middle;flex-shrink:0}
+/* Top match row highlight */
+tr.row-ai-match td{background:#fafaff}
+tr.row-ai-match td:first-child{box-shadow:inset 3px 0 0 #818cf8}
+tr.row-ai-match.row-on td{background:#eef2ff}
+/* Empty state */
+.cand-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:52px 20px;gap:12px;text-align:center}
+.cand-empty-icon{width:40px;height:40px;background:var(--bg);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--t3)}
+.cand-empty-title{font-size:13.5px;font-weight:600;color:var(--t2)}
+.cand-empty-sub{font-size:12px;color:var(--t3);max-width:340px;line-height:1.6}
+.cand-empty-suggestions{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:4px}
+.cand-empty-sug{padding:4px 11px;background:var(--surface);border:1px solid var(--border);border-radius:20px;font-size:11.5px;color:var(--t2);cursor:pointer;transition:border-color .1s,color .1s}
+.cand-empty-sug:hover{border-color:#a5b4fc;color:#6366f1}
+/* View-only action button (talent pool mode) */
+.na-view{height:26px;padding:0 10px;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);color:var(--t2);font-size:11.5px;font-weight:500;cursor:pointer;display:inline-flex;align-items:center;gap:4px;transition:background .1s,color .1s;font-family:inherit}
+.na-view:hover{background:var(--bg);color:var(--t1)}
+/* Grouped filter chip separators */
+.filter-group-sep{display:inline-flex;align-items:center;padding:0 4px 0 8px;font-size:10.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;flex-shrink:0;white-space:nowrap}
+.filter-group-sep:first-child{padding-left:0}
 .ph-right{margin-left:auto;display:flex;align-items:center;gap:7px}
 .search-inline{height:30px;min-width:248px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);display:flex;align-items:center;padding:0 9px;gap:6px;transition:border-color .12s}
 .search-inline:focus-within{border-color:#93c5fd}
@@ -1298,6 +1357,131 @@ tbody td:first-child{padding-left:20px}
 .tpl-body-ta:focus{border-color:#93c5fd}
 .tpl-vars-hint{margin-top:6px;font-size:11px;color:var(--t3);line-height:1.7}
 .tpl-vars-hint code{background:var(--bg);padding:1px 5px;border-radius:3px;font-size:10.5px;color:var(--t2)}
+/* ═══════════════════════════════
+   DASHBOARD
+═══════════════════════════════ */
+.db-root{flex:1;overflow-y:auto;background:var(--bg);padding:20px;display:flex;flex-direction:column;gap:16px}
+/* AI Insights banner */
+.db-ai{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 45%,#3730a3 100%);border-radius:var(--r3);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:16px;position:relative;flex-wrap:wrap}
+.db-ai::before{content:'';position:absolute;top:-40px;right:120px;width:180px;height:180px;background:rgba(255,255,255,.04);border-radius:50%;pointer-events:none}
+.db-ai::after{content:'';position:absolute;bottom:-50px;right:-10px;width:130px;height:130px;background:rgba(255,255,255,.03);border-radius:50%;pointer-events:none}
+.db-ai-left{display:flex;align-items:center;gap:11px;flex:1;min-width:0;position:relative;z-index:1}
+.db-ai-icon{width:30px;height:30px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:var(--r2);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.db-ai-text{min-width:0}
+.db-ai-title{font-size:12px;font-weight:700;color:#fff;letter-spacing:.01em;line-height:1.2}
+.db-ai-sub{font-size:11.5px;color:rgba(255,255,255,.78);line-height:1.35;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.db-ai-sub strong{color:#fff;font-weight:600}
+.db-ai-controls{display:flex;align-items:center;gap:7px;flex-shrink:0;position:relative;z-index:1;flex-wrap:wrap}
+/* Filter dropdowns inside banner */
+.db-flt-wrap{position:relative}
+.db-flt-btn{height:28px;padding:0 9px 0 8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:var(--r);color:#fff;font-size:11px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .1s,border-color .1s;white-space:nowrap;display:inline-flex;align-items:center;gap:5px}
+.db-flt-btn:hover,.db-flt-btn.open{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.35)}
+.db-flt-btn svg{opacity:.7;flex-shrink:0}
+.db-flt-btn .db-flt-chv{transition:transform .15s}
+.db-flt-btn.open .db-flt-chv{transform:rotate(180deg)}
+.db-flt-drop{position:absolute;top:calc(100% + 5px);right:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);box-shadow:var(--s2);min-width:160px;z-index:200;display:none;overflow:hidden}
+.db-flt-drop.open{display:block}
+.db-flt-item{padding:7px 12px;font-size:11.5px;color:var(--t1);cursor:pointer;transition:background .07s;white-space:nowrap;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.db-flt-item:hover{background:var(--bg)}
+.db-flt-item.active{color:var(--accent);font-weight:600}
+.db-flt-item.active::after{content:'✓';font-size:10px}
+.db-flt-sep{height:1px;background:var(--border-light);margin:3px 0}
+/* CTA button inside banner */
+.db-ai-cta{height:28px;padding:0 13px;background:#fff;border:none;border-radius:var(--r);color:#312e81;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .1s;white-space:nowrap;display:inline-flex;align-items:center;gap:5px;flex-shrink:0}
+.db-ai-cta:hover{opacity:.9}
+/* responsive */
+@media(max-width:700px){
+  .db-ai{flex-direction:column;align-items:flex-start}
+  .db-ai-controls{width:100%}
+  .db-flt-drop{right:auto;left:0}
+}
+/* KPI row */
+.db-kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.db-kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px;display:flex;flex-direction:column;gap:8px;transition:box-shadow .15s;cursor:default}
+.db-kpi:hover{box-shadow:var(--s1)}
+.db-kpi-head{display:flex;align-items:center;justify-content:space-between}
+.db-kpi-label{font-size:11px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.05em}
+.db-kpi-icon{width:28px;height:28px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.db-kpi-val{font-size:26px;font-weight:800;color:var(--t1);line-height:1}
+.db-kpi-foot{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t3)}
+.db-kpi-trend{display:inline-flex;align-items:center;gap:2px;font-size:11px;font-weight:600;padding:1px 5px;border-radius:4px}
+.db-trend-up{color:#15803d;background:#dcfce7}
+.db-trend-dn{color:#b91c1c;background:#fee2e2}
+.db-trend-nt{color:var(--t3);background:var(--bg)}
+/* Two-column middle row */
+.db-mid-row{display:grid;grid-template-columns:1fr 340px;gap:12px}
+/* Three-column bottom row */
+.db-bot-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+/* Card base */
+.db-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+.db-card-head{display:flex;align-items:center;justify-content:space-between;padding:13px 16px 11px;border-bottom:1px solid var(--border-light)}
+.db-card-title{font-size:12.5px;font-weight:700;color:var(--t1);display:flex;align-items:center;gap:7px}
+.db-card-title svg{color:var(--t3)}
+.db-card-action{font-size:11.5px;color:var(--accent);cursor:pointer;font-weight:600;background:none;border:none;font-family:inherit;padding:0}
+.db-card-action:hover{text-decoration:underline}
+.db-card-body{padding:14px 16px}
+/* Funnel */
+.db-funnel-stages{display:flex;flex-direction:column;gap:7px}
+.db-funnel-stage{display:flex;align-items:center;gap:10px}
+.db-funnel-label{font-size:11.5px;font-weight:500;color:var(--t2);width:70px;flex-shrink:0}
+.db-funnel-bar-wrap{flex:1;height:22px;background:var(--bg);border-radius:4px;overflow:hidden;position:relative}
+.db-funnel-bar{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:8px;transition:width .4s ease;position:relative}
+.db-funnel-bar-txt{font-size:11px;font-weight:700;color:#fff;white-space:nowrap;position:relative;z-index:1}
+.db-funnel-count{font-size:11.5px;font-weight:700;color:var(--t1);width:28px;text-align:right;flex-shrink:0}
+.db-funnel-drop{font-size:10.5px;color:var(--red);width:42px;text-align:right;flex-shrink:0}
+.db-funnel-drop.ok{color:var(--green)}
+.db-funnel-cvr{font-size:10px;color:var(--t3);margin-top:10px;text-align:center}
+/* Action center */
+.db-action-list{display:flex;flex-direction:column;gap:0}
+.db-action-item{display:flex;align-items:flex-start;gap:10px;padding:10px 16px;border-bottom:1px solid var(--border-light);transition:background .08s;cursor:pointer}
+.db-action-item:last-child{border-bottom:none}
+.db-action-item:hover{background:var(--bg)}
+.db-action-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.db-action-info{flex:1;min-width:0}
+.db-action-title{font-size:12px;font-weight:600;color:var(--t1);margin-bottom:1px}
+.db-action-sub{font-size:11px;color:var(--t3)}
+.db-action-btn{height:24px;padding:0 9px;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);color:var(--t2);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .1s;white-space:nowrap;flex-shrink:0;align-self:center}
+.db-action-btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.db-action-btn.urgent{border-color:#fca5a5;color:#dc2626;background:#fff5f5}
+.db-action-btn.urgent:hover{background:#dc2626;border-color:#dc2626;color:#fff}
+/* Top candidates */
+.db-cand-list{display:flex;flex-direction:column;gap:0}
+.db-cand-item{display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid var(--border-light);cursor:pointer;transition:background .08s}
+.db-cand-item:last-child{border-bottom:none}
+.db-cand-item:hover{background:var(--bg)}
+.db-cand-rank{font-size:11px;font-weight:800;color:var(--t3);width:14px;flex-shrink:0;text-align:center}
+.db-cand-av{width:28px;height:28px;border-radius:50%;font-size:10px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.db-cand-info{flex:1;min-width:0}
+.db-cand-name{font-size:12px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.db-cand-meta{font-size:11px;color:var(--t3)}
+.db-cand-score{flex-shrink:0;text-align:right}
+.db-score-ring{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
+/* Leaderboard */
+.db-lb-list{display:flex;flex-direction:column;gap:0}
+.db-lb-item{display:flex;align-items:center;gap:10px;padding:9px 16px;border-bottom:1px solid var(--border-light)}
+.db-lb-item:last-child{border-bottom:none}
+.db-lb-rank{font-size:12px;font-weight:800;color:var(--t3);width:16px;flex-shrink:0}
+.db-lb-rank.gold{color:#b45309}
+.db-lb-av{width:26px;height:26px;border-radius:50%;font-size:9.5px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.db-lb-name{flex:1;font-size:12px;font-weight:600;color:var(--t1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.db-lb-role{font-size:10.5px;color:var(--t3)}
+.db-lb-stat{flex-shrink:0;text-align:right}
+.db-lb-val{font-size:12px;font-weight:700;color:var(--t1)}
+.db-lb-sub{font-size:10px;color:var(--t3)}
+/* Activity + schedule */
+.db-act-list{display:flex;flex-direction:column;gap:0;padding:0 16px}
+.db-act-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border-light);position:relative}
+.db-act-item:last-child{border-bottom:none}
+.db-act-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.db-act-body{flex:1;min-width:0}
+.db-act-text{font-size:12px;color:var(--t1);line-height:1.4}
+.db-act-time{font-size:10.5px;color:var(--t3);margin-top:1px}
+.db-sched-list{display:flex;flex-direction:column;gap:6px;padding:0 16px 14px}
+.db-sched-item{display:flex;align-items:center;gap:9px;padding:7px 10px;background:var(--bg);border-radius:var(--r);border-left:3px solid var(--accent)}
+.db-sched-time{font-size:10.5px;font-weight:700;color:var(--accent);width:50px;flex-shrink:0}
+.db-sched-name{font-size:12px;font-weight:600;color:var(--t1);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.db-sched-stage{font-size:10.5px;color:var(--t3)}
+.db-section-sep{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;padding:8px 16px 4px;background:var(--bg)}
 </style>
 </head>
 <body>
@@ -1368,13 +1552,19 @@ tbody td:first-child{padding-left:20px}
     </button>
   </header>
 
+  <div class="content-wrap" id="screen-dashboard" style="display:none">
+    <div class="db-root" id="db-root"></div>
+  </div>
+
   <div class="content-wrap" id="screen-candidates">
     <div class="content">
       <div class="page-header">
         <div class="ph-row1">
           <span class="page-title">Candidates</span>
-          <div class="role-pill">SDE Intern <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></div>
-          <span class="badge-active">Active</span>
+          <button class="job-sel-btn" id="job-sel-btn" onclick="buildJobDrop();showPop('job-sel-pop',this)">
+            <span id="job-sel-label">All Job Openings</span>
+            <svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
           <div class="ph-right">
             <div class="search-inline">
               <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -1388,16 +1578,34 @@ tbody td:first-child{padding-left:20px}
             </button>
           </div>
         </div>
+        <!-- AI search — shown in talent pool mode only -->
+        <div class="ai-section" id="ai-section">
+          <div class="ai-inp-row">
+            <div class="ai-inp-wrap">
+              <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+              <input type="text" id="ai-inp" placeholder="Ask AI about candidates… e.g. &quot;Best backend candidates&quot;" onkeydown="if(event.key==='Enter')runAiQuery(this.value)">
+            </div>
+            <button class="ai-run-btn" onclick="runAiQuery(document.getElementById('ai-inp').value)">
+              <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="margin-right:4px"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>Ask AI
+            </button>
+          </div>
+        </div>
+        <!-- AI source banner — shown when AI has applied filters -->
+        <div class="ai-source-banner" id="ai-source-banner">
+          <div class="asb-icon">
+            <svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+          </div>
+          <span class="asb-text" id="asb-text">AI applied filters</span>
+          <button class="asb-clear" onclick="clearAiSearch()">× Reset AI filters</button>
+        </div>
         <!-- active filter chips – injected by renderChips() -->
         <div class="filter-bar-wrap">
-          <!-- scroll zone: chips scroll here; fade overlays right edge -->
           <div class="filter-scroll-wrap">
             <div class="filter-bar" id="filter-bar">
               <div id="filter-chips"></div>
             </div>
             <div class="filter-fade-r" id="filter-fade"></div>
           </div>
-          <!-- always-visible Clear all – outside the scroll zone -->
           <span class="clear-link" id="clear-all-btn" style="display:none" onclick="clearAllFilters()">Clear all</span>
         </div>
       </div>
@@ -2110,6 +2318,12 @@ tbody td:first-child{padding-left:20px}
   <div class="vp-chapter-bar" id="vp-chapters"></div>
 </div>
 
+<!-- Job Opening selector popover -->
+<div class="popover job-sel-drop" id="job-sel-pop">
+  <div class="job-sel-drop-head">Job Opening</div>
+  <div class="job-sel-body" id="job-sel-body"></div>
+</div>
+
 <div class="popover" id="stage-pop">
   <div class="pop-head">
     <span class="pop-title">Stage</span>
@@ -2545,7 +2759,7 @@ tbody td:first-child{padding-left:20px}
 ═══════════════════════════════════════════ */
 const NAMES=['Kayla Morgan','Liam Chen','Sophie Turner','Marcus Reed','Priya Patel',
   'Alex Kim','Jordan Lee','Taylor Brooks','Sam Davis','Emma Wilson','Noah Brown','Olivia Johnson'];
-const ROLES=['Software Engineer','Frontend Dev','Backend Dev','Full Stack Dev','DevOps Eng'];
+const ROLES=['SDE Intern','Frontend Engineer','Backend Engineer','Product Manager','DevOps Lead'];
 const SKILLS=[
   ['Python','Django'],['React','TypeScript'],['Node.js','AWS'],
   ['Go','Kubernetes'],['Java','Spring'],['Vue.js','GraphQL'],
@@ -2683,6 +2897,7 @@ let selectedRows=new Set();
 ═══════════════════════════════════════════ */
 const COL_DEFS=[
   {id:'name',         label:'Name',             visible:true,  sortable:true,  locked:true},
+  {id:'job',          label:'Job Opening',       visible:false, sortable:true,  poolOnly:true},
   {id:'contact',      label:'Contact',           visible:true,  sortable:false},
   {id:'portfolio',    label:'Portfolio',         visible:true,  sortable:false},
   {id:'exp',          label:'Exp',               visible:true,  sortable:true,  filter:'exp'},
@@ -2762,6 +2977,12 @@ const STATUS_DEFS = [
 const MAX_VISIBLE_CHIPS = 8;   // max chips before "+N more"
 let chipsExpanded = false;
 
+let activeJobId       = null;         // selected job opening id, or null = all
+let aiMatchSet        = null;         // Set of filteredRows indices marked as top matches
+let aiActiveQuery     = '';           // last executed AI query string
+let aiFilterActive    = false;        // true when AI has applied filters (NLP mode)
+let aiRoleFilter      = null;         // role string to filter in pool mode, e.g. 'Backend Engineer'
+let aiIsRanking       = false;        // true when query is ranking-style ("top/best candidates")
 let activeStages      = new Set();
 let activeStatuses    = new Set();
 let activeSkills      = new Set();
@@ -2892,7 +3113,12 @@ function clearPending(type) {
 /* ── master filter + render ── */
 function applyFilters() {
   const q = (document.getElementById('search-input').value || '').toLowerCase();
+  /* pre-filter by selected job opening */
+  const _activeJob = activeJobId !== null ? joData.find(j => j.id === activeJobId) : null;
+
   filteredRows = ALL_ROWS.filter(r => {
+    if(_activeJob && r.role !== _activeJob.title) return false;
+    if(aiRoleFilter && r.role !== aiRoleFilter)   return false;
     if(activeStages.size   && !activeStages.has(r.stage))        return false;
     if(activeStatuses.size && !activeStatuses.has(r.status||'')) return false;
 
@@ -2951,56 +3177,55 @@ function renderChips() {
     return 'chip-s-blue'; // In Progress
   };
 
-  /* flat ordered chip list: stages → statuses → skills → exp → company → github */
-  const all = [];
-  activeStages.forEach(v => all.push({ text:v, cls:'chip-stage', pop:'stage-pop',
+  /* Grouped chip rendering: Stage → Status → Skills → More */
+  function addGroup(label, specs) {
+    if(!specs.length) return;
+    const sep = document.createElement('span');
+    sep.className = 'filter-group-sep';
+    sep.textContent = label;
+    chipsEl.appendChild(sep);
+    specs.forEach(spec => chipsEl.appendChild(makeChip(spec.text, spec.remove, spec.pop, spec.cls)));
+  }
+
+  const stageSpecs = [];
+  activeStages.forEach(v => stageSpecs.push({ text:v, cls:'chip-stage', pop:'stage-pop',
     remove:()=>{ activeStages.delete(v); pendingStages.delete(v); applyFilters(); } }));
-  activeStatuses.forEach(v => all.push({ text:v, cls:statusCls(v), pop:'status-pop',
+
+  const statusSpecs = [];
+  activeStatuses.forEach(v => statusSpecs.push({ text:v, cls:statusCls(v), pop:'status-pop',
     remove:()=>{ activeStatuses.delete(v); pendingStatuses.delete(v); applyFilters(); } }));
-  activeSkills.forEach(v => all.push({ text:v, cls:'chip-other', pop:'skills-pop',
+
+  const skillSpecs = [];
+  activeSkills.forEach(v => skillSpecs.push({ text:v, cls:'chip-other', pop:'skills-pop',
     remove:()=>{ activeSkills.delete(v); pendingSkills.delete(v); applyFilters(); } }));
+
+  const moreSpecs = [];
   activeExp.forEach(v => {
     const d = EXP_DEFS.find(x => x.value === v);
-    all.push({ text: d ? d.label : v, cls:'chip-other', pop:'exp-pop',
+    moreSpecs.push({ text: d ? d.label : v, cls:'chip-other', pop:'exp-pop',
       remove:()=>{ activeExp.delete(v); pendingExp.delete(v); applyFilters(); } });
   });
-  activeCurrCompany.forEach(v => all.push({ text:v, cls:'chip-other', pop:'curr-company-pop',
+  activeCurrCompany.forEach(v => moreSpecs.push({ text:v, cls:'chip-other', pop:'curr-company-pop',
     remove:()=>{ activeCurrCompany.delete(v); pendingCurrCompany.delete(v); applyFilters(); } }));
-  activePrevCompany.forEach(v => all.push({ text:v, cls:'chip-other', pop:'prev-company-pop',
+  activePrevCompany.forEach(v => moreSpecs.push({ text:v, cls:'chip-other', pop:'prev-company-pop',
     remove:()=>{ activePrevCompany.delete(v); pendingPrevCompany.delete(v); applyFilters(); } }));
   activeGithubScore.forEach(v => {
     const d = GITHUB_SCORE_DEFS.find(x => x.value === v);
-    all.push({ text: d ? d.label.split(' ')[0] : v, cls:'chip-other', pop:'github-score-pop',
+    moreSpecs.push({ text: d ? d.label.split(' ')[0] : v, cls:'chip-other', pop:'github-score-pop',
       remove:()=>{ activeGithubScore.delete(v); pendingGithubScore.delete(v); applyFilters(); } });
   });
 
-  /* visible / overflow */
-  const total   = all.length;
-  const showAll = chipsExpanded || total <= MAX_VISIBLE_CHIPS;
-  const visible = showAll ? total : MAX_VISIBLE_CHIPS;
-  const hidden  = total - visible;
-
-  all.slice(0, visible).forEach(spec => chipsEl.appendChild(makeChip(spec.text, spec.remove, spec.pop, spec.cls)));
-
-  if(hidden > 0){
-    const more = document.createElement('div');
-    more.className   = 'chip-more';
-    more.textContent = `+${hidden} more`;
-    more.onclick     = () => { chipsExpanded = true; renderChips(); };
-    chipsEl.appendChild(more);
-  } else if(chipsExpanded && total > MAX_VISIBLE_CHIPS){
-    const less = document.createElement('div');
-    less.className   = 'chip-more';
-    less.textContent = '− less';
-    less.onclick     = () => { chipsExpanded = false; renderChips(); };
-    chipsEl.appendChild(less);
-  }
+  addGroup('Stage', stageSpecs);
+  addGroup('Status', statusSpecs);
+  addGroup('Skills', skillSpecs);
+  if(moreSpecs.length) addGroup('More', moreSpecs);
 
   document.querySelector('.filter-bar-wrap').classList.toggle('has-filters', !!hasAny);
   clearBtn.style.display = hasAny ? '' : 'none';
 
   highlightFilterIcons();
   checkFilterFade();
+  if(aiFilterActive) updateAiSourceBanner();
 }
 
 /* ── sync accent colour on column-header filter icons ── */
@@ -3052,6 +3277,241 @@ function makeChip(label, onRemove, popId, chipCls = 'chip-stage') {
   return chip;
 }
 
+/* ── JOB OPENING SELECTOR ── */
+function buildJobDrop() {
+  const body = document.getElementById('job-sel-body');
+  body.innerHTML = '';
+
+  /* candidate counts per joData title */
+  const counts = {};
+  joData.forEach(j => { counts[j.title] = ALL_ROWS.filter(r => r.role === j.title).length; });
+
+  /* "All Job Openings" row */
+  const allOpt = document.createElement('div');
+  allOpt.className = 'job-sel-opt' + (activeJobId === null ? ' sel-active' : '');
+  allOpt.innerHTML = `<span class="job-sel-opt-name">All Job Openings</span><span class="job-sel-opt-cnt">${ALL_ROWS.length}</span>`;
+  allOpt.onclick = () => selectJob(null);
+  body.appendChild(allOpt);
+
+  const sep = document.createElement('div');
+  sep.className = 'job-sel-sep';
+  body.appendChild(sep);
+
+  /* individual job openings */
+  joData.forEach(j => {
+    const cnt = counts[j.title] || 0;
+    const opt = document.createElement('div');
+    opt.className = 'job-sel-opt' + (activeJobId === j.id ? ' sel-active' : '');
+    const statusDot = j.active
+      ? `<svg width="6" height="6" viewBox="0 0 6 6" style="flex-shrink:0;margin-right:2px"><circle cx="3" cy="3" r="3" fill="#16a34a"/></svg>`
+      : `<svg width="6" height="6" viewBox="0 0 6 6" style="flex-shrink:0;margin-right:2px"><circle cx="3" cy="3" r="3" fill="#d1d5db"/></svg>`;
+    opt.innerHTML = `${statusDot}<span class="job-sel-opt-name">${j.title}</span><span class="job-sel-opt-cnt">${cnt}</span>`;
+    opt.onclick = () => selectJob(j.id);
+    body.appendChild(opt);
+  });
+}
+
+function selectJob(id) {
+  activeJobId = id;
+  closeAllPopovers();
+
+  const btn     = document.getElementById('job-sel-btn');
+  const labelEl = document.getElementById('job-sel-label');
+  if(id === null) {
+    labelEl.textContent = 'All Job Openings';
+    btn.classList.remove('job-filtered');
+  } else {
+    const job = joData.find(j => j.id === id);
+    labelEl.textContent = job ? job.title : 'All Job Openings';
+    btn.classList.add('job-filtered');
+  }
+
+  renderModeUI();
+  applyFilters();
+}
+
+/* ── MODE SWITCH ── */
+function renderModeUI() {
+  const pool = (activeJobId === null);
+
+  /* show/hide AI section (inside page-header) */
+  const aiSec = document.getElementById('ai-section');
+  if(aiSec) aiSec.classList.toggle('ai-visible', pool);
+
+  /* clear AI state on every mode switch */
+  aiMatchSet     = null;
+  aiActiveQuery  = '';
+  aiFilterActive = false;
+  aiRoleFilter   = null;
+  aiIsRanking    = false;
+  document.getElementById('ai-inp')?.value && (document.getElementById('ai-inp').value = '');
+  document.getElementById('ai-source-banner')?.classList.remove('asb-visible');
+
+  /* toggle Job Opening column visibility */
+  const jobCol = COL_DEFS.find(c => c.id === 'job');
+  if(jobCol) jobCol.visible = pool;
+
+  /* entering pool mode: clear all active filters for a fresh discovery view */
+  if(pool) {
+    activeStages.clear(); pendingStages.clear();
+    activeStatuses.clear(); pendingStatuses.clear();
+    activeSkills.clear(); pendingSkills.clear();
+    activeExp.clear(); pendingExp.clear();
+    activeCurrCompany.clear(); pendingCurrCompany.clear();
+    activePrevCompany.clear(); pendingPrevCompany.clear();
+    activeGithubScore.clear(); pendingGithubScore.clear();
+    chipsExpanded = false;
+  }
+
+  renderHead();
+}
+
+/* ── NLP QUERY PARSER ── */
+function parseAiQuery(q) {
+  const ql = q.toLowerCase();
+  const result = { stages:new Set(), statuses:new Set(), skills:new Set(),
+                   exp:new Set(), role:null, isRanking:false };
+
+  /* statuses */
+  if(/\bin.?progress\b/.test(ql))           result.statuses.add('In Progress');
+  if(/\bshortlisted?\b/.test(ql))           result.statuses.add('Shortlisted');
+  if(/\brejected?\b/.test(ql))              result.statuses.add('Rejected');
+  if(/\bon.?hold\b/.test(ql))               result.statuses.add('On Hold');
+  if(/\bhired?\b/.test(ql))                 result.statuses.add('Hired');
+  if(/\bcompleted?\b/.test(ql))             result.statuses.add('Completed');
+  if(/\bpending\b/.test(ql))                result.statuses.add('Pending');
+  if(/\bscheduled?\b/.test(ql))             result.statuses.add('Scheduled');
+
+  /* stages */
+  if(/\bscreening\b/.test(ql))              result.stages.add('Screening');
+  if(/\br1\b/.test(ql))                     result.stages.add('R1');
+  if(/\br2\b/.test(ql))                     result.stages.add('R2');
+  if(/\bassignment\b/.test(ql))             result.stages.add('Assignment');
+  if(/\bfinal\b/.test(ql))                  result.stages.add('Final');
+  if(/\bhired?\b/.test(ql))                 result.stages.add('Hired');
+
+  /* role / job opening */
+  const roleKwMap = [
+    [/\bbackend\b/,          'Backend Engineer'],
+    [/\bfrontend\b/,         'Frontend Engineer'],
+    [/\bsde\b|\bintern\b/,   'SDE Intern'],
+    [/\bproduct.?manager\b|\bpm\b/, 'Product Manager'],
+    [/\bdevops\b/,           'DevOps Lead'],
+    [/\bqa\b|\bquality\b/,   'QA Engineer'],
+    [/\bdata.?engineer/,     'Data Engineer'],
+  ];
+  roleKwMap.forEach(([re, role]) => { if(re.test(ql)) result.role = role; });
+
+  /* experience */
+  const expPlus = ql.match(/(\d+)\s*\+\s*years?|(\d+)\s*years?\s*\+/);
+  const expRng  = ql.match(/(\d+)\s*[-–]\s*(\d+)\s*years?/);
+  if(expPlus) {
+    const min = parseInt(expPlus[1] || expPlus[2]);
+    EXP_DEFS.forEach(d => { if(d.min >= min || d.max >= min) result.exp.add(d.value); });
+  } else if(expRng) {
+    const lo = parseInt(expRng[1]), hi = parseInt(expRng[2]);
+    EXP_DEFS.forEach(d => { if(d.max >= lo && d.min <= hi) result.exp.add(d.value); });
+  } else if(/\bjunior\b|\bentry.?level\b|\bfresh(er)?\b/.test(ql)) {
+    EXP_DEFS.filter(d => d.max <= 2).forEach(d => result.exp.add(d.value));
+  } else if(/\bsenior\b|\bexperienced\b|\bexpert\b/.test(ql)) {
+    EXP_DEFS.filter(d => d.min >= 5).forEach(d => result.exp.add(d.value));
+  }
+
+  /* skills — match exact skill tags present in data */
+  const allSkills = [...new Set(ALL_ROWS.flatMap(r => r.skills))];
+  allSkills.forEach(sk => { if(ql.includes(sk.toLowerCase())) result.skills.add(sk); });
+
+  /* ranking mode */
+  result.isRanking = /\b(top|best|strongest|excellent|rank|highest)\b/.test(ql);
+
+  return result;
+}
+
+/* ── AI QUERY ── */
+function runAiQuery(q) {
+  q = (q || '').trim();
+  if(!q) { clearAiSearch(); return; }
+
+  aiActiveQuery  = q;
+  aiFilterActive = true;
+  aiMatchSet     = null;
+
+  const parsed = parseAiQuery(q);
+  aiIsRanking   = parsed.isRanking;
+  aiRoleFilter  = parsed.role;
+
+  /* Apply parsed filters directly into active filter state */
+  if(parsed.stages.size)   { activeStages   = parsed.stages;   pendingStages   = new Set(activeStages);   }
+  if(parsed.statuses.size) { activeStatuses = parsed.statuses; pendingStatuses = new Set(activeStatuses); }
+  if(parsed.skills.size)   { activeSkills   = parsed.skills;   pendingSkills   = new Set(activeSkills);   }
+  if(parsed.exp.size)      { activeExp      = parsed.exp;      pendingExp      = new Set(activeExp);      }
+
+  /* applyFilters will pick up aiRoleFilter too */
+  applyFilters();
+
+  /* Ranking mode: score + sort filteredRows and mark top 5 */
+  if(parsed.isRanking && filteredRows.length) {
+    const ql = q.toLowerCase();
+    const scored = filteredRows.map((r, i) => {
+      let sc = (r.github_score || 50) * 0.5 + r.exp * 3;
+      if(r.status === 'Shortlisted') sc += 20;
+      if(r.status === 'Hired')       sc += 35;
+      if(/\bjunior\b/.test(ql))      sc = (r.exp <= 2 ? 60 : 0) + (r.github_score || 50) * 0.3;
+      if(/\bsenior\b/.test(ql))      sc = r.exp * 6 + (r.github_score || 50) * 0.3;
+      return { i, sc };
+    }).sort((a, b) => b.sc - a.sc);
+
+    const sorted = scored.map(x => filteredRows[x.i]);
+    filteredRows = sorted;
+    aiMatchSet   = new Set([0, 1, 2, 3, 4].filter(i => i < sorted.length));
+    currentPage  = 1;
+    renderTable();
+    updateStats();
+  }
+
+  /* Update AI source banner */
+  updateAiSourceBanner();
+}
+
+function updateAiSourceBanner() {
+  const banner = document.getElementById('ai-source-banner');
+  const text   = document.getElementById('asb-text');
+  if(!banner) return;
+  if(aiFilterActive) {
+    banner.classList.add('asb-visible');
+    const q = aiActiveQuery;
+    /* build a short description of what was applied */
+    const parts = [];
+    if(activeStages.size)   parts.push([...activeStages].join(', '));
+    if(activeStatuses.size) parts.push([...activeStatuses].join(', '));
+    if(activeSkills.size)   parts.push([...activeSkills].join(', '));
+    if(activeExp.size)      parts.push('exp filter');
+    if(aiRoleFilter)        parts.push(aiRoleFilter);
+    if(aiIsRanking)         parts.push('ranked by score');
+    const applied = parts.length ? ` → ${parts.join(' · ')}` : '';
+    text.innerHTML = `Filters from: <em>"${q}"</em>${applied}`;
+  } else {
+    banner.classList.remove('asb-visible');
+  }
+}
+
+function clearAiSearch() {
+  const inp = document.getElementById('ai-inp');
+  if(inp) inp.value = '';
+  aiMatchSet     = null;
+  aiActiveQuery  = '';
+  aiFilterActive = false;
+  aiRoleFilter   = null;
+  aiIsRanking    = false;
+  /* clear AI-applied filters */
+  activeStages.clear();   pendingStages.clear();
+  activeStatuses.clear(); pendingStatuses.clear();
+  activeSkills.clear();   pendingSkills.clear();
+  activeExp.clear();      pendingExp.clear();
+  document.getElementById('ai-source-banner')?.classList.remove('asb-visible');
+  applyFilters();
+}
+
 function clearAllFilters() {
   activeStages      = new Set(); pendingStages      = new Set();
   activeStatuses    = new Set(); pendingStatuses    = new Set();
@@ -3095,6 +3555,7 @@ function renderHead(){
   colOrder.forEach(ci=>{
     const col=COL_DEFS[ci];
     if(!col.visible) return;
+    if(col.poolOnly && activeJobId !== null) return;
     const th=document.createElement('th');
     th.dataset.colId=col.id;
     th.dataset.colIdx=ci;
@@ -3220,8 +3681,10 @@ function naAction(ridx, action){
 function cellForCol(col,r,ridx){
   switch(col.id){
     case 'name':{
-      const aib = (r.stage==='R1' && r.interviewType==='ai') ? `<span class="ai-badge">AI</span>` : '';
-      return `<div class="name-cell"><div class="n1">${r.name}${aib}</div><div class="n2">${r.role}</div><div class="pbar"><div class="pfill" style="width:${r.prog}%"></div></div></div>`;
+      const aib  = (r.stage==='R1' && r.interviewType==='ai') ? `<span class="ai-badge">AI</span>` : '';
+      const topb = (aiMatchSet && aiMatchSet.has(ridx))
+        ? `<span class="top-match-badge"><svg width="8" height="8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>Top Match</span>` : '';
+      return `<div class="name-cell"><div class="n1" style="display:flex;align-items:center;flex-wrap:wrap;gap:3px">${r.name}${aib}${topb}</div><div class="n2">${r.role}</div><div class="pbar"><div class="pfill" style="width:${r.prog}%"></div></div></div>`;
     }
     case 'contact':
       return `<span class="em">${r.email}</span><span class="ph">${r.phone}</span>`;
@@ -3254,7 +3717,10 @@ function cellForCol(col,r,ridx){
       return r.status
         ? `<span class="status-pill ${STCLS[r.status]||'st-prog'}">${r.status}</span>`
         : `<span class="status-pill st-empty">—</span>`;
-    case 'action':       return nextAction(r, ridx);
+    case 'job':          return `<span style="font-size:12px;color:var(--t2);font-weight:500">${r.role}</span>`;
+    case 'action':       return activeJobId === null
+      ? `<button class="na-view" onclick="event.stopPropagation();selectRow(${ridx})">${EYE_ICO}View Profile</button>`
+      : nextAction(r, ridx);
     case 'curr_company': return r.curr_company||'—';
     case 'prev_company': return r.prev_company||'—';
     case 'github_score': return r.github_score
@@ -3269,6 +3735,27 @@ function cellForCol(col,r,ridx){
 function renderTable(){
   const tb=document.getElementById('tbody');
   tb.innerHTML='';
+
+  /* Empty state */
+  if(!filteredRows.length){
+    const colspan = colOrder.filter(ci => COL_DEFS[ci].visible && !(COL_DEFS[ci].poolOnly && activeJobId !== null)).length + 1;
+    const tr = document.createElement('tr');
+    const td = document.createElement('td');
+    td.colSpan = colspan;
+    const isAi = aiFilterActive || !!aiActiveQuery;
+    const SUGS = ['"shortlisted candidates"','"backend in screening"','"senior engineers"','"top candidates"','"in progress"'];
+    td.innerHTML = `<div class="cand-empty">
+      <div class="cand-empty-icon"><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+      <div class="cand-empty-title">${isAi ? `No results for "${aiActiveQuery}"` : 'No candidates match these filters'}</div>
+      <div class="cand-empty-sub">${isAi ? 'Try rephrasing your query or be more specific about role, status, or experience.' : 'Try removing some filters to see more results.'}</div>
+      ${isAi ? `<div class="cand-empty-suggestions">${SUGS.map(s=>`<span class="cand-empty-sug" onclick="document.getElementById('ai-inp').value=${s};runAiQuery(${s})">${s}</span>`).join('')}</div>` : ''}
+    </div>`;
+    tb.appendChild(tr);
+    tr.appendChild(td);
+    renderPagination();
+    return;
+  }
+
   const start=(currentPage-1)*pageSize;
   const end=Math.min(start+pageSize,filteredRows.length);
   const pageRows=filteredRows.slice(start,end);
@@ -3276,7 +3763,8 @@ function renderTable(){
   pageRows.forEach((r,pi)=>{
     const globalIdx=start+pi;
     const tr=document.createElement('tr');
-    tr.className=globalIdx===activeRow?'row-on':'';
+    const isAiHit = aiMatchSet && aiMatchSet.has(globalIdx);
+    tr.className = globalIdx===activeRow ? (isAiHit?'row-on row-ai-match':'row-on') : (isAiHit?'row-ai-match':'');
     tr.dataset.ridx=globalIdx;
     tr.onclick=()=>selectRow(globalIdx);
 
@@ -3288,6 +3776,7 @@ function renderTable(){
     colOrder.forEach(ci=>{
       const col=COL_DEFS[ci];
       if(!col.visible) return;
+      if(col.poolOnly && activeJobId !== null) return;
       const td=document.createElement('td');
       td.dataset.colId=col.id;
       td.innerHTML=cellForCol(col,r,globalIdx);
@@ -4103,9 +4592,9 @@ function showPop(id, trigger){
 
   const pop  = document.getElementById(id);
   const rect = trigger.getBoundingClientRect();
-  const pw   = id === 'col-pop' ? 280 : id === 'add-menu-pop' ? 210 : 264;
+  const pw   = id === 'col-pop' ? 280 : id === 'add-menu-pop' ? 210 : id === 'job-sel-pop' ? 252 : 264;
 
-  /* col-pop / add-menu: right-align to trigger; filters: left-align */
+  /* col-pop / add-menu: right-align to trigger; filters + job-sel: left-align */
   let left = (id === 'col-pop' || id === 'add-menu-pop') ? rect.right - pw : rect.left;
 
   /* clamp horizontally */
@@ -4188,11 +4677,393 @@ function toggleSidebar(){
   sbOff=!sbOff;
   document.getElementById('sidebar').classList.toggle('collapsed',sbOff);
 }
+/* ═══════════════════════════════════════════
+   DASHBOARD RENDER
+═══════════════════════════════════════════ */
+let dbDateFilter = '30d'; // '7d','30d','90d','all'
+let dbJobFilter  = null;  // null = all, or joData.id
+
+const DB_DATE_LABELS = { '7d':'Last 7 Days', '30d':'Last 30 Days', '90d':'Last 3 Months', 'all':'All Time' };
+
+function dbFilterRows() {
+  let rows = [...ALL_ROWS];
+  /* date filter — applied_date is like "Jan 3, 2026" */
+  if(dbDateFilter !== 'all') {
+    const days = dbDateFilter === '7d' ? 7 : dbDateFilter === '30d' ? 30 : 90;
+    const cutoff = new Date(Date.now() - days * 86400000);
+    rows = rows.filter(r => new Date(r.applied_date) >= cutoff);
+  }
+  /* job filter */
+  if(dbJobFilter !== null) {
+    const job = joData.find(j => j.id === dbJobFilter);
+    if(job) rows = rows.filter(r => r.role === job.role);
+  }
+  return rows;
+}
+
+function dbSetDate(val) {
+  dbDateFilter = val;
+  document.getElementById('db-date-drop')?.classList.remove('open');
+  document.getElementById('db-date-btn')?.classList.remove('open');
+  renderDashboard();
+}
+
+function dbSetJob(id) {
+  dbJobFilter = id;
+  document.getElementById('db-job-drop')?.classList.remove('open');
+  document.getElementById('db-job-btn')?.classList.remove('open');
+  renderDashboard();
+}
+
+function dbToggleDrop(type) {
+  const btn  = document.getElementById(`db-${type}-btn`);
+  const drop = document.getElementById(`db-${type}-drop`);
+  if(!btn || !drop) return;
+  const isOpen = drop.classList.contains('open');
+  /* close all first */
+  ['date','job'].forEach(t => {
+    document.getElementById(`db-${t}-drop`)?.classList.remove('open');
+    document.getElementById(`db-${t}-btn`)?.classList.remove('open');
+  });
+  if(!isOpen) { drop.classList.add('open'); btn.classList.add('open'); }
+}
+
+/* close db dropdowns on outside click */
+document.addEventListener('click', e => {
+  if(!e.target.closest('.db-flt-wrap')) {
+    ['date','job'].forEach(t => {
+      document.getElementById(`db-${t}-drop`)?.classList.remove('open');
+      document.getElementById(`db-${t}-btn`)?.classList.remove('open');
+    });
+  }
+});
+
+function renderDashboard() {
+  const root = document.getElementById('db-root');
+  if(!root) return;
+  root.innerHTML = '';
+
+  /* ── Scoped rows based on active filters ── */
+  const rows = dbFilterRows();
+
+  /* ── Computed metrics ── */
+  const totalCands   = rows.length;
+  const activeRoles  = joData.filter(j => j.active).length;
+  const stageCount   = s => rows.filter(r => r.stage === s).length;
+  const statusCount  = s => rows.filter(r => r.status === s).length;
+  const interviewsWk = rows.filter(r => ['R1','R2','Final'].includes(r.stage) && ['In Progress','Scheduled'].includes(r.status)).length;
+  const offersSent   = rows.filter(r => r.stage === 'Hired' || r.status === 'Hired').length;
+  const shortlisted  = statusCount('Shortlisted');
+  const inProgress   = statusCount('In Progress');
+  const rejected     = statusCount('Rejected');
+  const avgTimeHire  = 18; // days — representative value
+
+  /* Pipeline counts per stage */
+  const pipelineStages = ['Screening','R1','R2','Assignment','Final','Hired'];
+  const pipelineCounts = pipelineStages.map(s => rows.filter(r => r.stage === s).length);
+  const pipelineMax = Math.max(...pipelineCounts, 1);
+
+  /* Top candidates by github_score */
+  const topCands = [...rows].sort((a,b) => (b.github_score||0) - (a.github_score||0)).slice(0,5);
+
+  /* Interviewer leaderboard */
+  const lbMap = {};
+  rows.forEach(r => {
+    if(!r.interviewer) return;
+    if(!lbMap[r.interviewer]) lbMap[r.interviewer] = { name:r.interviewer, interviews:0, completed:0 };
+    lbMap[r.interviewer].interviews++;
+    if(['Completed','Shortlisted','Hired'].includes(r.status)) lbMap[r.interviewer].completed++;
+  });
+  const lb = Object.values(lbMap).sort((a,b) => b.completed - a.completed).slice(0,5);
+
+  /* AI-generated insight (single dynamic sentence) */
+  const pendingFeedback  = rows.filter(r => ['R1','R2','Final'].includes(r.stage) && r.status === 'Completed').length;
+  const screeningPending = rows.filter(r => r.stage === 'Screening' && r.status === 'Shortlisted').length;
+  const r1Count = stageCount('R1'), r2Count = stageCount('R2');
+  const r1r2Drop = r1Count > 0 ? Math.round((1 - r2Count/r1Count)*100) : 0;
+  const topRole = (() => {
+    const roleCt = {};
+    rows.forEach(r => { roleCt[r.role] = (roleCt[r.role]||0)+1; });
+    const sorted = Object.entries(roleCt).sort((a,b)=>b[1]-a[1]);
+    return sorted[0] || ['—', 0];
+  })();
+  const aiInsightText = r1r2Drop >= 40
+    ? `Drop-off detected at R2 — <strong>${r1r2Drop}%</strong> of R1 candidates didn't advance. Review feedback quality.`
+    : screeningPending >= 5
+    ? `<strong>${screeningPending} shortlisted candidates</strong> are ready to move to R1. Schedule interviews to keep momentum.`
+    : pendingFeedback >= 3
+    ? `<strong>${pendingFeedback} completed interviews</strong> are missing feedback. Prompt interviewers to unblock the pipeline.`
+    : `<strong>${topRole[0]}</strong> is your most active pipeline with ${topRole[1]} candidates — consider prioritising offers.`;
+
+  /* Pending actions */
+  const pendingActions = [
+    { dot:'#dc2626', title:'Give feedback on R1 interviews', sub:`${pendingFeedback} completed interviews awaiting feedback`, btn:'Review', urgent:true },
+    { dot:'#2563eb', title:'Schedule R1 for shortlisted candidates', sub:`${screeningPending} candidates cleared Screening stage`, btn:'Schedule', urgent:false },
+    { dot:'#b45309', title:'Review assignment submissions', sub:`${rows.filter(r=>r.stage==='Assignment'&&r.status==='Completed').length} assignments ready for review`, btn:'Open', urgent:false },
+    { dot:'#7c3aed', title:'Send offers to Final stage winners', sub:`${rows.filter(r=>r.stage==='Final'&&r.status==='Completed').length} candidates cleared Final round`, btn:'Draft', urgent:false },
+  ];
+
+  /* Recent activity */
+  const recent = [
+    { dot:'#16a34a', text:`<strong>${rows[3]?.name||ALL_ROWS[3]?.name||'Candidate'}</strong> moved to Final round for <strong>${rows[3]?.role||''}</strong>`, time:'2 min ago' },
+    { dot:'#2563eb', text:`Interview scheduled for <strong>${rows[7]?.name||ALL_ROWS[7]?.name||'Candidate'}</strong> — R2 ${rows[7]?.role||''}`, time:'18 min ago' },
+    { dot:'#b45309', text:`Feedback submitted by <strong>${lb[0]?.name||'Interviewer'}</strong> for R1 round`, time:'1 hr ago' },
+    { dot:'#7c3aed', text:`<strong>${rows[1]?.name||ALL_ROWS[1]?.name||'Candidate'}</strong> shortlisted after Screening review`, time:'2 hrs ago' },
+    { dot:'#dc2626', text:`Offer letter sent to <strong>${topCands[0]?.name||'Candidate'}</strong>`, time:'4 hrs ago' },
+  ];
+
+  /* Upcoming interviews */
+  const schedRows = rows.filter(r => ['R1','R2','Final'].includes(r.stage) && r.status === 'Scheduled').slice(0,4);
+
+  /* ── Funnel bar colours ── */
+  const funnelColors = ['#6366f1','#818cf8','#3b82f6','#06b6d4','#10b981','#16a34a'];
+
+  /* ════════════════════ BUILD HTML ════════════════════ */
+
+  /* ── Filter label helpers ── */
+  const dateLbl = DB_DATE_LABELS[dbDateFilter] || 'Last 30 Days';
+  const jobLbl  = dbJobFilter !== null ? (joData.find(j=>j.id===dbJobFilter)?.title || 'All Job Openings') : 'All Job Openings';
+  const calIco  = `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+  const briefIco= `<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>`;
+  const chvIco  = `<svg class="db-flt-chv" width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>`;
+
+  /* Date dropdown items */
+  const dateDropItems = Object.entries(DB_DATE_LABELS).map(([val,lbl]) =>
+    `<div class="db-flt-item${dbDateFilter===val?' active':''}" onclick="dbSetDate('${val}')">${lbl}</div>`
+  ).join('');
+
+  /* Job dropdown items */
+  const jobDropItems = [`<div class="db-flt-item${dbJobFilter===null?' active':''}" onclick="dbSetJob(null)">All Job Openings</div>`,
+    `<div class="db-flt-sep"></div>`,
+    ...joData.filter(j=>j.active).map(j =>
+      `<div class="db-flt-item${dbJobFilter===j.id?' active':''}" onclick="dbSetJob(${j.id})">${j.title}</div>`
+    )
+  ].join('');
+
+  /* AI banner */
+  const aiHTML = `<div class="db-ai">
+    <div class="db-ai-left">
+      <div class="db-ai-icon">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+      </div>
+      <div class="db-ai-text">
+        <div class="db-ai-title">AI Hiring Insights</div>
+        <div class="db-ai-sub">${aiInsightText}</div>
+      </div>
+    </div>
+    <div class="db-ai-controls">
+      <div class="db-flt-wrap">
+        <button class="db-flt-btn" id="db-date-btn" onclick="event.stopPropagation();dbToggleDrop('date')">${calIco}${dateLbl}${chvIco}</button>
+        <div class="db-flt-drop" id="db-date-drop">${dateDropItems}</div>
+      </div>
+      <div class="db-flt-wrap">
+        <button class="db-flt-btn${dbJobFilter!==null?' open':''}" id="db-job-btn" onclick="event.stopPropagation();dbToggleDrop('job')">${briefIco}${jobLbl}${chvIco}</button>
+        <div class="db-flt-drop" id="db-job-drop">${jobDropItems}</div>
+      </div>
+      <button class="db-ai-cta" onclick="setNav(document.querySelectorAll('.nav-item')[1])">
+        <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+        View Candidates
+      </button>
+    </div>
+  </div>`;
+
+  /* KPI row */
+  function kpi(label, val, icon, iconBg, trend, trendLabel, foot) {
+    const tc = trend === 'up' ? 'db-trend-up' : trend === 'dn' ? 'db-trend-dn' : 'db-trend-nt';
+    const ta = trend === 'up' ? '↑' : trend === 'dn' ? '↓' : '→';
+    return `<div class="db-kpi">
+      <div class="db-kpi-head">
+        <span class="db-kpi-label">${label}</span>
+        <div class="db-kpi-icon" style="background:${iconBg}">${icon}</div>
+      </div>
+      <div class="db-kpi-val">${val}</div>
+      <div class="db-kpi-foot">
+        <span class="db-kpi-trend ${tc}">${ta} ${trendLabel}</span>
+        <span>${foot}</span>
+      </div>
+    </div>`;
+  }
+  const icoSvg = (d, sw='2') => `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="${sw}" style="color:#fff">${d}</svg>`;
+  const kpiHTML = `<div class="db-kpi-row">
+    ${kpi('Total Candidates', totalCands,
+      icoSvg('<circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/>'),
+      '#6366f1', 'up', '12%', 'vs last month')}
+    ${kpi('Active Roles', activeRoles,
+      icoSvg('<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>'),
+      '#0ea5e9', 'up', '2 new', 'this month')}
+    ${kpi('Interviews / Week', interviewsWk,
+      icoSvg('<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>'),
+      '#f59e0b', 'dn', '8%', 'vs last week')}
+    ${kpi('Offers Sent', offersSent,
+      icoSvg('<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>'),
+      '#10b981', 'up', '3', 'this month')}
+    ${kpi('Avg Time to Hire', avgTimeHire + 'd',
+      icoSvg('<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>'),
+      '#8b5cf6', 'dn', '2d', 'vs last month')}
+  </div>`;
+
+  /* Funnel */
+  const funnelRows = pipelineStages.map((s, i) => {
+    const cnt  = pipelineCounts[i];
+    const prev = i > 0 ? pipelineCounts[i-1] : cnt;
+    const drop = prev > 0 && i > 0 ? Math.round((1 - cnt/prev)*100) : 0;
+    const pct  = Math.round((cnt/pipelineMax)*100);
+    const dropTxt = i === 0 ? '' : `<span class="db-funnel-drop ${drop<40?'ok':''}">${drop>0?`-${drop}%`:''}</span>`;
+    return `<div class="db-funnel-stage">
+      <span class="db-funnel-label">${s}</span>
+      <div class="db-funnel-bar-wrap">
+        <div class="db-funnel-bar" style="width:${pct}%;background:${funnelColors[i]}">
+          ${cnt > 3 ? `<span class="db-funnel-bar-txt">${cnt}</span>` : ''}
+        </div>
+      </div>
+      <span class="db-funnel-count">${cnt}</span>
+      ${dropTxt}
+    </div>`;
+  }).join('');
+  const overallCvr = pipelineCounts[0] > 0 ? Math.round((pipelineCounts[5]/pipelineCounts[0])*100) : 0;
+  const funnelHTML = `<div class="db-card">
+    <div class="db-card-head">
+      <span class="db-card-title">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+        Pipeline Funnel
+      </span>
+      <button class="db-card-action" onclick="setNav(document.querySelectorAll('.nav-item')[1])">View all →</button>
+    </div>
+    <div class="db-card-body">
+      <div class="db-funnel-stages">${funnelRows}</div>
+      <div class="db-funnel-cvr">Overall conversion: Applied → Hired = <strong>${overallCvr}%</strong></div>
+    </div>
+  </div>`;
+
+  /* Action center */
+  const actionItemsHTML = pendingActions.map(a => `
+    <div class="db-action-item">
+      <div class="db-action-dot" style="background:${a.dot}"></div>
+      <div class="db-action-info">
+        <div class="db-action-title">${a.title}</div>
+        <div class="db-action-sub">${a.sub}</div>
+      </div>
+      <button class="db-action-btn${a.urgent?' urgent':''}" onclick="showToast('success','Opening ${a.title.toLowerCase()}…')">${a.btn}</button>
+    </div>`).join('');
+  const actionHTML = `<div class="db-card">
+    <div class="db-card-head">
+      <span class="db-card-title">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        Action Center
+      </span>
+      <span style="font-size:11px;background:#fee2e2;color:#dc2626;padding:2px 7px;border-radius:20px;font-weight:700">${pendingActions.length} pending</span>
+    </div>
+    <div class="db-action-list">${actionItemsHTML}</div>
+  </div>`;
+
+  /* Top candidates */
+  const topCandsHTML = `<div class="db-card">
+    <div class="db-card-head">
+      <span class="db-card-title">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+        Top Candidates
+      </span>
+      <button class="db-card-action" onclick="setNav(document.querySelectorAll('.nav-item')[1])">View all →</button>
+    </div>
+    <div class="db-cand-list">
+      ${topCands.map((r,i) => {
+        const ini = r.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+        const sc  = r.github_score || 0;
+        const scClr = sc>=80?'#16a34a':sc>=60?'#b45309':'#6b7280';
+        const scBg  = sc>=80?'#dcfce7':sc>=60?'#fef3c7':'#f3f4f6';
+        const medals = ['🥇','🥈','🥉','',''];
+        return `<div class="db-cand-item">
+          <span class="db-cand-rank">${medals[i]||i+1}</span>
+          <div class="db-cand-av" style="background:${joAvColor(r.name)}">${ini}</div>
+          <div class="db-cand-info">
+            <div class="db-cand-name">${r.name}</div>
+            <div class="db-cand-meta">${r.role} · ${r.exp}y · ${r.stage}</div>
+          </div>
+          <div class="db-cand-score">
+            <div class="db-score-ring" style="background:${scBg};color:${scClr}">${sc}</div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+  </div>`;
+
+  /* Leaderboard */
+  const lbHTML = `<div class="db-card">
+    <div class="db-card-head">
+      <span class="db-card-title">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="18 20 18 10"/><polyline points="12 20 12 4"/><polyline points="6 20 6 14"/></svg>
+        Interviewer Leaderboard
+      </span>
+    </div>
+    <div class="db-lb-list">
+      ${lb.length ? lb.map((u,i) => {
+        const ini   = u.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+        const rate  = u.interviews > 0 ? Math.round((u.completed/u.interviews)*100) : 0;
+        const medal = i===0 ? 'gold' : '';
+        return `<div class="db-lb-item">
+          <span class="db-lb-rank ${medal}">${i+1}</span>
+          <div class="db-lb-av" style="background:${joAvColor(u.name)}">${ini}</div>
+          <div style="flex:1;min-width:0">
+            <div class="db-lb-name">${u.name}</div>
+            <div class="db-lb-role">${u.interviews} interviews</div>
+          </div>
+          <div class="db-lb-stat">
+            <div class="db-lb-val">${rate}%</div>
+            <div class="db-lb-sub">completion</div>
+          </div>
+        </div>`;
+      }).join('') : '<div style="padding:16px;font-size:12px;color:var(--t3);text-align:center">No interviewer data</div>'}
+    </div>
+  </div>`;
+
+  /* Activity + Schedule */
+  const actHTML = `<div class="db-card">
+    <div class="db-card-head">
+      <span class="db-card-title">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Activity &amp; Schedule
+      </span>
+    </div>
+    <div class="db-section-sep">Recent Activity</div>
+    <div class="db-act-list">
+      ${recent.map(a=>`<div class="db-act-item">
+        <div class="db-act-dot" style="background:${a.dot}"></div>
+        <div class="db-act-body">
+          <div class="db-act-text">${a.text}</div>
+          <div class="db-act-time">${a.time}</div>
+        </div>
+      </div>`).join('')}
+    </div>
+    <div class="db-section-sep">Today's Interviews</div>
+    <div class="db-sched-list">
+      ${schedRows.length ? schedRows.map((r,i)=>{
+        const times=['9:00 AM','10:30 AM','2:00 PM','3:30 PM'];
+        return `<div class="db-sched-item">
+          <span class="db-sched-time">${times[i]||'TBD'}</span>
+          <div style="flex:1;min-width:0">
+            <div class="db-sched-name">${r.name}</div>
+            <div class="db-sched-stage">${r.role} · ${r.stage}</div>
+          </div>
+        </div>`;
+      }).join('') : `<div style="font-size:12px;color:var(--t3);text-align:center;padding:8px 0">No interviews scheduled today</div>`}
+    </div>
+  </div>`;
+
+  /* Assemble */
+  root.innerHTML = `
+    ${aiHTML}
+    ${kpiHTML}
+    <div class="db-mid-row">${funnelHTML}${actionHTML}</div>
+    <div class="db-bot-row">${topCandsHTML}${lbHTML}${actHTML}</div>
+  `;
+}
+
 function setNav(el){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   el.classList.add('active');
   const label = el.querySelector('span')?.textContent?.trim() || '';
   // hide all screens + topbar buttons
+  document.getElementById('screen-dashboard').style.display     = 'none';
   document.getElementById('screen-candidates').style.display    = 'none';
   document.getElementById('screen-job-openings').style.display  = 'none';
   document.getElementById('screen-job-roles').style.display     = 'none';
@@ -4202,7 +5073,10 @@ function setNav(el){
   document.getElementById('create-jo-btn').style.display  = 'none';
   document.getElementById('create-jr-btn').style.display  = 'none';
   document.getElementById('create-usr-btn').style.display = 'none';
-  if(label === 'Candidates'){
+  if(label === 'Dashboard'){
+    document.getElementById('screen-dashboard').style.display = '';
+    renderDashboard();
+  } else if(label === 'Candidates'){
     document.getElementById('screen-candidates').style.display   = '';
     document.getElementById('add-cand-btn').style.display = '';
   } else if(label === 'Job Openings'){
@@ -8003,6 +8877,7 @@ document.addEventListener('keydown', e => {
 })();
 
 renderHead();
+renderModeUI();
 /* default filter: Screening stage */
 activeStages  = new Set(['Screening']);
 pendingStages = new Set(['Screening']);
@@ -8871,3 +9746,4 @@ document.addEventListener('keydown', e => {
 <div id="toast-container"></div>
 </body>
 </html>
+
