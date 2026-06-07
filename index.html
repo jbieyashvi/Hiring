@@ -1482,6 +1482,314 @@ tbody td:first-child{padding-left:20px}
 .db-sched-name{font-size:12px;font-weight:600;color:var(--t1);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .db-sched-stage{font-size:10.5px;color:var(--t3)}
 .db-section-sep{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;padding:8px 16px 4px;background:var(--bg)}
+
+/* ── ORG SWITCHER (topbar) ── */
+.org-switch{display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);font-size:12px;font-weight:500;color:var(--t1);cursor:pointer;font-family:inherit;transition:border-color .12s,background .12s;white-space:nowrap}
+.org-switch:hover{border-color:#c5cad3;background:var(--bg)}
+.org-switch.pop-active{background:var(--accent-bg);border-color:#93c5fd;color:var(--accent)}
+.org-switch-logo{width:18px;height:18px;border-radius:4px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;overflow:hidden}
+.org-switch-logo img{width:100%;height:100%;object-fit:cover}
+.org-switch-chev{opacity:.6;flex-shrink:0}
+.org-switch-name{max-width:140px;overflow:hidden;text-overflow:ellipsis}
+.org-switch-pop{position:fixed;min-width:260px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);box-shadow:var(--s3);z-index:1000;overflow:hidden}
+.org-switch-pop-head{padding:8px 12px 6px;font-size:10.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border-light)}
+.org-switch-pop-body{padding:4px 0;max-height:300px;overflow-y:auto}
+.org-switch-opt{display:flex;align-items:center;gap:9px;padding:8px 12px;cursor:pointer;font-size:12.5px;color:var(--t1);transition:background .08s}
+.org-switch-opt:hover{background:var(--bg)}
+.org-switch-opt.sel-active{background:var(--accent-bg);color:var(--accent)}
+.org-switch-opt-logo{width:24px;height:24px;border-radius:5px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;overflow:hidden}
+.org-switch-opt-logo img{width:100%;height:100%;object-fit:cover}
+.org-switch-opt-meta{flex:1;min-width:0;overflow:hidden}
+.org-switch-opt-name{font-weight:600;font-size:12.5px;color:var(--t1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.org-switch-opt-sub{font-size:10.5px;color:var(--t3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.org-switch-opt.sel-active .org-switch-opt-name{color:var(--accent)}
+.org-switch-pop-foot{border-top:1px solid var(--border-light);padding:6px}
+.org-switch-pop-foot .ofb{display:flex;align-items:center;gap:6px;width:100%;padding:7px 8px;background:transparent;border:none;border-radius:var(--r);font-size:12px;color:var(--t2);cursor:pointer;font-family:inherit;font-weight:500}
+.org-switch-pop-foot .ofb:hover{background:var(--bg);color:var(--t1)}
+
+/* ── ONBOARDING SCREEN ── */
+.onb-wrap{flex:1;display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;background:var(--bg);padding:32px 20px 60px}
+.onb-card{width:100%;max-width:560px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r3);box-shadow:var(--s2);overflow:hidden}
+.onb-head{padding:28px 32px 18px;border-bottom:1px solid var(--border-light);text-align:center}
+.onb-logo-mark{width:42px;height:42px;background:#111827;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:14px}
+.onb-title{font-size:20px;font-weight:700;color:var(--t1);margin-bottom:4px}
+.onb-sub{font-size:12.5px;color:var(--t2);line-height:1.5}
+.onb-body{padding:24px 32px 8px}
+.onb-row{margin-bottom:16px}
+.onb-row.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.onb-label{display:block;font-size:11.5px;font-weight:600;color:var(--t1);margin-bottom:6px}
+.onb-label .req{color:var(--red);margin-left:2px}
+.onb-input,.onb-select{width:100%;height:36px;padding:0 11px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;font-family:inherit;color:var(--t1);background:var(--surface);transition:border-color .12s,box-shadow .12s}
+.onb-input:focus,.onb-select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.onb-hint{font-size:11px;color:var(--t3);margin-top:5px}
+.onb-domain-wrap{display:flex;align-items:stretch;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--surface);transition:border-color .12s,box-shadow .12s}
+.onb-domain-wrap:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.onb-domain-wrap input{flex:1;height:36px;padding:0 11px;border:none;font-size:13px;font-family:inherit;color:var(--t1);background:transparent}
+.onb-domain-wrap input:focus{outline:none}
+.onb-domain-wrap .suffix{display:flex;align-items:center;padding:0 12px;background:var(--bg);color:var(--t2);font-size:12px;border-left:1px solid var(--border)}
+.onb-logo-up{display:flex;align-items:center;gap:14px}
+.onb-logo-preview{width:64px;height:64px;border-radius:var(--r2);border:1px dashed var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--t3);overflow:hidden;flex-shrink:0}
+.onb-logo-preview img{width:100%;height:100%;object-fit:cover}
+.onb-logo-act{display:flex;flex-direction:column;gap:4px}
+.onb-logo-up label{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px;border-radius:var(--r);border:1px solid var(--border);background:var(--surface);color:var(--t1);font-size:12px;font-weight:500;cursor:pointer;transition:background .1s,box-shadow .1s;width:fit-content}
+.onb-logo-up label:hover{background:var(--bg);box-shadow:var(--s1)}
+.onb-logo-up input[type="file"]{display:none}
+.onb-foot{padding:8px 32px 28px}
+.onb-foot .btn{width:100%;justify-content:center;height:38px;font-size:13px}
+.onb-foot-link{text-align:center;font-size:11.5px;color:var(--t3);margin-top:14px}
+.onb-foot-link a{color:var(--accent);font-weight:500;text-decoration:none;cursor:pointer}
+.onb-foot-link a:hover{text-decoration:underline}
+
+/* ── SUPER ADMIN SCREEN ── */
+.sa-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--surface)}
+.sa-head{padding:14px 24px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
+.sa-title{font-size:16px;font-weight:700;color:var(--t1)}
+.sa-sub{font-size:12px;color:var(--t2);margin-top:2px}
+.sa-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;background:var(--purple-bg);color:var(--purple);border-radius:20px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.sa-spacer{flex:1}
+.sa-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:16px 24px 0}
+.sa-stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:14px 16px}
+.sa-stat-lbl{font-size:11px;color:var(--t2);font-weight:500;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.sa-stat-val{font-size:22px;font-weight:700;color:var(--t1);line-height:1}
+.sa-stat-delta{font-size:11px;color:var(--green);margin-top:4px;font-weight:500}
+.sa-table-wrap{flex:1;overflow:auto;padding:18px 24px 24px}
+.sa-table-card{border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;background:var(--surface)}
+.sa-table-head-row{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg);gap:10px}
+.sa-table-head-row .sa-htitle{font-size:13px;font-weight:600;color:var(--t1);flex:1}
+.sa-search{display:flex;align-items:center;gap:6px;height:30px;padding:0 10px;border:1px solid var(--border);border-radius:var(--r);background:var(--surface);min-width:230px}
+.sa-search input{flex:1;border:none;background:transparent;font-size:12px;font-family:inherit;color:var(--t1)}
+.sa-search input:focus{outline:none}
+.sa-table{width:100%;border-collapse:collapse}
+.sa-table th{padding:10px 16px;text-align:left;font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.04em;background:var(--surface);border-bottom:1px solid var(--border-light);white-space:nowrap}
+.sa-table td{padding:12px 16px;border-bottom:1px solid var(--border-light);font-size:12.5px;color:var(--t1);vertical-align:middle}
+.sa-table tr:last-child td{border-bottom:none}
+.sa-table tr:hover td{background:var(--bg)}
+.sa-org-cell{display:flex;align-items:center;gap:10px}
+.sa-org-logo{width:30px;height:30px;border-radius:6px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;overflow:hidden}
+.sa-org-logo img{width:100%;height:100%;object-fit:cover}
+.sa-org-name{font-weight:600;color:var(--t1);font-size:12.5px}
+.sa-org-domain{font-size:11px;color:var(--t3);margin-top:1px}
+.sa-status{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
+.sa-status-active{background:var(--green-bg);color:var(--green)}
+.sa-status-inactive{background:var(--red-bg);color:var(--red)}
+.sa-status-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.sa-actions{display:flex;justify-content:flex-end;gap:6px}
+.sa-toggle-btn{height:26px;padding:0 10px;border-radius:var(--r);font-size:11.5px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--t1);font-family:inherit;transition:background .1s,box-shadow .1s,border-color .1s}
+.sa-toggle-btn:hover{background:var(--bg);box-shadow:var(--s1)}
+.sa-toggle-btn.disable{color:var(--red);border-color:#fecaca}
+.sa-toggle-btn.disable:hover{background:var(--red-bg)}
+.sa-toggle-btn.enable{color:var(--green);border-color:#bbf7d0}
+.sa-toggle-btn.enable:hover{background:var(--green-bg)}
+
+/* ── ORG SETTINGS SCREEN ── */
+.os-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--surface)}
+.os-head{padding:14px 24px;border-bottom:1px solid var(--border);flex-shrink:0}
+.os-title{font-size:16px;font-weight:700}
+.os-sub{font-size:12px;color:var(--t2);margin-top:2px}
+.os-tabs{display:flex;gap:18px;padding:0 24px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--surface)}
+.os-tab{padding:11px 0;font-size:12.5px;font-weight:500;color:var(--t2);cursor:pointer;border-bottom:2px solid transparent;transition:color .1s,border-color .1s}
+.os-tab:hover{color:var(--t1)}
+.os-tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+.os-body{flex:1;overflow-y:auto;padding:24px}
+.os-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);max-width:760px;margin-bottom:18px}
+.os-card-head{padding:14px 18px;border-bottom:1px solid var(--border-light)}
+.os-card-title{font-size:13.5px;font-weight:600;color:var(--t1)}
+.os-card-sub{font-size:11.5px;color:var(--t2);margin-top:2px}
+.os-card-body{padding:18px}
+.os-row{margin-bottom:14px}
+.os-row.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.os-label{display:block;font-size:11.5px;font-weight:600;color:var(--t1);margin-bottom:5px}
+.os-input,.os-select{width:100%;height:34px;padding:0 11px;border:1px solid var(--border);border-radius:var(--r);font-size:12.5px;font-family:inherit;color:var(--t1);background:var(--surface);transition:border-color .12s,box-shadow .12s}
+.os-input:focus,.os-select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.os-hint{font-size:11px;color:var(--t3);margin-top:4px}
+.os-logo-row{display:flex;align-items:center;gap:14px}
+.os-logo-preview{width:60px;height:60px;border-radius:var(--r2);border:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700;font-size:18px;overflow:hidden;flex-shrink:0}
+.os-logo-preview img{width:100%;height:100%;object-fit:cover}
+.os-logo-act label{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 11px;border-radius:var(--r);border:1px solid var(--border);background:var(--surface);color:var(--t1);font-size:11.5px;font-weight:500;cursor:pointer}
+.os-logo-act label:hover{background:var(--bg)}
+.os-logo-act input[type="file"]{display:none}
+.os-card-foot{padding:12px 18px;border-top:1px solid var(--border-light);display:flex;justify-content:flex-end;gap:8px;background:var(--bg);border-bottom-left-radius:var(--r2);border-bottom-right-radius:var(--r2)}
+.os-invite-row{display:flex;gap:8px;align-items:flex-end}
+.os-invite-row .os-row{flex:1;margin-bottom:0}
+.os-invite-row .os-row.role-col{flex:0 0 170px}
+.os-members-table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed}
+.os-members-table th{padding:12px 18px;text-align:left;font-size:10.5px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;background:var(--bg);border-bottom:1px solid var(--border);white-space:nowrap}
+.os-members-table td{padding:14px 18px;border-bottom:1px solid var(--border-light);font-size:12.5px;color:var(--t1);vertical-align:middle;height:62px}
+.os-members-table tbody tr:last-child td{border-bottom:none}
+.os-members-table tbody tr:hover td{background:#fafbfc}
+.os-mem-user{display:flex;align-items:center;gap:11px;min-width:0}
+.os-mem-av{width:32px;height:32px;border-radius:50%;background:var(--accent-bg);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.os-mem-name{font-weight:600;font-size:12.5px;color:var(--t1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.os-mem-mail{font-size:11px;color:var(--t3);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.os-mem-text{flex:1;min-width:0}
+.os-role-select{height:30px;padding:0 26px 0 10px;font-size:11.5px;font-weight:500;border:1px solid var(--border);border-radius:var(--r);background:var(--surface) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5'><polyline points='6 9 12 15 18 9'/></svg>") no-repeat right 8px center;color:var(--t1);font-family:inherit;cursor:pointer;appearance:none;-webkit-appearance:none;transition:border-color .12s,box-shadow .12s;min-width:140px}
+.os-role-select:hover{border-color:#c5cad3}
+.os-role-select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.os-role-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.os-role-pill .os-role-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.8}
+.os-role-admin{background:var(--purple-bg);color:var(--purple)}
+.os-role-mgr{background:var(--accent-bg);color:var(--accent)}
+.os-role-int{background:var(--amber-bg);color:var(--amber)}
+.os-role-view{background:var(--bg);color:var(--t2);border:1px solid var(--border)}
+.os-status-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.os-status-pill .os-status-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.os-status-active{background:var(--green-bg);color:var(--green)}
+.os-status-pending{background:var(--amber-bg);color:var(--amber)}
+.os-you-badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:10.5px;font-weight:600;background:var(--accent-bg);color:var(--accent);letter-spacing:.02em}
+.os-remove-btn{height:28px;padding:0 11px;border-radius:var(--r);border:1px solid var(--border);background:var(--surface);color:var(--red);font-size:11.5px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .1s,border-color .1s}
+.os-remove-btn:hover{background:var(--red-bg);border-color:#fecaca}
+.os-joined-cell{color:var(--t2);font-size:12px;white-space:nowrap}
+.os-role-legend{display:flex;flex-wrap:wrap;gap:14px;padding:14px 18px;background:var(--bg);border-top:1px solid var(--border-light);font-size:11px;color:var(--t2)}
+.os-role-legend strong{color:var(--t1);margin-right:4px;font-weight:600}
+.os-empty{padding:30px;text-align:center;color:var(--t3);font-size:12px}
+
+/* role-gated nav items / sections fade */
+.role-hidden{display:none !important}
+
+/* Compact AI scheduling override */
+.sm-rounds-compact{display:flex;flex-direction:column;gap:6px}
+.sm-round-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--border);border-radius:var(--r2);cursor:pointer;background:var(--surface);transition:border-color .12s,background .12s}
+.sm-round-row:hover{border-color:#c5cad3;background:var(--bg)}
+.sm-round-row.sel{border-color:var(--accent);background:var(--accent-bg)}
+.sm-round-row .sm-radio{flex-shrink:0}
+.sm-round-row.sel .sm-radio{border-color:var(--accent)}
+.sm-round-row.sel .sm-radio::after{content:'';width:9px;height:9px;border-radius:50%;background:var(--accent);display:block}
+.sm-round-name{flex:1;font-size:12.5px;font-weight:600;color:var(--t1)}
+.sm-round-row.sel .sm-round-name{color:var(--accent)}
+.sm-ai-info-line{display:flex;align-items:center;gap:7px;padding:10px 12px;background:var(--accent-bg);border:1px solid #bfdbfe;border-radius:var(--r2);font-size:12px;color:var(--t1);margin-top:4px}
+.sm-ai-info-line svg{color:var(--accent);flex-shrink:0}
+.sm-ai-info-line strong{font-weight:600;color:var(--accent)}
+.sm-ai-info-line .sm-ai-info-sep{color:var(--t3);margin:0 2px}
+
+/* ── INTERVIEW SETTINGS SCREEN ── */
+.is-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--surface)}
+.is-head{padding:14px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0}
+.is-title{font-size:16px;font-weight:700}
+.is-sub{font-size:12px;color:var(--t2);margin-top:2px}
+.is-body{flex:1;overflow-y:auto;padding:20px 24px}
+.is-card{border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;background:var(--surface);max-width:1080px}
+.is-card-head{padding:14px 18px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.is-card-title{font-size:13.5px;font-weight:600}
+.is-card-sub{font-size:11.5px;color:var(--t2);margin-top:2px}
+.is-table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed}
+.is-table th{padding:12px 18px;text-align:left;font-size:10.5px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;background:var(--bg);border-bottom:1px solid var(--border);white-space:nowrap}
+.is-table td{padding:14px 18px;border-bottom:1px solid var(--border-light);font-size:12.5px;color:var(--t1);vertical-align:middle;height:60px}
+.is-table tbody tr:last-child td{border-bottom:none}
+.is-table tbody tr:hover td{background:#fafbfc}
+.is-round-cell{display:flex;align-items:center;gap:11px}
+.is-round-ico{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff}
+.is-round-name{font-weight:600;font-size:12.5px;color:var(--t1)}
+.is-round-desc{font-size:11px;color:var(--t3);margin-top:2px}
+.is-dur-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;background:var(--bg);border:1px solid var(--border);color:var(--t1);border-radius:20px;font-size:11.5px;font-weight:500}
+.is-diff-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.is-diff-pill .is-diff-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.8}
+.is-diff-easy{background:var(--green-bg);color:var(--green)}
+.is-diff-medium{background:var(--amber-bg);color:var(--amber)}
+.is-diff-hard{background:var(--red-bg);color:var(--red)}
+.is-actions{display:flex;justify-content:flex-end;gap:6px}
+.is-act-btn{height:28px;padding:0 11px;border-radius:var(--r);border:1px solid var(--border);background:var(--surface);color:var(--t1);font-size:11.5px;font-weight:500;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:4px;transition:background .1s,box-shadow .1s,border-color .1s}
+.is-act-btn:hover{background:var(--bg);box-shadow:var(--s1)}
+.is-act-btn.danger{color:var(--red);border-color:#fecaca}
+.is-act-btn.danger:hover{background:var(--red-bg)}
+.is-empty{padding:36px;text-align:center;color:var(--t3);font-size:12px}
+
+/* Interview round modal */
+.is-modal-backdrop{position:fixed;inset:0;background:rgba(17,24,39,.45);z-index:999;opacity:0;pointer-events:none;transition:opacity .15s}
+.is-modal-backdrop.open{opacity:1;pointer-events:auto}
+.is-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-46%);width:640px;max-width:calc(100vw - 32px);max-height:calc(100vh - 48px);background:var(--surface);border-radius:var(--r3);box-shadow:var(--s3);z-index:1000;opacity:0;pointer-events:none;transition:opacity .15s,transform .15s;display:flex;flex-direction:column;overflow:hidden}
+.is-modal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%)}
+.is-modal-head{padding:18px 22px 14px;border-bottom:1px solid var(--border-light);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.is-modal-title{font-size:14px;font-weight:700}
+.is-modal-body{padding:18px 22px;overflow-y:auto;flex:1;min-height:0}
+.is-modal-body::-webkit-scrollbar{width:6px}
+.is-modal-body::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:3px}
+.is-modal-foot{padding:12px 22px;border-top:1px solid var(--border-light);display:flex;justify-content:flex-end;gap:8px;background:var(--bg);border-bottom-left-radius:var(--r3);border-bottom-right-radius:var(--r3);flex-shrink:0}
+.is-modal-row{margin-bottom:14px}
+.is-modal-row.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.is-modal-label{display:block;font-size:11.5px;font-weight:600;color:var(--t1);margin-bottom:5px}
+.is-modal-section{margin-top:18px;padding-top:18px;border-top:1px solid var(--border-light)}
+.is-modal-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px}
+.is-modal-section-title{font-size:12.5px;font-weight:700;color:var(--t1)}
+.is-modal-section-sub{font-size:11px;color:var(--t3);margin-top:2px}
+.is-modal-add-btn{height:28px;padding:0 10px;font-size:11.5px;font-weight:500;border-radius:var(--r);border:1px dashed var(--border);background:transparent;color:var(--accent);cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:5px;transition:background .1s,border-color .1s}
+.is-modal-add-btn:hover{background:var(--accent-bg);border-color:var(--accent);border-style:solid}
+
+/* Questions list */
+.is-q-list{display:flex;flex-direction:column;gap:8px}
+.is-q-row{display:flex;align-items:flex-start;gap:8px;padding:10px;border:1px solid var(--border);border-radius:var(--r2);background:var(--surface)}
+.is-q-handle{display:flex;flex-direction:column;gap:1px;flex-shrink:0;margin-top:2px}
+.is-q-handle-btn{width:22px;height:18px;display:flex;align-items:center;justify-content:center;color:var(--t3);background:transparent;border:none;border-radius:4px;cursor:pointer;padding:0}
+.is-q-handle-btn:hover{background:var(--bg);color:var(--t1)}
+.is-q-handle-btn:disabled{opacity:.3;cursor:not-allowed}
+.is-q-num{width:22px;height:22px;border-radius:50%;background:var(--bg);color:var(--t2);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:3px}
+.is-q-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:7px}
+.is-q-text{width:100%;min-height:32px;padding:7px 10px;border:1px solid var(--border);border-radius:var(--r);font-size:12px;font-family:inherit;color:var(--t1);background:var(--surface);resize:vertical}
+.is-q-text:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.is-q-meta-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.is-q-select,.is-q-time{height:30px;padding:0 26px 0 9px;border:1px solid var(--border);border-radius:var(--r);font-size:11.5px;font-family:inherit;color:var(--t1);background:var(--surface);transition:border-color .12s,box-shadow .12s}
+.is-q-select{appearance:none;-webkit-appearance:none;background:var(--surface) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5'><polyline points='6 9 12 15 18 9'/></svg>") no-repeat right 8px center;cursor:pointer;padding-right:26px}
+.is-q-time-wrap{position:relative;display:flex;align-items:center}
+.is-q-time-wrap input{flex:1;height:30px;padding:0 38px 0 9px;border:1px solid var(--border);border-radius:var(--r);font-size:11.5px;font-family:inherit;color:var(--t1);background:var(--surface)}
+.is-q-time-wrap input:focus,.is-q-select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.is-q-time-wrap .suffix{position:absolute;right:9px;color:var(--t3);font-size:11px;pointer-events:none}
+.is-q-delete{width:26px;height:26px;border:none;background:transparent;color:var(--t3);border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:background .1s,color .1s}
+.is-q-delete:hover{background:var(--red-bg);color:var(--red)}
+.is-q-empty{padding:14px;text-align:center;font-size:11.5px;color:var(--t3);background:var(--bg);border:1px dashed var(--border);border-radius:var(--r2)}
+
+/* Evaluation criteria */
+.is-c-list{display:flex;flex-direction:column;gap:7px}
+.is-c-row{display:flex;align-items:center;gap:9px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--r2);background:var(--surface)}
+.is-c-name{flex:1;height:30px;padding:0 10px;border:1px solid var(--border);border-radius:var(--r);font-size:12px;font-family:inherit;color:var(--t1);background:var(--surface)}
+.is-c-name:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.is-c-weight-wrap{position:relative;width:80px;flex-shrink:0;display:flex;align-items:center}
+.is-c-weight-wrap input{width:100%;height:30px;padding:0 22px 0 9px;border:1px solid var(--border);border-radius:var(--r);font-size:12px;font-family:inherit;color:var(--t1);background:var(--surface);text-align:right}
+.is-c-weight-wrap input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.is-c-weight-wrap .suffix{position:absolute;right:9px;color:var(--t3);font-size:11px;pointer-events:none}
+.is-c-delete{width:26px;height:26px;border:none;background:transparent;color:var(--t3);border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .1s,color .1s}
+.is-c-delete:hover{background:var(--red-bg);color:var(--red)}
+.is-c-total{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;margin-top:8px;background:var(--bg);border-radius:var(--r2);font-size:11.5px}
+.is-c-total-lbl{font-weight:500;color:var(--t2)}
+.is-c-total-val{font-weight:700;font-size:13px}
+.is-c-total-val.ok{color:var(--green)}
+.is-c-total-val.bad{color:var(--red)}
+.is-c-total-hint{font-size:10.5px;color:var(--t3);margin-top:2px}
+
+/* AI instructions */
+.is-ai-textarea{width:100%;min-height:90px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r2);font-size:12px;font-family:inherit;color:var(--t1);background:var(--surface);resize:vertical;line-height:1.5}
+.is-ai-textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.is-diff-seg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:3px}
+.is-diff-opt{padding:6px 10px;border-radius:5px;font-size:11.5px;font-weight:500;color:var(--t2);cursor:pointer;text-align:center;transition:background .1s,color .1s;border:none;font-family:inherit;background:transparent}
+.is-diff-opt:hover{color:var(--t1)}
+.is-diff-opt.sel{background:var(--surface);color:var(--t1);font-weight:600;box-shadow:var(--s1)}
+.is-diff-opt.sel.easy{color:var(--green)}
+.is-diff-opt.sel.medium{color:var(--amber)}
+.is-diff-opt.sel.hard{color:var(--red)}
+.is-dur-input-wrap{position:relative;display:flex;align-items:center}
+.is-dur-input-wrap input{flex:1;height:34px;padding:0 50px 0 11px;border:1px solid var(--border);border-radius:var(--r);font-size:12.5px;font-family:inherit;color:var(--t1)}
+.is-dur-input-wrap input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.is-dur-input-wrap .suffix{position:absolute;right:11px;color:var(--t3);font-size:11.5px;pointer-events:none}
+
+/* ── SUPER ADMIN — EDIT DRAWER ── */
+.sa-edit-org-head{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg);border:1px solid var(--border-light);border-radius:var(--r2);margin-bottom:18px}
+.sa-edit-org-logo{width:42px;height:42px;border-radius:8px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0;overflow:hidden}
+.sa-edit-org-logo img{width:100%;height:100%;object-fit:cover}
+.sa-edit-org-name{font-size:14px;font-weight:700;color:var(--t1)}
+.sa-edit-org-id{font-size:11.5px;color:var(--t3);margin-top:2px}
+.sa-edit-section-label{font-size:10.5px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin:6px 0 10px}
+.sa-toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:var(--r2);background:var(--surface)}
+.sa-toggle-title{font-size:12.5px;font-weight:600;color:var(--t1)}
+.sa-toggle-sub{font-size:11px;color:var(--t2);margin-top:2px}
+.sa-switch{position:relative;display:inline-block;width:38px;height:22px;flex-shrink:0;cursor:pointer}
+.sa-switch input{opacity:0;width:0;height:0;position:absolute}
+.sa-switch-track{position:absolute;inset:0;background:#cbd5e1;border-radius:11px;transition:background .18s}
+.sa-switch-thumb{position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:transform .18s}
+.sa-switch input:checked + .sa-switch-track{background:var(--green)}
+.sa-switch input:checked + .sa-switch-track .sa-switch-thumb{transform:translateX(16px)}
+.sa-edit-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sa-edit-meta-card{padding:12px 14px;background:var(--bg);border:1px solid var(--border-light);border-radius:var(--r2)}
+.sa-edit-meta-lbl{font-size:10.5px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.sa-edit-meta-val{font-size:20px;font-weight:700;color:var(--t1);line-height:1.1}
+.sa-edit-meta-hint{font-size:10.5px;color:var(--t3);margin-top:4px}
 </style>
 </head>
 <body>
@@ -1526,6 +1834,16 @@ tbody td:first-child{padding-left:20px}
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
       <span>Settings</span>
     </div>
+    <span class="sb-label">Organization</span>
+    <div class="nav-item" id="nav-interview-settings" onclick="setNav(this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 12l2 2 4-4"/></svg>
+      <span>Interview Settings</span>
+    </div>
+    <span class="sb-label">Platform</span>
+    <div class="nav-item" id="nav-super-admin" onclick="setNav(this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path d="M12 2l9 4v6c0 5-3.5 9-9 10-5.5-1-9-5-9-10V6l9-4z"/><path d="M9 12l2 2 4-4"/></svg>
+      <span>Super Admin</span>
+    </div>
   </div>
 </nav>
 
@@ -1536,7 +1854,15 @@ tbody td:first-child{padding-left:20px}
       <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <span style="font-size:11.5px">Press</span><kbd class="cmd-key">⌘ K</kbd><span style="font-size:11.5px">to search…</span>
     </div>
+    <button class="org-switch" id="org-switch-btn" onclick="toggleOrgSwitch(event)">
+      <span class="org-switch-logo" id="org-switch-logo-cur">A</span>
+      <span class="org-switch-name" id="org-switch-name-cur">Acme Inc</span>
+      <svg class="org-switch-chev" width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
     <div class="spacer"></div>
+    <button class="btn btn-dark" id="create-org-btn" style="display:none" onclick="onbStart()">
+      <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Create Organization
+    </button>
     <button class="btn btn-dark" id="add-cand-btn" onclick="showAddMenu(this)">
       <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Candidate
       <svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="margin-left:2px;opacity:.7"><polyline points="6 9 12 15 18 9"/></svg>
@@ -2174,6 +2500,327 @@ tbody td:first-child{padding-left:20px}
     </aside>
 
   </div><!-- /screen-settings -->
+
+  <!-- ═══════════ ONBOARDING (CREATE ORG) SCREEN ═══════════ -->
+  <div class="content-wrap" id="screen-onboarding" style="display:none">
+    <div class="onb-wrap">
+      <div class="onb-card">
+        <div class="onb-head">
+          <div class="onb-logo-mark">
+            <svg width="20" height="20" viewBox="0 0 18 18" fill="none">
+              <rect x="1" y="1" width="7" height="7" rx="1.5" fill="white"/>
+              <rect x="10" y="1" width="7" height="7" rx="1.5" fill="white" opacity=".55"/>
+              <rect x="1" y="10" width="7" height="7" rx="1.5" fill="white" opacity=".55"/>
+              <rect x="10" y="10" width="7" height="7" rx="1.5" fill="white" opacity=".25"/>
+            </svg>
+          </div>
+          <div class="onb-title">Create your organization</div>
+          <div class="onb-sub">Set up your company workspace to start hiring. You can invite teammates afterward.</div>
+        </div>
+        <div class="onb-body">
+          <div class="onb-row">
+            <label class="onb-label" for="onb-company">Company Name<span class="req">*</span></label>
+            <input class="onb-input" id="onb-company" type="text" placeholder="Acme Inc">
+          </div>
+          <div class="onb-row two">
+            <div>
+              <label class="onb-label" for="onb-email">Admin Email<span class="req">*</span></label>
+              <input class="onb-input" id="onb-email" type="email" placeholder="admin@acme.com">
+            </div>
+            <div>
+              <label class="onb-label" for="onb-password">Password<span class="req">*</span></label>
+              <input class="onb-input" id="onb-password" type="password" placeholder="At least 8 characters">
+            </div>
+          </div>
+          <div class="onb-row">
+            <label class="onb-label">Company Logo</label>
+            <div class="onb-logo-up">
+              <div class="onb-logo-preview" id="onb-logo-preview">
+                <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+              </div>
+              <div class="onb-logo-act">
+                <label for="onb-logo-input">
+                  <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                  Upload logo
+                </label>
+                <input id="onb-logo-input" type="file" accept="image/*" onchange="onbLogoChange(event)">
+                <div class="onb-hint">PNG, JPG, or SVG · Max 2MB</div>
+              </div>
+            </div>
+          </div>
+          <div class="onb-row two">
+            <div>
+              <label class="onb-label" for="onb-domain">Domain<span class="req">*</span></label>
+              <div class="onb-domain-wrap">
+                <input id="onb-domain" type="text" placeholder="acme">
+                <span class="suffix">.hiring.app</span>
+              </div>
+            </div>
+            <div>
+              <label class="onb-label" for="onb-team-size">Team Size<span class="req">*</span></label>
+              <select class="onb-select" id="onb-team-size">
+                <option value="">Select…</option>
+                <option>1–10</option>
+                <option>11–50</option>
+                <option>51–200</option>
+                <option>201–500</option>
+                <option>501–1,000</option>
+                <option>1,000+</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="onb-foot">
+          <button class="btn btn-accent" onclick="onbCreate()">Create Organization</button>
+          <div class="onb-foot-link">Already have an organization? <a onclick="onbCancel()">Switch organization</a></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /screen-onboarding -->
+
+  <!-- ═══════════ SUPER ADMIN SCREEN ═══════════ -->
+  <div class="content-wrap" id="screen-super-admin" style="display:none">
+    <div class="sa-wrap">
+      <div class="sa-head">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="sa-title">Super Admin</span>
+            <span class="sa-badge">Platform</span>
+          </div>
+          <div class="sa-sub">Manage all organizations on the platform.</div>
+        </div>
+        <div class="sa-spacer"></div>
+        <button class="btn btn-dark" onclick="onbStart()">
+          <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Organization
+        </button>
+      </div>
+      <div class="sa-stats" id="sa-stats"></div>
+      <div class="sa-table-wrap">
+        <div class="sa-table-card">
+          <div class="sa-table-head-row">
+            <span class="sa-htitle">All Organizations</span>
+            <div class="sa-search">
+              <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" id="sa-search" placeholder="Search organizations…" oninput="renderSuperAdmin()">
+            </div>
+          </div>
+          <table class="sa-table">
+            <thead>
+              <tr>
+                <th style="width:32%">Organization</th>
+                <th style="width:14%">Status</th>
+                <th style="width:14%">Candidates</th>
+                <th style="width:14%">Members</th>
+                <th style="width:12%">Created</th>
+                <th style="width:14%;text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="sa-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- /screen-super-admin -->
+
+  <!-- ═══════════ INTERVIEW SETTINGS SCREEN ═══════════ -->
+  <div class="content-wrap" id="screen-interview-settings" style="display:none">
+    <div class="is-wrap">
+      <div class="is-head">
+        <div>
+          <div class="is-title">Interview Settings</div>
+          <div class="is-sub">Configure interview round types. These appear when sending an AI Interview to a candidate.</div>
+        </div>
+        <div style="flex:1"></div>
+        <button class="btn btn-dark" onclick="isOpenModal(null)">
+          <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Round
+        </button>
+      </div>
+      <div class="is-body">
+        <div class="is-card">
+          <div class="is-card-head">
+            <div>
+              <div class="is-card-title">Interview Rounds</div>
+              <div class="is-card-sub">Define the rounds available for AI Interview scheduling.</div>
+            </div>
+          </div>
+          <table class="is-table">
+            <thead>
+              <tr>
+                <th style="width:42%">Round</th>
+                <th style="width:20%">Duration</th>
+                <th style="width:18%">Difficulty</th>
+                <th style="width:20%;text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="is-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div><!-- /screen-interview-settings -->
+
+  <!-- ═══════════ INTERVIEW ROUND MODAL ═══════════ -->
+  <div class="is-modal-backdrop" id="is-modal-backdrop" onclick="isCloseModal()"></div>
+  <div class="is-modal" id="is-modal" role="dialog" aria-modal="true">
+    <div class="is-modal-head">
+      <div class="is-modal-title" id="is-modal-title">New Interview Round</div>
+      <button class="jo-panel-x" onclick="isCloseModal()" aria-label="Close">×</button>
+    </div>
+    <div class="is-modal-body">
+      <div class="is-modal-row">
+        <label class="is-modal-label" for="is-m-name">Round Name</label>
+        <input class="os-input" id="is-m-name" type="text" placeholder="e.g. Coding Round">
+      </div>
+      <div class="is-modal-row two">
+        <div>
+          <label class="is-modal-label" for="is-m-duration">Duration</label>
+          <div class="is-dur-input-wrap">
+            <input id="is-m-duration" type="number" min="5" max="240" step="5" value="60">
+            <span class="suffix">min</span>
+          </div>
+        </div>
+        <div>
+          <label class="is-modal-label">Difficulty</label>
+          <div class="is-diff-seg" id="is-m-diff-seg">
+            <button type="button" class="is-diff-opt easy" data-v="Easy" onclick="isSetDiff('Easy')">Easy</button>
+            <button type="button" class="is-diff-opt medium sel" data-v="Medium" onclick="isSetDiff('Medium')">Medium</button>
+            <button type="button" class="is-diff-opt hard" data-v="Hard" onclick="isSetDiff('Hard')">Hard</button>
+          </div>
+        </div>
+      </div>
+      <div class="is-modal-row">
+        <label class="is-modal-label" for="is-m-desc">Description <span style="font-weight:400;color:var(--t3)">(optional)</span></label>
+        <input class="os-input" id="is-m-desc" type="text" placeholder="Short description of this round">
+      </div>
+
+      <!-- Questions -->
+      <div class="is-modal-section">
+        <div class="is-modal-section-head">
+          <div>
+            <div class="is-modal-section-title">Questions</div>
+            <div class="is-modal-section-sub">Asked during the AI interview. Reorder or delete.</div>
+          </div>
+          <button class="is-modal-add-btn" onclick="isAddQuestion()">
+            <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Question
+          </button>
+        </div>
+        <div class="is-q-list" id="is-q-list"></div>
+      </div>
+
+      <!-- Evaluation Criteria -->
+      <div class="is-modal-section">
+        <div class="is-modal-section-head">
+          <div>
+            <div class="is-modal-section-title">Evaluation Criteria</div>
+            <div class="is-modal-section-sub">Weightages must total 100%.</div>
+          </div>
+          <button class="is-modal-add-btn" onclick="isAddCriterion()">
+            <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Parameter
+          </button>
+        </div>
+        <div class="is-c-list" id="is-c-list"></div>
+        <div class="is-c-total">
+          <span class="is-c-total-lbl">Total weight</span>
+          <span class="is-c-total-val" id="is-c-total-val">0%</span>
+        </div>
+        <div class="is-c-total-hint" id="is-c-total-hint"></div>
+      </div>
+
+      <!-- AI Instructions -->
+      <div class="is-modal-section">
+        <div class="is-modal-section-head">
+          <div>
+            <div class="is-modal-section-title">AI Instructions</div>
+            <div class="is-modal-section-sub">Guides tone, focus areas, and pacing for the AI interviewer.</div>
+          </div>
+        </div>
+        <textarea class="is-ai-textarea" id="is-m-ai-instructions" placeholder="e.g. Be friendly but professional. Focus on problem-solving approach over final answers. Probe for clarifying questions before solutions."></textarea>
+      </div>
+    </div>
+    <div class="is-modal-foot">
+      <button class="btn" onclick="isCloseModal()">Cancel</button>
+      <button class="btn btn-accent" id="is-m-save" onclick="isSaveModal()">Save Round</button>
+    </div>
+  </div>
+
+  <!-- ═══════════ SUPER ADMIN — EDIT ORG DRAWER ═══════════ -->
+  <div class="jo-backdrop" id="sa-edit-backdrop" onclick="saCloseEdit()"></div>
+  <aside class="jo-panel" id="sa-edit-panel">
+    <div class="jo-panel-head">
+      <div class="jo-panel-title-row">
+        <span class="jo-panel-title" id="sa-edit-title">Edit Organization</span>
+        <button class="jo-panel-x" onclick="saCloseEdit()" aria-label="Close">×</button>
+      </div>
+      <div style="font-size:11.5px;color:var(--t2);margin-bottom:14px" id="sa-edit-sub">Update organization details and status.</div>
+    </div>
+    <div class="jo-panel-body">
+      <div class="sa-edit-org-head">
+        <div class="sa-edit-org-logo" id="sa-edit-logo">A</div>
+        <div>
+          <div class="sa-edit-org-name" id="sa-edit-org-name">Acme Inc</div>
+          <div class="sa-edit-org-id" id="sa-edit-org-id">acme.hiring.app</div>
+        </div>
+      </div>
+
+      <div class="sa-edit-section-label">Organization Info</div>
+      <div class="os-row">
+        <label class="os-label" for="sa-edit-name">Company Name</label>
+        <input class="os-input" id="sa-edit-name" type="text" placeholder="Company name">
+      </div>
+      <div class="os-row">
+        <label class="os-label" for="sa-edit-domain">Domain</label>
+        <div class="onb-domain-wrap">
+          <input id="sa-edit-domain" type="text" placeholder="acme">
+          <span class="suffix">.hiring.app</span>
+        </div>
+      </div>
+      <div class="os-row">
+        <label class="os-label">Status</label>
+        <div class="sa-toggle-row">
+          <div>
+            <div class="sa-toggle-title" id="sa-edit-status-title">Active</div>
+            <div class="sa-toggle-sub" id="sa-edit-status-sub">Organization can sign in and access the platform.</div>
+          </div>
+          <label class="sa-switch">
+            <input type="checkbox" id="sa-edit-status" onchange="saEditStatusToggle()">
+            <span class="sa-switch-track"><span class="sa-switch-thumb"></span></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="sa-edit-section-label">Usage</div>
+      <div class="sa-edit-meta-grid">
+        <div class="sa-edit-meta-card">
+          <div class="sa-edit-meta-lbl">Members</div>
+          <div class="sa-edit-meta-val" id="sa-edit-members">0</div>
+          <div class="sa-edit-meta-hint">Read only</div>
+        </div>
+        <div class="sa-edit-meta-card">
+          <div class="sa-edit-meta-lbl">Candidates</div>
+          <div class="sa-edit-meta-val" id="sa-edit-candidates">0</div>
+          <div class="sa-edit-meta-hint">Read only</div>
+        </div>
+        <div class="sa-edit-meta-card">
+          <div class="sa-edit-meta-lbl">Created</div>
+          <div class="sa-edit-meta-val" id="sa-edit-created" style="font-size:14px">—</div>
+          <div class="sa-edit-meta-hint">Read only</div>
+        </div>
+        <div class="sa-edit-meta-card">
+          <div class="sa-edit-meta-lbl">Team Size</div>
+          <div class="sa-edit-meta-val" id="sa-edit-team" style="font-size:14px">—</div>
+          <div class="sa-edit-meta-hint">Read only</div>
+        </div>
+      </div>
+    </div>
+    <div class="jo-panel-foot" style="display:flex;justify-content:flex-end;gap:8px">
+      <button class="btn" onclick="saCloseEdit()">Cancel</button>
+      <button class="btn btn-accent" onclick="saSaveEdit()">Save Changes</button>
+    </div>
+  </aside>
 
 </div>
 
@@ -5060,8 +5707,8 @@ function renderDashboard() {
 
 function setNav(el){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  el.classList.add('active');
-  const label = el.querySelector('span')?.textContent?.trim() || '';
+  if(el) el.classList.add('active');
+  const label = el ? (el.querySelector('span')?.textContent?.trim() || '') : '';
   // hide all screens + topbar buttons
   document.getElementById('screen-dashboard').style.display     = 'none';
   document.getElementById('screen-candidates').style.display    = 'none';
@@ -5069,10 +5716,14 @@ function setNav(el){
   document.getElementById('screen-job-roles').style.display     = 'none';
   document.getElementById('screen-users').style.display         = 'none';
   document.getElementById('screen-settings').style.display      = 'none';
+  document.getElementById('screen-onboarding').style.display    = 'none';
+  document.getElementById('screen-super-admin').style.display   = 'none';
+  document.getElementById('screen-interview-settings').style.display = 'none';
   document.getElementById('add-cand-btn').style.display   = 'none';
   document.getElementById('create-jo-btn').style.display  = 'none';
   document.getElementById('create-jr-btn').style.display  = 'none';
   document.getElementById('create-usr-btn').style.display = 'none';
+  document.getElementById('create-org-btn').style.display = 'none';
   if(label === 'Dashboard'){
     document.getElementById('screen-dashboard').style.display = '';
     renderDashboard();
@@ -5094,7 +5745,15 @@ function setNav(el){
   } else if(label === 'Settings'){
     document.getElementById('screen-settings').style.display = '';
     renderStgScreen();
+  } else if(label === 'Super Admin'){
+    document.getElementById('screen-super-admin').style.display = '';
+    renderSuperAdmin();
+    if(location.hash !== '#/super-admin') location.hash = '#/super-admin';
+  } else if(label === 'Interview Settings'){
+    document.getElementById('screen-interview-settings').style.display = '';
+    renderInterviewSettings();
   }
+  if(window.applyRoleAccess) applyRoleAccess();
 }
 
 /* ═══════════════════════════════════════════
@@ -9739,8 +10398,811 @@ function rejConfirm(){
 
 // ESC key support
 document.addEventListener('keydown', e => {
-  if(e.key === 'Escape' && document.getElementById('rej-modal')?.classList.contains('open')) rejCancel();
+  if(e.key !== 'Escape') return;
+  if(document.getElementById('rej-modal')?.classList.contains('open')) rejCancel();
+  else if(document.getElementById('sa-edit-panel')?.classList.contains('open')) saCloseEdit();
+  else if(document.getElementById('is-modal')?.classList.contains('open')) isCloseModal();
 });
+
+/* ═══════════════════════════════════════════
+   MULTI-TENANT — Orgs, Members, Roles
+═══════════════════════════════════════════ */
+const ORG_COLORS = ['#2563eb','#7c3aed','#0891b2','#16a34a','#dc2626','#b45309','#db2777','#0d9488'];
+const ROLE_LIST  = ['Admin','Hiring Manager','Interviewer','Viewer'];
+
+const ORG_STATE = {
+  isSuperAdmin: true,
+  currentOrgId: 'acme',
+  currentUserEmail: 'jatin@heizen.work',
+  orgs: [
+    {id:'acme', name:'Acme Inc', domain:'acme', logo:null, status:'Active', candidates:128, created:'2025-08-14', teamSize:'51–200',
+      members:[
+        {id:'m1', name:'Jatin (You)', email:'jatin@heizen.work', role:'Admin', joined:'2025-08-14', status:'Active'},
+        {id:'m2', name:'Sarah Klein',  email:'sarah@acme.com',    role:'Hiring Manager', joined:'2025-09-02', status:'Active'},
+        {id:'m3', name:'Tom Rivera',   email:'tom@acme.com',      role:'Interviewer',   joined:'2025-10-11', status:'Active'},
+        {id:'m4', name:'Mia Park',     email:'mia@acme.com',      role:'Viewer',        joined:'2025-11-03', status:'Active'},
+        {id:'m5', name:'Jake Lin',     email:'jake@acme.com',     role:'Interviewer',   joined:'2026-01-19', status:'Pending'},
+      ]},
+    {id:'globex', name:'Globex Corp', domain:'globex', logo:null, status:'Active', candidates:74, created:'2025-09-22', teamSize:'201–500',
+      members:[
+        {id:'m1', name:'Lena Ford',   email:'lena@globex.com',   role:'Admin', joined:'2025-09-22', status:'Active'},
+        {id:'m2', name:'Owen Park',   email:'owen@globex.com',   role:'Hiring Manager', joined:'2025-10-04', status:'Active'},
+      ]},
+    {id:'initech', name:'Initech',    domain:'initech', logo:null, status:'Inactive', candidates:12, created:'2025-11-08', teamSize:'11–50',
+      members:[
+        {id:'m1', name:'Peter Gibbons', email:'peter@initech.com', role:'Admin', joined:'2025-11-08', status:'Active'},
+      ]},
+    {id:'stark', name:'Stark Industries', domain:'stark', logo:null, status:'Active', candidates:215, created:'2025-06-01', teamSize:'1,000+',
+      members:[
+        {id:'m1', name:'Pepper Potts', email:'pepper@stark.com', role:'Admin', joined:'2025-06-01', status:'Active'},
+        {id:'m2', name:'Happy Hogan',  email:'happy@stark.com',  role:'Hiring Manager', joined:'2025-06-12', status:'Active'},
+        {id:'m3', name:'James Rhodes', email:'rhodey@stark.com', role:'Interviewer', joined:'2025-07-03', status:'Active'},
+      ]},
+  ],
+  // Onboarding/profile staging
+  _onbLogoData: null,
+  _osLogoData: null,
+};
+
+function currentOrg(){ return ORG_STATE.orgs.find(o => o.id === ORG_STATE.currentOrgId) || ORG_STATE.orgs[0]; }
+function currentUserRole(){
+  const o = currentOrg();
+  const m = o.members.find(m => m.email.toLowerCase() === ORG_STATE.currentUserEmail.toLowerCase());
+  return m ? m.role : (ORG_STATE.isSuperAdmin ? 'Admin' : 'Viewer');
+}
+function orgInitials(name){
+  return name.split(/\s+/).filter(Boolean).slice(0,2).map(w => w[0]).join('').toUpperCase() || 'O';
+}
+function orgColor(id){
+  let h = 0; for(let i=0;i<id.length;i++) h = (h*31 + id.charCodeAt(i)) >>> 0;
+  return ORG_COLORS[h % ORG_COLORS.length];
+}
+
+/* ── Org switcher ── */
+function paintOrgSwitcher(){
+  const o = currentOrg();
+  const logo = document.getElementById('org-switch-logo-cur');
+  const name = document.getElementById('org-switch-name-cur');
+  if(!logo || !name) return;
+  name.textContent = o.name;
+  logo.style.background = orgColor(o.id);
+  logo.innerHTML = o.logo ? `<img src="${o.logo}" alt="">` : orgInitials(o.name);
+}
+function toggleOrgSwitch(ev){
+  ev.stopPropagation();
+  const existing = document.getElementById('org-switch-pop');
+  if(existing){ existing.remove(); document.getElementById('org-switch-btn').classList.remove('pop-active'); return; }
+  const btn = document.getElementById('org-switch-btn');
+  btn.classList.add('pop-active');
+  const rect = btn.getBoundingClientRect();
+  const pop = document.createElement('div');
+  pop.id = 'org-switch-pop';
+  pop.className = 'org-switch-pop';
+  pop.style.top  = (rect.bottom + 6) + 'px';
+  pop.style.left = rect.left + 'px';
+  const opts = ORG_STATE.orgs.map(o => {
+    const sel = o.id === ORG_STATE.currentOrgId ? 'sel-active' : '';
+    const initials = orgInitials(o.name);
+    const img = o.logo ? `<img src="${o.logo}" alt="">` : initials;
+    return `<div class="org-switch-opt ${sel}" onclick="switchOrg('${o.id}')">
+      <div class="org-switch-opt-logo" style="background:${orgColor(o.id)}">${img}</div>
+      <div class="org-switch-opt-meta">
+        <div class="org-switch-opt-name">${o.name}</div>
+        <div class="org-switch-opt-sub">${o.domain}.hiring.app · ${o.candidates} candidates</div>
+      </div>
+    </div>`;
+  }).join('');
+  pop.innerHTML = `
+    <div class="org-switch-pop-head">Switch organization</div>
+    <div class="org-switch-pop-body">${opts}</div>
+    <div class="org-switch-pop-foot">
+      <button class="ofb" onclick="closeOrgSwitch();onbStart()">
+        <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Create new organization
+      </button>
+    </div>`;
+  document.body.appendChild(pop);
+  setTimeout(()=> document.addEventListener('click', _orgSwitchOutside), 0);
+}
+function _orgSwitchOutside(e){
+  const pop = document.getElementById('org-switch-pop');
+  if(!pop) return;
+  if(pop.contains(e.target) || e.target.closest('#org-switch-btn')) return;
+  closeOrgSwitch();
+}
+function closeOrgSwitch(){
+  const pop = document.getElementById('org-switch-pop');
+  if(pop) pop.remove();
+  document.getElementById('org-switch-btn')?.classList.remove('pop-active');
+  document.removeEventListener('click', _orgSwitchOutside);
+}
+function switchOrg(id){
+  if(!ORG_STATE.orgs.find(o => o.id === id)) return;
+  ORG_STATE.currentOrgId = id;
+  paintOrgSwitcher();
+  closeOrgSwitch();
+  applyRoleAccess();
+  if(typeof showToast === 'function') showToast('success', `Switched to <strong>${currentOrg().name}</strong>`);
+}
+
+/* ── Role-based access ── */
+const ROLE_PERMS = {
+  'Admin':           {nav:['Dashboard','Candidates','Job Openings','Job Roles','Users','Settings','Interview Settings','Super Admin'], canWrite:true},
+  'Hiring Manager':  {nav:['Dashboard','Candidates','Job Openings','Job Roles','Interview Settings'], canWrite:true},
+  'Interviewer':     {nav:['Dashboard','Candidates'], canWrite:false, candidatesAssignedOnly:true},
+  'Viewer':          {nav:['Dashboard','Candidates','Job Openings','Job Roles'], canWrite:false},
+};
+function applyRoleAccess(){
+  const role = currentUserRole();
+  const perm = ROLE_PERMS[role] || ROLE_PERMS['Viewer'];
+  document.querySelectorAll('.nav-item').forEach(n => {
+    const lbl = n.querySelector('span')?.textContent?.trim();
+    if(!lbl) return;
+    // Super Admin nav only for platform super-admins
+    if(lbl === 'Super Admin'){
+      n.classList.toggle('role-hidden', !ORG_STATE.isSuperAdmin);
+      return;
+    }
+    n.classList.toggle('role-hidden', !perm.nav.includes(lbl));
+  });
+  // Disable write buttons in topbar for read-only roles
+  if(!perm.canWrite){
+    ['add-cand-btn','create-jo-btn','create-jr-btn','create-usr-btn'].forEach(id => {
+      const b = document.getElementById(id);
+      if(b) b.disabled = true, b.title = `${role} has read-only access`, b.style.opacity = .55, b.style.cursor = 'not-allowed';
+    });
+  } else {
+    ['add-cand-btn','create-jo-btn','create-jr-btn','create-usr-btn'].forEach(id => {
+      const b = document.getElementById(id);
+      if(b) b.disabled = false, b.title = '', b.style.opacity = '', b.style.cursor = '';
+    });
+  }
+}
+
+/* ── Onboarding ── */
+function onbStart(){
+  closeOrgSwitch();
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('screen-dashboard').style.display     = 'none';
+  document.getElementById('screen-candidates').style.display    = 'none';
+  document.getElementById('screen-job-openings').style.display  = 'none';
+  document.getElementById('screen-job-roles').style.display     = 'none';
+  document.getElementById('screen-users').style.display         = 'none';
+  document.getElementById('screen-settings').style.display      = 'none';
+  document.getElementById('screen-super-admin').style.display   = 'none';
+  document.getElementById('screen-onboarding').style.display    = '';
+  ['add-cand-btn','create-jo-btn','create-jr-btn','create-usr-btn','create-org-btn'].forEach(id =>
+    document.getElementById(id).style.display = 'none');
+  // Reset form
+  ['onb-company','onb-email','onb-password','onb-domain'].forEach(id => { const e=document.getElementById(id); if(e) e.value=''; });
+  document.getElementById('onb-team-size').value = '';
+  ORG_STATE._onbLogoData = null;
+  document.getElementById('onb-logo-preview').innerHTML = `<svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>`;
+}
+function onbCancel(){
+  // Return to current screen — default to Candidates
+  const navs = document.querySelectorAll('.nav-item');
+  setNav(navs[1] || navs[0]);
+}
+function onbLogoChange(ev){
+  const f = ev.target.files && ev.target.files[0];
+  if(!f) return;
+  const r = new FileReader();
+  r.onload = e => {
+    ORG_STATE._onbLogoData = e.target.result;
+    document.getElementById('onb-logo-preview').innerHTML = `<img src="${e.target.result}" alt="">`;
+  };
+  r.readAsDataURL(f);
+}
+function onbCreate(){
+  const name = document.getElementById('onb-company').value.trim();
+  const email = document.getElementById('onb-email').value.trim();
+  const pwd = document.getElementById('onb-password').value;
+  const domain = document.getElementById('onb-domain').value.trim().toLowerCase().replace(/[^a-z0-9-]/g,'');
+  const team = document.getElementById('onb-team-size').value;
+  if(!name || !email || !pwd || !domain || !team){
+    if(typeof showToast === 'function') showToast('error', 'Please fill in all required fields');
+    return;
+  }
+  if(pwd.length < 8){
+    if(typeof showToast === 'function') showToast('error', 'Password must be at least 8 characters');
+    return;
+  }
+  if(ORG_STATE.orgs.some(o => o.domain === domain)){
+    if(typeof showToast === 'function') showToast('error', `Domain <strong>${domain}.hiring.app</strong> is taken`);
+    return;
+  }
+  const id = domain;
+  const today = new Date().toISOString().slice(0,10);
+  ORG_STATE.orgs.push({
+    id, name, domain, logo: ORG_STATE._onbLogoData, status:'Active',
+    candidates:0, created: today, teamSize: team,
+    members:[{ id:'m1', name:'Admin', email, role:'Admin', joined: today, status:'Active' }],
+  });
+  ORG_STATE.currentOrgId = id;
+  ORG_STATE.currentUserEmail = email;
+  paintOrgSwitcher();
+  applyRoleAccess();
+  if(typeof showToast === 'function') showToast('success', `Organization <strong>${name}</strong> created`);
+  // Land in Super Admin (if available) else Candidates
+  const target = ORG_STATE.isSuperAdmin
+    ? document.getElementById('nav-super-admin')
+    : document.querySelectorAll('.nav-item')[1];
+  setNav(target);
+}
+
+/* ── Super Admin ── */
+function renderSuperAdmin(){
+  const q = (document.getElementById('sa-search')?.value || '').toLowerCase().trim();
+  const orgs = ORG_STATE.orgs.filter(o =>
+    !q || o.name.toLowerCase().includes(q) || o.domain.toLowerCase().includes(q));
+  // Stats
+  const total = ORG_STATE.orgs.length;
+  const active = ORG_STATE.orgs.filter(o => o.status === 'Active').length;
+  const inactive = total - active;
+  const totalCand = ORG_STATE.orgs.reduce((s,o) => s + o.candidates, 0);
+  const stats = document.getElementById('sa-stats');
+  if(stats){
+    stats.innerHTML = `
+      <div class="sa-stat-card"><div class="sa-stat-lbl">Total Orgs</div><div class="sa-stat-val">${total}</div><div class="sa-stat-delta">All time</div></div>
+      <div class="sa-stat-card"><div class="sa-stat-lbl">Active</div><div class="sa-stat-val">${active}</div><div class="sa-stat-delta" style="color:var(--green)">${Math.round(active/total*100)}% of total</div></div>
+      <div class="sa-stat-card"><div class="sa-stat-lbl">Inactive</div><div class="sa-stat-val">${inactive}</div><div class="sa-stat-delta" style="color:var(--red)">${inactive} disabled</div></div>
+      <div class="sa-stat-card"><div class="sa-stat-lbl">Total Candidates</div><div class="sa-stat-val">${totalCand.toLocaleString()}</div><div class="sa-stat-delta">Across all orgs</div></div>`;
+  }
+  // Table
+  const tbody = document.getElementById('sa-tbody');
+  if(!tbody) return;
+  if(!orgs.length){
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--t3)">No organizations match "${q}"</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = orgs.map(o => {
+    const initials = orgInitials(o.name);
+    const img = o.logo ? `<img src="${o.logo}" alt="">` : initials;
+    const statusCls = o.status === 'Active' ? 'sa-status-active' : 'sa-status-inactive';
+    const toggleCls = o.status === 'Active' ? 'disable' : 'enable';
+    const toggleLbl = o.status === 'Active' ? 'Disable' : 'Enable';
+    return `<tr>
+      <td>
+        <div class="sa-org-cell">
+          <div class="sa-org-logo" style="background:${orgColor(o.id)}">${img}</div>
+          <div>
+            <div class="sa-org-name">${o.name}</div>
+            <div class="sa-org-domain">${o.domain}.hiring.app</div>
+          </div>
+        </div>
+      </td>
+      <td><span class="sa-status ${statusCls}"><span class="sa-status-dot"></span>${o.status}</span></td>
+      <td>${o.candidates.toLocaleString()}</td>
+      <td>${o.members.length}</td>
+      <td style="color:var(--t2)">${o.created}</td>
+      <td>
+        <div class="sa-actions">
+          <button class="sa-toggle-btn" onclick="saOpenEdit('${o.id}')">
+            <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-1px"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Edit
+          </button>
+          <button class="sa-toggle-btn ${toggleCls}" onclick="saToggleOrg('${o.id}')">${toggleLbl}</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+function saToggleOrg(id){
+  const o = ORG_STATE.orgs.find(x => x.id === id);
+  if(!o) return;
+  o.status = o.status === 'Active' ? 'Inactive' : 'Active';
+  renderSuperAdmin();
+  if(typeof showToast === 'function') showToast('success', `<strong>${o.name}</strong> ${o.status === 'Active' ? 'enabled' : 'disabled'}`);
+}
+/* ── Super Admin — Edit Org drawer ── */
+let _saEditId = null;
+function saOpenEdit(id){
+  const o = ORG_STATE.orgs.find(x => x.id === id);
+  if(!o) return;
+  _saEditId = id;
+  document.getElementById('sa-edit-org-name').textContent = o.name;
+  document.getElementById('sa-edit-org-id').textContent = o.domain + '.hiring.app';
+  const logo = document.getElementById('sa-edit-logo');
+  logo.style.background = orgColor(o.id);
+  logo.innerHTML = o.logo ? `<img src="${o.logo}" alt="">` : orgInitials(o.name);
+  document.getElementById('sa-edit-name').value = o.name;
+  document.getElementById('sa-edit-domain').value = o.domain;
+  const active = o.status === 'Active';
+  document.getElementById('sa-edit-status').checked = active;
+  saEditStatusToggle();
+  document.getElementById('sa-edit-members').textContent = o.members.length;
+  document.getElementById('sa-edit-candidates').textContent = o.candidates.toLocaleString();
+  document.getElementById('sa-edit-created').textContent = o.created;
+  document.getElementById('sa-edit-team').textContent = o.teamSize || '—';
+  document.getElementById('sa-edit-backdrop').classList.add('open');
+  document.getElementById('sa-edit-panel').classList.add('open');
+}
+function saCloseEdit(){
+  document.getElementById('sa-edit-backdrop').classList.remove('open');
+  document.getElementById('sa-edit-panel').classList.remove('open');
+  _saEditId = null;
+}
+function saEditStatusToggle(){
+  const on = document.getElementById('sa-edit-status').checked;
+  document.getElementById('sa-edit-status-title').textContent = on ? 'Active' : 'Inactive';
+  document.getElementById('sa-edit-status-sub').textContent = on
+    ? 'Organization can sign in and access the platform.'
+    : 'Sign-in is blocked. Members will see a disabled-org message.';
+}
+function saSaveEdit(){
+  if(!_saEditId) return;
+  const o = ORG_STATE.orgs.find(x => x.id === _saEditId);
+  if(!o) return;
+  const name = document.getElementById('sa-edit-name').value.trim();
+  const domain = document.getElementById('sa-edit-domain').value.trim().toLowerCase().replace(/[^a-z0-9-]/g,'');
+  const status = document.getElementById('sa-edit-status').checked ? 'Active' : 'Inactive';
+  if(!name || !domain){
+    if(typeof showToast === 'function') showToast('error', 'Name and domain are required');
+    return;
+  }
+  if(ORG_STATE.orgs.some(x => x.id !== o.id && x.domain === domain)){
+    if(typeof showToast === 'function') showToast('error', `Domain <strong>${domain}.hiring.app</strong> is taken`);
+    return;
+  }
+  o.name = name;
+  o.domain = domain;
+  o.status = status;
+  renderSuperAdmin();
+  if(o.id === ORG_STATE.currentOrgId) paintOrgSwitcher();
+  saCloseEdit();
+  if(typeof showToast === 'function') showToast('success', `<strong>${o.name}</strong> updated`);
+}
+/* ── Interview Settings — round types ── */
+const INTERVIEW_ROUNDS = [
+  {id:'r-cod', name:'Coding Round',     duration:60, difficulty:'Medium', desc:'Algorithms, data structures, problem solving',
+    questions:[
+      {id:'q1', text:'Reverse a linked list in-place. Explain time and space complexity.', type:'Coding', timeLimit:15},
+      {id:'q2', text:'Given an array of integers, return indices of two numbers that add up to a target.', type:'Coding', timeLimit:15},
+      {id:'q3', text:'Walk through how you would debug a memory leak in a long-running Node.js service.', type:'Open-ended', timeLimit:10},
+    ],
+    criteria:[
+      {id:'c1', name:'Technical Depth',  weight:50},
+      {id:'c2', name:'Problem Solving',  weight:30},
+      {id:'c3', name:'Communication',    weight:20},
+    ],
+    aiInstructions:'Be encouraging but probing. Let the candidate think aloud. Ask clarifying follow-ups before they jump to code. Score on approach as much as final correctness.'},
+  {id:'r-beh', name:'Behavioral Round', duration:30, difficulty:'Easy',   desc:'Communication, culture fit, past experience',
+    questions:[
+      {id:'q1', text:'Tell me about a time you disagreed with a teammate. How did you handle it?', type:'Open-ended', timeLimit:6},
+      {id:'q2', text:'Describe a project you led end-to-end. What would you do differently?', type:'Open-ended', timeLimit:8},
+    ],
+    criteria:[
+      {id:'c1', name:'Communication', weight:40},
+      {id:'c2', name:'Culture Fit',   weight:40},
+      {id:'c3', name:'Self-Awareness',weight:20},
+    ],
+    aiInstructions:'Friendly, conversational tone. Use STAR follow-ups (Situation, Task, Action, Result). Avoid leading questions. Note specific examples versus generic claims.'},
+  {id:'r-tec', name:'Technical Round',  duration:45, difficulty:'Hard',   desc:'System design, deep technical discussion',
+    questions:[
+      {id:'q1', text:'Design a URL shortener that handles 10k writes/sec. Talk through data model, scaling, and failure modes.', type:'Open-ended', timeLimit:25},
+      {id:'q2', text:'Which of these is best for an append-heavy, range-query workload?', type:'MCQ', timeLimit:5},
+    ],
+    criteria:[
+      {id:'c1', name:'Technical Depth',  weight:45},
+      {id:'c2', name:'System Thinking',  weight:35},
+      {id:'c3', name:'Communication',    weight:20},
+    ],
+    aiInstructions:'Push on tradeoffs. If the candidate gives a stock answer, ask about failure modes and alternatives. Reward principled reasoning over name-dropping.'},
+];
+const QUESTION_TYPES = ['MCQ','Coding','Open-ended'];
+const DEFAULT_CRITERIA = ['Technical Depth','Communication','Problem Solving','Culture Fit'];
+let _isEditId = null;
+let _isModalDiff = 'Medium';
+let _isModalQuestions = [];
+let _isModalCriteria = [];
+let _isUid = 0;
+function _isNewId(prefix){ return prefix + Date.now() + '-' + (++_isUid); }
+
+const IS_ROUND_THEME = {
+  'Coding Round':     {bg:'#2563eb', icon:'<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>'},
+  'Behavioral Round': {bg:'#7c3aed', icon:'<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>'},
+  'Technical Round':  {bg:'#16a34a', icon:'<svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2"><path d="M12 20l9-7-9-7-9 7 9 7z"/><path d="M12 13l9-7-9-7-9 7 9 7z"/></svg>'},
+};
+function isRoundTheme(name){
+  if(IS_ROUND_THEME[name]) return IS_ROUND_THEME[name];
+  let h=0; for(let i=0;i<name.length;i++) h=(h*31+name.charCodeAt(i))>>>0;
+  const colors=['#2563eb','#7c3aed','#16a34a','#dc2626','#0891b2','#b45309','#db2777'];
+  return {bg: colors[h % colors.length], icon: `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="12 6 12 12 16 14"/></svg>`};
+}
+
+function renderInterviewSettings(){
+  const tbody = document.getElementById('is-tbody');
+  if(!tbody) return;
+  if(!INTERVIEW_ROUNDS.length){
+    tbody.innerHTML = `<tr><td colspan="4" class="is-empty">No rounds yet — click <strong>New Round</strong> to add one.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = INTERVIEW_ROUNDS.map(r => {
+    const theme = isRoundTheme(r.name);
+    const dcls = ({Easy:'is-diff-easy', Medium:'is-diff-medium', Hard:'is-diff-hard'})[r.difficulty] || 'is-diff-medium';
+    return `<tr>
+      <td>
+        <div class="is-round-cell">
+          <div class="is-round-ico" style="background:${theme.bg}">${theme.icon}</div>
+          <div>
+            <div class="is-round-name">${r.name}</div>
+            ${r.desc ? `<div class="is-round-desc">${r.desc}</div>` : ''}
+          </div>
+        </div>
+      </td>
+      <td><span class="is-dur-pill">
+        <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        ${r.duration} min
+      </span></td>
+      <td><span class="is-diff-pill ${dcls}"><span class="is-diff-dot"></span>${r.difficulty}</span></td>
+      <td>
+        <div class="is-actions">
+          <button class="is-act-btn" onclick="isOpenModal('${r.id}')">
+            <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Edit
+          </button>
+          <button class="is-act-btn danger" onclick="isDeleteRound('${r.id}')">
+            <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 01-2 2H9a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+            Delete
+          </button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+function isOpenModal(id){
+  _isEditId = id;
+  const r = id ? INTERVIEW_ROUNDS.find(x => x.id === id) : null;
+  document.getElementById('is-modal-title').textContent = r ? 'Edit Interview Round' : 'New Interview Round';
+  document.getElementById('is-m-name').value = r ? r.name : '';
+  document.getElementById('is-m-duration').value = r ? r.duration : 60;
+  document.getElementById('is-m-desc').value = r ? (r.desc || '') : '';
+  document.getElementById('is-m-ai-instructions').value = r ? (r.aiInstructions || '') : '';
+  isSetDiff(r ? r.difficulty : 'Medium');
+  // Clone questions + criteria (deep) so cancel doesn't mutate the original round
+  _isModalQuestions = r && r.questions ? r.questions.map(q => ({...q})) : [];
+  _isModalCriteria  = r && r.criteria  ? r.criteria.map(c => ({...c}))
+                    : DEFAULT_CRITERIA.map((n, i) => ({id:_isNewId('c'), name:n, weight:[40,30,20,10][i] || 0}));
+  isRenderQuestions();
+  isRenderCriteria();
+  document.getElementById('is-m-save').textContent = r ? 'Save Changes' : 'Save Round';
+  document.getElementById('is-modal-backdrop').classList.add('open');
+  document.getElementById('is-modal').classList.add('open');
+  // Scroll body to top on open
+  setTimeout(() => {
+    document.querySelector('#is-modal .is-modal-body').scrollTop = 0;
+    document.getElementById('is-m-name').focus();
+  }, 60);
+}
+function isCloseModal(){
+  document.getElementById('is-modal-backdrop').classList.remove('open');
+  document.getElementById('is-modal').classList.remove('open');
+  _isEditId = null;
+  _isModalQuestions = [];
+  _isModalCriteria = [];
+}
+function isSetDiff(v){
+  _isModalDiff = v;
+  document.querySelectorAll('#is-m-diff-seg .is-diff-opt').forEach(b => {
+    b.classList.toggle('sel', b.dataset.v === v);
+  });
+}
+
+/* Questions */
+function isAddQuestion(){
+  _isModalQuestions.push({id:_isNewId('q'), text:'', type:'Open-ended', timeLimit:5});
+  isRenderQuestions();
+  // Focus the newly added textarea
+  setTimeout(() => {
+    const list = document.getElementById('is-q-list');
+    const last = list.querySelector('.is-q-row:last-child .is-q-text');
+    if(last) last.focus();
+  }, 30);
+}
+function isUpdateQuestion(id, field, value){
+  const q = _isModalQuestions.find(x => x.id === id);
+  if(!q) return;
+  if(field === 'timeLimit'){
+    const n = parseInt(value, 10);
+    q.timeLimit = isNaN(n) ? 0 : Math.max(0, Math.min(120, n));
+  } else {
+    q[field] = value;
+  }
+}
+function isDeleteQuestion(id){
+  const idx = _isModalQuestions.findIndex(x => x.id === id);
+  if(idx < 0) return;
+  _isModalQuestions.splice(idx, 1);
+  isRenderQuestions();
+}
+function isMoveQuestion(id, dir){
+  const idx = _isModalQuestions.findIndex(x => x.id === id);
+  const target = idx + dir;
+  if(idx < 0 || target < 0 || target >= _isModalQuestions.length) return;
+  [_isModalQuestions[idx], _isModalQuestions[target]] = [_isModalQuestions[target], _isModalQuestions[idx]];
+  isRenderQuestions();
+}
+function isRenderQuestions(){
+  const list = document.getElementById('is-q-list');
+  if(!list) return;
+  if(!_isModalQuestions.length){
+    list.innerHTML = `<div class="is-q-empty">No questions yet — click <strong>Add Question</strong> to start.</div>`;
+    return;
+  }
+  list.innerHTML = _isModalQuestions.map((q, i) => `
+    <div class="is-q-row" data-id="${q.id}">
+      <div class="is-q-handle">
+        <button class="is-q-handle-btn" onclick="isMoveQuestion('${q.id}', -1)" ${i===0?'disabled':''} title="Move up">
+          <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+        </button>
+        <button class="is-q-handle-btn" onclick="isMoveQuestion('${q.id}', 1)" ${i===_isModalQuestions.length-1?'disabled':''} title="Move down">
+          <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+      </div>
+      <div class="is-q-num">${i + 1}</div>
+      <div class="is-q-body">
+        <textarea class="is-q-text" rows="2" placeholder="Question text…"
+          oninput="isUpdateQuestion('${q.id}','text',this.value)">${(q.text || '').replace(/</g,'&lt;')}</textarea>
+        <div class="is-q-meta-row">
+          <select class="is-q-select" onchange="isUpdateQuestion('${q.id}','type',this.value)">
+            ${QUESTION_TYPES.map(t => `<option value="${t}" ${q.type===t?'selected':''}>${t}</option>`).join('')}
+          </select>
+          <div class="is-q-time-wrap">
+            <input type="number" min="0" max="120" step="1" value="${q.timeLimit}" placeholder="Time limit"
+                   oninput="isUpdateQuestion('${q.id}','timeLimit',this.value)">
+            <span class="suffix">min</span>
+          </div>
+        </div>
+      </div>
+      <button class="is-q-delete" onclick="isDeleteQuestion('${q.id}')" title="Delete question">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 01-2 2H9a2 2 0 01-2-2L5 6"/></svg>
+      </button>
+    </div>`).join('');
+}
+
+/* Evaluation Criteria */
+function isAddCriterion(){
+  _isModalCriteria.push({id:_isNewId('c'), name:'', weight:0});
+  isRenderCriteria();
+  setTimeout(() => {
+    const list = document.getElementById('is-c-list');
+    const last = list.querySelector('.is-c-row:last-child .is-c-name');
+    if(last) last.focus();
+  }, 30);
+}
+function isUpdateCriterion(id, field, value){
+  const c = _isModalCriteria.find(x => x.id === id);
+  if(!c) return;
+  if(field === 'weight'){
+    const n = parseInt(value, 10);
+    c.weight = isNaN(n) ? 0 : Math.max(0, Math.min(100, n));
+    isRenderCriteriaTotal();
+  } else {
+    c[field] = value;
+  }
+}
+function isDeleteCriterion(id){
+  const idx = _isModalCriteria.findIndex(x => x.id === id);
+  if(idx < 0) return;
+  _isModalCriteria.splice(idx, 1);
+  isRenderCriteria();
+}
+function isRenderCriteria(){
+  const list = document.getElementById('is-c-list');
+  if(!list) return;
+  if(!_isModalCriteria.length){
+    list.innerHTML = `<div class="is-q-empty">No criteria yet — click <strong>Add Parameter</strong> to add one.</div>`;
+  } else {
+    list.innerHTML = _isModalCriteria.map(c => `
+      <div class="is-c-row" data-id="${c.id}">
+        <input class="is-c-name" type="text" value="${(c.name || '').replace(/"/g,'&quot;')}" placeholder="Parameter name"
+               oninput="isUpdateCriterion('${c.id}','name',this.value)">
+        <div class="is-c-weight-wrap">
+          <input type="number" min="0" max="100" step="5" value="${c.weight}"
+                 oninput="isUpdateCriterion('${c.id}','weight',this.value)">
+          <span class="suffix">%</span>
+        </div>
+        <button class="is-c-delete" onclick="isDeleteCriterion('${c.id}')" title="Remove parameter">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>`).join('');
+  }
+  isRenderCriteriaTotal();
+}
+function isRenderCriteriaTotal(){
+  const total = _isModalCriteria.reduce((s, c) => s + (parseInt(c.weight, 10) || 0), 0);
+  const valEl = document.getElementById('is-c-total-val');
+  const hintEl = document.getElementById('is-c-total-hint');
+  if(!valEl || !hintEl) return;
+  valEl.textContent = total + '%';
+  valEl.className = 'is-c-total-val ' + (total === 100 ? 'ok' : 'bad');
+  if(total === 100){
+    hintEl.textContent = '';
+  } else if(total < 100){
+    hintEl.textContent = `Add ${100 - total}% more to reach 100%.`;
+    hintEl.style.color = 'var(--red)';
+  } else {
+    hintEl.textContent = `Reduce by ${total - 100}% to reach 100%.`;
+    hintEl.style.color = 'var(--red)';
+  }
+}
+
+function isSaveModal(){
+  const name = document.getElementById('is-m-name').value.trim();
+  const duration = parseInt(document.getElementById('is-m-duration').value, 10);
+  const desc = document.getElementById('is-m-desc').value.trim();
+  const aiInstructions = document.getElementById('is-m-ai-instructions').value.trim();
+  if(!name){
+    if(typeof showToast === 'function') showToast('error', 'Round name is required');
+    return;
+  }
+  if(!duration || duration < 5 || duration > 240){
+    if(typeof showToast === 'function') showToast('error', 'Duration must be between 5 and 240 minutes');
+    return;
+  }
+  const dup = INTERVIEW_ROUNDS.find(x => x.id !== _isEditId && x.name.toLowerCase() === name.toLowerCase());
+  if(dup){
+    if(typeof showToast === 'function') showToast('error', `A round named <strong>${name}</strong> already exists`);
+    return;
+  }
+  // Validate questions: non-empty text only
+  const questions = _isModalQuestions
+    .filter(q => (q.text || '').trim())
+    .map(q => ({id:q.id, text:q.text.trim(), type:q.type, timeLimit:parseInt(q.timeLimit,10)||0}));
+  // Validate criteria
+  const criteria = _isModalCriteria
+    .filter(c => (c.name || '').trim())
+    .map(c => ({id:c.id, name:c.name.trim(), weight:parseInt(c.weight,10)||0}));
+  if(criteria.length){
+    const total = criteria.reduce((s, c) => s + c.weight, 0);
+    if(total !== 100){
+      if(typeof showToast === 'function') showToast('error', `Evaluation criteria weightages must total 100% (currently ${total}%)`);
+      return;
+    }
+  }
+  if(_isEditId){
+    const r = INTERVIEW_ROUNDS.find(x => x.id === _isEditId);
+    if(r){
+      r.name = name; r.duration = duration; r.difficulty = _isModalDiff; r.desc = desc;
+      r.questions = questions; r.criteria = criteria; r.aiInstructions = aiInstructions;
+    }
+    if(typeof showToast === 'function') showToast('success', `Round <strong>${name}</strong> updated`);
+  } else {
+    INTERVIEW_ROUNDS.push({
+      id: _isNewId('r'), name, duration, difficulty: _isModalDiff, desc,
+      questions, criteria, aiInstructions,
+    });
+    if(typeof showToast === 'function') showToast('success', `Round <strong>${name}</strong> added`);
+  }
+  renderInterviewSettings();
+  isCloseModal();
+}
+function isDeleteRound(id){
+  const r = INTERVIEW_ROUNDS.find(x => x.id === id);
+  if(!r) return;
+  if(!confirm(`Delete "${r.name}"? This round will no longer appear in AI Interview options.`)) return;
+  const idx = INTERVIEW_ROUNDS.findIndex(x => x.id === id);
+  INTERVIEW_ROUNDS.splice(idx, 1);
+  renderInterviewSettings();
+  if(typeof showToast === 'function') showToast('success', `Round <strong>${r.name}</strong> deleted`);
+}
+
+/* Selected round in scheduling modal (AI Interview) */
+let schedRoundId = INTERVIEW_ROUNDS[0]?.id || null;
+function smSetRound(id){
+  schedRoundId = id;
+  if(typeof renderSchedModal === 'function') renderSchedModal();
+}
+function isDiffCls(d){ return ({Easy:'is-diff-easy', Medium:'is-diff-medium', Hard:'is-diff-hard'})[d] || 'is-diff-medium'; }
+function sendAIInterview(){
+  if(!schedRoundId || !INTERVIEW_ROUNDS.length) return;
+  // AI interviews are self-scheduled by candidate — stamp send date for record
+  if(typeof schedDate !== 'undefined' && !schedDate && typeof SCHED_DATES !== 'undefined' && SCHED_DATES.length){
+    schedDate = SCHED_DATES[0].full;
+  }
+  confirmSched();
+}
+function renderTypeToggleHTML(){
+  return `<div class="sm-sec">
+    <div class="sm-lbl">Interview Type</div>
+    <div class="sm-type-row">
+      <div class="sm-type-card ${schedType==='ai'?'sel-ai':''}" onclick="smSetType('ai')">
+        <div class="sm-radio"></div><span class="sm-type-name">AI Interview</span>
+      </div>
+      <div class="sm-type-card ${schedType==='manual'?'sel-manual':''}" onclick="smSetType('manual')">
+        <div class="sm-radio"></div><span class="sm-type-name">Manual Interview</span>
+      </div>
+    </div>
+  </div>`;
+}
+function renderRoundPickerHTML(){
+  if(!INTERVIEW_ROUNDS.length){
+    return `<div class="sm-sec">
+      <div class="sm-lbl">Interview Round</div>
+      <div style="font-size:11.5px;color:var(--t3);padding:10px 12px;background:var(--bg);border:1px dashed var(--border);border-radius:var(--r2)">
+        No rounds configured. <a style="color:var(--accent);cursor:pointer;font-weight:500" onclick="closeSchedModal();setNav(document.getElementById('nav-interview-settings'))">Add rounds in Interview Settings →</a>
+      </div>
+    </div>`;
+  }
+  if(!INTERVIEW_ROUNDS.find(r => r.id === schedRoundId)) schedRoundId = INTERVIEW_ROUNDS[0].id;
+  const rows = INTERVIEW_ROUNDS.map(r => `
+    <div class="sm-round-row ${r.id===schedRoundId?'sel':''}" onclick="smSetRound('${r.id}')">
+      <div class="sm-radio"></div>
+      <span class="sm-round-name">${r.name}</span>
+      <span class="is-diff-pill ${isDiffCls(r.difficulty)}"><span class="is-diff-dot"></span>${r.difficulty}</span>
+    </div>`).join('');
+  return `<div class="sm-sec"><div class="sm-lbl">Interview Round</div><div class="sm-rounds-compact">${rows}</div></div>`;
+}
+function renderAIInfoLineHTML(){
+  return `<div class="sm-ai-info-line">
+    <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="14" r="1.5" fill="currentColor" stroke="none"/></svg>
+    <strong>SDE AI Interviewer</strong>
+    <span class="sm-ai-info-sep">·</span>
+    <span>Sends invite directly to candidate</span>
+  </div>`;
+}
+
+/* Hook scheduling modal — type-first flow, round picker only after AI is chosen */
+(function hookSchedModal(){
+  if(typeof renderSchedModal !== 'function') return;
+  const _orig = renderSchedModal;
+  window.renderSchedModal = function(){
+    _orig.apply(this, arguments);
+    const body = document.getElementById('sm-body');
+    const foot = document.getElementById('sm-foot');
+    if(!body) return;
+    const isR1 = schedTargetStage === 'R1';
+    const ICO_SEND = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`;
+
+    // Manual flow: leave original body (date picker + interviewer + slots) untouched
+    if(schedType === 'manual') return;
+
+    // Type-first override only applies to R1 (or any non-R1 case where AI was chosen)
+    if(!isR1 && schedType !== 'ai') return;
+
+    let html = '';
+    // 1. Interview Type toggle (R1 only — non-R1 forces manual)
+    if(isR1) html += renderTypeToggleHTML();
+    // 2. AI selected → round picker + info line
+    if(schedType === 'ai'){
+      html += renderRoundPickerHTML();
+      html += renderAIInfoLineHTML();
+    }
+    body.innerHTML = html;
+
+    if(foot){
+      if(schedType === 'ai'){
+        const ok = !!schedRoundId && INTERVIEW_ROUNDS.length > 0;
+        foot.innerHTML = `<button class="sm-cancel" onclick="closeSchedModal()">Cancel</button>
+          <button class="sm-foot-cta is-ai" onclick="sendAIInterview()" ${ok?'':'disabled'}>${ICO_SEND} Send AI Interview</button>`;
+      } else {
+        // R1, no type chosen yet — round picker hidden, just prompt the user
+        foot.innerHTML = `<button class="sm-cancel" onclick="closeSchedModal()">Cancel</button>
+          <button class="sm-foot-cta is-manual is-disabled" disabled>Select interview type</button>`;
+      }
+    }
+  };
+})();
+
+/* Hash routing for /super-admin ── */
+function handleOrgHashRoute(){
+  const h = location.hash || '';
+  if(h === '#/super-admin' || h === '#super-admin'){
+    const el = document.getElementById('nav-super-admin');
+    if(el && !el.classList.contains('role-hidden')) setNav(el);
+  } else if(h === '#/onboarding' || h === '#onboarding' || h === '#/signup'){
+    onbStart();
+  }
+}
+window.addEventListener('hashchange', handleOrgHashRoute);
+
+/* ── Init ── */
+(function initOrg(){
+  paintOrgSwitcher();
+  applyRoleAccess();
+  setTimeout(handleOrgHashRoute, 0);
+})();
 </script>
 <!-- ═══════════ TOAST CONTAINER ═══════════ -->
 <div id="toast-container"></div>
