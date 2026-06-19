@@ -444,6 +444,35 @@ tbody td:first-child{padding-left:20px}
 .pl-cand-act{flex-shrink:0}
 .pl-cand-empty{display:flex;align-items:center;gap:8px;padding:14px;font-size:12px;color:var(--t2);justify-content:center}
 .pl-cand-empty svg{color:var(--green)}
+
+/* detailed stage pipeline */
+.pl-ds{display:flex;flex-direction:column}
+.pl-ds-row{padding:11px 14px;border-bottom:1px solid var(--border-light);transition:background .2s ease}
+.pl-ds-row:last-child{border-bottom:none}
+.pl-ds-row.is-empty{opacity:.5}
+.pl-ds-row.expanded{background:#f8fafc;border-radius:8px;border-bottom-color:transparent;padding-bottom:13px}
+.pl-ds-top{display:flex;align-items:center;gap:12px;margin-bottom:9px}
+.pl-ds-name{font-size:12.5px;font-weight:600;color:var(--t1);width:120px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl-ds-bar{flex:1;display:flex;gap:1px;height:6px;border-radius:3px;overflow:hidden;background:var(--border-light);min-width:80px}
+.pl-ds-seg{height:100%}
+.pl-ds-total{font-size:11px;color:var(--t3);white-space:nowrap;flex-shrink:0;width:74px;text-align:right;font-variant-numeric:tabular-nums}
+.pl-ds-chips{display:flex;flex-wrap:wrap;gap:6px}
+.pl-ds-chip{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 8px;border:1px solid var(--border);border-radius:6px;background:var(--surface);font-size:12px;font-weight:500;color:var(--t2);cursor:pointer;font-family:inherit;transition:border-color .12s,color .12s,background .12s;white-space:nowrap}
+.pl-ds-chip:hover{border-color:#d1d5db;color:var(--t1)}
+.pl-ds-chip.active{background:var(--accent-bg);border-color:transparent;color:var(--accent)}
+.pl-ds-chip.disabled{opacity:.4;cursor:default;pointer-events:none}
+.pl-ds-chip-dot{width:6px;height:6px;border-radius:2px;flex-shrink:0}
+.pl-ds-chip-ct{font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
+/* inline accordion expansion */
+.pl-ds-exp{max-height:0;overflow:hidden;transition:max-height .22s ease}
+.pl-ds-exp.open{max-height:760px}
+.pl-ds-exp-inner{margin-top:10px;padding-top:4px;padding-left:22px;border-top:1px solid var(--border-light)}
+.pl-ds-cand{display:flex;align-items:center;gap:10px;padding:9px 2px;border-bottom:1px solid var(--border-light)}
+.pl-ds-cand:last-child{border-bottom:none}
+.pl-ds-cand-main{flex:1;min-width:0}
+.pl-ds-cand-name{font-size:12px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl-ds-cand-sub{font-size:10.5px;color:var(--t3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl-ds-cand-empty{padding:11px 2px;font-size:11.5px;color:var(--t3)}
 .pl-load-light{background:#f3f4f6;color:#4b5563}
 .pl-load-bal{background:#E0ECFF;color:#1D4ED8}
 .pl-load-heavy{background:var(--amber-bg);color:var(--amber)}
@@ -2366,14 +2395,13 @@ tbody td:first-child{padding-left:20px}
           <div class="pl-card pl-funnel" id="pl-funnel"></div>
         </div>
 
-        <!-- 2 · CANDIDATES REQUIRING ACTION -->
+        <!-- 2 · DETAILED STAGE PIPELINE (accordion) -->
         <div class="pl-sec">
           <div class="pl-sec-head">
-            <span class="pl-sec-title">Candidates requiring action</span>
-            <span class="pl-sec-meta" id="pl-cand-meta"></span>
+            <span class="pl-sec-title">Detailed stage pipeline</span>
+            <span class="pl-sec-meta" id="pl-ds-meta"></span>
           </div>
-          <div class="pl-chips" id="pl-chips"></div>
-          <div class="pl-card"><div class="pl-cand-list" id="pl-cand-list"></div></div>
+          <div class="pl-card"><div class="pl-ds" id="pl-ds"></div></div>
         </div>
 
         <!-- 3 · INTERVIEWER LOAD -->
@@ -9122,25 +9150,37 @@ const PL_INTERVIEWERS = [
   { name:'Jon Park',    today:1, week:5,  next:'Tomorrow · 3:00 PM', load:'Light' },
 ];
 const PL_DATE_RANGES = ['Last 7 days','Last 30 days','Last 90 days','This quarter','All time'];
-const PL_STATE = { opening:'all', range:'Last 30 days', candFilter:'action' };
+const PL_STATE = { opening:'all', range:'Last 30 days', expand:null };
 
-/* candidate pool — drives the requiring-action list */
+/* real hiring stages (selected opening flow) */
+const PL_DETAIL_STAGES = ['AI Interview','R1 Interview','R2 Interview','Systems Design','Cultural Fit','Onboarded'];
+
+/* candidate pool — drives detailed stages + requiring-action list */
 const PL_CANDIDATES = [
-  { name:'Sophie Turner', opening:'backend',  stage:'R2 Interview',   status:'Awaiting Feedback', wait:3 },
-  { name:'Alex Kim',      opening:'backend',  stage:'R1 Interview',   status:'Scheduled',         wait:1 },
-  { name:'Marcus Reed',   opening:'backend',  stage:'Final Round',    status:'Selected',          wait:2 },
-  { name:'Ravi Shah',     opening:'backend',  stage:'Screening',      status:'Unscheduled',       wait:6 },
-  { name:'Dana Cole',     opening:'backend',  stage:'R1 Interview',   status:'Rejected',          wait:4 },
-  { name:'Priya Patel',   opening:'frontend', stage:'R1 Interview',   status:'Awaiting Feedback', wait:5 },
-  { name:'Liam Wong',     opening:'frontend', stage:'Screening',      status:'Unscheduled',       wait:8 },
-  { name:'Noah Reed',     opening:'frontend', stage:'Screening',      status:'Selected',          wait:1 },
-  { name:'Kayla Morgan',  opening:'devops',   stage:'R1 Interview',   status:'Scheduled',         wait:2 },
-  { name:'Omar Says',     opening:'devops',   stage:'Screening',      status:'Unscheduled',       wait:11 },
-  { name:'Ivy Chen',      opening:'devops',   stage:'Final Round',    status:'Selected',          wait:3 },
-  { name:'Sara Lin',      opening:'pm',       stage:'R1 Interview',   status:'Awaiting Feedback', wait:4 },
-  { name:'Tom Ray',       opening:'pm',       stage:'Screening',      status:'Rejected',          wait:7 },
-  { name:'Jake Doe',      opening:'intern',   stage:'Screening',      status:'Unscheduled',       wait:2 },
-  { name:'Mia Park',      opening:'intern',   stage:'R1 Interview',   status:'Scheduled',         wait:1 },
+  { name:'Sophie Turner', opening:'backend',  stage:'AI Interview',    status:'Awaiting Feedback', wait:3 },
+  { name:'Ravi Shah',     opening:'backend',  stage:'AI Interview',    status:'Unscheduled',       wait:6 },
+  { name:'Alex Kim',      opening:'backend',  stage:'R1 Interview',    status:'Scheduled',         wait:1 },
+  { name:'Dana Cole',     opening:'backend',  stage:'R1 Interview',    status:'Rejected',          wait:4 },
+  { name:'Marcus Reed',   opening:'backend',  stage:'R2 Interview',    status:'Selected',          wait:2 },
+  { name:'Nina Patel',    opening:'backend',  stage:'Systems Design',  status:'Awaiting Feedback', wait:5 },
+  { name:'Carl June',     opening:'backend',  stage:'Cultural Fit',    status:'Scheduled',         wait:2 },
+  { name:'Ian Wu',        opening:'backend',  stage:'Onboarded',       status:'Selected',          wait:1 },
+  { name:'Priya Patel',   opening:'frontend', stage:'R1 Interview',    status:'Awaiting Feedback', wait:5 },
+  { name:'Liam Wong',     opening:'frontend', stage:'AI Interview',    status:'Unscheduled',       wait:8 },
+  { name:'Noah Reed',     opening:'frontend', stage:'AI Interview',    status:'Selected',          wait:1 },
+  { name:'Ella Fox',      opening:'frontend', stage:'R2 Interview',    status:'Scheduled',         wait:2 },
+  { name:'Sam Orr',       opening:'frontend', stage:'Systems Design',  status:'Rejected',          wait:6 },
+  { name:'Kayla Morgan',  opening:'devops',   stage:'R1 Interview',    status:'Scheduled',         wait:2 },
+  { name:'Omar Sayed',    opening:'devops',   stage:'AI Interview',    status:'Unscheduled',       wait:11 },
+  { name:'Ivy Chen',      opening:'devops',   stage:'Cultural Fit',    status:'Selected',          wait:3 },
+  { name:'Raj Mehta',     opening:'devops',   stage:'R2 Interview',    status:'Awaiting Feedback', wait:4 },
+  { name:'Tom Hill',      opening:'devops',   stage:'Onboarded',       status:'Selected',          wait:2 },
+  { name:'Sara Lin',      opening:'pm',       stage:'R1 Interview',    status:'Awaiting Feedback', wait:4 },
+  { name:'Tom Ray',       opening:'pm',       stage:'AI Interview',    status:'Rejected',          wait:7 },
+  { name:'Lucy Kim',      opening:'pm',       stage:'Systems Design',  status:'Scheduled',         wait:3 },
+  { name:'Jake Doe',      opening:'intern',   stage:'AI Interview',    status:'Unscheduled',       wait:2 },
+  { name:'Mia Park',      opening:'intern',   stage:'R1 Interview',    status:'Scheduled',         wait:1 },
+  { name:'Eve Salt',      opening:'intern',   stage:'Cultural Fit',    status:'Awaiting Feedback', wait:3 },
 ];
 const PL_STATUS_META = {
   'Selected':          { cls:'pl-pill-blue',   dot:'var(--accent)', cta:'Schedule',     primary:false },
@@ -9196,8 +9236,8 @@ function renderPipeline(){
     </div>`;
   }).join('');
 
-  // candidates requiring action (chips + list)
-  renderPlCandidates();
+  // detailed stage pipeline (accordion)
+  renderPlStages();
 
   // interviewer load
   const loadCls = { Light:'pl-load-light', Balanced:'pl-load-bal', Heavy:'pl-load-heavy' };
@@ -9250,7 +9290,7 @@ function plToggleDd(menuId, ev){
   }
   menu.classList.add('open');
 }
-function plPickOpening(id){ PL_STATE.opening=id; document.querySelectorAll('.pl-dd-menu.open').forEach(m=>m.classList.remove('open')); renderPipeline(); }
+function plPickOpening(id){ PL_STATE.opening=id; PL_STATE.expand=null; document.querySelectorAll('.pl-dd-menu.open').forEach(m=>m.classList.remove('open')); renderPipeline(); }
 function plPickRange(r){ PL_STATE.range=r; document.querySelectorAll('.pl-dd-menu.open').forEach(m=>m.classList.remove('open')); renderPipeline(); }
 document.addEventListener('click', e=>{
   if(!e.target.closest('.pl-dd')) document.querySelectorAll('.pl-dd-menu.open').forEach(m=>m.classList.remove('open'));
@@ -9283,56 +9323,72 @@ function plCandPool(){
 function plWaitClass(d){ return d>=7 ? 'is-red' : d>=4 ? 'is-amber' : ''; }
 function plCandInitials(name){ const p=name.trim().split(/\s+/); return ((p[0]?.[0]||'')+(p[1]?.[0]||'')).toUpperCase(); }
 
-function renderPlCandidates(){
+/* detailed stage pipeline — accordion: click a stage status chip to expand
+   its candidates inline directly beneath that same stage row. */
+function renderPlStages(){
   const pool = plCandPool();
-  const counts = { action: pool.filter(c=>PL_ACTION_STATUSES.includes(c.status)).length };
-  PL_STATUS_ORDER.forEach(s => counts[s] = pool.filter(c=>c.status===s).length);
+  const meta = document.getElementById('pl-ds-meta');
+  if(meta) meta.textContent = `${pool.length} candidate${pool.length===1?'':'s'} in pipeline`;
+  const ex = PL_STATE.expand;   // { stage, status } | null
+  document.getElementById('pl-ds').innerHTML = PL_DETAIL_STAGES.map(stage=>{
+    const inStage = pool.filter(c=>c.stage===stage);
+    const total = inStage.length;
+    const segs = PL_STATUS_ORDER.map(s=>{
+      const n = inStage.filter(c=>c.status===s).length;
+      return n>0 ? `<span class="pl-ds-seg" style="flex:${n};background:${PL_STATUS_META[s].dot}"></span>` : '';
+    }).join('');
+    const chips = PL_STATUS_ORDER.map(s=>{
+      const n = inStage.filter(c=>c.status===s).length;
+      const dis = n===0 ? ' disabled' : '';
+      const act = (ex && ex.stage===stage && ex.status===s) ? ' active' : '';
+      const click = n>0 ? ` onclick="plStageChip('${stage.replace(/'/g,"\\'")}','${s}')"` : '';
+      return `<button class="pl-ds-chip${act}${dis}"${click}>
+        <span class="pl-ds-chip-dot" style="background:${PL_STATUS_META[s].dot}"></span>${s}
+        <span class="pl-ds-chip-ct">${n}</span></button>`;
+    }).join('');
 
-  // chips: "Needs action" default + one per status
-  const chipDefs = [{key:'action', label:'Needs action', dot:'var(--red)'},
-    ...PL_STATUS_ORDER.map(s=>({key:s, label:s, dot:PL_STATUS_META[s].dot}))];
-  document.getElementById('pl-chips').innerHTML = chipDefs.map(c=>`
-    <button class="pl-chip${PL_STATE.candFilter===c.key?' active':''}" onclick="plSetCandFilter('${c.key.replace(/'/g,"\\'")}')">
-      <span class="pl-chip-dot" style="background:${c.dot}"></span>${c.label}
-      <span class="pl-chip-ct">${counts[c.key]||0}</span>
-    </button>`).join('');
+    // inline expansion (only for the open stage)
+    let expHtml = '';
+    if(ex && ex.stage===stage){
+      const rows = inStage.filter(c=>c.status===ex.status).sort((a,b)=>b.wait-a.wait);
+      const body = rows.length ? rows.map(c=>{
+        const m = PL_STATUS_META[c.status];
+        return `<div class="pl-ds-cand">
+          <span class="pl-av">${plCandInitials(c.name)}</span>
+          <div class="pl-ds-cand-main">
+            <div class="pl-ds-cand-name">${c.name}</div>
+            <div class="pl-ds-cand-sub">${c.stage} · Waiting ${c.wait} day${c.wait===1?'':'s'}</div>
+          </div>
+          <button class="btn btn-sm${m.primary?' btn-dark':''}" onclick="plCandAction('${c.name.replace(/'/g,"\\'")}','${m.cta}')">${m.cta}</button>
+        </div>`;
+      }).join('') : `<div class="pl-ds-cand-empty">No candidates in this status.</div>`;
+      expHtml = `<div class="pl-ds-exp" data-open="1"><div class="pl-ds-exp-inner">${body}</div></div>`;
+    }
 
-  // rows for current filter
-  const rows = (PL_STATE.candFilter==='action'
-      ? pool.filter(c=>PL_ACTION_STATUSES.includes(c.status))
-      : pool.filter(c=>c.status===PL_STATE.candFilter))
-    .sort((a,b)=>b.wait-a.wait);
-
-  const meta = document.getElementById('pl-cand-meta');
-  const filterLabel = PL_STATE.candFilter==='action' ? 'needs action' : PL_STATE.candFilter.toLowerCase();
-  if(meta) meta.textContent = `${rows.length} candidate${rows.length===1?'':'s'} · ${filterLabel}`;
-
-  const list = document.getElementById('pl-cand-list');
-  if(!rows.length){
-    list.innerHTML = `<div class="pl-cand-empty">
-      <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      All clear — no candidates in this state.</div>`;
-    return;
-  }
-  list.innerHTML = rows.map(c=>{
-    const m = PL_STATUS_META[c.status];
-    return `<div class="pl-cand">
-      <span class="pl-av" style="background:${joAvColor(c.name)}">${plCandInitials(c.name)}</span>
-      <div class="pl-cand-main">
-        <div class="pl-cand-name">${c.name}</div>
-        <div class="pl-cand-stage">${c.stage}</div>
+    const isOpen = ex && ex.stage===stage;
+    return `<div class="pl-ds-row${total===0?' is-empty':''}${isOpen?' expanded':''}">
+      <div class="pl-ds-top">
+        <span class="pl-ds-name">${stage}</span>
+        <div class="pl-ds-bar">${segs}</div>
+        <span class="pl-ds-total">${total} entered</span>
       </div>
-      <span class="pl-cand-wait ${plWaitClass(c.wait)}">
-        <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>
-        ${c.wait} day${c.wait===1?'':'s'}
-      </span>
-      <span class="pl-cand-status"><span class="pl-pill ${m.cls}"><span class="dot"></span>${c.status}</span></span>
-      <span class="pl-cand-spacer"></span>
-      <span class="pl-cand-act"><button class="btn btn-sm${m.primary?' btn-dark':''}" onclick="plCandAction('${c.name.replace(/'/g,"\\'")}','${m.cta}')">${m.cta}</button></span>
+      <div class="pl-ds-chips">${chips}</div>
+      ${expHtml}
     </div>`;
   }).join('');
+
+  // animate the just-rendered panel open (max-height 0 -> content)
+  const panel = document.querySelector('#pl-ds .pl-ds-exp[data-open]');
+  if(panel){
+    requestAnimationFrame(()=> requestAnimationFrame(()=> panel.classList.add('open')));
+  }
 }
-function plSetCandFilter(key){ PL_STATE.candFilter = key; renderPlCandidates(); }
+function plStageChip(stage, status){
+  const ex = PL_STATE.expand;
+  // toggle: same chip closes; otherwise open this one (single open at a time)
+  PL_STATE.expand = (ex && ex.stage===stage && ex.status===status) ? null : { stage, status };
+  renderPlStages();
+}
 function plCandAction(name, cta){
   if(typeof showToast==='function') showToast('success', `<strong>${cta}</strong> · ${name}`);
 }
