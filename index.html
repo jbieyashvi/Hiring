@@ -46,6 +46,36 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:
 .nav-item.active{background:#eef2ff;color:var(--accent);font-weight:600}
 .nav-item.active svg{color:var(--accent)}
 
+/* ── SIDEBAR ORG SWITCHER ── */
+.sb-org{padding:8px;border-bottom:1px solid var(--border);position:relative;flex-shrink:0}
+.sb-org-card{display:flex;align-items:center;gap:8px;width:100%;padding:7px 8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);cursor:pointer;font-family:inherit;text-align:left;transition:border-color .12s,background .12s}
+.sb-org-card:hover{border-color:#c5cad3;background:var(--bg)}
+.sb-org-card.open{border-color:#93c5fd;background:var(--accent-bg)}
+.sb-org-logo{width:26px;height:26px;border-radius:6px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;overflow:hidden}
+.sb-org-logo img{width:100%;height:100%;object-fit:cover}
+.sb-org-meta{display:flex;flex-direction:column;min-width:0;flex:1;overflow:hidden;transition:opacity .15s}
+.sb-org-name{font-size:12.5px;font-weight:700;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
+.sb-org-role{font-size:10.5px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}
+.sb-org-chev{margin-left:auto;flex-shrink:0;color:var(--t3);transition:transform .18s,opacity .15s}
+.sb-org-card.open .sb-org-chev{transform:rotate(180deg);color:var(--accent)}
+.sidebar.collapsed .sb-org-meta,.sidebar.collapsed .sb-org-chev{opacity:0;width:0}
+.sidebar.collapsed .sb-org-card{justify-content:center;padding:7px 0;gap:0}
+/* dropdown */
+.sb-org-pop{position:absolute;top:calc(100% - 3px);left:8px;right:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);box-shadow:var(--s2);z-index:500;padding:5px;display:none}
+.sb-org-pop.open{display:block}
+.sidebar.collapsed .sb-org-pop{left:8px;right:auto;width:208px}
+.sb-org-pop-label{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;padding:6px 8px 5px}
+.sb-org-opt{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:var(--r);cursor:pointer;transition:background .08s}
+.sb-org-opt:hover{background:var(--bg)}
+.sb-org-opt.sel{background:var(--accent-bg)}
+.sb-org-opt-logo{width:22px;height:22px;border-radius:5px;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
+.sb-org-opt-logo img{width:100%;height:100%;object-fit:cover}
+.sb-org-opt-meta{flex:1;min-width:0;overflow:hidden}
+.sb-org-opt-name{font-size:12px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
+.sb-org-opt.sel .sb-org-opt-name{color:var(--accent)}
+.sb-org-opt-sub{font-size:10px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}
+.sb-org-check{margin-left:auto;color:var(--accent);flex-shrink:0}
+
 /* ── MAIN ── */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
 
@@ -319,6 +349,130 @@ tbody td:first-child{padding-left:20px}
 .st-sched  {background:#ede9fe;color:#6d28d9}
 .st-hire   {background:#d1fae5;color:#065f46;font-weight:700} /* Hired */
 .st-empty  {background:var(--bg);color:var(--t3);border:1px solid var(--border)}
+
+/* ── HIRING PIPELINE PAGE ── */
+.pl-header .ph-row1{align-items:flex-start;margin-bottom:12px}
+.pl-title-wrap{display:flex;flex-direction:column;gap:2px}
+.pl-sub{font-size:11.5px;color:var(--t2);font-weight:400}
+.pl-controls{margin-left:auto;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.pl-dd{position:relative}
+.pl-dd-menu{position:absolute;top:32px;right:0;min-width:184px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);box-shadow:var(--s2);padding:5px;z-index:200;display:none}
+.pl-dd-menu.open{display:block}
+.pl-dd-item{padding:7px 9px;border-radius:5px;font-size:12px;color:var(--t1);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;white-space:nowrap}
+.pl-dd-item:hover{background:var(--bg)}
+.pl-dd-item.sel{color:var(--accent);font-weight:600;background:var(--accent-bg)}
+.pl-dd-item.sel svg{color:var(--accent)}
+
+.pl-body{flex:1;overflow:auto;padding:18px 20px 28px;background:var(--surface)}
+.pl-sec{margin-bottom:20px}
+.pl-sec:last-child{margin-bottom:0}
+.pl-sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px}
+.pl-sec-title{font-size:12px;font-weight:700;color:var(--t1)}
+.pl-sec-meta{font-size:11px;color:var(--t3)}
+.pl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden}
+
+/* funnel (hero) */
+.pl-funnel{display:flex;align-items:stretch;padding:4px}
+.pl-stage{flex:1;padding:14px 16px;border-radius:var(--r);cursor:pointer;transition:background .1s}
+.pl-stage:hover{background:var(--bg)}
+.pl-stage+.pl-stage{border-left:1px solid var(--border-light)}
+.pl-stage-name{font-size:10.5px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.05em}
+.pl-stage-count{font-size:23px;font-weight:700;color:var(--t1);line-height:1.1;margin-top:7px;font-variant-numeric:tabular-nums}
+.pl-stage-count.is-zero{color:var(--t3)}
+.pl-stage-pct{font-size:11px;color:var(--t3);margin-top:3px}
+.pl-stage-bar{height:3px;background:var(--border-light);border-radius:2px;margin-top:11px;overflow:hidden}
+.pl-stage-fill{height:100%;border-radius:2px;min-width:2px}
+
+/* needs attention strip */
+.pl-attn{display:flex;gap:10px}
+.pl-attn-item{flex:1;display:flex;align-items:center;gap:12px;padding:11px 14px;border:1px solid var(--border);border-left-width:3px;border-radius:var(--r2);background:var(--surface)}
+.pl-attn-item.is-blue{border-left-color:var(--accent);background:#fbfcff}
+.pl-attn-item.is-amber{border-left-color:var(--amber);background:#fffdf6}
+.pl-attn-item.is-red{border-left-color:var(--red);background:#fffafa}
+.pl-attn-text{display:flex;flex-direction:column;gap:1px;min-width:0}
+.pl-attn-num{font-size:18px;font-weight:700;color:var(--t1);line-height:1.15;font-variant-numeric:tabular-nums}
+.pl-attn-lbl{font-size:11.5px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl-attn-item.is-red .pl-attn-lbl{color:var(--amber);font-weight:500}
+.pl-link{margin-left:auto;font-size:11px;font-weight:600;color:var(--accent);background:none;border:none;cursor:pointer;font-family:inherit;padding:3px 8px;border-radius:5px;flex-shrink:0;transition:background .1s}
+.pl-link:hover{background:var(--accent-bg)}
+
+/* pipeline tables */
+.pl-table{width:100%;border-collapse:collapse;table-layout:auto}
+.pl-table th{text-align:left;font-size:10.5px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.03em;padding:8px 14px;border-bottom:1px solid var(--border);background:var(--bg);white-space:nowrap}
+.pl-table td{padding:5px 14px;font-size:11.5px;color:var(--t1);border-bottom:1px solid var(--border-light);vertical-align:middle;white-space:nowrap}
+.pl-table tbody tr:last-child td{border-bottom:none}
+.pl-table tbody tr:hover{background:#fafbfd}
+.pl-table .pl-r{text-align:right;font-variant-numeric:tabular-nums}
+.pl-iv-cell{display:flex;align-items:center;gap:9px;min-width:0}
+.pl-av{width:22px;height:22px;border-radius:50%;color:#fff;font-size:9px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.pl-iv-name{font-weight:600;color:var(--t1);white-space:nowrap}
+.pl-open-col{min-width:240px}
+.pl-open-name{display:block;max-width:320px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl-conv{display:inline-flex;align-items:center;gap:7px;justify-content:flex-end}
+.pl-conv-bar{width:34px;height:3px;background:var(--border-light);border-radius:2px;overflow:hidden;flex-shrink:0}
+.pl-conv-fill{height:100%;background:var(--accent);border-radius:2px}
+.pl-pill{display:inline-flex;align-items:center;gap:5px;padding:2px 9px;border-radius:20px;font-size:10.5px;font-weight:600;white-space:nowrap}
+.pl-pill .dot{width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+.pl-pill-green{background:var(--green-bg);color:var(--green)}
+.pl-pill-amber{background:var(--amber-bg);color:var(--amber)}
+.pl-pill-red{background:var(--red-bg);color:var(--red)}
+.pl-load-light{background:#f3f4f6;color:#4b5563}
+.pl-load-bal{background:#E0ECFF;color:#1D4ED8}
+.pl-load-heavy{background:var(--amber-bg);color:var(--amber)}
+.pl-pill-blue{background:#E0ECFF;color:#1D4ED8}
+
+/* ── HIRING WORKSPACE PAGE ── */
+.ws-body{flex:1;overflow:auto;padding:0 20px 28px;background:var(--surface)}
+.ws-greet{padding:18px 0 4px}
+.ws-hi{font-size:18px;font-weight:700;color:var(--t1);line-height:1.2}
+.ws-date{font-size:12px;color:var(--t2);margin-top:3px}
+
+/* my work today */
+.ws-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.ws-stat{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid var(--border);border-radius:var(--r2);background:var(--surface)}
+.ws-stat-ic{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ws-stat-ic.is-blue{background:var(--accent-bg);color:var(--accent)}
+.ws-stat-ic.is-amber{background:var(--amber-bg);color:var(--amber)}
+.ws-stat-ic.is-green{background:var(--green-bg);color:var(--green)}
+.ws-stat-val{font-size:20px;font-weight:700;color:var(--t1);line-height:1.1;font-variant-numeric:tabular-nums}
+.ws-stat-lbl{font-size:11px;color:var(--t2);margin-top:2px}
+
+/* priority action center */
+.ws-actions{display:flex;flex-direction:column}
+.ws-action{display:flex;align-items:center;gap:12px;padding:11px 14px;border-bottom:1px solid var(--border-light);transition:background .08s}
+.ws-action:last-child{border-bottom:none}
+.ws-action:hover{background:#fafbfd}
+.ws-action-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.ws-action-main{flex:1;min-width:0}
+.ws-action-title{font-size:12.5px;font-weight:600;color:var(--t1)}
+.ws-action-sub{font-size:11px;color:var(--t3);margin-top:1px}
+.ws-badge{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:19px;padding:0 7px;border-radius:10px;font-size:11px;font-weight:700;flex-shrink:0}
+.ws-badge-blue{background:var(--accent-bg);color:var(--accent)}
+.ws-badge-amber{background:var(--amber-bg);color:var(--amber)}
+.ws-badge-red{background:var(--red-bg);color:var(--red)}
+.ws-badge-green{background:var(--green-bg);color:var(--green)}
+
+/* two column */
+.ws-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start}
+
+/* recent activity timeline */
+.ws-tl{padding:4px 14px}
+.ws-tl-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border-light)}
+.ws-tl-item:last-child{border-bottom:none}
+.ws-tl-dot{width:7px;height:7px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.ws-tl-text{font-size:11.5px;font-weight:500;color:var(--t1);line-height:1.35}
+.ws-tl-text b{font-weight:700}
+.ws-tl-time{font-size:10.5px;color:var(--t3);margin-top:1px}
+
+/* upcoming interviews */
+.ws-up-item{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--border-light)}
+.ws-up-item:last-child{border-bottom:none}
+.ws-up-meta{min-width:0;overflow:hidden}
+.ws-up-name{font-size:12px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ws-up-role{font-size:10.5px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ws-up-when{margin-left:auto;text-align:right;flex-shrink:0}
+.ws-up-time{font-size:11px;font-weight:600;color:var(--t1);white-space:nowrap}
+.ws-up-day{font-size:10px;color:var(--t3);margin-top:1px}
 
 /* inline status picker dropdown */
 .sp-picker{position:fixed;z-index:800;background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);box-shadow:var(--s3);padding:4px;min-width:150px}
@@ -1808,14 +1962,36 @@ tbody td:first-child{padding-left:20px}
     <span class="sb-title">Hiring</span>
     <svg class="sb-chevron" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"/></svg>
   </div>
+  <div class="sb-org" id="sb-org">
+    <button class="sb-org-card" id="sb-org-btn" onclick="toggleSbOrg(event)">
+      <span class="sb-org-logo" id="sb-org-logo">H</span>
+      <span class="sb-org-meta">
+        <span class="sb-org-name" id="sb-org-name">Heizen</span>
+        <span class="sb-org-role" id="sb-org-role">Admin</span>
+      </span>
+      <svg class="sb-org-chev" width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="sb-org-pop" id="sb-org-pop">
+      <div class="sb-org-pop-label">Your organizations</div>
+      <div class="sb-org-pop-body" id="sb-org-pop-body"></div>
+    </div>
+  </div>
   <div class="sb-nav">
     <div class="nav-item" onclick="setNav(this)">
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
       <span>Dashboard</span>
     </div>
+    <div class="nav-item" onclick="setNav(this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.9" y1="4.9" x2="7" y2="7"/><line x1="17" y1="17" x2="19.1" y2="19.1"/><line x1="4.9" y1="19.1" x2="7" y2="17"/><line x1="17" y1="7" x2="19.1" y2="4.9"/></svg>
+      <span>Dashboard 02</span>
+    </div>
     <div class="nav-item active" onclick="setNav(this)">
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 3.13a4 4 0 010 7.75"/><path d="M21 21v-2a4 4 0 00-3-3.85"/></svg>
       <span>Candidates</span>
+    </div>
+    <div class="nav-item" onclick="setNav(this)">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46"/></svg>
+      <span>Hiring Pipeline</span>
     </div>
     <div class="nav-item" onclick="setNav(this)">
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
@@ -1854,11 +2030,6 @@ tbody td:first-child{padding-left:20px}
       <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <span style="font-size:11.5px">Press</span><kbd class="cmd-key">⌘ K</kbd><span style="font-size:11.5px">to search…</span>
     </div>
-    <button class="org-switch" id="org-switch-btn" onclick="toggleOrgSwitch(event)">
-      <span class="org-switch-logo" id="org-switch-logo-cur">A</span>
-      <span class="org-switch-name" id="org-switch-name-cur">Acme Inc</span>
-      <svg class="org-switch-chev" width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
     <div class="spacer"></div>
     <button class="btn btn-dark" id="create-org-btn" style="display:none" onclick="onbStart()">
       <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Create Organization
@@ -2066,6 +2237,150 @@ tbody td:first-child{padding-left:20px}
       </div>
       <div class="rp-foot" id="rp-foot"></div>
     </aside>
+  </div>
+
+  <!-- ═══════════ HIRING WORKSPACE SCREEN ═══════════ -->
+  <div class="content-wrap" id="screen-workspace" style="display:none">
+    <div class="content">
+      <div class="ws-body">
+        <!-- 1 · GREETING -->
+        <div class="ws-greet">
+          <div class="ws-hi" id="ws-hi">Good afternoon, Jbie 👋</div>
+          <div class="ws-date" id="ws-date">Friday, 19 June</div>
+        </div>
+
+        <!-- 2 · MY WORK TODAY -->
+        <div class="pl-sec">
+          <div class="pl-sec-head"><span class="pl-sec-title">My work today</span></div>
+          <div class="ws-stats" id="ws-stats"></div>
+        </div>
+
+        <!-- 3 · PRIORITY ACTION CENTER -->
+        <div class="pl-sec">
+          <div class="pl-sec-head">
+            <span class="pl-sec-title">Priority action center</span>
+            <span class="pl-sec-meta">Clear these to keep candidates moving</span>
+          </div>
+          <div class="pl-card"><div class="ws-actions" id="ws-actions"></div></div>
+        </div>
+
+        <!-- 4 · UPCOMING INTERVIEWS -->
+        <div class="pl-sec">
+          <div class="pl-sec-head"><span class="pl-sec-title">Upcoming interviews</span></div>
+          <div class="pl-card" id="ws-up"></div>
+        </div>
+
+        <!-- 5 · PAST INTERVIEWS -->
+        <div class="pl-sec" style="margin-top:20px">
+          <div class="pl-sec-head"><span class="pl-sec-title">Past interviews</span></div>
+          <div class="pl-card">
+            <table class="pl-table">
+              <thead><tr>
+                <th class="pl-open-col">Candidate</th>
+                <th>Role</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr></thead>
+              <tbody id="ws-past-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ HIRING PIPELINE SCREEN ═══════════ -->
+  <div class="content-wrap" id="screen-pipeline" style="display:none">
+    <div class="content">
+      <div class="page-header pl-header">
+        <div class="ph-row1">
+          <div class="pl-title-wrap">
+            <span class="page-title">Hiring Pipeline</span>
+            <span class="pl-sub">Track candidate movement, bottlenecks, and openings health.</span>
+          </div>
+          <div class="pl-controls">
+            <div class="pl-dd">
+              <button class="job-sel-btn" id="pl-open-btn" onclick="plToggleDd('pl-open-menu',event)">
+                <span id="pl-open-label">All Openings</span>
+                <svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="pl-dd-menu" id="pl-open-menu"></div>
+            </div>
+            <div class="pl-dd">
+              <button class="job-sel-btn" id="pl-date-btn" onclick="plToggleDd('pl-date-menu',event)">
+                <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="opacity:.7"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span id="pl-date-label">Last 30 days</span>
+                <svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="pl-dd-menu" id="pl-date-menu"></div>
+            </div>
+            <button class="btn btn-sm" onclick="plExport()">
+              <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Export
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pl-body">
+        <!-- 1 · PIPELINE OVERVIEW (hero) -->
+        <div class="pl-sec">
+          <div class="pl-sec-head">
+            <span class="pl-sec-title">Pipeline overview</span>
+            <span class="pl-sec-meta" id="pl-funnel-meta"></span>
+          </div>
+          <div class="pl-card pl-funnel" id="pl-funnel"></div>
+        </div>
+
+        <!-- 2 · NEEDS ATTENTION -->
+        <div class="pl-sec">
+          <div class="pl-sec-head">
+            <span class="pl-sec-title">Needs attention</span>
+          </div>
+          <div class="pl-attn" id="pl-attn"></div>
+        </div>
+
+        <!-- 3 · INTERVIEWER LOAD -->
+        <div class="pl-sec">
+          <div class="pl-sec-head">
+            <span class="pl-sec-title">Interviewer load</span>
+            <span class="pl-sec-meta">Upcoming scheduled interviews</span>
+          </div>
+          <div class="pl-card">
+            <table class="pl-table">
+              <thead><tr>
+                <th>Interviewer</th>
+                <th class="pl-r">Today</th>
+                <th class="pl-r">This Week</th>
+                <th>Next Available</th>
+                <th>Load</th>
+              </tr></thead>
+              <tbody id="pl-iv-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4 · OPENINGS HEALTH -->
+        <div class="pl-sec">
+          <div class="pl-sec-head">
+            <span class="pl-sec-title">Openings health</span>
+          </div>
+          <div class="pl-card">
+            <table class="pl-table">
+              <thead><tr>
+                <th class="pl-open-col">Opening</th>
+                <th class="pl-r">Applications</th>
+                <th class="pl-r">In Process</th>
+                <th class="pl-r">Hired</th>
+                <th class="pl-r">Rejected</th>
+                <th class="pl-r">Conversion</th>
+                <th>Status</th>
+              </tr></thead>
+              <tbody id="pl-open-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- ═══════════ JOB OPENINGS SCREEN ═══════════ -->
@@ -5711,7 +6026,9 @@ function setNav(el){
   const label = el ? (el.querySelector('span')?.textContent?.trim() || '') : '';
   // hide all screens + topbar buttons
   document.getElementById('screen-dashboard').style.display     = 'none';
+  document.getElementById('screen-workspace').style.display     = 'none';
   document.getElementById('screen-candidates').style.display    = 'none';
+  document.getElementById('screen-pipeline').style.display      = 'none';
   document.getElementById('screen-job-openings').style.display  = 'none';
   document.getElementById('screen-job-roles').style.display     = 'none';
   document.getElementById('screen-users').style.display         = 'none';
@@ -5727,9 +6044,15 @@ function setNav(el){
   if(label === 'Dashboard'){
     document.getElementById('screen-dashboard').style.display = '';
     renderDashboard();
+  } else if(label === 'Dashboard 02'){
+    document.getElementById('screen-workspace').style.display = '';
+    renderWorkspace();
   } else if(label === 'Candidates'){
     document.getElementById('screen-candidates').style.display   = '';
     document.getElementById('add-cand-btn').style.display = '';
+  } else if(label === 'Hiring Pipeline'){
+    document.getElementById('screen-pipeline').style.display = '';
+    renderPipeline();
   } else if(label === 'Job Openings'){
     document.getElementById('screen-job-openings').style.display = '';
     document.getElementById('create-jo-btn').style.display = '';
@@ -8741,6 +9064,249 @@ function joAvColor(name){
   return palette[Math.abs(h)%palette.length];
 }
 
+/* ═══════════════════════════════════════════
+   HIRING PIPELINE
+═══════════════════════════════════════════ */
+const PL_STAGES = ['Applied','Screening','Interview','Offer','Hired'];
+const PL_FILL   = ['#1d4ed8','#2563eb','#3b82f6','#60a5fa','#93c5fd'];
+const PL_OPENINGS = [
+  { id:'backend',  name:'Backend Engineer',  stages:[642,318,58,6,0], inProcess:88, rejected:410, feedback:9, scheduling:58, stalled:540, status:'Stalled' },
+  { id:'frontend', name:'Frontend Engineer', stages:[418,205,34,3,0], inProcess:31, rejected:250, feedback:5, scheduling:34, stalled:360, status:'Needs Review' },
+  { id:'devops',   name:'DevOps Lead',       stages:[305,150,24,2,0], inProcess:12, rejected:180, feedback:3, scheduling:24, stalled:210, status:'Healthy' },
+  { id:'pm',       name:'Product Manager',   stages:[211,102,15,1,0], inProcess:6,  rejected:120, feedback:2, scheduling:15, stalled:140, status:'Needs Review' },
+  { id:'intern',   name:'SDE Intern',        stages:[147,67,8,0,0],   inProcess:2,  rejected:90,  feedback:1, scheduling:8,  stalled:69,  status:'Healthy' },
+];
+const PL_INTERVIEWERS = [
+  { name:'Anita Rao',   today:3, week:11, next:'Today · 4:00 PM',    load:'Heavy' },
+  { name:'Priya Shah',  today:4, week:13, next:'Jun 23 · 11:00 AM',  load:'Heavy' },
+  { name:'David Kim',   today:2, week:8,  next:'Tomorrow · 10:00 AM',load:'Balanced' },
+  { name:'Sara Lopez',  today:1, week:6,  next:'Today · 2:30 PM',    load:'Balanced' },
+  { name:'Tom Muller',  today:0, week:4,  next:'Jun 20 · 9:00 AM',   load:'Light' },
+  { name:'Jon Park',    today:1, week:5,  next:'Tomorrow · 3:00 PM', load:'Light' },
+];
+const PL_DATE_RANGES = ['Last 7 days','Last 30 days','Last 90 days','This quarter','All time'];
+const PL_STATE = { opening:'all', range:'Last 30 days' };
+
+function plNum(n){ return n.toLocaleString('en-US'); }
+function plInitials(name){ const p=name.trim().split(/\s+/); return ((p[0]?.[0]||'')+(p[1]?.[0]||'')).toUpperCase(); }
+
+function plSelectedOpenings(){
+  return PL_STATE.opening==='all' ? PL_OPENINGS : PL_OPENINGS.filter(o=>o.id===PL_STATE.opening);
+}
+function plAggregate(){
+  const sel = plSelectedOpenings();
+  const stages = [0,0,0,0,0];
+  let feedback=0, scheduling=0, stalled=0;
+  sel.forEach(o=>{ o.stages.forEach((v,i)=>stages[i]+=v); feedback+=o.feedback; scheduling+=o.scheduling; stalled+=o.stalled; });
+  return { stages, feedback, scheduling, stalled };
+}
+
+function plGoCandidates(){
+  const nav = Array.from(document.querySelectorAll('.nav-item'))
+    .find(n => n.querySelector('span')?.textContent?.trim()==='Candidates');
+  if(nav) setNav(nav);
+}
+
+function renderPipeline(){
+  const agg = plAggregate();
+  const applied = agg.stages[0] || 1;
+
+  // dropdown labels
+  document.getElementById('pl-open-label').textContent =
+    PL_STATE.opening==='all' ? 'All Openings' : (PL_OPENINGS.find(o=>o.id===PL_STATE.opening)?.name || 'All Openings');
+  document.getElementById('pl-date-label').textContent = PL_STATE.range;
+
+  // funnel
+  const meta = document.getElementById('pl-funnel-meta');
+  if(meta) meta.textContent = `${plNum(agg.stages[0])} applied · ${PL_STATE.range.toLowerCase()}`;
+  document.getElementById('pl-funnel').innerHTML = PL_STAGES.map((name,i)=>{
+    const v = agg.stages[i];
+    const pct = Math.round(v/applied*1000)/10;            // 1 decimal
+    const barW = Math.max(v/applied*100, v>0?2:0);
+    return `<div class="pl-stage" onclick="plGoCandidates()">
+      <div class="pl-stage-name">${name}</div>
+      <div class="pl-stage-count${v===0?' is-zero':''}">${plNum(v)}</div>
+      <div class="pl-stage-pct">${i===0?'100% of applied':pct+'% of applied'}</div>
+      <div class="pl-stage-bar"><div class="pl-stage-fill" style="width:${barW}%;background:${PL_FILL[i]}"></div></div>
+    </div>`;
+  }).join('');
+
+  // needs attention
+  document.getElementById('pl-attn').innerHTML = `
+    <div class="pl-attn-item is-blue">
+      <div class="pl-attn-text"><span class="pl-attn-num">${plNum(agg.feedback)}</span><span class="pl-attn-lbl">Awaiting feedback</span></div>
+      <button class="pl-link" onclick="plGoCandidates()">View</button>
+    </div>
+    <div class="pl-attn-item is-amber">
+      <div class="pl-attn-text"><span class="pl-attn-num">${plNum(agg.scheduling)}</span><span class="pl-attn-lbl">Awaiting scheduling</span></div>
+      <button class="pl-link" onclick="plGoCandidates()">View</button>
+    </div>
+    <div class="pl-attn-item is-red">
+      <div class="pl-attn-text"><span class="pl-attn-num">${plNum(agg.stalled)}</span><span class="pl-attn-lbl">Stalled &gt; 10 days</span></div>
+      <button class="pl-link" onclick="plGoCandidates()">View</button>
+    </div>`;
+
+  // interviewer load
+  const loadCls = { Light:'pl-load-light', Balanced:'pl-load-bal', Heavy:'pl-load-heavy' };
+  document.getElementById('pl-iv-body').innerHTML = PL_INTERVIEWERS.map(iv=>`
+    <tr>
+      <td><div class="pl-iv-cell">
+        <span class="pl-av" style="background:${joAvColor(iv.name)}">${plInitials(iv.name)}</span>
+        <span class="pl-iv-name">${iv.name}</span>
+      </div></td>
+      <td class="pl-r">${iv.today}</td>
+      <td class="pl-r">${iv.week}</td>
+      <td>${iv.next}</td>
+      <td><span class="pl-pill ${loadCls[iv.load]}"><span class="dot"></span>${iv.load}</span></td>
+    </tr>`).join('');
+
+  // openings health
+  const statusCls = { Healthy:'pl-pill-green', 'Needs Review':'pl-pill-amber', Stalled:'pl-pill-red' };
+  const rows = plSelectedOpenings();
+  document.getElementById('pl-open-body').innerHTML = rows.map(o=>{
+    const apps = o.stages[0];
+    const offers = o.stages[3];
+    const conv = apps ? Math.round(offers/apps*1000)/10 : 0;
+    return `<tr>
+      <td class="pl-open-col"><span class="pl-open-name" title="${o.name}">${o.name}</span></td>
+      <td class="pl-r">${plNum(apps)}</td>
+      <td class="pl-r">${o.inProcess}</td>
+      <td class="pl-r">${o.stages[4]}</td>
+      <td class="pl-r">${plNum(o.rejected)}</td>
+      <td class="pl-r"><span class="pl-conv"><span class="pl-conv-bar"><span class="pl-conv-fill" style="width:${Math.min(conv*12,100)}%"></span></span>${conv}%</span></td>
+      <td><span class="pl-pill ${statusCls[o.status]}"><span class="dot"></span>${o.status}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+/* dropdowns */
+function plToggleDd(menuId, ev){
+  ev.stopPropagation();
+  const menu = document.getElementById(menuId);
+  const isOpen = menu.classList.contains('open');
+  document.querySelectorAll('.pl-dd-menu.open').forEach(m=>m.classList.remove('open'));
+  if(isOpen) return;
+  // build items
+  if(menuId==='pl-open-menu'){
+    const items = [{id:'all',name:'All Openings'}, ...PL_OPENINGS.map(o=>({id:o.id,name:o.name}))];
+    menu.innerHTML = items.map(it=>`<div class="pl-dd-item${PL_STATE.opening===it.id?' sel':''}" onclick="plPickOpening('${it.id}')">
+      <span>${it.name}</span>${PL_STATE.opening===it.id?'<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>':''}</div>`).join('');
+  } else {
+    menu.innerHTML = PL_DATE_RANGES.map(r=>`<div class="pl-dd-item${PL_STATE.range===r?' sel':''}" onclick="plPickRange('${r}')">
+      <span>${r}</span>${PL_STATE.range===r?'<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>':''}</div>`).join('');
+  }
+  menu.classList.add('open');
+}
+function plPickOpening(id){ PL_STATE.opening=id; document.querySelectorAll('.pl-dd-menu.open').forEach(m=>m.classList.remove('open')); renderPipeline(); }
+function plPickRange(r){ PL_STATE.range=r; document.querySelectorAll('.pl-dd-menu.open').forEach(m=>m.classList.remove('open')); renderPipeline(); }
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.pl-dd')) document.querySelectorAll('.pl-dd-menu.open').forEach(m=>m.classList.remove('open'));
+});
+
+/* export openings health as CSV */
+function plExport(){
+  const rows = plSelectedOpenings();
+  const head = ['Opening','Applications','In Process','Hired','Rejected','Conversion %','Status'];
+  const lines = [head.join(',')];
+  rows.forEach(o=>{
+    const apps=o.stages[0], conv=apps?Math.round(o.stages[3]/apps*1000)/10:0;
+    lines.push([`"${o.name}"`,apps,o.inProcess,o.stages[4],o.rejected,conv,o.status].join(','));
+  });
+  const blob = new Blob([lines.join('\n')], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'hiring-pipeline.csv';
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+  if(typeof showToast==='function') showToast('success','Pipeline exported as <strong>hiring-pipeline.csv</strong>');
+}
+
+/* ═══════════════════════════════════════════
+   HIRING WORKSPACE
+═══════════════════════════════════════════ */
+const WS_NAME = 'Jbie';
+const WS_STATS = [
+  { lbl:'Interviews today',    val:4,  tone:'blue',  ic:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>' },
+  { lbl:'Awaiting feedback',   val:7,  tone:'amber', ic:'<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>' },
+  { lbl:'Completed this week', val:12, tone:'green', ic:'<path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>' },
+];
+const WS_ACTIONS = [
+  { title:'Give feedback on R1 interviews',        sub:'Interviewers waiting on your input', count:7,  tone:'red',   cta:'Review',   primary:true },
+  { title:'Schedule shortlisted candidates',       sub:'Ready to move into interviews',      count:12, tone:'amber', cta:'Schedule', primary:false },
+  { title:'Review assignment submissions',         sub:'Submitted and awaiting grading',     count:5,  tone:'blue',  cta:'Open',     primary:false },
+  { title:'Send offers to final-stage candidates', sub:'Cleared all rounds',                 count:3,  tone:'green', cta:'Send',     primary:false },
+];
+const WS_ACTIVITY = [
+  { html:'<b>Sophie Turner</b> moved to R2 Interview', time:'10 minutes ago', tone:'var(--green)' },
+  { html:'You submitted feedback for <b>Alex Kim</b>', time:'1 hour ago',     tone:'var(--accent)' },
+  { html:'<b>Priya Patel</b> completed AI screening',  time:'2 hours ago',    tone:'var(--purple)' },
+  { html:'<b>Marcus Reed</b> shortlisted for Backend Engineer', time:'3 hours ago', tone:'var(--green)' },
+  { html:'<b>Kayla Morgan</b> applied to DevOps Lead', time:'5 hours ago',    tone:'var(--accent)' },
+];
+const WS_UPCOMING = [
+  { name:'Sophie Turner', role:'Backend Engineer · R1',  time:'3:00 PM',  day:'Today' },
+  { name:'Alex Kim',      role:'Backend Engineer · R2',  time:'4:30 PM',  day:'Today' },
+  { name:'Priya Patel',   role:'Frontend Engineer · R1', time:'10:00 AM', day:'Tomorrow' },
+  { name:'Marcus Reed',   role:'Backend Engineer · Final',time:'2:00 PM', day:'Tomorrow' },
+];
+const WS_PAST = [
+  { name:'Sam Davis',    role:'Product Manager',   date:'Jun 18, 2026', status:'Completed', cls:'pl-pill-green' },
+  { name:'Alex Kim',     role:'Backend Engineer',  date:'Jun 17, 2026', status:'Advanced',  cls:'pl-pill-blue'  },
+  { name:'Kayla Morgan', role:'DevOps Lead',       date:'Jun 17, 2026', status:'Rejected',  cls:'pl-pill-red'   },
+  { name:'Priya Patel',  role:'Frontend Engineer', date:'Jun 16, 2026', status:'Completed', cls:'pl-pill-green' },
+  { name:'Marcus Reed',  role:'Backend Engineer',  date:'Jun 16, 2026', status:'On Hold',   cls:'pl-pill-amber' },
+];
+
+function wsInitials(name){ const p=name.trim().split(/\s+/); return ((p[0]?.[0]||'')+(p[1]?.[0]||'')).toUpperCase(); }
+function wsAvatar(name){ return `<span class="pl-av" style="background:${joAvColor(name)}">${wsInitials(name)}</span>`; }
+
+function renderWorkspace(){
+  // greeting
+  const now = new Date();
+  const h = now.getHours();
+  const part = h < 12 ? 'morning' : h < 18 ? 'afternoon' : 'evening';
+  document.getElementById('ws-hi').textContent = `Good ${part}, ${WS_NAME} 👋`;
+  document.getElementById('ws-date').textContent =
+    `${now.toLocaleDateString('en-GB',{weekday:'long'})}, ${now.getDate()} ${now.toLocaleDateString('en-GB',{month:'long'})}`;
+
+  // my work today
+  document.getElementById('ws-stats').innerHTML = WS_STATS.map(s=>`
+    <div class="ws-stat">
+      <div class="ws-stat-ic is-${s.tone}"><svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">${s.ic}</svg></div>
+      <div><div class="ws-stat-val">${s.val}</div><div class="ws-stat-lbl">${s.lbl}</div></div>
+    </div>`).join('');
+
+  // priority action center
+  const dotTone = { red:'var(--red)', amber:'var(--amber)', blue:'var(--accent)', green:'var(--green)' };
+  document.getElementById('ws-actions').innerHTML = WS_ACTIONS.map(a=>`
+    <div class="ws-action">
+      <span class="ws-action-dot" style="background:${dotTone[a.tone]}"></span>
+      <div class="ws-action-main">
+        <div class="ws-action-title">${a.title}</div>
+        <div class="ws-action-sub">${a.sub}</div>
+      </div>
+      <span class="ws-badge ws-badge-${a.tone}">${a.count}</span>
+      <button class="btn btn-sm${a.primary?' btn-dark':''}" onclick="plGoCandidates()">${a.cta}</button>
+    </div>`).join('');
+
+  // upcoming interviews
+  document.getElementById('ws-up').innerHTML = WS_UPCOMING.map(u=>`
+    <div class="ws-up-item">
+      ${wsAvatar(u.name)}
+      <div class="ws-up-meta"><div class="ws-up-name">${u.name}</div><div class="ws-up-role">${u.role}</div></div>
+      <div class="ws-up-when"><div class="ws-up-time">${u.time}</div><div class="ws-up-day">${u.day}</div></div>
+    </div>`).join('');
+
+  // past interviews
+  document.getElementById('ws-past-body').innerHTML = WS_PAST.map(p=>`
+    <tr>
+      <td class="pl-open-col"><div class="pl-iv-cell">${wsAvatar(p.name)}<span class="pl-iv-name">${p.name}</span></div></td>
+      <td>${p.role}</td>
+      <td>${p.date}</td>
+      <td><span class="pl-pill ${p.cls}"><span class="dot"></span>${p.status}</span></td>
+    </tr>`).join('');
+}
+
 function joRenderUserAvatars(job){
   if(!job.users||!job.users.length) return `<span style="color:var(--t3);font-size:12px">—</span>`;
   const MAX=3, shown=job.users.slice(0,MAX), extra=job.users.length-MAX;
@@ -10412,9 +10978,13 @@ const ROLE_LIST  = ['Admin','Hiring Manager','Interviewer','Viewer'];
 
 const ORG_STATE = {
   isSuperAdmin: true,
-  currentOrgId: 'acme',
+  currentOrgId: 'heizen',
   currentUserEmail: 'jatin@heizen.work',
   orgs: [
+    {id:'heizen', name:'Heizen', domain:'heizen', logo:null, status:'Active', candidates:40, created:'2025-07-01', teamSize:'11–50',
+      members:[
+        {id:'m1', name:'Jatin (You)', email:'jatin@heizen.work', role:'Admin', joined:'2025-07-01', status:'Active'},
+      ]},
     {id:'acme', name:'Acme Inc', domain:'acme', logo:null, status:'Active', candidates:128, created:'2025-08-14', teamSize:'51–200',
       members:[
         {id:'m1', name:'Jatin (You)', email:'jatin@heizen.work', role:'Admin', joined:'2025-08-14', status:'Active'},
@@ -10463,10 +11033,70 @@ function paintOrgSwitcher(){
   const o = currentOrg();
   const logo = document.getElementById('org-switch-logo-cur');
   const name = document.getElementById('org-switch-name-cur');
-  if(!logo || !name) return;
+  if(logo && name){
+    name.textContent = o.name;
+    logo.style.background = orgColor(o.id);
+    logo.innerHTML = o.logo ? `<img src="${o.logo}" alt="">` : orgInitials(o.name);
+  }
+  paintSbOrg();
+}
+
+/* ── Sidebar org switcher ── */
+function orgRoleFor(o){
+  const m = o.members.find(m => m.email.toLowerCase() === ORG_STATE.currentUserEmail.toLowerCase());
+  return m ? m.role : (ORG_STATE.isSuperAdmin ? 'Admin' : 'Member');
+}
+function paintSbOrg(){
+  const o = currentOrg();
+  const logo = document.getElementById('sb-org-logo');
+  const name = document.getElementById('sb-org-name');
+  const role = document.getElementById('sb-org-role');
+  if(!logo || !name || !role) return;
   name.textContent = o.name;
+  role.textContent = orgRoleFor(o);
   logo.style.background = orgColor(o.id);
   logo.innerHTML = o.logo ? `<img src="${o.logo}" alt="">` : orgInitials(o.name);
+}
+function buildSbOrgBody(){
+  const body = document.getElementById('sb-org-pop-body');
+  if(!body) return;
+  body.innerHTML = ORG_STATE.orgs.map(o => {
+    const sel = o.id === ORG_STATE.currentOrgId;
+    const img = o.logo ? `<img src="${o.logo}" alt="">` : orgInitials(o.name);
+    const check = sel ? `<svg class="sb-org-check" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>` : '';
+    return `<div class="sb-org-opt${sel?' sel':''}" onclick="sbSwitchOrg('${o.id}')">
+      <div class="sb-org-opt-logo" style="background:${orgColor(o.id)}">${img}</div>
+      <div class="sb-org-opt-meta">
+        <div class="sb-org-opt-name">${o.name}</div>
+        <div class="sb-org-opt-sub">${orgRoleFor(o)}</div>
+      </div>
+      ${check}
+    </div>`;
+  }).join('');
+}
+function toggleSbOrg(ev){
+  ev.stopPropagation();
+  const pop = document.getElementById('sb-org-pop');
+  const btn = document.getElementById('sb-org-btn');
+  if(pop.classList.contains('open')){ closeSbOrg(); return; }
+  buildSbOrgBody();
+  pop.classList.add('open');
+  btn.classList.add('open');
+  setTimeout(()=> document.addEventListener('click', _sbOrgOutside), 0);
+}
+function _sbOrgOutside(e){
+  if(e.target.closest('#sb-org')) return;
+  closeSbOrg();
+}
+function closeSbOrg(){
+  document.getElementById('sb-org-pop')?.classList.remove('open');
+  document.getElementById('sb-org-btn')?.classList.remove('open');
+  document.removeEventListener('click', _sbOrgOutside);
+}
+function sbSwitchOrg(id){
+  closeSbOrg();
+  if(id === ORG_STATE.currentOrgId) return;
+  switchOrg(id);
 }
 function toggleOrgSwitch(ev){
   ev.stopPropagation();
@@ -10527,10 +11157,10 @@ function switchOrg(id){
 
 /* ── Role-based access ── */
 const ROLE_PERMS = {
-  'Admin':           {nav:['Dashboard','Candidates','Job Openings','Job Roles','Users','Settings','Interview Settings','Super Admin'], canWrite:true},
-  'Hiring Manager':  {nav:['Dashboard','Candidates','Job Openings','Job Roles','Interview Settings'], canWrite:true},
-  'Interviewer':     {nav:['Dashboard','Candidates'], canWrite:false, candidatesAssignedOnly:true},
-  'Viewer':          {nav:['Dashboard','Candidates','Job Openings','Job Roles'], canWrite:false},
+  'Admin':           {nav:['Dashboard','Dashboard 02','Candidates','Hiring Pipeline','Job Openings','Job Roles','Users','Settings','Interview Settings','Super Admin'], canWrite:true},
+  'Hiring Manager':  {nav:['Dashboard','Dashboard 02','Candidates','Hiring Pipeline','Job Openings','Job Roles','Interview Settings'], canWrite:true},
+  'Interviewer':     {nav:['Dashboard','Dashboard 02','Candidates'], canWrite:false, candidatesAssignedOnly:true},
+  'Viewer':          {nav:['Dashboard','Dashboard 02','Candidates','Hiring Pipeline','Job Openings','Job Roles'], canWrite:false},
 };
 function applyRoleAccess(){
   const role = currentUserRole();
@@ -10564,7 +11194,9 @@ function onbStart(){
   closeOrgSwitch();
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('screen-dashboard').style.display     = 'none';
+  document.getElementById('screen-workspace').style.display     = 'none';
   document.getElementById('screen-candidates').style.display    = 'none';
+  document.getElementById('screen-pipeline').style.display      = 'none';
   document.getElementById('screen-job-openings').style.display  = 'none';
   document.getElementById('screen-job-roles').style.display     = 'none';
   document.getElementById('screen-users').style.display         = 'none';
