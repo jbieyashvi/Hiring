@@ -10977,9 +10977,19 @@ document.addEventListener('keydown', e => {
 
 renderHead();
 renderModeUI();
-/* default filter: Screening stage */
-activeStages  = new Set(['Screening']);
-pendingStages = new Set(['Screening']);
+/* Default: no filters — land on the full, unfiltered candidate list on every refresh.
+   Only honor filters explicitly encoded in the URL (?stage=…&status=…). */
+(function initCandidateFilters(){
+  const params = new URLSearchParams(location.search);
+  const seed = (param, setActive, setPending) => {
+    const v = params.get(param);
+    if(!v) return;
+    const s = new Set(v.split(',').map(x=>x.trim()).filter(Boolean));
+    if(s.size){ setActive(s); setPending(new Set(s)); }
+  };
+  seed('stage',  s=>activeStages=s,   s=>pendingStages=s);
+  seed('status', s=>activeStatuses=s, s=>pendingStatuses=s);
+})();
 applyFilters();   // builds filteredRows, renderTable, updateStats, renderChips
 
 const fb = document.getElementById('filter-bar');
