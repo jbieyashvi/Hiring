@@ -383,6 +383,24 @@ tbody td:first-child{padding-left:20px}
 .pl-stage-bar{height:3px;background:var(--border-light);border-radius:2px;margin-top:11px;overflow:hidden}
 .pl-stage-fill{height:100%;border-radius:2px;min-width:2px}
 
+/* hiring funnel visualization */
+.pl-fn{display:flex;align-items:flex-end;padding:16px 14px 14px;overflow-x:auto}
+.pl-fn-step{display:flex;flex-direction:column;align-items:stretch;min-width:64px;padding:0 4px;cursor:pointer}
+.pl-fn-bar-wrap{height:56px;display:flex;align-items:flex-end;margin-bottom:8px}
+.pl-fn-bar{width:100%;background:#e2e8f0;border:1px solid #cbd5e1;border-bottom:none;border-radius:4px 4px 0 0;min-height:4px;transition:background .12s}
+.pl-fn-step:hover .pl-fn-bar{background:#cbd5e1}
+.pl-fn-step.is-end .pl-fn-bar{background:#eef1f5}
+.pl-fn-name{font-size:10px;font-weight:600;color:var(--t2);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pl-fn-count{font-size:13px;font-weight:700;color:var(--t1);text-align:center;font-variant-numeric:tabular-nums;margin-top:3px;line-height:1.1}
+.pl-fn-count.is-zero{color:var(--t3)}
+.pl-fn-pct{font-size:9px;color:var(--t3);text-align:center;margin-top:1px}
+.pl-fn-conn{flex:0 0 auto;display:flex;align-items:flex-end;padding-bottom:24px;color:var(--t3);opacity:.45}
+.pl-fn-tip{position:fixed;z-index:2000;background:#111827;color:#fff;border-radius:6px;padding:8px 10px;font-size:11px;line-height:1.55;pointer-events:none;opacity:0;transition:opacity .12s;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.pl-fn-tip.show{opacity:1}
+.pl-fn-tip b{font-weight:600;font-size:11.5px}
+.pl-fn-tip span{color:#9ca3af}
+.pl-ds-row.flash{background:#eef4ff}
+
 /* needs attention strip */
 .pl-attn{display:flex;gap:10px}
 .pl-attn-item{flex:1;display:flex;align-items:center;gap:12px;padding:11px 14px;border:1px solid var(--border);border-left-width:3px;border-radius:var(--r2);background:var(--surface)}
@@ -456,6 +474,10 @@ tbody td:first-child{padding-left:20px}
 .pl-ds-bar{flex:1;display:flex;gap:1px;height:6px;border-radius:3px;overflow:hidden;background:var(--border-light);min-width:80px}
 .pl-ds-seg{height:100%}
 .pl-ds-total{font-size:10px;color:var(--t3);white-space:nowrap;flex-shrink:0;width:74px;text-align:right;font-variant-numeric:tabular-nums}
+.pl-ds-chev{flex-shrink:0;color:var(--t3);transition:transform .22s}
+.pl-ds-row.expanded .pl-ds-chev{transform:rotate(180deg)}
+.pl-ds-top.clickable{cursor:pointer;border-radius:6px;margin:-4px;padding:4px;transition:background .1s}
+.pl-ds-top.clickable:hover{background:#f8fafc}
 .pl-ds-chips{display:flex;flex-wrap:wrap;gap:6px}
 .pl-ds-chip{display:inline-flex;align-items:center;gap:5px;height:23px;padding:0 8px;border:1px solid var(--border);border-radius:6px;background:var(--surface);font-size:11px;font-weight:500;color:var(--t2);cursor:pointer;font-family:inherit;transition:border-color .12s,color .12s,background .12s;white-space:nowrap}
 .pl-ds-chip:hover{border-color:#d1d5db;color:var(--t1)}
@@ -487,6 +509,16 @@ tbody td:first-child{padding-left:20px}
 .pl-na-wait.is-red{color:var(--red);font-weight:600}
 .pl-na-empty{display:flex;align-items:center;gap:8px;justify-content:center;padding:16px;font-size:12px;color:var(--t2)}
 .pl-na-empty svg{color:var(--green)}
+/* needs attention — collapsible section wrapper */
+.pl-na-sec-head{display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px 14px;background:none;border:none;cursor:pointer;font-family:inherit;transition:background .1s}
+.pl-na-sec-head:hover{background:#f8fafc}
+.pl-na-sec-title{font-size:12.5px;font-weight:700;color:var(--t1);display:flex;align-items:center;gap:8px}
+.pl-na-sec-ct{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:18px;padding:0 6px;border-radius:5px;background:var(--bg);border:1px solid var(--border);font-size:11px;font-weight:700;color:var(--t2)}
+.pl-na-sec-chev{color:var(--t3);transition:transform .22s;flex-shrink:0}
+.pl-na-sec-head.open .pl-na-sec-chev{transform:rotate(180deg)}
+.pl-na-sec-body{max-height:0;overflow:hidden;transition:max-height .28s ease}
+.pl-na-sec-body.open{max-height:1400px;border-top:1px solid var(--border-light)}
+
 /* needs attention — grouped accordion */
 .pl-na-summary{padding:8px 14px;border-bottom:1px solid var(--border-light);font-size:11px;color:var(--t3)}
 .pl-na-summary b{color:var(--t2);font-weight:600}
@@ -875,6 +907,12 @@ tbody td:first-child{padding-left:20px}
 .rp-ibtn:hover{background:var(--bg);color:var(--t1)}
 .rp-meta{font-size:11.5px;color:var(--t2);margin-bottom:8px}
 .rp-badges{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.rp-fb-status{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;cursor:pointer;user-select:none;transition:filter .1s}
+.rp-fb-status:hover{filter:brightness(.95)}
+.rp-fb-status .dot{width:5px;height:5px;border-radius:50%;background:currentColor}
+.rp-fb-status.pending{background:var(--amber-bg);color:var(--amber)}
+.rp-fb-status.done{background:var(--green-bg);color:var(--green)}
+.rp-fb-status.neutral{background:var(--bg);color:var(--t2);border:1px solid var(--border)}
 .gh-b{display:inline-flex;align-items:center;gap:3px;background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:2px 7px;font-size:10.5px;font-weight:600;color:var(--t2)}
 .ms-b{display:inline-flex;align-items:center;gap:3px;background:var(--green-bg);border-radius:20px;padding:2px 7px;font-size:10.5px;font-weight:700;color:var(--green)}
 .ms-dot{width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0}
@@ -897,7 +935,19 @@ tbody td:first-child{padding-left:20px}
 .wsu{font-size:11px;color:var(--t3);margin-bottom:8px}
 .dr{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:5px}
 .dk{color:var(--t3)}.dv{font-weight:500}
-.rp-foot{padding:10px 16px 12px;border-top:1px solid var(--border);flex-shrink:0}
+.rp-foot{padding:10px 16px 12px;border-top:1px solid var(--border);flex-shrink:0;position:relative}
+/* footer "More actions" menu (opens upward) */
+.fp-more-btn{flex:0 0 auto;height:30px;padding:0 11px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r);font-size:11.5px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:5px;color:var(--t2);font-family:inherit;transition:background .12s,color .12s,border-color .12s}
+.fp-more-btn:hover{background:var(--bg);color:var(--t1)}
+.fp-more-btn.open{background:var(--accent-bg);border-color:#93c5fd;color:var(--accent)}
+.fp-more-btn svg{transition:transform .2s}
+.fp-more-btn.open svg{transform:rotate(180deg)}
+.fp-more-menu{position:absolute;left:16px;right:16px;bottom:calc(100% - 2px);background:var(--surface);border:1px solid var(--border);border-radius:8px;box-shadow:var(--s2);padding:5px;display:none;z-index:200}
+.fp-more-menu.open{display:block}
+.fp-more-item{display:flex;align-items:center;gap:10px;width:100%;padding:8px 9px;border:none;background:none;border-radius:6px;font-size:12px;color:var(--t1);cursor:pointer;font-family:inherit;text-align:left;transition:background .1s}
+.fp-more-item:hover{background:var(--bg)}
+.fp-more-item svg{color:var(--t3);flex-shrink:0}
+.fp-more-sep{height:1px;background:var(--border-light);margin:4px 0}
 .fp-label{font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px}
 .fp-cta{width:100%;height:36px;background:#111827;color:#fff;border:none;border-radius:var(--r);font-size:12.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:7px;transition:background .12s,box-shadow .12s;font-family:inherit}
 .fp-cta:hover{background:#1e2533;box-shadow:0 3px 10px rgba(0,0,0,.2)}
@@ -926,6 +976,119 @@ tbody td:first-child{padding-left:20px}
 .rp-rating-bar{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
 .rp-rating-fill{height:100%;background:var(--accent);border-radius:3px;transition:width .3s}
 .rp-rating-num{font-size:12px;font-weight:700;color:var(--t1);white-space:nowrap}
+/* ── Feedback tab — premium redesign (fbn) ── */
+.fbn{display:flex;flex-direction:column}
+.fbn-div{height:1px;background:var(--border-light);margin:16px 0}
+.fbn-scores{display:flex;gap:28px}
+.fbn-score-lbl{font-size:10.5px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.05em}
+.fbn-score-val{font-size:20px;font-weight:700;color:var(--t1);line-height:1.1;margin-top:3px;font-variant-numeric:tabular-nums}
+.fbn-rec{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:var(--t1)}
+.fbn-rec-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.fbn-overall-lbl{font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;margin:14px 0 4px}
+.fbn-overall-num{font-size:32px;font-weight:700;color:var(--t1);line-height:1;font-variant-numeric:tabular-nums}
+.fbn-bars{margin-top:14px;display:flex;flex-direction:column;gap:10px}
+.fbn-bar-row{display:flex;align-items:center;gap:12px}
+.fbn-bar-lbl{width:108px;flex-shrink:0;font-size:12px;color:var(--t2)}
+.fbn-bar{flex:1;height:6px;background:var(--border-light);border-radius:3px;overflow:hidden}
+.fbn-bar-fill{height:100%;border-radius:3px;background:#334155}
+.fbn-bar-num{width:34px;flex-shrink:0;text-align:right;font-size:12px;font-weight:600;color:var(--t1);font-variant-numeric:tabular-nums}
+.fbn-sec-title{font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:9px}
+.fbn-list{display:flex;flex-direction:column;gap:7px}
+.fbn-li{display:flex;gap:8px;font-size:12.5px;color:var(--t1);line-height:1.5}
+.fbn-li .mk{flex-shrink:0;margin-top:6px;width:5px;height:5px;border-radius:50%}
+.fbn-li.pos .mk{background:var(--green)}
+.fbn-li.neg .mk{background:var(--amber)}
+.fbn-rv-head{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.fbn-rv-meta{min-width:0}
+.fbn-rv-name{font-size:12.5px;font-weight:600;color:var(--t1)}
+.fbn-rv-role{font-size:10.5px;color:var(--t3)}
+.fbn-stars{display:flex;gap:2px;margin-bottom:8px}
+.fbn-stars svg{width:13px;height:13px}
+.fbn-quote{font-size:12.5px;color:var(--t1);line-height:1.65;padding-left:11px;border-left:2px solid var(--border)}
+.fbn-rv-time{font-size:10.5px;color:var(--t3);margin-top:8px}
+.fbn-dec{display:flex;flex-direction:column;gap:11px}
+.fbn-dec-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.fbn-dec-lbl{font-size:12px;color:var(--t2)}
+.fbn-dec-val{font-size:12.5px;font-weight:600;color:var(--t1)}
+.fbn-final{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--t1)}
+.fbn-final-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+
+/* ── Feedback tab — evaluation-first (fbv) ── */
+.fbv{display:flex;flex-direction:column;gap:16px}
+.fbv-card{border:1px solid var(--border);border-radius:var(--r2);padding:14px}
+.fbv-card.primary{border-color:#c7d2fe;background:#fbfcff}
+.fbv-title{font-size:12.5px;font-weight:700;color:var(--t1);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.fbv-saved-tag{font-size:10.5px;font-weight:600;color:var(--green)}
+.fbv-lbl{font-size:11px;font-weight:600;color:var(--t2);margin-bottom:7px}
+.fbv-dec{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:13px}
+.fbv-dec-opt{display:flex;align-items:center;justify-content:center;gap:6px;height:34px;border:1px solid var(--border);border-radius:7px;font-size:12px;font-weight:600;color:var(--t2);cursor:pointer;background:var(--surface);font-family:inherit;transition:border-color .12s,background .12s,color .12s}
+.fbv-dec-opt:hover{border-color:#c5cad3;color:var(--t1)}
+.fbv-dec-opt.sel.pos{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.fbv-dec-opt.sel.neg{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.fbv-dec-opt .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.fbv-stars{display:flex;gap:4px;margin-bottom:13px}
+.fbv-stars svg{cursor:pointer}
+.fbv-textarea{width:100%;border:1px solid var(--border);border-radius:7px;padding:9px 10px;font-size:12px;font-family:inherit;color:var(--t1);background:var(--surface);resize:vertical;min-height:64px;line-height:1.55}
+.fbv-textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.fbv-save{width:100%;height:36px;margin-top:11px;border:none;border-radius:7px;background:#111827;color:#fff;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .12s}
+.fbv-save:hover:not(:disabled){background:#1e2533}
+.fbv-save:disabled{background:#cbd5e1;cursor:not-allowed}
+.fbv-saved-view{display:flex;flex-direction:column;gap:8px}
+.fbv-saved-row{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--t1)}
+.fbv-saved-row .k{color:var(--t2);width:74px;flex-shrink:0}
+.fbv-edit{background:none;border:none;color:var(--accent);font-size:11.5px;font-weight:600;cursor:pointer;font-family:inherit;padding:0}
+.fbv-scores{display:flex;gap:8px;margin-bottom:11px}
+.fbv-score{flex:1;text-align:center;padding:9px 6px;border:1px solid var(--border-light);border-radius:7px;background:var(--bg)}
+.fbv-score-num{font-size:17px;font-weight:700;color:var(--t1);line-height:1;font-variant-numeric:tabular-nums}
+.fbv-score-lbl{font-size:9.5px;color:var(--t3);margin-top:4px;text-transform:uppercase;letter-spacing:.03em}
+.fbv-verdict{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--t2)}
+.fbv-verdict b{font-weight:700;color:var(--t1)}
+.fbv-verdict .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.fbv-collapse-btn{display:flex;align-items:center;justify-content:space-between;width:100%;background:none;border:none;padding:11px 0 0;margin-top:9px;border-top:1px solid var(--border-light);cursor:pointer;font-size:11.5px;font-weight:600;color:var(--accent);font-family:inherit}
+.fbv-collapse-btn svg{transition:transform .22s}
+.fbv-collapse-btn.open svg{transform:rotate(180deg)}
+.fbv-collapse-body{max-height:0;overflow:hidden;transition:max-height .25s ease}
+.fbv-collapse-body.open{max-height:900px}
+.fbv-grp-title{font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:9px}
+.fbv-actions{display:flex;gap:8px}
+.fbv-act{flex:1;height:34px;border-radius:7px;border:1px solid var(--border);background:var(--surface);font-size:12px;font-weight:600;color:var(--t1);cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:5px;transition:background .12s,border-color .12s}
+.fbv-act.move{background:#111827;color:#fff;border-color:#111827}
+.fbv-act.move:hover{background:#1e2533}
+.fbv-act.hold:hover{background:var(--bg)}
+.fbv-act.reject{color:var(--red);border-color:#fecaca}
+.fbv-act.reject:hover{background:var(--red-bg)}
+.fbv-more-item{display:flex;align-items:center;gap:8px;width:100%;padding:9px 10px;border:1px solid var(--border-light);border-radius:7px;background:var(--surface);font-size:12px;color:var(--t1);cursor:pointer;font-family:inherit;margin-top:7px;text-align:left;transition:background .12s}
+.fbv-more-item:first-child{margin-top:0}
+.fbv-more-item:hover{background:var(--bg)}
+.fbv-more-item svg{color:var(--t3);flex-shrink:0}
+.fbv-dec-opt.sel.mid{background:var(--amber-bg);border-color:var(--amber);color:var(--amber)}
+.fbv-dec.three{grid-template-columns:1fr 1fr}
+/* review-mode header strip */
+.fbv-hdr{padding-bottom:13px;border-bottom:1px solid var(--border-light);margin-bottom:2px}
+.fbv-hdr-stage{font-size:12.5px;font-weight:700;color:var(--t1)}
+.fbv-hdr-scores{display:flex;gap:20px;margin-top:7px}
+.fbv-hdr-score-lbl{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.04em}
+.fbv-hdr-score-val{font-size:15px;font-weight:700;color:var(--t1);margin-top:2px;font-variant-numeric:tabular-nums}
+/* interview summary rows */
+.fbv-sum-row{display:flex;align-items:center;justify-content:space-between;font-size:12px;padding:6px 0;border-bottom:1px solid var(--border-light)}
+.fbv-sum-row:last-child{border-bottom:none}
+.fbv-sum-lbl{color:var(--t2)}
+.fbv-sum-val{font-weight:600;color:var(--t1);display:inline-flex;align-items:center;gap:6px}
+.fbv-sum-val .dot{width:7px;height:7px;border-radius:50%}
+/* feedback history */
+.fbv-hist-item{padding:12px 0;border-bottom:1px solid var(--border-light)}
+.fbv-hist-item:first-child{padding-top:0}
+.fbv-hist-item:last-child{border-bottom:none;padding-bottom:0}
+.fbv-hist-head{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+.fbv-hist-name{font-size:12px;font-weight:600;color:var(--t1)}
+.fbv-hist-role{font-size:10px;color:var(--t3)}
+.fbv-hist-stars{display:flex;gap:2px;margin-left:auto}
+.fbv-hist-stars svg{width:12px;height:12px}
+.fbv-hist-text{font-size:12px;color:var(--t2);line-height:1.55}
+.fbv-hist-time{font-size:10px;color:var(--t3);margin-top:5px}
+/* sticky bottom actions (evaluation mode) */
+.fbv-sticky{position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--border);padding:11px 0 2px;margin-top:4px;display:flex;gap:8px;z-index:5}
+
 /* Feedback tab */
 .fb-empty{padding:28px 0;text-align:center;color:var(--t3)}
 .fb-empty svg{display:block;margin:0 auto 8px;opacity:.3}
@@ -2305,6 +2468,7 @@ tbody td:first-child{padding-left:20px}
         <div class="rp-badges">
           <div class="gh-b"><svg width="11" height="11" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.82-.26.82-.58v-2.17c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.17 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 013.01-.4c1.02 0 2.05.14 3.01.4 2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.87.12 3.17.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12.01 12.01 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>GitHub 78%</div>
           <div class="ms-b"><span class="ms-dot"></span>92% Match Score</div>
+          <div class="rp-fb-status" id="rp-fb-status" onclick="switchTabByName('feedback')" title="Open feedback"></div>
         </div>
         <div class="rp-tabs">
           <div class="rtab on" onclick="switchTab(this,'overview')">Overview</div>
@@ -2441,7 +2605,17 @@ tbody td:first-child{padding-left:20px}
           <div class="pl-card pl-funnel" id="pl-funnel"></div>
         </div>
 
-        <!-- 2 · DETAILED STAGE PIPELINE (accordion) -->
+        <!-- 2 · HIRING FUNNEL VISUALIZATION -->
+        <div class="pl-sec">
+          <div class="pl-sec-head">
+            <span class="pl-sec-title">Hiring funnel</span>
+            <span class="pl-sec-meta">Applied → Hired · click a stage to jump below</span>
+          </div>
+          <div class="pl-card pl-fn" id="pl-fn"></div>
+        </div>
+        <div class="pl-fn-tip" id="pl-fn-tip"></div>
+
+        <!-- 3 · DETAILED STAGE PIPELINE (accordion) -->
         <div class="pl-sec">
           <div class="pl-sec-head">
             <span class="pl-sec-title">Detailed stage pipeline</span>
@@ -2450,13 +2624,15 @@ tbody td:first-child{padding-left:20px}
           <div class="pl-card"><div class="pl-ds" id="pl-ds"></div></div>
         </div>
 
-        <!-- 3 · NEEDS ATTENTION -->
+        <!-- 4 · NEEDS ATTENTION (collapsed by default) -->
         <div class="pl-sec">
-          <div class="pl-sec-head">
-            <span class="pl-sec-title">Needs attention</span>
-            <span class="pl-sec-meta" id="pl-na-meta"></span>
+          <div class="pl-card">
+            <button class="pl-na-sec-head" id="pl-na-sec-head" onclick="plNaSectionToggle()">
+              <span class="pl-na-sec-title">Needs attention <span class="pl-na-sec-ct" id="pl-na-count">0</span></span>
+              <svg class="pl-na-sec-chev" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="pl-na-sec-body" id="pl-na-sec-body"><div class="pl-na-list" id="pl-na-list"></div></div>
           </div>
-          <div class="pl-card"><div class="pl-na-list" id="pl-na-list"></div></div>
         </div>
 
         <!-- 4 · INTERVIEWER LOAD + UPCOMING INTERVIEWS -->
@@ -3979,6 +4155,25 @@ function mkData(n){
   return a;
 }
 const ALL_ROWS=mkData(100);
+/* ── Arun Sharma demo rows: State 1 (review, feedback exists) + State 2 (evaluation, none yet) ── */
+const ARUN_BASE = {
+  name:'Arun Sharma', role:'Forward Deployed Engineer',
+  exp:3, skills:['Go','Kubernetes','Docker','AWS','Terraform'], match:92,
+  prog:64, curr_company:'Stripe', prev_company:'Razorpay',
+  github_score:88, applied_date:'Mar 2, 2026',
+  location:'Bengaluru, India', college:'IIT Madras', grad_year:2021,
+  role_pref:'Backend', internship:'Yes', top_skills_form:'Go, Kubernetes, AWS',
+  github_url:'https://github.com/arunsharma', linkedin_url:'https://linkedin.com/in/arun-sharma', website_url:null,
+  resume_score:825,
+};
+ALL_ROWS.unshift(
+  { ...ARUN_BASE, email:'arun.sharma@gmail.com', phone:'+1 512 555 2025',
+    stage:'R2', status:'In Progress', interviewType:'manual', interviewer:'Bala S.',
+    interview_date:'Apr 18, 2026', interview_time:'2:00 PM', hasFeedback:true },
+  { ...ARUN_BASE, email:'arun.sharma2@gmail.com', phone:'+1 512 555 2026',
+    stage:'R1', status:'Completed', interviewType:'ai', interviewer:'',
+    interview_date:'Apr 10, 2026', interview_time:'—', hasFeedback:false },
+);
 let filteredRows=[...ALL_ROWS];
 let selectedRows=new Set();
 
@@ -4972,6 +5167,11 @@ function selectRow(i){
   const stageBadge = document.querySelector('.rp-stage-badge');
   if(stageBadge){ stageBadge.textContent = r.stage; }
 
+  /* feedback status indicator near header */
+  const fb = fbStatusFor(r, i);
+  const fbEl = document.getElementById('rp-fb-status');
+  if(fbEl){ fbEl.className = `rp-fb-status ${fb.cls}`; fbEl.innerHTML = `<span class="dot"></span>${fb.label}`; }
+
   /* dynamic stage block, overview, feedback, and footer */
   renderRPStageBlock(r);
   renderRPOverview(r);
@@ -4983,6 +5183,21 @@ function selectRow(i){
 
   /* slide panel in and show content */
   showRPFilled();
+
+  /* Option A — land on the Feedback tab when evaluation is relevant (non-screening) */
+  const wantFeedback = r.stage !== 'Screening';
+  const tabEl = document.querySelector(`.rtab[onclick*="'${wantFeedback ? 'feedback' : 'overview'}'"]`);
+  if(tabEl) switchTab(tabEl, wantFeedback ? 'feedback' : 'overview');
+}
+
+/* feedback status for header indicator */
+function fbStatusFor(r, ridx){
+  if(r.stage === 'Screening') return { label:'In screening', cls:'neutral' };
+  if(r.stage === 'Hired')     return { label:'Feedback complete', cls:'done' };
+  const round = ({R1:'R1',R2:'R2',Assignment:'Assignment',Final:'Final'})[r.stage] || null;
+  const done = !!(r.hasFeedback || (round && getFeedback(ridx, round)));
+  return done ? { label:'Feedback complete', cls:'done' }
+              : { label:'Awaiting evaluation', cls:'pending' };
 }
 
 /* ── Feedback-first progression helpers ── */
@@ -5023,16 +5238,73 @@ function submitRPFeedback(ridx){
   const r = filteredRows[ridx];
   if(!r) return;
   const round  = r.stage === 'R1' ? 'R1' : r.stage === 'R2' ? 'R2' : r.stage === 'Assignment' ? 'Assignment' : 'Final';
-  const draft  = rpFeedbackDraft[ridx] || {};
-  const pros   = document.getElementById(`rp-fb-pros-${ridx}`)?.value || '';
+  const draft     = rpFeedbackDraft[ridx] || {};
+  const strengths = document.getElementById(`rp-fb-strengths-${ridx}`)?.value || '';
+  const concerns  = document.getElementById(`rp-fb-concerns-${ridx}`)?.value || '';
+  const notes     = document.getElementById(`rp-fb-notes-${ridx}`)?.value || '';
+  const pros      = document.getElementById(`rp-fb-pros-${ridx}`)?.value || strengths || notes;
   if(!feedbackStore[ridx]) feedbackStore[ridx] = {};
-  feedbackStore[ridx][round] = { rating: draft.rating || 0, pros };
+  feedbackStore[ridx][round] = { rating: draft.rating || 0, pros, strengths, concerns, notes, decision: draft.decision || '' };
   delete rpFeedbackDraft[ridx];
   renderRPFeedback(r);
   renderRPFoot(r);
+  if(typeof showToast === 'function') showToast('success', 'Feedback saved');
   /* refresh action cell in table so button updates (e.g. → Schedule R2) */
   const actionTd = document.querySelector(`#tbody tr[data-ridx="${ridx}"] td[data-col-id="action"]`);
   if(actionTd) actionTd.innerHTML = nextAction(r, ridx);
+}
+
+/* feedback v2 — decision selector, collapsibles, candidate/secondary actions */
+function setRPDecision(ridx, val){
+  if(!rpFeedbackDraft[ridx]) rpFeedbackDraft[ridx] = {};
+  rpFeedbackDraft[ridx].decision = val;
+  const wrap = document.getElementById(`rp-dec-${ridx}`);
+  if(wrap) wrap.querySelectorAll('.fbv-dec-opt').forEach(o => o.classList.toggle('sel', o.dataset.val === val));
+  const btn = document.getElementById(`rp-fb-submit-${ridx}`);
+  if(btn) btn.disabled = false;
+}
+function fbvToggle(btn){
+  const body = btn.nextElementSibling;
+  if(!body) return;
+  const open = body.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+function editRPFeedback(ridx, round){
+  const s = getFeedback(ridx, round) || {};
+  rpFeedbackDraft[ridx] = { rating: s.rating || 0, decision: s.decision || '' };
+  if(feedbackStore[ridx]) delete feedbackStore[ridx][round];
+  renderRPFeedback(filteredRows[ridx]);
+  const t = document.getElementById(`rp-fb-pros-${ridx}`);
+  if(t && s.pros) t.value = s.pros;
+}
+const PL_NEXT_STAGE = { Screening:'R1', R1:'R2', R2:'Assignment', Assignment:'Final', Final:'Hired' };
+function plMoveStage(ridx){
+  const r = filteredRows[ridx];
+  if(!r) return;
+  const next = PL_NEXT_STAGE[r.stage];
+  if(!next){ if(typeof showToast==='function') showToast('success','Already at the final stage'); return; }
+  r.stage = next;
+  r.status = next === 'Hired' ? 'Hired' : 'In Progress';
+  if(typeof renderTable==='function') renderTable();
+  if(typeof updateStats==='function') updateStats();
+  if(typeof renderChips==='function') renderChips();
+  selectRow(ridx);
+  if(typeof showToast==='function') showToast('success', `Moved to <strong>${next}</strong>`);
+}
+function plResendInterview(ridx){
+  const r = filteredRows[ridx];
+  if(typeof showToast==='function') showToast('success', `Interview resent to <strong>${r?r.name:'candidate'}</strong>`);
+}
+function plCopyInterviewLink(ridx){
+  const r = filteredRows[ridx];
+  const link = `https://heizen.app/interview/${(r?r.name:'candidate').toLowerCase().replace(/\s+/g,'-')}`;
+  try { navigator.clipboard && navigator.clipboard.writeText(link); } catch(e){}
+  if(typeof showToast==='function') showToast('success', 'Interview link copied');
+}
+function plViewResults(ridx){
+  if(typeof openRecordingModal==='function') openRecordingModal(ridx);
+  else if(typeof openTranscriptModal==='function') openTranscriptModal(ridx);
+  else if(typeof showToast==='function') showToast('success','Opening interview results');
 }
 
 function switchTabByName(name){
@@ -6348,55 +6620,239 @@ function renderRPFeedback(r){
       </div>`;
   };
 
-  /* ── render by stage ── */
-  let html = '';
+  /* ── premium decision summary ── */
+  const RV_NAMES  = ['Bala Subrahmanyam','Priya Nair','David Kim','Sara Lopez'];
+  const STRENGTHS = ['Strong backend fundamentals','Relevant DevOps experience','Good problem-solving ability','Experience with cloud infrastructure','Clear, structured communication','Solid system-design instincts'];
+  const CONCERNS  = ['JWT and authentication concepts inconsistent','Scaling knowledge needs validation','Communication occasionally unclear','Some technical explanations lacked depth','Limited large-scale systems exposure','Edge-case handling could improve'];
+  const QUOTES    = [
+    'Good candidate. Strong backend fundamentals. Worth evaluating further through a deeper technical round.',
+    'Solid overall — fundamentals are there. Recommend a deeper technical round before deciding.',
+    'Promising. Communication needs polish but the technical baseline is strong.',
+    'Capable engineer with clear potential. Validate scaling depth in the next round.',
+  ];
 
+  const resumeScore = Math.min(980, 700 + r.exp*12 + (score % 40));
+  const githubNum   = Math.round(score*3 + r.exp*9);
+  const recTone = overall>=70 ? {dot:'var(--green)', text:'Strongly recommended — advance'}
+               :  overall>=50 ? {dot:'var(--amber)', text:'Recommended for next round'}
+               :                {dot:'var(--red)',   text:'Not recommended'};
+  const aiAssess = overall>=70 ? 'Yes' : overall>=50 ? 'Maybe' : 'No';
+  const reviewerDecision = status || 'In Progress';
+  const finalTone = status==='Rejected' ? {dot:'var(--red)',   text:'Do not proceed'}
+                  : status==='On Hold'  ? {dot:'var(--amber)', text:'On hold'}
+                  : overall>=70         ? {dot:'var(--green)', text:'Advance'}
+                  :                       {dot:'var(--amber)', text:'Move forward'};
+  const reviewer  = RV_NAMES[r.exp % RV_NAMES.length];
+  const reviewerInit = reviewer.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+  const quote     = QUOTES[r.exp % QUOTES.length];
+  const rating10  = Math.max(1, Math.min(10, Math.round(overall/10)));
+  let stars10 = '<div class="fbn-stars">';
+  for(let i=1;i<=10;i++) stars10 += `<svg viewBox="0 0 24 24" fill="${i<=rating10?'#f59e0b':'none'}" stroke="${i<=rating10?'#f59e0b':'#d1d5db'}" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+  stars10 += '</div>';
+  const off = r.exp % 2;
+  const strengthsHtml = STRENGTHS.slice(off, off+4).map(s=>`<div class="fbn-li pos"><span class="mk"></span>${s}</div>`).join('');
+  const concernsHtml  = CONCERNS.slice(off, off+4).map(s=>`<div class="fbn-li neg"><span class="mk"></span>${s}</div>`).join('');
+  const days = 1 + (r.exp % 6);
+
+  const ICO_VERDICT_BOT = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="13" r="1.5" fill="currentColor" stroke="none"/></svg>`;
+  const ICO_CHV = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><polyline points="6 9 12 15 18 9"/></svg>`;
+  const ICO_RESEND = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>`;
+  const ICO_LINK   = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>`;
+  const ICO_PLAY   = `<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
+
+  const roundFor = { R1:'R1', R2:'R2', Assignment:'Assignment', Final:'Final' };
+  const round = roundFor[stage] || null;
+
+  const reviewMode = !!(round && (getFeedback(ridx, round) || r.hasFeedback));
+  const stageLabel = (stage==='R1' && interviewType==='ai') ? 'AI Interview'
+                   : stage==='R1' ? 'R1 Interview' : stage==='R2' ? 'R2 Interview'
+                   : stage==='Assignment' ? 'Assignment' : stage==='Final' ? 'Final Round' : stage;
+  const resumeScore2 = r.resume_score || Math.min(980, 700 + r.exp*12 + (score % 40));
+  const vDot    = overall>=70 ? 'var(--green)' : overall>=50 ? 'var(--amber)' : 'var(--red)';
+  const aiRec   = overall>=70 ? 'Yes' : overall>=50 ? 'Maybe' : 'No';
+
+  /* shared — AI assessment card (scores + collapsible analysis) */
+  const aiAssessmentCard = (title, startOpen) => {
+    const STR = STRENGTHS.slice(off, off+4);
+    const CON = CONCERNS.slice(off, off+4);
+    return `<div class="fbv-card">
+      <div class="fbv-title">${title} <span class="ai-badge">AI</span></div>
+      <div class="fbv-scores">
+        <div class="fbv-score"><div class="fbv-score-num">${overall}</div><div class="fbv-score-lbl">Overall</div></div>
+        <div class="fbv-score"><div class="fbv-score-num">${Math.round(techPct)}</div><div class="fbv-score-lbl">Technical</div></div>
+        <div class="fbv-score"><div class="fbv-score-num">${Math.round(commPct)}</div><div class="fbv-score-lbl">Comm.</div></div>
+      </div>
+      <div class="fbv-verdict">${ICO_VERDICT_BOT}<span>AI verdict:</span> <b>${aiRec}</b><span class="dot" style="background:${vDot};margin-left:2px"></span></div>
+      <button class="fbv-collapse-btn${startOpen?' open':''}" onclick="fbvToggle(this)">View analysis ${ICO_CHV}</button>
+      <div class="fbv-collapse-body${startOpen?' open':''}">
+        <div style="padding-top:12px">
+          ${metricBar('Technical Depth', techPct)}
+          ${metricBar('Communication', commPct, '#10b981')}
+          ${metricBar('Culture Fit', cultPct, '#f59e0b')}
+          ${metricBar('Problem Solving', probPct, '#8b5cf6')}
+          <div class="fbn-sec-title" style="margin-top:14px">Key strengths</div>
+          <div class="fbn-list">${STR.map(s=>`<div class="fbn-li pos"><span class="mk"></span>${s}</div>`).join('')}</div>
+          <div class="fbn-sec-title" style="margin-top:14px">Areas of concern</div>
+          <div class="fbn-list">${CON.map(s=>`<div class="fbn-li neg"><span class="mk"></span>${s}</div>`).join('')}</div>
+          <div class="fbn-sec-title" style="margin-top:14px">Reviewer note</div>
+          <div class="fbn-quote">${quote} <span style="color:var(--t3)">— ${reviewer}</span></div>
+        </div>
+      </div>
+    </div>`;
+  };
+
+  /* ── STATE 2 · EVALUATION MODE (no feedback yet, form-first) ── */
+  const evaluationMode = () => {
+    const draft  = rpFeedbackDraft[ridx] || {};
+    const decSel = draft.decision || '';
+    const rating = draft.rating || 0;
+    const DECS = [['Strong Yes','pos'],['Yes','pos'],['Maybe','mid'],['No','neg']];
+    const dColor = t => t==='pos'?'var(--green)':t==='neg'?'var(--red)':'var(--amber)';
+    const decOpts = DECS.map(([v,t])=>`<button class="fbv-dec-opt ${t}${decSel===v?' sel':''}" data-val="${v}" onclick="setRPDecision(${ridx},'${v}')"><span class="dot" style="background:${dColor(t)}"></span>${v}</button>`).join('');
+    let starHtml = '';
+    for(let i=1;i<=5;i++){
+      const on = i<=rating;
+      starHtml += `<svg onclick="setRPFeedbackStar(${ridx},${i})" width="22" height="22" viewBox="0 0 24 24" fill="${on?'#f59e0b':'none'}" stroke="${on?'#f59e0b':'#d1d5db'}" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+    }
+    return `<div class="fbv">
+      <div class="fbv-card primary">
+        <div class="fbv-title">Evaluate · ${stageLabel}</div>
+        <div class="fbv-lbl">Recommendation</div>
+        <div class="fbv-dec" id="rp-dec-${ridx}">${decOpts}</div>
+        <div class="fbv-lbl">Rating</div>
+        <div class="fbv-stars" id="rp-stars-${ridx}">${starHtml}</div>
+        <div class="fbv-lbl">Strengths</div>
+        <textarea id="rp-fb-strengths-${ridx}" class="fbv-textarea" placeholder="What stood out?"></textarea>
+        <div class="fbv-lbl" style="margin-top:11px">Concerns</div>
+        <textarea id="rp-fb-concerns-${ridx}" class="fbv-textarea" placeholder="Any gaps or risks?"></textarea>
+        <div class="fbv-lbl" style="margin-top:11px">Additional notes</div>
+        <textarea id="rp-fb-notes-${ridx}" class="fbv-textarea" placeholder="Anything else worth recording…"></textarea>
+        <button id="rp-fb-submit-${ridx}" class="fbv-save" onclick="submitRPFeedback(${ridx})" ${(decSel||rating)?'':'disabled'}>Save Feedback</button>
+      </div>
+      ${aiAssessmentCard('AI assessment', false)}
+    </div>`;
+  };
+
+  /* ── STATE 1 · REVIEW MODE (feedback exists, review-first) ── */
+  const reviewModeHtml = () => {
+    const saved = getFeedback(ridx, round);
+    const humanRec = (saved && saved.decision) || 'Shortlist';
+    const hDot = /^(Strong Yes|Yes|Shortlist)/.test(humanRec) ? 'var(--green)' : /No/.test(humanRec) ? 'var(--red)' : 'var(--amber)';
+    const HIST = [];
+    if(saved) HIST.push({ name:'You', role:`${round} review`, rating:saved.rating||4, text:saved.pros||saved.strengths||'Feedback submitted.', time:'just now' });
+    HIST.push(
+      { name:'Bala Subrahmanyam', role:'R2 Interviewer', rating:4, text:'Strong backend fundamentals. Worth a deeper technical round.', time:'2 days ago' },
+      { name:'Priya Nair',        role:'R1 Interviewer', rating:4, text:'Clear problem-solving and good communication. Recommend advancing.', time:'5 days ago' },
+      { name:'David Kim',         role:'Screening',      rating:3, text:'Relevant DevOps experience, solid resume signal.', time:'1 week ago' },
+    );
+    const hist = HIST.slice(0,3).map(h=>`<div class="fbv-hist-item">
+      <div class="fbv-hist-head">
+        <span class="pl-av">${h.name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase()}</span>
+        <div><div class="fbv-hist-name">${h.name}</div><div class="fbv-hist-role">${h.role}</div></div>
+        ${starsRO(h.rating).replace('fb-stars','fbv-hist-stars')}
+      </div>
+      <div class="fbv-hist-text">${h.text}</div>
+      <div class="fbv-hist-time">${h.time}</div>
+    </div>`).join('');
+    return `<div class="fbv">
+      <div class="fbv-hdr">
+        <div class="fbv-hdr-stage">Current stage · ${stageLabel}</div>
+        <div class="fbv-hdr-scores">
+          <div><div class="fbv-hdr-score-lbl">Resume Score</div><div class="fbv-hdr-score-val">${resumeScore2}</div></div>
+          <div><div class="fbv-hdr-score-lbl">GitHub</div><div class="fbv-hdr-score-val">${score}</div></div>
+        </div>
+      </div>
+      <div class="fbv-card">
+        <div class="fbv-title">Interview summary</div>
+        <div class="fbv-sum-row"><span class="fbv-sum-lbl">AI recommendation</span><span class="fbv-sum-val"><span class="dot" style="background:${vDot}"></span>${aiRec}</span></div>
+        <div class="fbv-sum-row"><span class="fbv-sum-lbl">Human recommendation</span><span class="fbv-sum-val"><span class="dot" style="background:${hDot}"></span>${humanRec}</span></div>
+        <div class="fbv-scores" style="margin-top:11px;margin-bottom:0">
+          <div class="fbv-score"><div class="fbv-score-num">${overall}</div><div class="fbv-score-lbl">Overall</div></div>
+          <div class="fbv-score"><div class="fbv-score-num">${Math.round(techPct)}</div><div class="fbv-score-lbl">Technical</div></div>
+          <div class="fbv-score"><div class="fbv-score-num">${Math.round(commPct)}</div><div class="fbv-score-lbl">Comm.</div></div>
+        </div>
+      </div>
+      <div class="fbv-card">
+        <div class="fbv-title">Feedback history</div>
+        <div class="fbv-hist">${hist}</div>
+      </div>
+      ${aiAssessmentCard('AI analysis', false)}
+    </div>`;
+  };
+
+  /* ── render ── */
+  let html = '';
   if(stage === 'Screening'){
     html = emptyState('No interview feedback yet', 'Move to R1 to begin the interview process.');
-
-  } else if(stage === 'R1'){
-    if(status === 'In Progress'){
-      html = interviewType === 'ai'
-        ? pendingBanner('AI interview in progress — results will appear once complete.') + emptyState('Awaiting AI Results')
-        : pendingBanner('Interview scheduled — add feedback after completion.') + emptyState('Awaiting Feedback');
-    } else {
-      html = interviewType === 'ai' ? aiResultCard() : feedbackForm('R1');
-    }
-
-  } else if(stage === 'R2'){
-    html = prevCard('Round 1', 'R1', mockR1Rating, MOCK_PROS[r.exp%4], MOCK_TEXTS[r.exp%4]);
-    html += status === 'In Progress'
-      ? pendingBanner('R2 interview in progress — add feedback after completion.')
-      : feedbackForm('R2');
-
-  } else if(stage === 'Assignment'){
-    html  = prevCard('Round 1', 'R1', mockR1Rating, MOCK_PROS[r.exp%4], MOCK_TEXTS[r.exp%4]);
-    html += prevCard('Round 2', 'R2', mockR2Rating, MOCK_PROS[(r.exp+1)%4], MOCK_TEXTS[(r.exp+1)%4]);
-    html += status === 'In Progress'
-      ? pendingBanner('Assignment in progress — add feedback once submitted.')
-      : feedbackForm('Assignment');
-
-  } else if(stage === 'Final'){
-    html  = prevCard('Round 1',    'R1',         mockR1Rating, MOCK_PROS[r.exp%4],       MOCK_TEXTS[r.exp%4]);
-    html += prevCard('Round 2',    'R2',         mockR2Rating, MOCK_PROS[(r.exp+1)%4],   MOCK_TEXTS[(r.exp+1)%4]);
-    html += prevCard('Assignment', 'Assignment', mockR1Rating, MOCK_PROS[(r.exp+2)%4],   MOCK_TEXTS[(r.exp+2)%4]);
-    html += status === 'In Progress'
-      ? pendingBanner('Final interview in progress — add feedback after completion.')
-      : feedbackForm('Final');
-
-  } else if(stage === 'Hired'){
-    html  = prevCard('Round 1',    'R1',         mockR1Rating, MOCK_PROS[r.exp%4],     MOCK_TEXTS[r.exp%4]);
-    html += prevCard('Round 2',    'R2',         mockR2Rating, MOCK_PROS[(r.exp+1)%4], MOCK_TEXTS[(r.exp+1)%4]);
-    html += `<div class="rp-card" style="border-color:#86efac;background:#f0fdf4;margin-top:2px">
-      <div class="rp-card-title" style="color:var(--green)">✓ Hired</div>
-      <div style="font-size:11.5px;color:var(--t2);margin-top:4px">Candidate completed all rounds and was successfully hired.</div>
-    </div>`;
-
+  } else if(stage === 'R1' && status === 'In Progress' && interviewType !== 'ai'){
+    html = pendingBanner('Interview scheduled — add feedback after completion.') + evaluationMode();
   } else {
-    html = emptyState('No feedback available');
+    html = reviewMode ? reviewModeHtml() : evaluationMode();
   }
 
   el.innerHTML = html;
+
+  /* the sticky footer is the ONLY action area — render it per mode */
+  renderFBFooter(r, ridx, reviewMode ? 'review' : 'eval', stage);
+}
+
+/* feedback tab sticky footer — high-priority actions + collapsible "More" menu */
+function renderFBFooter(r, ridx, mode, stage){
+  const foot = document.getElementById('rp-foot');
+  if(!foot) return;
+  foot.style.display = '';
+  const next = (typeof PL_NEXT_STAGE!=='undefined' && PL_NEXT_STAGE[stage]) || 'Interview';
+  const I = {
+    results:  '<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>',
+    script:   '<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+    video:    '<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>',
+    link:     '<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>',
+    resend:   '<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>',
+    move:     '<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
+    download: '<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+    dots:     '<svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4"><polyline points="6 9 12 15 18 9"/></svg>',
+  };
+  foot.innerHTML = `
+    <div class="fp-more-menu" id="fp-more-menu">
+      <button class="fp-more-item" onclick="fbCloseMore();plViewResults(${ridx})">${I.results} View AI results</button>
+      <button class="fp-more-item" onclick="fbCloseMore();openTranscriptModal(${ridx})">${I.script} View transcript</button>
+      <button class="fp-more-item" onclick="fbCloseMore();openRecordingModal(${ridx})">${I.video} View recording</button>
+      <button class="fp-more-item" onclick="fbCloseMore();plCopyInterviewLink(${ridx})">${I.link} Copy interview link</button>
+      <button class="fp-more-item" onclick="fbCloseMore();plResendInterview(${ridx})">${I.resend} Resend AI interview</button>
+      <div class="fp-more-sep"></div>
+      <button class="fp-more-item" onclick="fbCloseMore();plMoveStage(${ridx})">${I.move} Move to stage</button>
+      <button class="fp-more-item" onclick="fbCloseMore();plDownloadReport(${ridx})">${I.download} Download report</button>
+    </div>
+    <button class="fp-cta" onclick="(typeof openSchedModal==='function')?openSchedModal(${ridx}):plMoveStage(${ridx})">Schedule ${next}</button>
+    <div class="fp-row">
+      <button class="fp-s" onclick="setRowStatus(${ridx},'Shortlisted')">Shortlist</button>
+      <button class="fp-s fp-hold" onclick="setRowStatus(${ridx},'On Hold')">Hold</button>
+      <button class="fp-s fp-reject" onclick="openRejectModal(${ridx})">Reject</button>
+      <button class="fp-more-btn" id="fp-more-btn" onclick="fbToggleMore(event)">More ${I.dots}</button>
+    </div>`;
+}
+function fbToggleMore(ev){
+  if(ev) ev.stopPropagation();
+  const menu = document.getElementById('fp-more-menu');
+  const btn  = document.getElementById('fp-more-btn');
+  if(!menu) return;
+  const open = !menu.classList.contains('open');
+  menu.classList.toggle('open', open);
+  btn?.classList.toggle('open', open);
+  if(open) setTimeout(()=> document.addEventListener('click', _fbMoreOutside), 0);
+}
+function _fbMoreOutside(e){
+  if(e.target.closest('#fp-more-menu') || e.target.closest('#fp-more-btn')) return;
+  fbCloseMore();
+}
+function fbCloseMore(){
+  document.getElementById('fp-more-menu')?.classList.remove('open');
+  document.getElementById('fp-more-btn')?.classList.remove('open');
+  document.removeEventListener('click', _fbMoreOutside);
+}
+function plDownloadReport(ridx){
+  const r = filteredRows[ridx];
+  if(typeof showToast==='function') showToast('success', `Report downloaded for <strong>${r?r.name:'candidate'}</strong>`);
 }
 
 /* ═══════════════════════════════════════════
@@ -6409,7 +6865,13 @@ function switchTab(el,tab){
     const d=document.getElementById('tab-'+t);
     if(d) d.style.display=t===tab?'':'none';
   });
-  if(tab === 'feedback' && activeRow >= 0) renderRPFeedback(filteredRows[activeRow]);
+  if(tab === 'feedback' && activeRow >= 0){
+    renderRPFeedback(filteredRows[activeRow]);   // also renders the feedback-mode footer
+  } else if(activeRow >= 0){
+    renderRPFoot(filteredRows[activeRow]);        // restore the standard footer on other tabs
+  }
+  const foot = document.getElementById('rp-foot');
+  if(foot) foot.style.display = '';
   const body = document.querySelector('.rp-body');
   if(body) body.scrollTop = 0;
 }
@@ -9213,10 +9675,23 @@ const PL_INTERVIEWERS = [
   { name:'Jon Park',    today:1, week:5,  next:'Tomorrow · 3:00 PM', load:'Light' },
 ];
 const PL_DATE_RANGES = ['Last 7 days','Last 30 days','Last 90 days','This quarter','All time'];
-const PL_STATE = { opening:'all', range:'Last 30 days', expand:null, naExpand:null };
+const PL_STATE = { opening:'all', range:'Last 30 days', expand:null, naExpand:null, naOpen:false };
 
 /* real hiring stages (selected opening flow) */
 const PL_DETAIL_STAGES = ['AI Interview','R1 Interview','R2 Interview','Systems Design','Cultural Fit','Onboarded'];
+
+/* high-level hiring funnel (overview) — stage maps to a detailed row when applicable */
+const PL_FUNNEL = [
+  { name:'Applied',        count:1723, avg:'2d',  stage:null },
+  { name:'Screening',      count:842,  avg:'3d',  stage:null },
+  { name:'AI Interview',   count:420,  avg:'2d',  stage:'AI Interview' },
+  { name:'R1',             count:240,  avg:'4d',  stage:'R1 Interview' },
+  { name:'R2',             count:139,  avg:'5d',  stage:'R2 Interview' },
+  { name:'Systems Design', count:64,   avg:'4d',  stage:'Systems Design' },
+  { name:'Cultural Fit',   count:28,   avg:'3d',  stage:'Cultural Fit' },
+  { name:'Offer',          count:12,   avg:'6d',  stage:null },
+  { name:'Hired',          count:0,    avg:'—',   stage:null },
+];
 
 /* candidate pool — drives detailed stages + requiring-action list */
 const PL_CANDIDATES = [
@@ -9298,6 +9773,9 @@ function renderPipeline(){
       <div class="pl-stage-bar"><div class="pl-stage-fill" style="width:${barW}%;background:${PL_FILL[i]}"></div></div>
     </div>`;
   }).join('');
+
+  // hiring funnel visualization
+  renderPlFunnel();
 
   // detailed stage pipeline (accordion)
   renderPlStages();
@@ -9390,56 +9868,114 @@ function plCandPool(){
 function plWaitClass(d){ return d>=7 ? 'is-red' : d>=4 ? 'is-amber' : ''; }
 function plCandInitials(name){ const p=name.trim().split(/\s+/); return ((p[0]?.[0]||'')+(p[1]?.[0]||'')).toUpperCase(); }
 
+/* hiring funnel visualization — proportional steps, hover tooltip, click-to-scroll */
+function renderPlFunnel(){
+  const el = document.getElementById('pl-fn');
+  if(!el) return;
+  const max = Math.max(...PL_FUNNEL.map(f=>f.count)) || 1;
+  const sqMax = Math.sqrt(max);
+  const chev = `<div class="pl-fn-conn"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>`;
+  el.innerHTML = PL_FUNNEL.map((f,i)=>{
+    const grow = Math.max(Math.sqrt(f.count)/sqMax, 0.32);   // width proportional to volume (sqrt-compressed)
+    const barH = Math.max(Math.round(Math.sqrt(f.count)/sqMax*100), f.count>0?6:0);
+    const overall = Math.round(f.count/PL_FUNNEL[0].count*100);
+    return `<div class="pl-fn-step${f.count===0?' is-end':''}" style="flex:${grow.toFixed(3)} 1 0"
+        onmousemove="plFunnelTip(event,${i})" onmouseleave="plFunnelHide()" onclick="plFunnelGo(${i})">
+      <div class="pl-fn-bar-wrap"><div class="pl-fn-bar" style="height:${barH}%"></div></div>
+      <div class="pl-fn-name" title="${f.name}">${f.name}</div>
+      <div class="pl-fn-count${f.count===0?' is-zero':''}">${plNum(f.count)}</div>
+      <div class="pl-fn-pct">${overall}%</div>
+    </div>`;
+  }).join(chev);
+}
+function plFunnelTip(ev, i){
+  const f = PL_FUNNEL[i];
+  const prev = i>0 ? PL_FUNNEL[i-1].count : f.count;
+  const conv = prev ? Math.round(f.count/prev*100) : 100;
+  const drop = i>0 ? 100-conv : 0;
+  const overall = Math.round(f.count/PL_FUNNEL[0].count*100);
+  const tip = document.getElementById('pl-fn-tip');
+  tip.innerHTML = `<b>${f.name}</b><br>
+    <span>Candidates</span> ${plNum(f.count)} · ${overall}% of applied<br>
+    <span>Conversion</span> ${conv}% from previous<br>
+    <span>Drop-off</span> ${drop}%<br>
+    <span>Avg time in stage</span> ${f.avg}`;
+  tip.classList.add('show');
+  let left = ev.clientX + 14, top = ev.clientY + 16;
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  if(left + w > window.innerWidth - 8) left = ev.clientX - w - 14;
+  if(top + h > window.innerHeight - 8) top = ev.clientY - h - 12;
+  tip.style.left = left + 'px';
+  tip.style.top  = top + 'px';
+}
+function plFunnelHide(){ document.getElementById('pl-fn-tip')?.classList.remove('show'); }
+function plFunnelGo(i){
+  plFunnelHide();
+  const f = PL_FUNNEL[i];
+  // funnel acts as navigation: expand the matching detailed stage (single open)
+  if(f.stage){
+    PL_STATE.expand = { stage:f.stage, status:null };
+    renderPlStages();
+    const row = Array.from(document.querySelectorAll('#pl-ds .pl-ds-row'))
+      .find(r => r.querySelector('.pl-ds-name')?.textContent === f.stage);
+    if(row) row.scrollIntoView({ behavior:'smooth', block:'center' });
+  } else {
+    document.getElementById('pl-ds')?.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+}
+
 /* detailed stage pipeline — accordion: click a stage status chip to expand
    its candidates inline directly beneath that same stage row. */
 function renderPlStages(){
   const pool = plCandPool();
   const meta = document.getElementById('pl-ds-meta');
   if(meta) meta.textContent = `${pool.length} candidate${pool.length===1?'':'s'} in pipeline`;
-  const ex = PL_STATE.expand;   // { stage, status } | null
+  const ex = PL_STATE.expand;   // { stage, status|null } | null
   document.getElementById('pl-ds').innerHTML = PL_DETAIL_STAGES.map(stage=>{
+    const esc = stage.replace(/'/g,"\\'");
     const inStage = pool.filter(c=>c.stage===stage);
     const total = inStage.length;
+    const isOpen = !!(ex && ex.stage===stage);
     const segs = PL_STATUS_ORDER.map(s=>{
       const n = inStage.filter(c=>c.status===s).length;
       return n>0 ? `<span class="pl-ds-seg" style="flex:${n};background:${PL_STATUS_META[s].dot}"></span>` : '';
     }).join('');
-    const chips = PL_STATUS_ORDER.map(s=>{
-      const n = inStage.filter(c=>c.status===s).length;
-      const dis = n===0 ? ' disabled' : '';
-      const act = (ex && ex.stage===stage && ex.status===s) ? ' active' : '';
-      const click = n>0 ? ` onclick="plStageChip('${stage.replace(/'/g,"\\'")}','${s}')"` : '';
-      return `<button class="pl-ds-chip${act}${dis}"${click}>
-        <span class="pl-ds-chip-dot" style="background:${PL_STATUS_META[s].dot}"></span>${s}
-        <span class="pl-ds-chip-ct">${n}</span></button>`;
-    }).join('');
-
-    // inline expansion (only for the open stage)
+    // status chips only inside the expanded stage — act as filters (collapsed rows stay clean)
+    let chipsHtml = '';
     let expHtml = '';
-    if(ex && ex.stage===stage){
-      const rows = inStage.filter(c=>c.status===ex.status).sort((a,b)=>b.wait-a.wait);
+    if(isOpen){
+      const chips = PL_STATUS_ORDER.map(s=>{
+        const n = inStage.filter(c=>c.status===s).length;
+        const dis = n===0 ? ' disabled' : '';
+        const act = ex.status===s ? ' active' : '';
+        const click = n>0 ? ` onclick="event.stopPropagation();plStageChip('${esc}','${s}')"` : '';
+        return `<button class="pl-ds-chip${act}${dis}"${click}>
+          <span class="pl-ds-chip-dot" style="background:${PL_STATUS_META[s].dot}"></span>${s}
+          <span class="pl-ds-chip-ct">${n}</span></button>`;
+      }).join('');
+      const rows = (ex.status ? inStage.filter(c=>c.status===ex.status) : inStage).sort((a,b)=>b.wait-a.wait);
       const body = rows.length ? rows.map(c=>{
         const m = PL_STATUS_META[c.status];
         return `<div class="pl-ds-cand">
           <span class="pl-av">${plCandInitials(c.name)}</span>
           <div class="pl-ds-cand-main">
             <div class="pl-ds-cand-name">${c.name}</div>
-            <div class="pl-ds-cand-sub">${c.stage} · Waiting ${c.wait} day${c.wait===1?'':'s'}</div>
+            <div class="pl-ds-cand-sub">${c.status} · Waiting ${c.wait} day${c.wait===1?'':'s'}</div>
           </div>
           <button class="btn btn-sm${m.primary?' btn-dark':''}" onclick="plCandAction('${c.name.replace(/'/g,"\\'")}','${m.cta}')">${m.cta}</button>
         </div>`;
       }).join('') : `<div class="pl-ds-cand-empty">No candidates in this status.</div>`;
-      expHtml = `<div class="pl-ds-exp" data-open="1"><div class="pl-ds-exp-inner">${body}</div></div>`;
+      expHtml = `<div class="pl-ds-exp" data-open="1"><div class="pl-ds-exp-inner"><div class="pl-ds-chips">${chips}</div>${body}</div></div>`;
     }
 
-    const isOpen = ex && ex.stage===stage;
+    const clickable = total>0 ? ` onclick="plStageToggle('${esc}')"` : '';
     return `<div class="pl-ds-row${total===0?' is-empty':''}${isOpen?' expanded':''}">
-      <div class="pl-ds-top">
+      <div class="pl-ds-top${total>0?' clickable':''}"${clickable}>
         <span class="pl-ds-name">${stage}</span>
         <div class="pl-ds-bar">${segs}</div>
         <span class="pl-ds-total">${total} entered</span>
+        <svg class="pl-ds-chev" width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
       </div>
-      <div class="pl-ds-chips">${chips}</div>
       ${expHtml}
     </div>`;
   }).join('');
@@ -9450,10 +9986,16 @@ function renderPlStages(){
     requestAnimationFrame(()=> requestAnimationFrame(()=> panel.classList.add('open')));
   }
 }
+function plStageToggle(stage){
+  const ex = PL_STATE.expand;
+  PL_STATE.expand = (ex && ex.stage===stage) ? null : { stage, status:null };
+  renderPlStages();
+}
 function plStageChip(stage, status){
   const ex = PL_STATE.expand;
-  // toggle: same chip closes; otherwise open this one (single open at a time)
-  PL_STATE.expand = (ex && ex.stage===stage && ex.status===status) ? null : { stage, status };
+  // within an open stage: toggle the status filter (back to "all" when re-clicked)
+  const sameStatus = ex && ex.stage===stage && ex.status===status;
+  PL_STATE.expand = { stage, status: sameStatus ? null : status };
   renderPlStages();
 }
 
@@ -9479,8 +10021,11 @@ function renderPlNeedsAttention(){
   const groups = plNaGroups();
   const total = groups.reduce((s,g)=>s+g.rows.length,0);
   const cnt = k => groups.find(g=>g.key===k).rows.length;
-  const meta = document.getElementById('pl-na-meta');
-  if(meta) meta.textContent = total ? `${total}` : '';
+  const countEl = document.getElementById('pl-na-count');
+  if(countEl) countEl.textContent = total;
+  // reflect section open/closed state
+  document.getElementById('pl-na-sec-head')?.classList.toggle('open', PL_STATE.naOpen);
+  document.getElementById('pl-na-sec-body')?.classList.toggle('open', PL_STATE.naOpen);
 
   const list = document.getElementById('pl-na-list');
   if(!total){
@@ -9529,6 +10074,11 @@ function renderPlNeedsAttention(){
 function plNaToggle(key){
   PL_STATE.naExpand = PL_STATE.naExpand===key ? null : key;
   renderPlNeedsAttention();
+}
+function plNaSectionToggle(){
+  PL_STATE.naOpen = !PL_STATE.naOpen;
+  document.getElementById('pl-na-sec-head')?.classList.toggle('open', PL_STATE.naOpen);
+  document.getElementById('pl-na-sec-body')?.classList.toggle('open', PL_STATE.naOpen);
 }
 
 /* upcoming interviews — compact summary widget */
