@@ -383,18 +383,43 @@ tbody td:first-child{padding-left:20px}
 .pl-stage-bar{height:3px;background:var(--border-light);border-radius:2px;margin-top:11px;overflow:hidden}
 .pl-stage-fill{height:100%;border-radius:2px;min-width:2px}
 
-/* hiring funnel visualization */
-.pl-fn{display:flex;align-items:flex-end;padding:16px 14px 14px;overflow-x:auto}
-.pl-fn-step{display:flex;flex-direction:column;align-items:stretch;min-width:64px;padding:0 4px;cursor:pointer}
-.pl-fn-bar-wrap{height:56px;display:flex;align-items:flex-end;margin-bottom:8px}
-.pl-fn-bar{width:100%;background:#e2e8f0;border:1px solid #cbd5e1;border-bottom:none;border-radius:4px 4px 0 0;min-height:4px;transition:background .12s}
-.pl-fn-step:hover .pl-fn-bar{background:#cbd5e1}
-.pl-fn-step.is-end .pl-fn-bar{background:#eef1f5}
-.pl-fn-name{font-size:10px;font-weight:600;color:var(--t2);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pl-fn-count{font-size:13px;font-weight:700;color:var(--t1);text-align:center;font-variant-numeric:tabular-nums;margin-top:3px;line-height:1.1}
-.pl-fn-count.is-zero{color:var(--t3)}
-.pl-fn-pct{font-size:9px;color:var(--t3);text-align:center;margin-top:1px}
-.pl-fn-conn{flex:0 0 auto;display:flex;align-items:flex-end;padding-bottom:24px;color:var(--t3);opacity:.45}
+/* hiring funnel + flow visualization */
+.pl-fn-head{display:flex;align-items:center;gap:12px}
+.pl-fn-toggle{display:inline-flex;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:2px}
+.pl-fn-tab{appearance:none;border:0;background:transparent;font:inherit;font-size:11px;font-weight:600;color:var(--t2);padding:4px 12px;border-radius:5px;cursor:pointer;transition:color .12s,background .12s,box-shadow .12s}
+.pl-fn-tab:hover{color:var(--t1)}
+.pl-fn-tab.active{background:var(--surface);color:var(--accent);box-shadow:var(--s1)}
+.pl-fn{padding:12px 10px 8px}
+.pl-fn svg{display:block;width:100%;height:auto}
+
+/* true funnel shape */
+.pl-fn-cell{cursor:pointer}
+.pl-fn-band{fill:var(--accent);fill-opacity:.10;stroke:var(--accent);stroke-opacity:.30;stroke-width:1;transform-box:fill-box;transform-origin:center;opacity:0;transition:fill-opacity .14s,stroke-opacity .14s}
+.pl-fn-wrap.in .pl-fn-band{animation:plFnRise .55s cubic-bezier(.22,1,.36,1) both}
+.pl-fn-cell:hover .pl-fn-band{fill-opacity:.22}
+.pl-fn-cell.on .pl-fn-band{fill-opacity:.9;stroke-opacity:1}
+.pl-fn-vname{font-size:10px;font-weight:600;fill:var(--t2);text-transform:uppercase;letter-spacing:.04em}
+.pl-fn-cell:hover .pl-fn-vname,.pl-fn-cell.on .pl-fn-vname{fill:var(--accent)}
+.pl-fn-vcount{font-size:14px;font-weight:700;fill:var(--t1);font-variant-numeric:tabular-nums}
+.pl-fn-vcount.z{fill:var(--t3)}
+.pl-fn-vpct{font-size:9.5px;fill:var(--t3)}
+.pl-fn-drop text{font-size:9px;font-weight:600;fill:#94a3b8;letter-spacing:.02em}
+
+/* sankey flow */
+.pl-sk-link{fill:var(--accent);fill-opacity:.16;cursor:pointer;opacity:0;transition:fill-opacity .14s}
+.pl-fn-wrap.in .pl-sk-link{animation:plFnFade .55s ease both}
+.pl-sk-link:hover{fill-opacity:.32}
+.pl-sk-adv{fill:var(--accent);fill-opacity:.9;opacity:0;transition:fill-opacity .14s}
+.pl-sk-drop{fill:#dde3ea;opacity:0;transition:fill .14s}
+.pl-fn-wrap.in .pl-sk-adv,.pl-fn-wrap.in .pl-sk-drop{animation:plFnFade .55s ease both}
+.pl-sk-node{cursor:pointer}
+.pl-sk-node:hover .pl-sk-adv,.pl-sk-node.on .pl-sk-adv{fill-opacity:1}
+.pl-sk-node.on .pl-sk-drop{fill:#cbd5e1}
+.pl-sk-name{font-size:10px;font-weight:600;fill:var(--t2);text-transform:uppercase;letter-spacing:.04em}
+.pl-sk-node:hover .pl-sk-name,.pl-sk-node.on .pl-sk-name{fill:var(--accent)}
+.pl-sk-count{font-size:9.5px;fill:var(--t3);font-variant-numeric:tabular-nums}
+@keyframes plFnRise{from{transform:scaleY(.05);opacity:0}to{transform:scaleY(1);opacity:1}}
+@keyframes plFnFade{from{opacity:0}to{opacity:1}}
 .pl-fn-tip{position:fixed;z-index:2000;background:#111827;color:#fff;border-radius:6px;padding:8px 10px;font-size:11px;line-height:1.55;pointer-events:none;opacity:0;transition:opacity .12s;white-space:nowrap;box-shadow:0 6px 18px rgba(0,0,0,.2)}
 .pl-fn-tip.show{opacity:1}
 .pl-fn-tip b{font-weight:600;font-size:11.5px}
@@ -2609,7 +2634,13 @@ tbody td:first-child{padding-left:20px}
         <div class="pl-sec">
           <div class="pl-sec-head">
             <span class="pl-sec-title">Hiring funnel</span>
-            <span class="pl-sec-meta">Applied → Hired · click a stage to jump below</span>
+            <div class="pl-fn-head">
+              <span class="pl-sec-meta">Applied → Hired · click a stage to filter</span>
+              <div class="pl-fn-toggle">
+                <button class="pl-fn-tab active" data-v="funnel" onclick="plFnView('funnel')">Funnel</button>
+                <button class="pl-fn-tab" data-v="sankey" onclick="plFnView('sankey')">Flow</button>
+              </div>
+            </div>
           </div>
           <div class="pl-card pl-fn" id="pl-fn"></div>
         </div>
@@ -9675,22 +9706,22 @@ const PL_INTERVIEWERS = [
   { name:'Jon Park',    today:1, week:5,  next:'Tomorrow · 3:00 PM', load:'Light' },
 ];
 const PL_DATE_RANGES = ['Last 7 days','Last 30 days','Last 90 days','This quarter','All time'];
-const PL_STATE = { opening:'all', range:'Last 30 days', expand:null, naExpand:null, naOpen:false };
+const PL_STATE = { opening:'all', range:'Last 30 days', expand:null, naExpand:null, naOpen:false, fnView:'funnel', fnActive:null };
 
 /* real hiring stages (selected opening flow) */
-const PL_DETAIL_STAGES = ['AI Interview','R1 Interview','R2 Interview','Systems Design','Cultural Fit','Onboarded'];
+const PL_DETAIL_STAGES = ['Applied','Screening','AI Interview','R1 Interview','R2 Interview','Systems Design','Cultural Fit','Offer','Onboarded'];
 
 /* high-level hiring funnel (overview) — stage maps to a detailed row when applicable */
 const PL_FUNNEL = [
-  { name:'Applied',        count:1723, avg:'2d',  stage:null },
-  { name:'Screening',      count:842,  avg:'3d',  stage:null },
+  { name:'Applied',        count:1723, avg:'2d',  stage:'Applied' },
+  { name:'Screening',      count:842,  avg:'3d',  stage:'Screening' },
   { name:'AI Interview',   count:420,  avg:'2d',  stage:'AI Interview' },
   { name:'R1',             count:240,  avg:'4d',  stage:'R1 Interview' },
   { name:'R2',             count:139,  avg:'5d',  stage:'R2 Interview' },
   { name:'Systems Design', count:64,   avg:'4d',  stage:'Systems Design' },
   { name:'Cultural Fit',   count:28,   avg:'3d',  stage:'Cultural Fit' },
-  { name:'Offer',          count:12,   avg:'6d',  stage:null },
-  { name:'Hired',          count:0,    avg:'—',   stage:null },
+  { name:'Offer',          count:12,   avg:'6d',  stage:'Offer' },
+  { name:'Hired',          count:0,    avg:'—',   stage:'Onboarded' },
 ];
 
 /* candidate pool — drives detailed stages + requiring-action list */
@@ -9719,6 +9750,17 @@ const PL_CANDIDATES = [
   { name:'Jake Doe',      opening:'intern',   stage:'AI Interview',    status:'Unscheduled',       wait:2 },
   { name:'Mia Park',      opening:'intern',   stage:'R1 Interview',    status:'Scheduled',         wait:1 },
   { name:'Eve Salt',      opening:'intern',   stage:'Cultural Fit',    status:'Awaiting Feedback', wait:3 },
+  { name:'Grace Hall',    opening:'backend',  stage:'Applied',         status:'Unscheduled',       wait:1 },
+  { name:'Owen Brooks',   opening:'frontend', stage:'Applied',         status:'Unscheduled',       wait:2 },
+  { name:'Maya Singh',    opening:'devops',   stage:'Applied',         status:'Awaiting Feedback', wait:3 },
+  { name:'Leo Carter',    opening:'pm',       stage:'Applied',         status:'Unscheduled',       wait:1 },
+  { name:'Zoe Adams',     opening:'backend',  stage:'Screening',       status:'Awaiting Feedback', wait:2 },
+  { name:'Felix Yu',      opening:'frontend', stage:'Screening',       status:'Scheduled',         wait:1 },
+  { name:'Hana Sato',     opening:'devops',   stage:'Screening',       status:'Rejected',          wait:4 },
+  { name:'Iris Bell',     opening:'intern',   stage:'Screening',       status:'Unscheduled',       wait:2 },
+  { name:'Nora West',     opening:'backend',  stage:'Offer',           status:'Selected',          wait:1 },
+  { name:'Paul Reyes',    opening:'frontend', stage:'Offer',           status:'Selected',          wait:2 },
+  { name:'Tara Vance',    opening:'pm',       stage:'Offer',           status:'Scheduled',         wait:3 },
 ];
 const PL_STATUS_META = {
   'Selected':          { cls:'pl-pill-blue',   dot:'var(--accent)', cta:'Schedule',     primary:false },
@@ -9869,25 +9911,96 @@ function plWaitClass(d){ return d>=7 ? 'is-red' : d>=4 ? 'is-amber' : ''; }
 function plCandInitials(name){ const p=name.trim().split(/\s+/); return ((p[0]?.[0]||'')+(p[1]?.[0]||'')).toUpperCase(); }
 
 /* hiring funnel visualization — proportional steps, hover tooltip, click-to-scroll */
+function plFnView(v){
+  PL_STATE.fnView = v;
+  document.querySelectorAll('.pl-fn-tab').forEach(b=>b.classList.toggle('active', b.dataset.v===v));
+  renderPlFunnel();
+}
 function renderPlFunnel(){
   const el = document.getElementById('pl-fn');
   if(!el) return;
-  const max = Math.max(...PL_FUNNEL.map(f=>f.count)) || 1;
-  const sqMax = Math.sqrt(max);
-  const chev = `<div class="pl-fn-conn"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>`;
-  el.innerHTML = PL_FUNNEL.map((f,i)=>{
-    const grow = Math.max(Math.sqrt(f.count)/sqMax, 0.32);   // width proportional to volume (sqrt-compressed)
-    const barH = Math.max(Math.round(Math.sqrt(f.count)/sqMax*100), f.count>0?6:0);
-    const overall = Math.round(f.count/PL_FUNNEL[0].count*100);
-    return `<div class="pl-fn-step${f.count===0?' is-end':''}" style="flex:${grow.toFixed(3)} 1 0"
-        onmousemove="plFunnelTip(event,${i})" onmouseleave="plFunnelHide()" onclick="plFunnelGo(${i})">
-      <div class="pl-fn-bar-wrap"><div class="pl-fn-bar" style="height:${barH}%"></div></div>
-      <div class="pl-fn-name" title="${f.name}">${f.name}</div>
-      <div class="pl-fn-count${f.count===0?' is-zero':''}">${plNum(f.count)}</div>
-      <div class="pl-fn-pct">${overall}%</div>
-    </div>`;
-  }).join(chev);
+  el.innerHTML = (PL_STATE.fnView==='sankey') ? plFunnelSankeySVG() : plFunnelShapeSVG();
+  requestAnimationFrame(()=>{ el.querySelector('.pl-fn-wrap')?.classList.add('in'); });
 }
+
+/* shared geometry */
+function plFnGeom(){
+  const cs = PL_FUNNEL.map(f=>f.count);
+  return { cs, max: Math.max(...cs) || 1 };
+}
+
+/* TRUE FUNNEL SHAPE — continuous trapezoid band that narrows stage-to-stage */
+function plFunnelShapeSVG(){
+  const { cs, max } = plFnGeom(), n = cs.length;
+  const W=924, padL=16, cy=80, hMax=104, hMin=18;
+  const colW = (W - 2*padL) / n;
+  const h = cs.map(c => c>0 ? hMin + (hMax-hMin)*Math.sqrt(c/max) : 10);
+  const xAt = i => padL + i*colW;
+  let cells='', drops='';
+  for(let i=0;i<n;i++){
+    const f = PL_FUNNEL[i];
+    const xl = xAt(i), xr = xl+colW, cx = xl+colW/2;
+    const hl = h[i], hr = (i<n-1) ? h[i+1] : h[i]*0.7;
+    const pts = [
+      [xl, cy-hl/2],[xr, cy-hr/2],[xr, cy+hr/2],[xl, cy+hl/2]
+    ].map(p=>`${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ');
+    const on = PL_STATE.fnActive===i;
+    const overall = Math.round(cs[i]/cs[0]*100);
+    cells += `<g class="pl-fn-cell${on?' on':''}" onmousemove="plFunnelTip(event,${i})" onmouseleave="plFunnelHide()" onclick="plFunnelGo(${i})">
+      <polygon class="pl-fn-band" points="${pts}" style="animation-delay:${i*55}ms"/>
+      <text class="pl-fn-vname" x="${cx.toFixed(1)}" y="150" text-anchor="middle">${f.name}</text>
+      <text class="pl-fn-vcount${cs[i]===0?' z':''}" x="${cx.toFixed(1)}" y="169" text-anchor="middle">${plNum(cs[i])}</text>
+      <text class="pl-fn-vpct" x="${cx.toFixed(1)}" y="182" text-anchor="middle">${overall}% of applied</text>
+      <rect x="${xl.toFixed(1)}" y="20" width="${colW.toFixed(1)}" height="120" fill="transparent"/>
+    </g>`;
+    if(i>0){
+      const drop = 100 - Math.round(cs[i]/cs[i-1]*100);
+      drops += `<g class="pl-fn-drop"><text x="${xl.toFixed(1)}" y="15" text-anchor="middle">▼ ${drop}%</text></g>`;
+    }
+  }
+  return `<svg class="pl-fn-wrap" viewBox="0 0 924 196" preserveAspectRatio="xMidYMid meet"><g>${drops}</g>${cells}</svg>`;
+}
+
+/* SANKEY FLOW — ribbon thickness = candidates advancing; grey stub = drop-off */
+function plRibbon(x0,y0a,y0b,x1,y1a,y1b){
+  const mx=(x0+x1)/2;
+  return `M${x0.toFixed(1)},${y0a.toFixed(1)} C${mx.toFixed(1)},${y0a.toFixed(1)} ${mx.toFixed(1)},${y1a.toFixed(1)} ${x1.toFixed(1)},${y1a.toFixed(1)} `
+       + `L${x1.toFixed(1)},${y1b.toFixed(1)} C${mx.toFixed(1)},${y1b.toFixed(1)} ${mx.toFixed(1)},${y0b.toFixed(1)} ${x0.toFixed(1)},${y0b.toFixed(1)} Z`;
+}
+function plFunnelSankeySVG(){
+  const { cs, max } = plFnGeom(), n = cs.length;
+  const W=924, padL=16, cy=84, Hmax=120, nodeW=12;
+  const step = (W - 2*padL - nodeW) / (n-1);
+  const nodeX = i => padL + i*step;
+  const hN = cs.map(c => c>0 ? Math.max(c/max*Hmax, 3) : 0);
+  // ribbons (advancing volume) — centered, thickness = next-stage count
+  let links='';
+  for(let i=0;i<n-1;i++){
+    const hAdv = cs[i+1]/max*Hmax;
+    if(hAdv < 0.5) continue;
+    const x0 = nodeX(i)+nodeW, x1 = nodeX(i+1);
+    links += `<path class="pl-sk-link" style="animation-delay:${i*60}ms"
+      d="${plRibbon(x0, cy-hAdv/2, cy+hAdv/2, x1, cy-hN[i+1]/2, cy+hN[i+1]/2)}"
+      onmousemove="plFunnelTip(event,${i+1})" onmouseleave="plFunnelHide()" onclick="plFunnelGo(${i+1})"/>`;
+  }
+  // nodes — full bar (grey = total reaching stage) + centered core (accent = advancing)
+  let nodes='';
+  for(let i=0;i<n;i++){
+    const x = nodeX(i), cx = x+nodeW/2, on = PL_STATE.fnActive===i;
+    const hFull = hN[i];
+    const hAdv = (i<n-1) ? cs[i+1]/max*Hmax : 0;
+    const overall = Math.round(cs[i]/cs[0]*100);
+    nodes += `<g class="pl-sk-node${on?' on':''}" onmousemove="plFunnelTip(event,${i})" onmouseleave="plFunnelHide()" onclick="plFunnelGo(${i})">
+      <rect class="pl-sk-drop" x="${x.toFixed(1)}" y="${(cy-hFull/2).toFixed(1)}" width="${nodeW}" height="${hFull.toFixed(1)}" rx="2.5" style="animation-delay:${i*60}ms"/>
+      ${hAdv>0.5?`<rect class="pl-sk-adv" x="${x.toFixed(1)}" y="${(cy-hAdv/2).toFixed(1)}" width="${nodeW}" height="${hAdv.toFixed(1)}" rx="2.5" style="animation-delay:${i*60}ms"/>`:''}
+      <text class="pl-sk-name" x="${cx.toFixed(1)}" y="${(cy+Hmax/2+20).toFixed(1)}" text-anchor="middle">${PL_FUNNEL[i].name}</text>
+      <text class="pl-sk-count" x="${cx.toFixed(1)}" y="${(cy+Hmax/2+34).toFixed(1)}" text-anchor="middle">${plNum(cs[i])} · ${overall}%</text>
+      <rect x="${(x-13).toFixed(1)}" y="${(cy-Hmax/2).toFixed(1)}" width="${nodeW+26}" height="${Hmax}" fill="transparent"/>
+    </g>`;
+  }
+  return `<svg class="pl-fn-wrap" viewBox="0 0 924 196" preserveAspectRatio="xMidYMid meet"><g>${links}</g>${nodes}</svg>`;
+}
+
 function plFunnelTip(ev, i){
   const f = PL_FUNNEL[i];
   const prev = i>0 ? PL_FUNNEL[i-1].count : f.count;
@@ -9911,14 +10024,20 @@ function plFunnelTip(ev, i){
 function plFunnelHide(){ document.getElementById('pl-fn-tip')?.classList.remove('show'); }
 function plFunnelGo(i){
   plFunnelHide();
+  PL_STATE.fnActive = (PL_STATE.fnActive===i) ? null : i;
   const f = PL_FUNNEL[i];
-  // funnel acts as navigation: expand the matching detailed stage (single open)
-  if(f.stage){
-    PL_STATE.expand = { stage:f.stage, status:null };
+  renderPlFunnel();
+  const stage = f.stage || ({ 'Hired':'Onboarded' })[f.name] || null;
+  if(stage && PL_STATE.fnActive!==null){
+    PL_STATE.expand = { stage, status:null };
     renderPlStages();
     const row = Array.from(document.querySelectorAll('#pl-ds .pl-ds-row'))
-      .find(r => r.querySelector('.pl-ds-name')?.textContent === f.stage);
-    if(row) row.scrollIntoView({ behavior:'smooth', block:'center' });
+      .find(r => r.querySelector('.pl-ds-name')?.textContent === stage);
+    if(row){
+      row.classList.add('flash');
+      row.scrollIntoView({ behavior:'smooth', block:'center' });
+      setTimeout(()=>row.classList.remove('flash'), 1200);
+    }
   } else {
     document.getElementById('pl-ds')?.scrollIntoView({ behavior:'smooth', block:'start' });
   }
